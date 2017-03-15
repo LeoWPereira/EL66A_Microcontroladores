@@ -1,0 +1,239 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        03/15/2017  18:38:17  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\helloworld.obj TO .\Objects\helloworld PRINT (.\Listings\helloworld.m51) RAMSIZE (
+>> 256)
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\helloworld.obj (HELLOWORLD)
+
+
+LINK MAP OF MODULE:  .\Objects\helloworld (HELLOWORLD)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     000CH     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\helloworld (HELLOWORLD)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        HELLOWORLD
+  D:00E0H         SYMBOL        ACC
+  D:008EH         SYMBOL        AUXR
+  D:00A2H         SYMBOL        AUXR1
+  D:00F0H         SYMBOL        B
+  D:009BH         SYMBOL        BDRCON
+  D:009AH         SYMBOL        BRL
+  D:00FAH         SYMBOL        CCAP0H
+  D:00EAH         SYMBOL        CCAP0L
+  D:00FBH         SYMBOL        CCAP1H
+  D:00EBH         SYMBOL        CCAP1L
+  D:00FCH         SYMBOL        CCAP2H
+  D:00ECH         SYMBOL        CCAP2L
+  D:00FDH         SYMBOL        CCAP3H
+  D:00EDH         SYMBOL        CCAP3L
+  D:00FEH         SYMBOL        CCAP4H
+  D:00EEH         SYMBOL        CCAP4L
+  D:00DAH         SYMBOL        CCAPM0
+  D:00DBH         SYMBOL        CCAPM1
+  D:00DCH         SYMBOL        CCAPM2
+  D:00DDH         SYMBOL        CCAPM3
+  D:00DEH         SYMBOL        CCAPM4
+  B:00D8H.0       SYMBOL        CCF0
+  B:00D8H.1       SYMBOL        CCF1
+  B:00D8H.2       SYMBOL        CCF2
+  B:00D8H.3       SYMBOL        CCF3
+  B:00D8H.4       SYMBOL        CCF4
+  D:00D8H         SYMBOL        CCON
+  B:00D8H.7       SYMBOL        CF
+  D:00F9H         SYMBOL        CH
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/15/2017  18:38:17  PAGE 2
+
+
+  D:008FH         SYMBOL        CKCON0
+  D:00AFH         SYMBOL        CKCON1
+  D:0085H         SYMBOL        CKSEL
+  D:00E9H         SYMBOL        CL
+  D:00D9H         SYMBOL        CMOD
+  B:00C8H.0       SYMBOL        CP_RL2
+  B:00D8H.6       SYMBOL        CR
+  B:00C8H.1       SYMBOL        C_T2
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  B:00A8H.7       SYMBOL        EA
+  B:00A8H.6       SYMBOL        EC
+  D:00D2H         SYMBOL        EECON
+  B:00F8H.0       SYMBOL        EP0INT
+  B:00F8H.1       SYMBOL        EP1INT
+  B:00F8H.2       SYMBOL        EP2INT
+  B:00F8H.3       SYMBOL        EP3INT
+  B:00F8H.4       SYMBOL        EP4INT
+  B:00F8H.5       SYMBOL        EP5INT
+  B:00F8H.6       SYMBOL        EP6INT
+  B:00A8H.4       SYMBOL        ES
+  B:00A8H.1       SYMBOL        ET0
+  B:00A8H.3       SYMBOL        ET1
+  B:00A8H.5       SYMBOL        ET2
+  B:00A8H.0       SYMBOL        EX0
+  B:00A8H.2       SYMBOL        EX1
+  B:00C8H.3       SYMBOL        EXEN2
+  B:00C8H.6       SYMBOL        EXF2
+  D:00D1H         SYMBOL        FCON
+  B:0098H.7       SYMBOL        FE_SM0
+  B:0088H.1       SYMBOL        IE0_
+  B:0088H.3       SYMBOL        IE1_
+  D:00A8H         SYMBOL        IEN0
+  D:00B1H         SYMBOL        IEN1
+  D:00B7H         SYMBOL        IPH0
+  D:00B3H         SYMBOL        IPH1
+  D:00B8H         SYMBOL        IPL0
+  D:00B2H         SYMBOL        IPL1
+  B:0088H.0       SYMBOL        IT0
+  B:0088H.2       SYMBOL        IT1
+  D:009DH         SYMBOL        KBE
+  D:009EH         SYMBOL        KBF
+  D:009CH         SYMBOL        KBLS
+  B:0090H.4       SYMBOL        LED3
+  D:00F1H         SYMBOL        LEDCON
+  C:0003H         SYMBOL        MAIN
+  D:0080H         SYMBOL        P0
+  B:0080H.0       SYMBOL        P0_0
+  B:0080H.1       SYMBOL        P0_1
+  B:0080H.2       SYMBOL        P0_2
+  B:0080H.3       SYMBOL        P0_3
+  B:0080H.4       SYMBOL        P0_4
+  B:0080H.5       SYMBOL        P0_5
+  B:0080H.6       SYMBOL        P0_6
+  B:0080H.7       SYMBOL        P0_7
+  D:0090H         SYMBOL        P1
+  B:0090H.0       SYMBOL        P1_0
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/15/2017  18:38:17  PAGE 3
+
+
+  B:0090H.1       SYMBOL        P1_1
+  B:0090H.2       SYMBOL        P1_2
+  B:0090H.3       SYMBOL        P1_3
+  B:0090H.4       SYMBOL        P1_4
+  B:0090H.5       SYMBOL        P1_5
+  B:0090H.6       SYMBOL        P1_6
+  B:0090H.7       SYMBOL        P1_7
+  D:00A0H         SYMBOL        P2
+  B:00A0H.0       SYMBOL        P2_0
+  B:00A0H.1       SYMBOL        P2_1
+  B:00A0H.2       SYMBOL        P2_2
+  B:00A0H.3       SYMBOL        P2_3
+  B:00A0H.4       SYMBOL        P2_4
+  B:00A0H.5       SYMBOL        P2_5
+  B:00A0H.6       SYMBOL        P2_6
+  B:00A0H.7       SYMBOL        P2_7
+  D:00B0H         SYMBOL        P3
+  B:00B0H.0       SYMBOL        P3_0
+  B:00B0H.1       SYMBOL        P3_1
+  B:00B0H.2       SYMBOL        P3_2
+  B:00B0H.3       SYMBOL        P3_3
+  B:00B0H.4       SYMBOL        P3_4
+  B:00B0H.5       SYMBOL        P3_5
+  B:00B0H.6       SYMBOL        P3_6
+  B:00B0H.7       SYMBOL        P3_7
+  D:00C0H         SYMBOL        P4
+  B:00C0H.0       SYMBOL        P4_0
+  B:00C0H.1       SYMBOL        P4_1
+  D:0087H         SYMBOL        PCON
+  D:00A3H         SYMBOL        PLLCON
+  D:00A4H         SYMBOL        PLLDIV
+  B:00B8H.6       SYMBOL        PPCL
+  B:00B8H.4       SYMBOL        PSL
+  D:00D0H         SYMBOL        PSW
+  B:00B8H.1       SYMBOL        PT0L
+  B:00B8H.5       SYMBOL        PT2L
+  B:00B8H.3       SYMBOL        PTIL
+  B:00B8H.0       SYMBOL        PX0L
+  B:00B8H.2       SYMBOL        PXIL
+  B:0098H.2       SYMBOL        RB8
+  D:00CBH         SYMBOL        RCAP2H
+  D:00CAH         SYMBOL        RCAP2L
+  B:00C8H.5       SYMBOL        RCLK
+  B:0098H.4       SYMBOL        REN
+  B:0098H.0       SYMBOL        RI
+  D:00A9H         SYMBOL        SADDR
+  D:00B9H         SYMBOL        SADEN
+  D:0099H         SYMBOL        SBUF
+  D:0098H         SYMBOL        SCON
+  B:0098H.6       SYMBOL        SM1
+  B:0098H.5       SYMBOL        SM2
+  D:0081H         SYMBOL        SP
+  D:00C3H         SYMBOL        SPCON
+  D:00C5H         SYMBOL        SPDAT
+  D:00C4H         SYMBOL        SPSTA
+  D:0096H         SYMBOL        SSADR
+  D:0093H         SYMBOL        SSCON
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/15/2017  18:38:17  PAGE 4
+
+
+  D:0094H         SYMBOL        SSCS
+  D:0095H         SYMBOL        SSDAT
+  B:00B0H.2       SYMBOL        SW1
+  D:00C8H         SYMBOL        T2CON
+  D:00C9H         SYMBOL        T2MOD
+  B:0098H.3       SYMBOL        TB8
+  B:00C8H.4       SYMBOL        TCLK
+  D:0088H         SYMBOL        TCON
+  B:0088H.5       SYMBOL        TF0
+  B:0088H.7       SYMBOL        TF1
+  B:00C8H.7       SYMBOL        TF2
+  D:008CH         SYMBOL        TH0
+  D:008DH         SYMBOL        TH1
+  D:00CDH         SYMBOL        TH2
+  B:0098H.1       SYMBOL        TI
+  D:008AH         SYMBOL        TL0
+  D:008BH         SYMBOL        TL1
+  D:00CCH         SYMBOL        TL2
+  D:0089H         SYMBOL        TMOD
+  C:0008H         SYMBOL        TOGGLE
+  B:0088H.4       SYMBOL        TR0
+  B:0088H.6       SYMBOL        TR1
+  B:00C8H.2       SYMBOL        TR2
+  D:00E3H         SYMBOL        UBYCTHX
+  D:00E2H         SYMBOL        UBYCTLX
+  D:00D7H         SYMBOL        UDPADDH
+  D:00D6H         SYMBOL        UDPADDL
+  D:00D4H         SYMBOL        UEPCONX
+  D:00CFH         SYMBOL        UEPDATX
+  D:00C2H         SYMBOL        UEPIEN
+  D:00F8H         SYMBOL        UEPINT
+  D:00C7H         SYMBOL        UEPNUM
+  D:00D5H         SYMBOL        UEPRST
+  D:00CEH         SYMBOL        UEPSTAX
+  D:00BBH         SYMBOL        UFNUMH
+  D:00BAH         SYMBOL        UFNUML
+  D:00C6H         SYMBOL        USBADDR
+  D:00BCH         SYMBOL        USBCON
+  D:00BEH         SYMBOL        USBIEN
+  D:00BDH         SYMBOL        USBINT
+  D:00A7H         SYMBOL        WDTPRG
+  D:00A6H         SYMBOL        WDTRST
+  C:0000H         LINE#         13
+  C:0003H         LINE#         16
+  C:0006H         LINE#         17
+  C:0008H         LINE#         19
+  C:000AH         LINE#         20
+  -------         ENDMOD        HELLOWORLD
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 000CH BYTE ( 0%) *
+******************************************************************************
+
+Program Size: data=8.0 xdata=0 code=12
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
