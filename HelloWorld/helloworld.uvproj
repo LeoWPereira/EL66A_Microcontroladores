@@ -362,6 +362,13 @@
       <Groups>
         <Group>
           <GroupName>Source Group 1</GroupName>
+          <Files>
+            <File>
+              <FileName>helloworld.A51</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\helloworld.A51</FilePath>
+            </File>
+          </Files>
         </Group>
       </Groups>
     </Target>
