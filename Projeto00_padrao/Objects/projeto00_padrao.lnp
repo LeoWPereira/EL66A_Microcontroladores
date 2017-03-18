@@ -1,0 +1,3 @@
+".\Objects\Lab_Ex01.obj" 
+TO ".\Objects\projeto00_padrao" 
+PRINT(".\Listings\projeto00_padrao.m51") RAMSIZE(256) 

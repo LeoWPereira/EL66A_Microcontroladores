@@ -1,0 +1,172 @@
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     03/17/2017 17:03:46 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.5.0
+OBJECT MODULE PLACED IN .\Objects\projeto00_padrao.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE projeto00_padrao.a51 SET(SMALL) DEBUG PRINT(.\Listings\projeto00_padrao
+                      .lst) OBJECT(.\Objects\projeto00_padrao.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+
+                       2     
+
+                       3     
+
+                       4     
+
+0000                   5     org 0000h  
+
+0000 020026            6     ljmp main  
+
+                       7     
+
+0003                   8     org 0003h  
+
+0003 020040            9     ljmp INT_INT0
+
+                      10     
+
+000B                  11     org 000Bh  
+
+000B 020041           12     ljmp INT_TIMER0  
+
+                      13     
+
+0013                  14     org 0013h  
+
+0013 020042           15     ljmp INT_INT1  
+
+                      16     
+
+001B                  17     org 001Bh  
+
+001B 020043           18     ljmp INT_TIMER1  
+
+                      19     
+
+0023                  20     org 0023h  
+
+0023 020044           21     ljmp INT_SERIAL  
+
+                      22     
+
+0026                  23     main:
+
+0026 758901           24             mov TMOD, #01h  
+
+                      25             
+
+0029 7815             26             mov R0, #15h
+
+                      27             
+
+002B                  28     VOLTA:
+
+                      29             
+
+002B 758C44           30             mov TH0, #44h
+
+002E 758AAF           31             mov TL0, #0AFh
+
+                      32             
+
+0031 C28D             33             clr TF0
+
+0033 D28C             34             setb TR0
+
+                      35             
+
+0035 308DFD           36             jnb TF0, $
+
+                      37                     
+
+0038 C28D             38             clr TF0
+
+003A C28C             39             clr TR0
+
+                      40             
+
+003C D8ED             41             djnz R0, VOLTA
+
+                      42             
+
+003E 80E6             43             jmp main
+
+                      44     
+
+                      45             
+
+                      46             
+
+                      47     
+
+                      48     
+
+                      49     
+
+                      50     
+
+                      51             
+
+0040                  52     INT_INT0:
+
+0040 32               53             reti
+
+                      54     
+
+0041                  55     INT_TIMER0:
+
+0041 32               56             reti
+
+                      57             
+
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     03/17/2017 17:03:46 PAGE     2
+
+0042                  58     INT_INT1:
+
+0042 32               59             reti
+
+                      60     
+
+0043                  61     INT_TIMER1:
+
+0043 32               62             reti
+
+                      63             
+
+0044                  64     INT_SERIAL:
+
+0044 32               65             reti
+
+                      66             
+
+                      67             end
+
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     03/17/2017 17:03:46 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+INT_INT0 . . . . .  C ADDR   0040H   A   
+INT_INT1 . . . . .  C ADDR   0042H   A   
+INT_SERIAL . . . .  C ADDR   0044H   A   
+INT_TIMER0 . . . .  C ADDR   0041H   A   
+INT_TIMER1 . . . .  C ADDR   0043H   A   
+MAIN . . . . . . .  C ADDR   0026H   A   
+TF0. . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+VOLTA. . . . . . .  C ADDR   002BH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

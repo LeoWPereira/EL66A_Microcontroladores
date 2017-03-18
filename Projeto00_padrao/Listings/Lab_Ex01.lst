@@ -1,0 +1,231 @@
+A51 MACRO ASSEMBLER  LAB_EX01                                                             03/17/2017 17:23:53 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.5.0
+OBJECT MODULE PLACED IN .\Objects\Lab_Ex01.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE Lab_Ex01.a51 SET(SMALL) DEBUG PRINT(.\Listings\Lab_Ex01.lst) OBJECT(.\O
+                      bjects\Lab_Ex01.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+
+                       2     
+
+                       3     
+
+                       4     
+
+                       5     
+
+  0090                 6     LED0 EQU P1.0
+
+  0091                 7     LED1 EQU P1.1
+
+  0092                 8     LED2 EQU P1.2
+
+  0093                 9     LED3 EQU P1.3
+
+  0094                10     LED4 EQU P1.4
+
+  0095                11     LED5 EQU P1.5
+
+  0096                12     LED6 EQU P1.6
+
+  0097                13     LED7 EQU P1.7   
+
+                      14     
+
+0000                  15     org 0000h  
+
+0000 020026           16     ljmp main  
+
+                      17     
+
+0003                  18     org 0003h  
+
+0003 02005B           19     ljmp INT_INT0
+
+                      20     
+
+000B                  21     org 000Bh  
+
+000B 02005C           22     ljmp INT_TIMER0  
+
+                      23     
+
+0013                  24     org 0013h  
+
+0013 02005D           25     ljmp INT_INT1  
+
+                      26     
+
+001B                  27     org 001Bh  
+
+001B 02005E           28     ljmp INT_TIMER1  
+
+                      29     
+
+0023                  30     org 0023h  
+
+0023 02005F           31     ljmp INT_SERIAL  
+
+                      32     
+
+0026                  33     main:
+
+0026 C290             34             clr LED0
+
+0028 C291             35             clr LED1
+
+002A C292             36             clr LED2
+
+002C C293             37             clr LED3
+
+002E C294             38             clr LED4
+
+0030 C295             39             clr LED5
+
+0032 C296             40             clr LED6
+
+0034 C297             41             clr LED7
+
+                      42     
+
+0036                  43     INICIO:
+
+0036 758901           44             mov TMOD, #01h  
+
+                      45             
+
+0039 7815             46             mov R0, #15h
+
+                      47             
+
+003B 79FF             48             mov R1, #0FFh
+
+                      49             
+
+003D                  50     VOLTA:
+
+                      51             
+
+003D 758C44           52             mov TH0, #44h
+
+0040 758AAF           53             mov TL0, #0AFh
+
+                      54             
+
+0043 C28D             55             clr TF0
+
+0045 D28C             56             setb TR0
+
+                      57             
+
+A51 MACRO ASSEMBLER  LAB_EX01                                                             03/17/2017 17:23:53 PAGE     2
+
+0047 308DFD           58             jnb TF0, $
+
+                      59                     
+
+004A C28D             60             clr TF0
+
+004C C28C             61             clr TR0
+
+                      62             
+
+004E D8ED             63             djnz R0, VOLTA
+
+                      64     
+
+0050 0152             65             ajmp ACIONA_LED
+
+                      66     
+
+0052                  67     ACIONA_LED:
+
+0052 E590             68             mov A, P1
+
+0054 04               69             inc A
+
+0055 F590             70             mov P1, A
+
+                      71             
+
+0057 D9DD             72             djnz R1, INICIO
+
+                      73             
+
+0059 7400             74             mov A, #00h
+
+                      75             
+
+005B                  76     INT_INT0:
+
+005B 32               77             reti
+
+                      78     
+
+005C                  79     INT_TIMER0:
+
+005C 32               80             reti
+
+                      81             
+
+005D                  82     INT_INT1:
+
+005D 32               83             reti
+
+                      84     
+
+005E                  85     INT_TIMER1:
+
+005E 32               86             reti
+
+                      87             
+
+005F                  88     INT_SERIAL:
+
+005F 32               89             reti
+
+                      90             
+
+                      91             end
+
+A51 MACRO ASSEMBLER  LAB_EX01                                                             03/17/2017 17:23:53 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACIONA_LED . . . .  C ADDR   0052H   A   
+INICIO . . . . . .  C ADDR   0036H   A   
+INT_INT0 . . . . .  C ADDR   005BH   A   
+INT_INT1 . . . . .  C ADDR   005DH   A   
+INT_SERIAL . . . .  C ADDR   005FH   A   
+INT_TIMER0 . . . .  C ADDR   005CH   A   
+INT_TIMER1 . . . .  C ADDR   005EH   A   
+LED0 . . . . . . .  B ADDR   0090H.0 A   
+LED1 . . . . . . .  B ADDR   0090H.1 A   
+LED2 . . . . . . .  B ADDR   0090H.2 A   
+LED3 . . . . . . .  B ADDR   0090H.3 A   
+LED4 . . . . . . .  B ADDR   0090H.4 A   
+LED5 . . . . . . .  B ADDR   0090H.5 A   
+LED6 . . . . . . .  B ADDR   0090H.6 A   
+LED7 . . . . . . .  B ADDR   0090H.7 A   
+MAIN . . . . . . .  C ADDR   0026H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+TF0. . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+VOLTA. . . . . . .  C ADDR   003DH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
