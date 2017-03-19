@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  LAB_EX04                                                             03/19/2017 19:28:37 PAGE     1
+A51 MACRO ASSEMBLER  LAB_EX04                                                             03/19/2017 19:48:06 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.5.0
@@ -56,31 +56,31 @@ LOC  OBJ            LINE     SOURCE
 
 0003                  24     org 0003h  
 
-0003 022035           25     ljmp INT_INT0
+0003 022038           25     ljmp INT_INT0
 
                       26     
 
 000B                  27     org 000Bh  
 
-000B 022036           28     ljmp INT_TIMER0  
+000B 022039           28     ljmp INT_TIMER0  
 
                       29     
 
 0013                  30     org 0013h  
 
-0013 022037           31     ljmp INT_INT1  
+0013 02203A           31     ljmp INT_INT1  
 
                       32     
 
 001B                  33     org 001Bh  
 
-001B 022038           34     ljmp INT_TIMER1  
+001B 02203B           34     ljmp INT_TIMER1  
 
                       35     
 
 0023                  36     org 0023h  
 
-0023 022039           37     ljmp INT_SERIAL  
+0023 02203C           37     ljmp INT_SERIAL  
 
                       38     
 
@@ -109,43 +109,43 @@ LOC  OBJ            LINE     SOURCE
 
 2027                  46     main:
 
-2027 902000           47             mov DPTR, #2000h  
+2027 758000           47             MOV P0, #00h
 
-                      48             
+                      48     
 
-A51 MACRO ASSEMBLER  LAB_EX04                                                             03/19/2017 19:28:37 PAGE     2
+A51 MACRO ASSEMBLER  LAB_EX04                                                             03/19/2017 19:48:06 PAGE     2
 
-202A 7826             49             mov R0, #str_padrao  
+202A 902000           49             mov DPTR, #2000h  
 
                       50             
 
-202C 7900             51             mov R1, #00h  
+202D 7826             51             mov R0, #str_padrao  
 
                       52             
 
-202E                  53     escreve_texto:
+202F 7900             53             mov R1, #00h  
 
-202E E9               54             mov A, R1
+                      54             
 
-                      55     
+2031                  55     escreve_texto:
 
-202F 93               56             movc A, @A + DPTR
+2031 E9               56             mov A, R1
 
-                      57             
+                      57     
 
-2030 F580             58             mov P0, A
+2032 93               58             movc A, @A + DPTR
 
                       59             
 
-2032 09               60             inc R1
+2033 F580             60             mov P0, A
 
                       61             
 
-2033 D8F9             62             djnz R0, escreve_texto
+2035 09               62             inc R1
 
-                      63     
+                      63             
 
-                      64     
+2036 D8F9             64             djnz R0, escreve_texto
 
                       65     
 
@@ -159,63 +159,67 @@ LOC  OBJ            LINE     SOURCE
 
                       70     
 
-2035                  71     INT_INT0:
+                      71     
 
-2035 32               72             reti
+                      72     
 
-                      73     
+2038                  73     INT_INT0:
 
-                      74     
+2038 32               74             reti
 
                       75     
 
                       76     
 
-2036                  77     INT_TIMER0:
+                      77     
 
-2036 32               78             reti
+                      78     
 
-                      79             
+2039                  79     INT_TIMER0:
 
-                      80     
+2039 32               80             reti
 
-                      81     
+                      81             
 
                       82     
 
-2037                  83     INT_INT1:
+                      83     
 
-2037 32               84             reti
+                      84     
 
-                      85     
+203A                  85     INT_INT1:
 
-                      86     
+203A 32               86             reti
 
                       87     
 
                       88     
 
-2038                  89     INT_TIMER1:
+                      89     
 
-2038 32               90             reti
+                      90     
 
-                      91             
+203B                  91     INT_TIMER1:
 
-                      92     
+203B 32               92             reti
 
-                      93     
+                      93             
 
                       94     
 
-2039                  95     INT_SERIAL:
+                      95     
 
-2039 32               96             reti
+                      96     
 
-                      97             
+203C                  97     INT_SERIAL:
 
-                      98             end
+203C 32               98             reti
 
-A51 MACRO ASSEMBLER  LAB_EX04                                                             03/19/2017 19:28:37 PAGE     3
+                      99             
+
+                     100             end
+
+A51 MACRO ASSEMBLER  LAB_EX04                                                             03/19/2017 19:48:06 PAGE     3
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -223,12 +227,12 @@ SYMBOL TABLE LISTING
 
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
-ESCREVE_TEXTO. . .  C ADDR   202EH   A   
-INT_INT0 . . . . .  C ADDR   2035H   A   
-INT_INT1 . . . . .  C ADDR   2037H   A   
-INT_SERIAL . . . .  C ADDR   2039H   A   
-INT_TIMER0 . . . .  C ADDR   2036H   A   
-INT_TIMER1 . . . .  C ADDR   2038H   A   
+ESCREVE_TEXTO. . .  C ADDR   2031H   A   
+INT_INT0 . . . . .  C ADDR   2038H   A   
+INT_INT1 . . . . .  C ADDR   203AH   A   
+INT_SERIAL . . . .  C ADDR   203CH   A   
+INT_TIMER0 . . . .  C ADDR   2039H   A   
+INT_TIMER1 . . . .  C ADDR   203BH   A   
 MAIN . . . . . . .  C ADDR   2027H   A   
 P0 . . . . . . . .  D ADDR   0080H   A   
 STR_PADRAO . . . .  C ADDR   0026H   A   

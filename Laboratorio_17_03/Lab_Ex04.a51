@@ -44,6 +44,8 @@ str_padrao:
 	db  'Esse trabalho merece nota extra, nao?!', 00H
 
 main:
+	MOV P0, #00h
+
 	mov DPTR, #2000h // inicializa o DPTR com o endereco 2000h
 	
 	mov R0, #str_padrao // R0 representa a quantidade de caracteres presente no texto a ser lido

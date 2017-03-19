@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22                                                        03/19/2017  19:28:37  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22                                                        03/19/2017  19:50:32  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
@@ -20,7 +20,7 @@ LINK MAP OF MODULE:  .\Objects\Laboratorio_17_03 (LAB_EX04)
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
-            CODE    0000H     203AH     ABSOLUTE     
+            CODE    0000H     203DH     ABSOLUTE     
 
 
 
@@ -30,12 +30,12 @@ SYMBOL TABLE OF MODULE:  .\Objects\Laboratorio_17_03 (LAB_EX04)
   ----------------------------------
 
   -------         MODULE        LAB_EX04
-  C:202EH         SYMBOL        ESCREVE_TEXTO
-  C:2035H         SYMBOL        INT_INT0
-  C:2037H         SYMBOL        INT_INT1
-  C:2039H         SYMBOL        INT_SERIAL
-  C:2036H         SYMBOL        INT_TIMER0
-  C:2038H         SYMBOL        INT_TIMER1
+  C:2031H         SYMBOL        ESCREVE_TEXTO
+  C:2038H         SYMBOL        INT_INT0
+  C:203AH         SYMBOL        INT_INT1
+  C:203CH         SYMBOL        INT_SERIAL
+  C:2039H         SYMBOL        INT_TIMER0
+  C:203BH         SYMBOL        INT_TIMER1
   C:2027H         SYMBOL        MAIN
   D:0080H         SYMBOL        P0
   C:0026H         SYMBOL        STR_PADRAO
@@ -47,25 +47,26 @@ SYMBOL TABLE OF MODULE:  .\Objects\Laboratorio_17_03 (LAB_EX04)
   C:0023H         LINE#         37
   C:2027H         LINE#         47
   C:202AH         LINE#         49
-  C:202CH         LINE#         51
-  C:202EH         LINE#         54
-  C:202FH         LINE#         56
-  C:2030H         LINE#         58
-  C:2032H         LINE#         60
-  C:2033H         LINE#         62
-  C:2035H         LINE#         72
-  C:2036H         LINE#         78
-  C:2037H         LINE#         84
-  C:2038H         LINE#         90
-  C:2039H         LINE#         96
+  C:202DH         LINE#         51
+  C:202FH         LINE#         53
+  C:2031H         LINE#         56
+  C:2032H         LINE#         58
+  C:2033H         LINE#         60
+  C:2035H         LINE#         62
+  C:2036H         LINE#         64
+  C:2038H         LINE#         74
+  C:2039H         LINE#         80
+  C:203AH         LINE#         86
+  C:203BH         LINE#         92
+  C:203CH         LINE#         98
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/19/2017  19:50:32  PAGE 2
+
+
   -------         ENDMOD        LAB_EX04
-BL51 BANKED LINKER/LOCATER V6.22                                                      03/19/2017  19:28:37  PAGE 2
-
-
 
 ******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 004CH BYTE ( 3%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 004FH BYTE ( 3%) *
 ******************************************************************************
 
-Program Size: data=8.0 xdata=0 code=8250
+Program Size: data=8.0 xdata=0 code=8253
 LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
