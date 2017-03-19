@@ -1,66 +1,64 @@
-///////
-///////
-///////
+//////////////////////////////////////
+//									//
+//  PROJETO PADRAO PARA USO GERAL 	//
+//									//
+// @author: Leonardo Winter Pereira //
+// @author: Rodrigo Yudi Endo		//
+//									//
+//////////////////////////////////////
 
-org 0000h //
+org 0000h // Origem do codigo 
 ljmp main //
 
-org 0003h //
+org 0003h // Inicio do codigo da interrupcao externa INT0
 ljmp INT_INT0
 
-org 000Bh //
+org 000Bh // Inicio do codigo da interrupcao interna gerada pelo TIMER/COUNTER 0
 ljmp INT_TIMER0 //
 
-org 0013h //
+org 0013h // Inicio do codigo da interrupcao externa INT1
 ljmp INT_INT1 //
 
-org 001Bh //
+org 001Bh // Inicio do codigo da interrupcao interna gerada pelo TIMER/COUNTER 1
 ljmp INT_TIMER1 //
 
-org 0023h //
+org 0023h // Inicio do codigo da interrupcao SERIAL
 ljmp INT_SERIAL //
 
 main:
-	mov TMOD, #01h // Seta o timer_0 para o modo 01 (16 bits)
 	
-	mov R0, #15h
-	
-VOLTA:
-	// 65535 - 50000 = 15535 
-	mov TH0, #44h
-	mov TL0, #0AFh
-	
-	clr TF0
-	setb TR0
-	
-	jnb TF0, $
-		
-	clr TF0
-	clr TR0
-	
-	djnz R0, VOLTA
-	
-	jmp main
 
-	//ljmp SETA_CHAVE_MESTRA
-	
-/*SETA_CHAVE_MESTRA:	
-	mov  007Dh, #01h
-	mov  007Eh, #02h
-	mov  007Fh, #03h
-*/	
+////////////////////////////////////////////////
+// INICIO DOS CODIGOS GERADOS POR INTERRUPCAO //
+////////////////////////////////////////////////
+
+/*
+*
+*/
 INT_INT0:
 	reti
 
+/*
+*
+*/
 INT_TIMER0:
 	reti
 	
+/*
+*
+*/
 INT_INT1:
 	reti
 
+/*
+*
+*/
 INT_TIMER1:
 	reti
 	
+/*
+*
+*/
 INT_SERIAL:
 	reti
 	

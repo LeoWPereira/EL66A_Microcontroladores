@@ -1,16 +1,16 @@
-BL51 BANKED LINKER/LOCATER V6.22                                                        03/17/2017  17:24:41  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22                                                        03/19/2017  12:48:58  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
-C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\Lab_Ex01.obj TO .\Objects\projeto00_padrao PRINT (.\Listings\projeto00_padrao.m51)
->>  RAMSIZE (256)
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\projeto00_padrao.obj TO .\Objects\projeto00_padrao PRINT (.\Listings\projeto00_pad
+>> rao.m51) RAMSIZE (256)
 
 
 INPUT MODULES INCLUDED:
-  .\Objects\Lab_Ex01.obj (LAB_EX01)
+  .\Objects\projeto00_padrao.obj (PROJETO00_PADRAO)
 
 
-LINK MAP OF MODULE:  .\Objects\projeto00_padrao (LAB_EX01)
+LINK MAP OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
 
 
             TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
@@ -20,83 +20,61 @@ LINK MAP OF MODULE:  .\Objects\projeto00_padrao (LAB_EX01)
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
-            CODE    0000H     0060H     ABSOLUTE     
+            CODE    0000H     0047H     ABSOLUTE     
 
 
 
-SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (LAB_EX01)
+SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
 
   VALUE           TYPE          NAME
   ----------------------------------
 
-  -------         MODULE        LAB_EX01
-  C:0052H         SYMBOL        ACIONA_LED
-  C:0036H         SYMBOL        INICIO
-  C:005BH         SYMBOL        INT_INT0
-  C:005DH         SYMBOL        INT_INT1
-  C:005FH         SYMBOL        INT_SERIAL
-  C:005CH         SYMBOL        INT_TIMER0
-  C:005EH         SYMBOL        INT_TIMER1
-  B:0090H.0       SYMBOL        LED0
-  B:0090H.1       SYMBOL        LED1
-  B:0090H.2       SYMBOL        LED2
-  B:0090H.3       SYMBOL        LED3
-  B:0090H.4       SYMBOL        LED4
-  B:0090H.5       SYMBOL        LED5
-  B:0090H.6       SYMBOL        LED6
-  B:0090H.7       SYMBOL        LED7
+  -------         MODULE        PROJETO00_PADRAO
+  C:0042H         SYMBOL        INT_INT0
+  C:0044H         SYMBOL        INT_INT1
+  C:0046H         SYMBOL        INT_SERIAL
+  C:0043H         SYMBOL        INT_TIMER0
+  C:0045H         SYMBOL        INT_TIMER1
   C:0026H         SYMBOL        MAIN
-  D:0090H         SYMBOL        P1
   B:0088H.5       SYMBOL        TF0
   D:008CH         SYMBOL        TH0
+  C:002CH         SYMBOL        TIMER_CONFIGURA_QTDADE_50_MS
+  C:0029H         SYMBOL        TIMER_CONFIGURA_TIMER
+  C:002EH         SYMBOL        TIMER_DELAY_50_MS
   D:008AH         SYMBOL        TL0
   D:0089H         SYMBOL        TMOD
   B:0088H.4       SYMBOL        TR0
-  C:003DH         SYMBOL        VOLTA
-  C:0000H         LINE#         16
-  C:0003H         LINE#         19
-  C:000BH         LINE#         22
-  C:0013H         LINE#         25
-  C:001BH         LINE#         28
-  C:0023H         LINE#         31
-BL51 BANKED LINKER/LOCATER V6.22                                                      03/17/2017  17:24:41  PAGE 2
+  C:0000H         LINE#         11
+  C:0003H         LINE#         14
+  C:000BH         LINE#         17
+  C:0013H         LINE#         20
+  C:001BH         LINE#         23
+  C:0023H         LINE#         26
+  C:0026H         LINE#         29
+  C:0029H         LINE#         32
+  C:002CH         LINE#         35
+  C:002EH         LINE#         39
+  C:0031H         LINE#         40
+  C:0034H         LINE#         42
+  C:0036H         LINE#         43
+  C:0038H         LINE#         45
+  C:003BH         LINE#         47
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/19/2017  12:48:58  PAGE 2
 
 
-  C:0026H         LINE#         34
-  C:0028H         LINE#         35
-  C:002AH         LINE#         36
-  C:002CH         LINE#         37
-  C:002EH         LINE#         38
-  C:0030H         LINE#         39
-  C:0032H         LINE#         40
-  C:0034H         LINE#         41
-  C:0036H         LINE#         44
-  C:0039H         LINE#         46
-  C:003BH         LINE#         48
-  C:003DH         LINE#         52
-  C:0040H         LINE#         53
-  C:0043H         LINE#         55
-  C:0045H         LINE#         56
-  C:0047H         LINE#         58
-  C:004AH         LINE#         60
-  C:004CH         LINE#         61
-  C:004EH         LINE#         63
-  C:0050H         LINE#         65
-  C:0052H         LINE#         68
-  C:0054H         LINE#         69
-  C:0055H         LINE#         70
-  C:0057H         LINE#         72
-  C:0059H         LINE#         74
-  C:005BH         LINE#         77
-  C:005CH         LINE#         80
-  C:005DH         LINE#         83
-  C:005EH         LINE#         86
-  C:005FH         LINE#         89
-  -------         ENDMOD        LAB_EX01
+  C:003DH         LINE#         48
+  C:003FH         LINE#         50
+  C:0041H         LINE#         52
+  C:0042H         LINE#         62
+  C:0043H         LINE#         68
+  C:0044H         LINE#         74
+  C:0045H         LINE#         80
+  C:0046H         LINE#         86
+  -------         ENDMOD        PROJETO00_PADRAO
 
 ******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 004CH BYTE ( 3%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0033H BYTE ( 2%) *
 ******************************************************************************
 
-Program Size: data=8.0 xdata=0 code=96
+Program Size: data=8.0 xdata=0 code=71
 LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

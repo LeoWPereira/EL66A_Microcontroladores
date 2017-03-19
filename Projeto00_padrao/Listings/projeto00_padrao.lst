@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     03/17/2017 17:03:46 PAGE     1
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     03/19/2017 12:48:56 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.5.0
@@ -16,154 +16,198 @@ LOC  OBJ            LINE     SOURCE
 
                        4     
 
-0000                   5     org 0000h  
+                       5     
 
-0000 020026            6     ljmp main  
+                       6     
 
                        7     
 
-0003                   8     org 0003h  
+                       8     
 
-0003 020040            9     ljmp INT_INT0
+                       9     
 
-                      10     
+0000                  10     org 0000h  
 
-000B                  11     org 000Bh  
+0000 020026           11     ljmp main  
 
-000B 020041           12     ljmp INT_TIMER0  
+                      12     
 
-                      13     
+0003                  13     org 0003h  
 
-0013                  14     org 0013h  
+0003 020042           14     ljmp INT_INT0
 
-0013 020042           15     ljmp INT_INT1  
+                      15     
 
-                      16     
+000B                  16     org 000Bh  
 
-001B                  17     org 001Bh  
+000B 020043           17     ljmp INT_TIMER0  
 
-001B 020043           18     ljmp INT_TIMER1  
+                      18     
 
-                      19     
+0013                  19     org 0013h  
 
-0023                  20     org 0023h  
+0013 020044           20     ljmp INT_INT1  
 
-0023 020044           21     ljmp INT_SERIAL  
+                      21     
 
-                      22     
+001B                  22     org 001Bh  
 
-0026                  23     main:
+001B 020045           23     ljmp INT_TIMER1  
 
-0026 758901           24             mov TMOD, #01h  
+                      24     
 
-                      25             
+0023                  25     org 0023h  
 
-0029 7815             26             mov R0, #15h
+0023 020046           26     ljmp INT_SERIAL  
 
-                      27             
+                      27     
 
-002B                  28     VOLTA:
+0026                  28     main:
 
-                      29             
+0026 120029           29             lcall timer_configura_timer
 
-002B 758C44           30             mov TH0, #44h
+                      30             
 
-002E 758AAF           31             mov TL0, #0AFh
+0029                  31     timer_configura_timer:
 
-                      32             
+0029 758901           32             mov TMOD, #01h  
 
-0031 C28D             33             clr TF0
+                      33             
 
-0033 D28C             34             setb TR0
+002C                  34     timer_configura_qtdade_50_ms:
 
-                      35             
+002C 7814             35             mov R0, #14h  
 
-0035 308DFD           36             jnb TF0, $
+                      36             
 
-                      37                     
+002E                  37     timer_delay_50_ms:
 
-0038 C28D             38             clr TF0
+                      38             
 
-003A C28C             39             clr TR0
+002E 758C3C           39             mov TH0, #HIGH(65535 - 49987)  
 
-                      40             
+0031 758ABC           40             mov TL0, #LOW(65535 - 49987)     
 
-003C D8ED             41             djnz R0, VOLTA
+                      41             
 
-                      42             
+0034 C28D             42             clr TF0
 
-003E 80E6             43             jmp main
+0036 D28C             43             setb TR0
 
-                      44     
+                      44             
 
-                      45             
+0038 308DFD           45             jnb TF0, $
 
-                      46             
+                      46                     
 
-                      47     
+003B C28D             47             clr TF0
 
-                      48     
+003D C28C             48             clr TR0
 
-                      49     
+                      49             
 
-                      50     
+003F D8ED             50             djnz R0, timer_delay_50_ms
 
                       51             
 
-0040                  52     INT_INT0:
+0041 22               52             ret
 
-0040 32               53             reti
+                      53     
 
                       54     
 
-0041                  55     INT_TIMER0:
+                      55     
 
-0041 32               56             reti
+                      56     
 
-                      57             
+                      57     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     03/17/2017 17:03:46 PAGE     2
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     03/19/2017 12:48:56 PAGE     2
 
-0042                  58     INT_INT1:
+                      58     
 
-0042 32               59             reti
+                      59     
 
                       60     
 
-0043                  61     INT_TIMER1:
+0042                  61     INT_INT0:
 
-0043 32               62             reti
+0042 32               62             reti
 
-                      63             
+                      63     
 
-0044                  64     INT_SERIAL:
+                      64     
 
-0044 32               65             reti
+                      65     
 
-                      66             
+                      66     
 
-                      67             end
+0043                  67     INT_TIMER0:
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     03/17/2017 17:03:46 PAGE     3
+0043 32               68             reti
+
+                      69             
+
+                      70     
+
+                      71     
+
+                      72     
+
+0044                  73     INT_INT1:
+
+0044 32               74             reti
+
+                      75     
+
+                      76     
+
+                      77     
+
+                      78     
+
+0045                  79     INT_TIMER1:
+
+0045 32               80             reti
+
+                      81             
+
+                      82     
+
+                      83     
+
+                      84     
+
+0046                  85     INT_SERIAL:
+
+0046 32               86             reti
+
+                      87             
+
+                      88             end
+
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     03/19/2017 12:48:56 PAGE     3
 
 SYMBOL TABLE LISTING
 ------ ----- -------
 
 
-N A M E             T Y P E  V A L U E   ATTRIBUTES
+N A M E                       T Y P E  V A L U E   ATTRIBUTES
 
-INT_INT0 . . . . .  C ADDR   0040H   A   
-INT_INT1 . . . . .  C ADDR   0042H   A   
-INT_SERIAL . . . .  C ADDR   0044H   A   
-INT_TIMER0 . . . .  C ADDR   0041H   A   
-INT_TIMER1 . . . .  C ADDR   0043H   A   
-MAIN . . . . . . .  C ADDR   0026H   A   
-TF0. . . . . . . .  B ADDR   0088H.5 A   
-TH0. . . . . . . .  D ADDR   008CH   A   
-TL0. . . . . . . .  D ADDR   008AH   A   
-TMOD . . . . . . .  D ADDR   0089H   A   
-TR0. . . . . . . .  B ADDR   0088H.4 A   
-VOLTA. . . . . . .  C ADDR   002BH   A   
+INT_INT0 . . . . . . . . . .  C ADDR   0042H   A   
+INT_INT1 . . . . . . . . . .  C ADDR   0044H   A   
+INT_SERIAL . . . . . . . . .  C ADDR   0046H   A   
+INT_TIMER0 . . . . . . . . .  C ADDR   0043H   A   
+INT_TIMER1 . . . . . . . . .  C ADDR   0045H   A   
+MAIN . . . . . . . . . . . .  C ADDR   0026H   A   
+TF0. . . . . . . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . . . . . . .  D ADDR   008CH   A   
+TIMER_CONFIGURA_QTDADE_50_MS  C ADDR   002CH   A   
+TIMER_CONFIGURA_TIMER. . . .  C ADDR   0029H   A   
+TIMER_DELAY_50_MS. . . . . .  C ADDR   002EH   A   
+TL0. . . . . . . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . . . . . . .  B ADDR   0088H.4 A   
 
 
 REGISTER BANK(S) USED: 0 
