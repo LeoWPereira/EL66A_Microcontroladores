@@ -1,0 +1,94 @@
+A51 MACRO ASSEMBLER  TIMERS_AND_COUNTERS                                                  03/19/2017 12:47:26 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.5.0
+OBJECT MODULE PLACED IN .\Objects\timers_and_counters.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE timers_and_counters.a51 SET(SMALL) DEBUG PRINT(.\Listings\timers_and_co
+                      unters.lst) OBJECT(.\Objects\timers_and_counters.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+
+                       2     
+
+                       3     
+
+                       4     
+
+                       5     
+
+                       6     
+
+                       7     
+
+                       8     
+
+                       9     
+
+0000                  10     timer_configura_timer:
+
+0000 758901           11             mov TMOD, #01h  
+
+                      12             
+
+0003                  13     timer_configura_qtdade_50_ms:
+
+0003 7814             14             mov R0, #14h  
+
+                      15             
+
+0005                  16     timer_delay_50_ms:
+
+                      17             
+
+0005 758C3C           18             mov TH0, #HIGH(65535 - 49987)  
+
+0008 758ABC           19             mov TL0, #LOW(65535 - 49987)     
+
+                      20             
+
+000B C28D             21             clr TF0
+
+000D D28C             22             setb TR0
+
+                      23             
+
+000F 308DFD           24             jnb TF0, $
+
+                      25                     
+
+0012 C28D             26             clr TF0
+
+0014 C28C             27             clr TR0
+
+                      28             
+
+0016 D8ED             29             djnz R0, timer_delay_50_ms
+
+                      30     
+
+                      31     end
+
+A51 MACRO ASSEMBLER  TIMERS_AND_COUNTERS                                                  03/19/2017 12:47:26 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E                       T Y P E  V A L U E   ATTRIBUTES
+
+TF0. . . . . . . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . . . . . . .  D ADDR   008CH   A   
+TIMER_CONFIGURA_QTDADE_50_MS  C ADDR   0003H   A   
+TIMER_CONFIGURA_TIMER. . . .  C ADDR   0000H   A   
+TIMER_DELAY_50_MS. . . . . .  C ADDR   0005H   A   
+TL0. . . . . . . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

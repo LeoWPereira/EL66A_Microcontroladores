@@ -1,0 +1,304 @@
+A51 MACRO ASSEMBLER  LAB_EX01                                                             03/19/2017 13:23:20 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.5.0
+OBJECT MODULE PLACED IN .\Objects\Lab_Ex01.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE Lab_Ex01.a51 SET(SMALL) DEBUG PRINT(.\Listings\Lab_Ex01.lst) OBJECT(.\O
+                      bjects\Lab_Ex01.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+
+                       2     
+
+                       3     
+
+                       4     
+
+                       5     
+
+                       6     
+
+                       7     
+
+                       8     
+
+                       9     
+
+                      10     
+
+                      11     
+
+                      12     
+
+                      13     
+
+                      14     
+
+                      15     
+
+                      16     
+
+                      17     
+
+                      18     
+
+  0090                19     LED0 EQU P1.0
+
+  0091                20     LED1 EQU P1.1
+
+  0092                21     LED2 EQU P1.2
+
+  0093                22     LED3 EQU P1.3
+
+  0094                23     LED4 EQU P1.4
+
+  0095                24     LED5 EQU P1.5
+
+  0096                25     LED6 EQU P1.6
+
+  0097                26     LED7 EQU P1.7   
+
+                      27     
+
+0000                  28     org 0000h  
+
+0000 020026           29     ljmp main  
+
+                      30     
+
+0003                  31     org 0003h  
+
+0003 020058           32     ljmp INT_INT0
+
+                      33     
+
+000B                  34     org 000Bh  
+
+000B 020059           35     ljmp INT_TIMER0  
+
+                      36     
+
+0013                  37     org 0013h  
+
+0013 02005A           38     ljmp INT_INT1  
+
+                      39     
+
+001B                  40     org 001Bh  
+
+001B 02005B           41     ljmp INT_TIMER1  
+
+                      42     
+
+0023                  43     org 0023h  
+
+0023 02005C           44     ljmp INT_SERIAL  
+
+                      45     
+
+0026                  46     main:
+
+0026 759000           47             mov P1, #0h  
+
+                      48             
+
+0029 79FF             49             mov R1, #0FFh  
+
+                      50     
+
+002B 02003D           51             ljmp timer_configura_timer
+
+                      52             
+
+002E                  53     aciona_led:
+
+002E E590             54             mov A, P1  
+
+0030 04               55             inc A  
+
+0031 F590             56             mov P1, A  
+
+                      57             
+
+A51 MACRO ASSEMBLER  LAB_EX01                                                             03/19/2017 13:23:20 PAGE     2
+
+0033 D90B             58             djnz R1, timer_delay_1_s
+
+                      59             
+
+0035 759000           60             mov P1, #0h  
+
+0038 79FF             61             mov R1, #0FFh  
+
+                      62             
+
+003A 020040           63             ljmp timer_delay_1_s
+
+                      64             
+
+                      65     
+
+                      66     
+
+                      67     
+
+                      68     
+
+003D                  69     timer_configura_timer:
+
+003D 758901           70             mov TMOD, #01h  
+
+                      71             
+
+0040                  72     timer_delay_1_s:
+
+0040 7814             73             mov R0, #20d  
+
+                      74             
+
+0042                  75     timer_delay_50_ms:
+
+                      76             
+
+0042 758C3C           77             mov TH0, #HIGH(65535 - 49987)  
+
+0045 758ABC           78             mov TL0, #LOW(65535 - 49987)     
+
+                      79             
+
+0048 C28D             80             clr TF0  
+
+004A D28C             81             setb TR0  
+
+                      82             
+
+004C 308DFD           83             jnb TF0, $  
+
+                      84                     
+
+004F C28D             85             clr TF0  
+
+0051 C28C             86             clr TR0  
+
+                      87             
+
+0053 D8ED             88             djnz R0, timer_delay_50_ms  
+
+                      89             
+
+0055 02002E           90             ljmp aciona_led
+
+                      91     
+
+                      92     
+
+                      93     
+
+                      94     
+
+                      95     
+
+                      96     
+
+                      97     
+
+                      98     
+
+0058                  99     INT_INT0:
+
+0058 32              100             reti
+
+                     101     
+
+                     102     
+
+                     103     
+
+                     104     
+
+0059                 105     INT_TIMER0:
+
+0059 32              106             reti
+
+                     107             
+
+                     108     
+
+                     109     
+
+                     110     
+
+005A                 111     INT_INT1:
+
+005A 32              112             reti
+
+                     113     
+
+                     114     
+
+                     115     
+
+                     116     
+
+005B                 117     INT_TIMER1:
+
+005B 32              118             reti
+
+                     119             
+
+                     120     
+
+                     121     
+
+                     122     
+
+005C                 123     INT_SERIAL:
+
+A51 MACRO ASSEMBLER  LAB_EX01                                                             03/19/2017 13:23:20 PAGE     3
+
+005C 32              124             reti
+
+                     125             
+
+                     126             end
+
+A51 MACRO ASSEMBLER  LAB_EX01                                                             03/19/2017 13:23:20 PAGE     4
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E                T Y P E  V A L U E   ATTRIBUTES
+
+ACIONA_LED. . . . . .  C ADDR   002EH   A   
+INT_INT0. . . . . . .  C ADDR   0058H   A   
+INT_INT1. . . . . . .  C ADDR   005AH   A   
+INT_SERIAL. . . . . .  C ADDR   005CH   A   
+INT_TIMER0. . . . . .  C ADDR   0059H   A   
+INT_TIMER1. . . . . .  C ADDR   005BH   A   
+LED0. . . . . . . . .  B ADDR   0090H.0 A   
+LED1. . . . . . . . .  B ADDR   0090H.1 A   
+LED2. . . . . . . . .  B ADDR   0090H.2 A   
+LED3. . . . . . . . .  B ADDR   0090H.3 A   
+LED4. . . . . . . . .  B ADDR   0090H.4 A   
+LED5. . . . . . . . .  B ADDR   0090H.5 A   
+LED6. . . . . . . . .  B ADDR   0090H.6 A   
+LED7. . . . . . . . .  B ADDR   0090H.7 A   
+MAIN. . . . . . . . .  C ADDR   0026H   A   
+P1. . . . . . . . . .  D ADDR   0090H   A   
+TF0 . . . . . . . . .  B ADDR   0088H.5 A   
+TH0 . . . . . . . . .  D ADDR   008CH   A   
+TIMER_CONFIGURA_TIMER  C ADDR   003DH   A   
+TIMER_DELAY_1_S . . .  C ADDR   0040H   A   
+TIMER_DELAY_50_MS . .  C ADDR   0042H   A   
+TL0 . . . . . . . . .  D ADDR   008AH   A   
+TMOD. . . . . . . . .  D ADDR   0089H   A   
+TR0 . . . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
