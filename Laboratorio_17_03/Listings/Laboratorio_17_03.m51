@@ -1,16 +1,16 @@
-BL51 BANKED LINKER/LOCATER V6.22                                                        03/19/2017  13:23:20  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22                                                        03/19/2017  13:27:59  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
-C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\Lab_Ex01.obj TO .\Objects\Laboratorio_17_03 PRINT (.\Listings\Laboratorio_17_03.m5
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\Lab_Ex02.obj TO .\Objects\Laboratorio_17_03 PRINT (.\Listings\Laboratorio_17_03.m5
 >> 1) RAMSIZE (256)
 
 
 INPUT MODULES INCLUDED:
-  .\Objects\Lab_Ex01.obj (LAB_EX01)
+  .\Objects\Lab_Ex02.obj (LAB_EX02)
 
 
-LINK MAP OF MODULE:  .\Objects\Laboratorio_17_03 (LAB_EX01)
+LINK MAP OF MODULE:  .\Objects\Laboratorio_17_03 (LAB_EX02)
 
 
             TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
@@ -24,12 +24,12 @@ LINK MAP OF MODULE:  .\Objects\Laboratorio_17_03 (LAB_EX01)
 
 
 
-SYMBOL TABLE OF MODULE:  .\Objects\Laboratorio_17_03 (LAB_EX01)
+SYMBOL TABLE OF MODULE:  .\Objects\Laboratorio_17_03 (LAB_EX02)
 
   VALUE           TYPE          NAME
   ----------------------------------
 
-  -------         MODULE        LAB_EX01
+  -------         MODULE        LAB_EX02
   C:002EH         SYMBOL        ACIONA_LED
   C:0058H         SYMBOL        INT_INT0
   C:005AH         SYMBOL        INT_INT1
@@ -59,7 +59,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\Laboratorio_17_03 (LAB_EX01)
   C:000BH         LINE#         35
   C:0013H         LINE#         38
   C:001BH         LINE#         41
-BL51 BANKED LINKER/LOCATER V6.22                                                      03/19/2017  13:23:20  PAGE 2
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/19/2017  13:27:59  PAGE 2
 
 
   C:0023H         LINE#         44
@@ -89,7 +89,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\Laboratorio_17_03 (LAB_EX01)
   C:005AH         LINE#         112
   C:005BH         LINE#         118
   C:005CH         LINE#         124
-  -------         ENDMOD        LAB_EX01
+  -------         ENDMOD        LAB_EX02
 
 ******************************************************************************
 * RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0049H BYTE ( 3%) *

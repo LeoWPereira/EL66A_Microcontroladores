@@ -1,3 +1,3 @@
-".\Objects\Lab_Ex01.obj" 
+".\Objects\Lab_Ex02.obj" 
 TO ".\Objects\Laboratorio_17_03" 
 PRINT(".\Listings\Laboratorio_17_03.m51") RAMSIZE(256) 
