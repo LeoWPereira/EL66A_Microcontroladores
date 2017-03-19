@@ -1,0 +1,211 @@
+A51 MACRO ASSEMBLER  LAB_EX03                                                             03/19/2017 18:10:01 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.5.0
+OBJECT MODULE PLACED IN .\Objects\Lab_Ex03.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE Lab_Ex03.a51 SET(SMALL) DEBUG PRINT(.\Listings\Lab_Ex03.lst) OBJECT(.\O
+                      bjects\Lab_Ex03.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+
+                       2     
+
+                       3     
+
+                       4     
+
+                       5     
+
+                       6     
+
+                       7     
+
+                       8     
+
+                       9     
+
+                      10     
+
+                      11     
+
+                      12     
+
+                      13     
+
+                      14     
+
+                      15     
+
+                      16     
+
+                      17     
+
+                      18     
+
+                      19     
+
+                      20     
+
+0000                  21     org 0000h  
+
+0000 020026           22     ljmp main  
+
+                      23     
+
+0003                  24     org 0003h  
+
+0003 020032           25     ljmp INT_INT0
+
+                      26     
+
+000B                  27     org 000Bh  
+
+000B 020033           28     ljmp INT_TIMER0  
+
+                      29     
+
+0013                  30     org 0013h  
+
+0013 020034           31     ljmp INT_INT1  
+
+                      32     
+
+001B                  33     org 001Bh  
+
+001B 020035           34     ljmp INT_TIMER1  
+
+                      35     
+
+0023                  36     org 0023h  
+
+0023 020036           37     ljmp INT_SERIAL  
+
+                      38     
+
+0026                  39     main:
+
+0026 901000           40             mov DPTR, #1000h  
+
+                      41             
+
+0029 781A             42             mov R0,   #26d    
+
+                      43             
+
+002B 7461             44             mov A,    #61h    
+
+                      45             
+
+002D                  46     escreve_ram_externa:
+
+002D F0               47             movx @DPTR, A
+
+                      48             
+
+002E A3               49             inc DPTR
+
+                      50             
+
+002F 04               51             inc A
+
+                      52             
+
+0030 D8FB             53             djnz R0, escreve_ram_externa
+
+                      54     
+
+                      55     
+
+                      56     
+
+                      57     
+
+A51 MACRO ASSEMBLER  LAB_EX03                                                             03/19/2017 18:10:01 PAGE     2
+
+                      58     
+
+                      59     
+
+                      60     
+
+                      61     
+
+0032                  62     INT_INT0:
+
+0032 32               63             reti
+
+                      64     
+
+                      65     
+
+                      66     
+
+                      67     
+
+0033                  68     INT_TIMER0:
+
+0033 32               69             reti
+
+                      70             
+
+                      71     
+
+                      72     
+
+                      73     
+
+0034                  74     INT_INT1:
+
+0034 32               75             reti
+
+                      76     
+
+                      77     
+
+                      78     
+
+                      79     
+
+0035                  80     INT_TIMER1:
+
+0035 32               81             reti
+
+                      82             
+
+                      83     
+
+                      84     
+
+                      85     
+
+0036                  86     INT_SERIAL:
+
+0036 32               87             reti
+
+                      88             
+
+                      89             end
+
+A51 MACRO ASSEMBLER  LAB_EX03                                                             03/19/2017 18:10:01 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E              T Y P E  V A L U E   ATTRIBUTES
+
+ESCREVE_RAM_EXTERNA  C ADDR   002DH   A   
+INT_INT0. . . . . .  C ADDR   0032H   A   
+INT_INT1. . . . . .  C ADDR   0034H   A   
+INT_SERIAL. . . . .  C ADDR   0036H   A   
+INT_TIMER0. . . . .  C ADDR   0033H   A   
+INT_TIMER1. . . . .  C ADDR   0035H   A   
+MAIN. . . . . . . .  C ADDR   0026H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

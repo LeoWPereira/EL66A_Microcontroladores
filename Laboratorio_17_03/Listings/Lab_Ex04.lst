@@ -1,0 +1,240 @@
+A51 MACRO ASSEMBLER  LAB_EX04                                                             03/19/2017 19:28:37 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.5.0
+OBJECT MODULE PLACED IN .\Objects\Lab_Ex04.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE Lab_Ex04.a51 SET(SMALL) DEBUG PRINT(.\Listings\Lab_Ex04.lst) OBJECT(.\O
+                      bjects\Lab_Ex04.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+
+                       2     
+
+                       3     
+
+                       4     
+
+                       5     
+
+                       6     
+
+                       7     
+
+                       8     
+
+                       9     
+
+                      10     
+
+                      11     
+
+                      12     
+
+                      13     
+
+                      14     
+
+                      15     
+
+                      16     
+
+                      17     
+
+                      18     
+
+                      19     
+
+                      20     
+
+0000                  21     org 0000h  
+
+0000 022027           22     ljmp main  
+
+                      23     
+
+0003                  24     org 0003h  
+
+0003 022035           25     ljmp INT_INT0
+
+                      26     
+
+000B                  27     org 000Bh  
+
+000B 022036           28     ljmp INT_TIMER0  
+
+                      29     
+
+0013                  30     org 0013h  
+
+0013 022037           31     ljmp INT_INT1  
+
+                      32     
+
+001B                  33     org 001Bh  
+
+001B 022038           34     ljmp INT_TIMER1  
+
+                      35     
+
+0023                  36     org 0023h  
+
+0023 022039           37     ljmp INT_SERIAL  
+
+                      38     
+
+                      39     
+
+                      40     
+
+                      41     
+
+0026                  42     str_padrao:
+
+2000                  43             org 2000h
+
+2000 45737365         44             db  'Esse trabalho merece nota extra, nao?!', 00H
+
+2004 20747261                
+2008 62616C68                
+200C 6F206D65                
+2010 72656365                
+2014 206E6F74                
+2018 61206578                
+201C 7472612C                
+2020 206E616F                
+2024 3F2100                  
+                      45     
+
+2027                  46     main:
+
+2027 902000           47             mov DPTR, #2000h  
+
+                      48             
+
+A51 MACRO ASSEMBLER  LAB_EX04                                                             03/19/2017 19:28:37 PAGE     2
+
+202A 7826             49             mov R0, #str_padrao  
+
+                      50             
+
+202C 7900             51             mov R1, #00h  
+
+                      52             
+
+202E                  53     escreve_texto:
+
+202E E9               54             mov A, R1
+
+                      55     
+
+202F 93               56             movc A, @A + DPTR
+
+                      57             
+
+2030 F580             58             mov P0, A
+
+                      59             
+
+2032 09               60             inc R1
+
+                      61             
+
+2033 D8F9             62             djnz R0, escreve_texto
+
+                      63     
+
+                      64     
+
+                      65     
+
+                      66     
+
+                      67     
+
+                      68     
+
+                      69     
+
+                      70     
+
+2035                  71     INT_INT0:
+
+2035 32               72             reti
+
+                      73     
+
+                      74     
+
+                      75     
+
+                      76     
+
+2036                  77     INT_TIMER0:
+
+2036 32               78             reti
+
+                      79             
+
+                      80     
+
+                      81     
+
+                      82     
+
+2037                  83     INT_INT1:
+
+2037 32               84             reti
+
+                      85     
+
+                      86     
+
+                      87     
+
+                      88     
+
+2038                  89     INT_TIMER1:
+
+2038 32               90             reti
+
+                      91             
+
+                      92     
+
+                      93     
+
+                      94     
+
+2039                  95     INT_SERIAL:
+
+2039 32               96             reti
+
+                      97             
+
+                      98             end
+
+A51 MACRO ASSEMBLER  LAB_EX04                                                             03/19/2017 19:28:37 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ESCREVE_TEXTO. . .  C ADDR   202EH   A   
+INT_INT0 . . . . .  C ADDR   2035H   A   
+INT_INT1 . . . . .  C ADDR   2037H   A   
+INT_SERIAL . . . .  C ADDR   2039H   A   
+INT_TIMER0 . . . .  C ADDR   2036H   A   
+INT_TIMER1 . . . .  C ADDR   2038H   A   
+MAIN . . . . . . .  C ADDR   2027H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+STR_PADRAO . . . .  C ADDR   0026H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

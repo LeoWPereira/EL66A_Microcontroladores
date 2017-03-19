@@ -10,9 +10,9 @@
 ////////////////////////////////////////////
 //           ENUNCIADO DO PROBLEMA 		  //
 //										  //
-// Seja a RAM externa, escreva o alfabeto //
-// de "a" ate "z" no endereco de base 	  //
-// 1000h								  //
+// Uma mensagem contida na memoria de     //
+// programa no endereco de base 2000h     //
+// deve ser enviada para o port P0        //
 ////////////////////////////////////////////
 
 // Definicoes da P51USB
@@ -36,21 +36,30 @@ ljmp INT_TIMER1 //
 org 0023h // Inicio do codigo da interrupcao SERIAL
 ljmp INT_SERIAL //
 
+/////////////
+// STRINGS //
+/////////////
+str_padrao:
+	org 2000h
+	db  'Esse trabalho merece nota extra, nao?!', 00H
+
 main:
-	mov DPTR, #1000h // carrega o DPTR com o endereco base 0x1000h
+	mov DPTR, #2000h // inicializa o DPTR com o endereco 2000h
 	
-	mov R0,   #26d   // 26 letras no alfabeto
+	mov R0, #str_padrao // R0 representa a quantidade de caracteres presente no texto a ser lido
 	
-	mov A,    #61h   // carrega o acumulador com o caracter 'a'
+	mov R1, #00h // R1 representa o caracter atual do texto a ser lido
 	
-escreve_ram_externa:
-	movx @DPTR, A
+escreve_texto:
+	mov A, R1
+
+	movc A, @A + DPTR
 	
-	inc DPTR
+	mov P0, A
 	
-	inc A
+	inc R1
 	
-	djnz R0, escreve_ram_externa
+	djnz R0, escreve_texto
 
 ////////////////////////////////////////////////
 // INICIO DOS CODIGOS GERADOS POR INTERRUPCAO //

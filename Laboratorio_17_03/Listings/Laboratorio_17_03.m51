@@ -1,16 +1,16 @@
-BL51 BANKED LINKER/LOCATER V6.22                                                        03/19/2017  13:27:59  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22                                                        03/19/2017  19:28:37  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
-C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\Lab_Ex02.obj TO .\Objects\Laboratorio_17_03 PRINT (.\Listings\Laboratorio_17_03.m5
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\Lab_Ex04.obj TO .\Objects\Laboratorio_17_03 PRINT (.\Listings\Laboratorio_17_03.m5
 >> 1) RAMSIZE (256)
 
 
 INPUT MODULES INCLUDED:
-  .\Objects\Lab_Ex02.obj (LAB_EX02)
+  .\Objects\Lab_Ex04.obj (LAB_EX04)
 
 
-LINK MAP OF MODULE:  .\Objects\Laboratorio_17_03 (LAB_EX02)
+LINK MAP OF MODULE:  .\Objects\Laboratorio_17_03 (LAB_EX04)
 
 
             TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
@@ -20,80 +20,52 @@ LINK MAP OF MODULE:  .\Objects\Laboratorio_17_03 (LAB_EX02)
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
-            CODE    0000H     005DH     ABSOLUTE     
+            CODE    0000H     203AH     ABSOLUTE     
 
 
 
-SYMBOL TABLE OF MODULE:  .\Objects\Laboratorio_17_03 (LAB_EX02)
+SYMBOL TABLE OF MODULE:  .\Objects\Laboratorio_17_03 (LAB_EX04)
 
   VALUE           TYPE          NAME
   ----------------------------------
 
-  -------         MODULE        LAB_EX02
-  C:002EH         SYMBOL        ACIONA_LED
-  C:0058H         SYMBOL        INT_INT0
-  C:005AH         SYMBOL        INT_INT1
-  C:005CH         SYMBOL        INT_SERIAL
-  C:0059H         SYMBOL        INT_TIMER0
-  C:005BH         SYMBOL        INT_TIMER1
-  B:0090H.0       SYMBOL        LED0
-  B:0090H.1       SYMBOL        LED1
-  B:0090H.2       SYMBOL        LED2
-  B:0090H.3       SYMBOL        LED3
-  B:0090H.4       SYMBOL        LED4
-  B:0090H.5       SYMBOL        LED5
-  B:0090H.6       SYMBOL        LED6
-  B:0090H.7       SYMBOL        LED7
-  C:0026H         SYMBOL        MAIN
-  D:0090H         SYMBOL        P1
-  B:0088H.5       SYMBOL        TF0
-  D:008CH         SYMBOL        TH0
-  C:003DH         SYMBOL        TIMER_CONFIGURA_TIMER
-  C:0040H         SYMBOL        TIMER_DELAY_1_S
-  C:0042H         SYMBOL        TIMER_DELAY_50_MS
-  D:008AH         SYMBOL        TL0
-  D:0089H         SYMBOL        TMOD
-  B:0088H.4       SYMBOL        TR0
-  C:0000H         LINE#         29
-  C:0003H         LINE#         32
-  C:000BH         LINE#         35
-  C:0013H         LINE#         38
-  C:001BH         LINE#         41
-BL51 BANKED LINKER/LOCATER V6.22                                                      03/19/2017  13:27:59  PAGE 2
+  -------         MODULE        LAB_EX04
+  C:202EH         SYMBOL        ESCREVE_TEXTO
+  C:2035H         SYMBOL        INT_INT0
+  C:2037H         SYMBOL        INT_INT1
+  C:2039H         SYMBOL        INT_SERIAL
+  C:2036H         SYMBOL        INT_TIMER0
+  C:2038H         SYMBOL        INT_TIMER1
+  C:2027H         SYMBOL        MAIN
+  D:0080H         SYMBOL        P0
+  C:0026H         SYMBOL        STR_PADRAO
+  C:0000H         LINE#         22
+  C:0003H         LINE#         25
+  C:000BH         LINE#         28
+  C:0013H         LINE#         31
+  C:001BH         LINE#         34
+  C:0023H         LINE#         37
+  C:2027H         LINE#         47
+  C:202AH         LINE#         49
+  C:202CH         LINE#         51
+  C:202EH         LINE#         54
+  C:202FH         LINE#         56
+  C:2030H         LINE#         58
+  C:2032H         LINE#         60
+  C:2033H         LINE#         62
+  C:2035H         LINE#         72
+  C:2036H         LINE#         78
+  C:2037H         LINE#         84
+  C:2038H         LINE#         90
+  C:2039H         LINE#         96
+  -------         ENDMOD        LAB_EX04
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/19/2017  19:28:37  PAGE 2
 
 
-  C:0023H         LINE#         44
-  C:0026H         LINE#         47
-  C:0029H         LINE#         49
-  C:002BH         LINE#         51
-  C:002EH         LINE#         54
-  C:0030H         LINE#         55
-  C:0031H         LINE#         56
-  C:0033H         LINE#         58
-  C:0035H         LINE#         60
-  C:0038H         LINE#         61
-  C:003AH         LINE#         63
-  C:003DH         LINE#         70
-  C:0040H         LINE#         73
-  C:0042H         LINE#         77
-  C:0045H         LINE#         78
-  C:0048H         LINE#         80
-  C:004AH         LINE#         81
-  C:004CH         LINE#         83
-  C:004FH         LINE#         85
-  C:0051H         LINE#         86
-  C:0053H         LINE#         88
-  C:0055H         LINE#         90
-  C:0058H         LINE#         100
-  C:0059H         LINE#         106
-  C:005AH         LINE#         112
-  C:005BH         LINE#         118
-  C:005CH         LINE#         124
-  -------         ENDMOD        LAB_EX02
 
 ******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0049H BYTE ( 3%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 004CH BYTE ( 3%) *
 ******************************************************************************
 
-Program Size: data=8.0 xdata=0 code=93
+Program Size: data=8.0 xdata=0 code=8250
 LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
