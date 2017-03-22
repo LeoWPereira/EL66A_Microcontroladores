@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  TIMERS_AND_COUNTERS                                                  03/19/2017 12:47:26 PAGE     1
+A51 MACRO ASSEMBLER  TIMERS_AND_COUNTERS                                                  03/22/2017 20:18:39 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.5.0
@@ -32,60 +32,72 @@ LOC  OBJ            LINE     SOURCE
 
                       12             
 
-0003                  13     timer_configura_qtdade_50_ms:
+0003                  13     timer_delay_1_s:
 
-0003 7814             14             mov R0, #14h  
+0003 7801             14             mov R0, #01h  
 
                       15             
 
-0005                  16     timer_delay_50_ms:
+                      16     
 
-                      17             
+                      17     
 
-0005 758C3C           18             mov TH0, #HIGH(65535 - 49987)  
+                      18     
 
-0008 758ABC           19             mov TL0, #LOW(65535 - 49987)     
+                      19     
 
-                      20             
+                      20     
 
-000B C28D             21             clr TF0
+                      21     
 
-000D D28C             22             setb TR0
+                      22     
 
-                      23             
+0005                  23     TIMER_DELAY_50_MS:
 
-000F 308DFD           24             jnb TF0, $
+0005 758C3C           24             mov TH0, #HIGH(65535 - 49987)    
 
-                      25                     
+0008 758ABC           25             mov TL0, #LOW(65535 - 49987)     
 
-0012 C28D             26             clr TF0
+                      26             
 
-0014 C28C             27             clr TR0
+000B C28D             27             clr TF0
 
-                      28             
+000D D28C             28             setb TR0
 
-0016 D8ED             29             djnz R0, timer_delay_50_ms
+                      29             
 
-                      30     
+000F 308DFD           30             jnb TF0, $
 
-                      31     end
+                      31                     
 
-A51 MACRO ASSEMBLER  TIMERS_AND_COUNTERS                                                  03/19/2017 12:47:26 PAGE     2
+0012 C28D             32             clr TF0
+
+0014 C28C             33             clr TR0
+
+                      34             
+
+0016 D8ED             35             djnz R0, TIMER_DELAY_50_MS
+
+                      36     
+
+                      37     end
+
+A51 MACRO ASSEMBLER  TIMERS_AND_COUNTERS                                                  03/22/2017 20:18:39 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------
 
 
-N A M E                       T Y P E  V A L U E   ATTRIBUTES
+N A M E                T Y P E  V A L U E   ATTRIBUTES
 
-TF0. . . . . . . . . . . . .  B ADDR   0088H.5 A   
-TH0. . . . . . . . . . . . .  D ADDR   008CH   A   
-TIMER_CONFIGURA_QTDADE_50_MS  C ADDR   0003H   A   
-TIMER_CONFIGURA_TIMER. . . .  C ADDR   0000H   A   
-TIMER_DELAY_50_MS. . . . . .  C ADDR   0005H   A   
-TL0. . . . . . . . . . . . .  D ADDR   008AH   A   
-TMOD . . . . . . . . . . . .  D ADDR   0089H   A   
-TR0. . . . . . . . . . . . .  B ADDR   0088H.4 A   
+TF0 . . . . . . . . .  B ADDR   0088H.5 A   
+TH0 . . . . . . . . .  D ADDR   008CH   A   
+TIMER_CONFIGURA_TIMER  C ADDR   0000H   A   
+TIMER_DELAY_1_S . . .  C ADDR   0003H   A   
+TIMER_DELAY_50_MS . .  C ADDR   0005H   A   
+TL0 . . . . . . . . .  D ADDR   008AH   A   
+TMOD. . . . . . . . .  D ADDR   0089H   A   
+TR0 . . . . . . . . .  B ADDR   0088H.4 A   
 
 
 REGISTER BANK(S) USED: 0 

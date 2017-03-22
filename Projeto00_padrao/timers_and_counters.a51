@@ -13,9 +13,15 @@ timer_configura_timer:
 timer_delay_1_s:
 	mov R0, #14h // 20 vezes
 	
-timer_delay_50_ms:
-	// 65535 - 49987 = 15548 ()
-	mov TH0, #HIGH(65535 - 49987) // 0x3Ch
+//////////////////////////////////////////////////////
+// NOME: TIMER_DELAY_50_MS							//
+// DESCRICAO: INTRODUZ UM ATRASO DE 50 MS			//
+// P.ENTRADA: R0 = y => (y x 50) ms  				//
+// P.SAIDA: -										//
+// ALTERA: R0,R2									//
+//////////////////////////////////////////////////////
+TIMER_DELAY_50_MS:
+	mov TH0, #HIGH(65535 - 49987) 	// 0x3Ch
 	mov TL0, #LOW(65535 - 49987)	// 0xBCh
 	
 	clr TF0
@@ -26,6 +32,6 @@ timer_delay_50_ms:
 	clr TF0
 	clr TR0
 	
-	djnz R0, timer_delay_50_ms
+	djnz R0, TIMER_DELAY_50_MS
 
 end

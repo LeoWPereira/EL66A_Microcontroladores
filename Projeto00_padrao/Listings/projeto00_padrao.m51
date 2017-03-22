@@ -1,16 +1,16 @@
-BL51 BANKED LINKER/LOCATER V6.22                                                        03/19/2017  12:48:58  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22                                                        03/22/2017  20:18:39  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
-C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\projeto00_padrao.obj TO .\Objects\projeto00_padrao PRINT (.\Listings\projeto00_pad
->> rao.m51) RAMSIZE (256)
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\timers_and_counters.obj TO .\Objects\projeto00_padrao PRINT (.\Listings\projeto00_
+>> padrao.m51) RAMSIZE (256)
 
 
 INPUT MODULES INCLUDED:
-  .\Objects\projeto00_padrao.obj (PROJETO00_PADRAO)
+  .\Objects\timers_and_counters.obj (TIMERS_AND_COUNTERS)
 
 
-LINK MAP OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
+LINK MAP OF MODULE:  .\Objects\projeto00_padrao (TIMERS_AND_COUNTERS)
 
 
             TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
@@ -20,61 +20,39 @@ LINK MAP OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
-            CODE    0000H     0047H     ABSOLUTE     
+            CODE    0000H     0018H     ABSOLUTE     
 
 
 
-SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
+SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (TIMERS_AND_COUNTERS)
 
   VALUE           TYPE          NAME
   ----------------------------------
 
-  -------         MODULE        PROJETO00_PADRAO
-  C:0042H         SYMBOL        INT_INT0
-  C:0044H         SYMBOL        INT_INT1
-  C:0046H         SYMBOL        INT_SERIAL
-  C:0043H         SYMBOL        INT_TIMER0
-  C:0045H         SYMBOL        INT_TIMER1
-  C:0026H         SYMBOL        MAIN
+  -------         MODULE        TIMERS_AND_COUNTERS
   B:0088H.5       SYMBOL        TF0
   D:008CH         SYMBOL        TH0
-  C:002CH         SYMBOL        TIMER_CONFIGURA_QTDADE_50_MS
-  C:0029H         SYMBOL        TIMER_CONFIGURA_TIMER
-  C:002EH         SYMBOL        TIMER_DELAY_50_MS
+  C:0000H         SYMBOL        TIMER_CONFIGURA_TIMER
+  C:0003H         SYMBOL        TIMER_DELAY_1_S
+  C:0005H         SYMBOL        TIMER_DELAY_50_MS
   D:008AH         SYMBOL        TL0
   D:0089H         SYMBOL        TMOD
   B:0088H.4       SYMBOL        TR0
   C:0000H         LINE#         11
   C:0003H         LINE#         14
-  C:000BH         LINE#         17
-  C:0013H         LINE#         20
-  C:001BH         LINE#         23
-  C:0023H         LINE#         26
-  C:0026H         LINE#         29
-  C:0029H         LINE#         32
-  C:002CH         LINE#         35
-  C:002EH         LINE#         39
-  C:0031H         LINE#         40
-  C:0034H         LINE#         42
-  C:0036H         LINE#         43
-  C:0038H         LINE#         45
-  C:003BH         LINE#         47
-BL51 BANKED LINKER/LOCATER V6.22                                                      03/19/2017  12:48:58  PAGE 2
-
-
-  C:003DH         LINE#         48
-  C:003FH         LINE#         50
-  C:0041H         LINE#         52
-  C:0042H         LINE#         62
-  C:0043H         LINE#         68
-  C:0044H         LINE#         74
-  C:0045H         LINE#         80
-  C:0046H         LINE#         86
-  -------         ENDMOD        PROJETO00_PADRAO
+  C:0005H         LINE#         24
+  C:0008H         LINE#         25
+  C:000BH         LINE#         27
+  C:000DH         LINE#         28
+  C:000FH         LINE#         30
+  C:0012H         LINE#         32
+  C:0014H         LINE#         33
+  C:0016H         LINE#         35
+  -------         ENDMOD        TIMERS_AND_COUNTERS
 
 ******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0033H BYTE ( 2%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0018H BYTE ( 1%) *
 ******************************************************************************
 
-Program Size: data=8.0 xdata=0 code=71
+Program Size: data=8.0 xdata=0 code=24
 LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
