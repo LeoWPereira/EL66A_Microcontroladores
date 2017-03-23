@@ -1,14 +1,21 @@
-//////////////////////////////////////////
-//										//
-//   PROJETO 01 - FECHADURA ELETRONICA 	//
-//										//
-// @author: Leonardo Winter Pereira 	//
-// @author: Rodrigo Yudi Endo			//
-//										//
-//////////////////////////////////////////
+//////////////////////////////////////////////////////////
+//														//
+//           PROJETO 01 - FECHADURA ELETRONICA 			//
+//														//
+// Requisitos: 											//
+// - LCD, teclado matricial, buzzer e motor de passos	//
+// - 02 senhas padroes na memoria de programa			//
+// - Mensagem introdutoria personalizada				//
+// - Validacao visual no LCD							//
+// - O teclado nao deve possuir bounce					//
+// 														//
+// @author: Leonardo Winter Pereira 					//
+// @author: Rodrigo Yudi Endo							//
+//														//
+//////////////////////////////////////////////////////////
 
 org 0000h // Origem do codigo 
-ljmp main //
+ljmp __STARTUP__ //
 
 org 0003h // Inicio do codigo da interrupcao externa INT0
 ljmp INT_INT0
@@ -25,7 +32,7 @@ ljmp INT_TIMER1 //
 org 0023h // Inicio do codigo da interrupcao SERIAL
 ljmp INT_SERIAL //
 
-main:
+__STARTUP__:
 	
 
 ////////////////////////////////////////////////
