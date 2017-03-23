@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22                                                        03/22/2017  21:42:46  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22                                                        03/22/2017  22:58:05  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
@@ -20,7 +20,7 @@ LINK MAP OF MODULE:  .\Objects\Projeto_01_Fechadura (PROJETO_01_FECHADURA)
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
-            CODE    0000H     002BH     ABSOLUTE     
+            CODE    0000H     0066H     ABSOLUTE     
 
 
 
@@ -30,28 +30,97 @@ SYMBOL TABLE OF MODULE:  .\Objects\Projeto_01_Fechadura (PROJETO_01_FECHADURA)
   ----------------------------------
 
   -------         MODULE        PROJETO_01_FECHADURA
-  C:0026H         SYMBOL        INT_INT0
-  C:0028H         SYMBOL        INT_INT1
-  C:002AH         SYMBOL        INT_SERIAL
-  C:0027H         SYMBOL        INT_TIMER0
-  C:0029H         SYMBOL        INT_TIMER1
-  C:0026H         SYMBOL        MAIN
-  C:0000H         LINE#         11
-  C:0003H         LINE#         14
-  C:000BH         LINE#         17
-  C:0013H         LINE#         20
-  C:001BH         LINE#         23
-  C:0023H         LINE#         26
-  C:0026H         LINE#         39
-  C:0027H         LINE#         45
-  C:0028H         LINE#         51
-  C:0029H         LINE#         57
-  C:002AH         LINE#         63
+  B:0080H.7       SYMBOL        BUSYF
+  B:0090H.0       SYMBOL        COL1
+  B:0090H.1       SYMBOL        COL2
+  B:0090H.2       SYMBOL        COL3
+  B:0090H.3       SYMBOL        COL4
+  C:005CH         SYMBOL        CONV_ASCII_TO_NUMBER
+  N:0037H         SYMBOL        COUNTER
+  B:00A0H.7       SYMBOL        E_LCD
+  C:0061H         SYMBOL        INT_INT0
+  C:0063H         SYMBOL        INT_INT1
+  C:0065H         SYMBOL        INT_SERIAL
+  C:0062H         SYMBOL        INT_TIMER0
+  C:0064H         SYMBOL        INT_TIMER1
+  B:00B0H.7       SYMBOL        LED1
+  B:00B0H.6       SYMBOL        LED_SEG
+  C:004FH         SYMBOL        LE_SENHA
+  C:0055H         SYMBOL        LE_SENHA_ROM
+  B:0090H.4       SYMBOL        LIN1
+  B:0090H.5       SYMBOL        LIN2
+  B:0090H.6       SYMBOL        LIN3
+  B:0090H.7       SYMBOL        LIN4
+  D:0080H         SYMBOL        P0
+  D:0090H         SYMBOL        P1
+  D:00A0H         SYMBOL        P2
+  D:00B0H         SYMBOL        P3
+  B:00A0H.5       SYMBOL        RS
+  B:00A0H.6       SYMBOL        RW
+  N:0041H         SYMBOL        SENHA1_1
+  N:0042H         SYMBOL        SENHA1_2
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/22/2017  22:58:05  PAGE 2
+
+
+  N:0043H         SYMBOL        SENHA1_3
+  N:0044H         SYMBOL        SENHA1_4
+  N:0045H         SYMBOL        SENHA2_1
+  N:0046H         SYMBOL        SENHA2_2
+  N:0047H         SYMBOL        SENHA2_3
+  N:0048H         SYMBOL        SENHA2_4
+  C:0026H         SYMBOL        SENHA_PADRAO_1
+  C:0035H         SYMBOL        SENHA_PADRAO_2
+  N:0031H         SYMBOL        TECLADO_1
+  N:0032H         SYMBOL        TECLADO_2
+  N:0033H         SYMBOL        TECLADO_3
+  N:0034H         SYMBOL        TECLADO_4
+  N:0035H         SYMBOL        TECLADO_5
+  N:0036H         SYMBOL        TECLADO_6
+  N:0049H         SYMBOL        TENTATIVAS
+  C:0039H         SYMBOL        __STARTUP__
+  C:0000H         LINE#         18
+  C:0003H         LINE#         21
+  C:000BH         LINE#         24
+  C:0013H         LINE#         27
+  C:001BH         LINE#         30
+  C:0023H         LINE#         33
+  C:0039H         LINE#         101
+  C:003CH         LINE#         102
+  C:003EH         LINE#         103
+  C:0040H         LINE#         104
+  C:0042H         LINE#         105
+  C:0044H         LINE#         107
+  C:0047H         LINE#         108
+  C:0049H         LINE#         109
+  C:004BH         LINE#         110
+  C:004DH         LINE#         111
+  C:004FH         LINE#         124
+  C:0051H         LINE#         126
+  C:0052H         LINE#         128
+  C:0054H         LINE#         130
+  C:0055H         LINE#         133
+  C:0056H         LINE#         134
+  C:0057H         LINE#         135
+  C:0058H         LINE#         137
+  C:0059H         LINE#         139
+  C:005BH         LINE#         141
+  C:005CH         LINE#         152
+  C:005DH         LINE#         154
+  C:005FH         LINE#         156
+  C:0060H         LINE#         158
+  C:0061H         LINE#         168
+  C:0062H         LINE#         174
+  C:0063H         LINE#         180
+  C:0064H         LINE#         186
+  C:0065H         LINE#         192
   -------         ENDMOD        PROJETO_01_FECHADURA
 
 ******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0017H BYTE ( 1%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0049H BYTE ( 3%) *
 ******************************************************************************
 
-Program Size: data=8.0 xdata=0 code=43
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/22/2017  22:58:05  PAGE 3
+
+
+Program Size: data=8.0 xdata=0 code=102
 LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 03/22/2017 21:42:46 PAGE     1
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 03/22/2017 22:58:05 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.5.0
@@ -26,53 +26,53 @@ LOC  OBJ            LINE     SOURCE
 
                        9     
 
-0000                  10     org 0000h  
+                      10     
 
-0000 020026           11     ljmp main  
+                      11     
 
                       12     
 
-0003                  13     org 0003h  
+                      13     
 
-0003 020026           14     ljmp INT_INT0
+                      14     
 
                       15     
 
-000B                  16     org 000Bh  
+                      16     
 
-000B 020027           17     ljmp INT_TIMER0  
+0000                  17     org 0000h  
 
-                      18     
+0000 020039           18     ljmp __STARTUP__
 
-0013                  19     org 0013h  
+                      19     
 
-0013 020028           20     ljmp INT_INT1  
+0003                  20     org 0003h  
 
-                      21     
+0003 020061           21     ljmp INT_INT0
 
-001B                  22     org 001Bh  
+                      22     
 
-001B 020029           23     ljmp INT_TIMER1  
+000B                  23     org 000Bh  
 
-                      24     
+000B 020062           24     ljmp INT_TIMER0
 
-0023                  25     org 0023h  
+                      25     
 
-0023 02002A           26     ljmp INT_SERIAL  
+0013                  26     org 0013h  
 
-                      27     
+0013 020063           27     ljmp INT_INT1
 
-0026                  28     main:
+                      28     
 
-                      29             
+001B                  29     org 001Bh  
 
-                      30     
+001B 020064           30     ljmp INT_TIMER1
 
                       31     
 
-                      32     
+0023                  32     org 0023h  
 
-                      33     
+0023 020065           33     ljmp INT_SERIAL
 
                       34     
 
@@ -82,78 +82,381 @@ LOC  OBJ            LINE     SOURCE
 
                       37     
 
-0026                  38     INT_INT0:
+                      38     
 
-0026 32               39             reti
+                      39     
 
-                      40     
+  00A5                40     RS                      EQU     P2.5                     
 
-                      41     
+  00A7                41     E_LCD           EQU     P2.7                     
 
-                      42     
+  00A6                42     RW                      EQU     P2.6                     
 
-                      43     
+  0087                43     BUSYF           EQU     P0.7                     
 
-0027                  44     INT_TIMER0:
+                      44     
 
-0027 32               45             reti
+                      45     
 
-                      46             
+  00B7                46     LED1            EQU     P3.7
 
-                      47     
+  00B6                47     LED_SEG         EQU     P3.6
 
-                      48     
+                      48             
 
                       49     
 
-0028                  50     INT_INT1:
+  0090                50     COL1            EQU P1.0
 
-0028 32               51             reti
+  0091                51     COL2            EQU P1.1
 
-                      52     
+  0092                52     COL3            EQU P1.2
 
-                      53     
+  0093                53     COL4            EQU P1.3
 
                       54     
 
-                      55     
+  0094                55     LIN1            EQU P1.4
 
-0029                  56     INT_TIMER1:
+  0095                56     LIN2            EQU P1.5
 
-0029 32               57             reti
+  0096                57     LIN3            EQU P1.6
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 03/22/2017 21:42:46 PAGE     2
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 03/22/2017 22:58:05 PAGE     2
 
-                      58             
+  0097                58     LIN4            EQU P1.7
 
-                      59     
+                      59             
 
                       60     
 
-                      61     
+  0031                61     TECLADO_1       EQU 31h
 
-002A                  62     INT_SERIAL:
+  0032                62     TECLADO_2       EQU 32h
 
-002A 32               63             reti
+  0033                63     TECLADO_3       EQU 33h
 
-                      64             
+  0034                64     TECLADO_4       EQU 34h
 
-                      65             end
+  0035                65     TECLADO_5       EQU 35h
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 03/22/2017 21:42:46 PAGE     3
+  0036                66     TECLADO_6       EQU 36h
+
+                      67             
+
+                      68     
+
+  0037                69     COUNTER         EQU 37h
+
+                      70     
+
+                      71     
+
+  0041                72     SENHA1_1        EQU 41h
+
+  0042                73     SENHA1_2        EQU 42h
+
+  0043                74     SENHA1_3        EQU 43h
+
+  0044                75     SENHA1_4        EQU 44h
+
+                      76     
+
+  0045                77     SENHA2_1        EQU 45h
+
+  0046                78     SENHA2_2        EQU 46h
+
+  0047                79     SENHA2_3        EQU 47h
+
+  0048                80     SENHA2_4        EQU 48h
+
+                      81     
+
+  0049                82     TENTATIVAS  EQU 49h
+
+                      83     
+
+                      84     
+
+                      85     
+
+                      86     
+
+                      87     
+
+0026                  88     SENHA_PADRAO_1:
+
+0030                  89             org 0030h
+
+0030 32383132         90             db  '2812', 00H
+
+0034 00                      
+                      91     
+
+0035                  92     SENHA_PADRAO_2:
+
+0034                  93             org 0034h
+
+0034 32303137         94             db  '2017', 00H
+
+0038 00                      
+                      95                     
+
+                      96     
+
+                      97     
+
+                      98     
+
+                      99     
+
+0039                 100     __STARTUP__:
+
+0039 900030          101             mov DPTR, #0030h         
+
+003C 7800            102             mov R0, #00h         
+
+003E 7941            103             mov R1, #SENHA1_1        
+
+0040 7A04            104             mov R2, #04h             
+
+0042 114F            105             CALL LE_SENHA
+
+                     106             
+
+0044 900034          107             mov DPTR, #0034h         
+
+0047 7800            108             mov R0, #00h             
+
+0049 7945            109             mov R1, #SENHA2_1        
+
+004B 7A04            110             mov R2, #04h             
+
+004D 114F            111             CALL LE_SENHA
+
+                     112             
+
+                     113     
+
+                     114     
+
+                     115     
+
+                     116     
+
+                     117     
+
+                     118     
+
+                     119     
+
+                     120     
+
+                     121     
+
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 03/22/2017 22:58:05 PAGE     3
+
+                     122     
+
+004F                 123     LE_SENHA:
+
+004F 1155            124             call LE_SENHA_ROM
+
+                     125             
+
+0051 09              126             INC R1
+
+                     127             
+
+0052 DAFB            128             djnz R2, LE_SENHA
+
+                     129             
+
+0054 22              130             RET
+
+                     131     
+
+0055                 132     LE_SENHA_ROM:
+
+0055 E8              133             mov A, R0
+
+0056 93              134             movc A, @A + DPTR
+
+0057 F7              135             mov @R1, A
+
+                     136             
+
+0058 08              137             inc R0
+
+                     138             
+
+0059 115C            139             call CONV_ASCII_TO_NUMBER
+
+                     140             
+
+005B 22              141             RET
+
+                     142             
+
+                     143     
+
+                     144     
+
+                     145     
+
+                     146     
+
+                     147     
+
+                     148     
+
+                     149     
+
+                     150     
+
+005C                 151     CONV_ASCII_TO_NUMBER:
+
+005C E7              152             mov A, @R1
+
+                     153             
+
+005D 24D0            154             ADD A, #-30h
+
+                     155             
+
+005F F7              156             mov @R1, A
+
+                     157             
+
+0060 22              158             RET
+
+                     159     
+
+                     160     
+
+                     161     
+
+                     162     
+
+                     163     
+
+                     164     
+
+                     165     
+
+                     166     
+
+0061                 167     INT_INT0:
+
+0061 32              168             RETI
+
+                     169     
+
+                     170     
+
+                     171     
+
+                     172     
+
+0062                 173     INT_TIMER0:
+
+0062 32              174             RETI
+
+                     175             
+
+                     176     
+
+                     177     
+
+                     178     
+
+0063                 179     INT_INT1:
+
+0063 32              180             RETI
+
+                     181     
+
+                     182     
+
+                     183     
+
+                     184     
+
+0064                 185     INT_TIMER1:
+
+0064 32              186             RETI
+
+                     187             
+
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 03/22/2017 22:58:05 PAGE     4
+
+                     188     
+
+                     189     
+
+                     190     
+
+0065                 191     INT_SERIAL:
+
+0065 32              192             RETI
+
+                     193             
+
+                     194     END
+
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 03/22/2017 22:58:05 PAGE     5
 
 SYMBOL TABLE LISTING
 ------ ----- -------
 
 
-N A M E             T Y P E  V A L U E   ATTRIBUTES
+N A M E               T Y P E  V A L U E   ATTRIBUTES
 
-INT_INT0 . . . . .  C ADDR   0026H   A   
-INT_INT1 . . . . .  C ADDR   0028H   A   
-INT_SERIAL . . . .  C ADDR   002AH   A   
-INT_TIMER0 . . . .  C ADDR   0027H   A   
-INT_TIMER1 . . . .  C ADDR   0029H   A   
-MAIN . . . . . . .  C ADDR   0026H   A   
+BUSYF. . . . . . . .  B ADDR   0080H.7 A   
+COL1 . . . . . . . .  B ADDR   0090H.0 A   
+COL2 . . . . . . . .  B ADDR   0090H.1 A   
+COL3 . . . . . . . .  B ADDR   0090H.2 A   
+COL4 . . . . . . . .  B ADDR   0090H.3 A   
+CONV_ASCII_TO_NUMBER  C ADDR   005CH   A   
+COUNTER. . . . . . .  N NUMB   0037H   A   
+E_LCD. . . . . . . .  B ADDR   00A0H.7 A   
+INT_INT0 . . . . . .  C ADDR   0061H   A   
+INT_INT1 . . . . . .  C ADDR   0063H   A   
+INT_SERIAL . . . . .  C ADDR   0065H   A   
+INT_TIMER0 . . . . .  C ADDR   0062H   A   
+INT_TIMER1 . . . . .  C ADDR   0064H   A   
+LED1 . . . . . . . .  B ADDR   00B0H.7 A   
+LED_SEG. . . . . . .  B ADDR   00B0H.6 A   
+LE_SENHA . . . . . .  C ADDR   004FH   A   
+LE_SENHA_ROM . . . .  C ADDR   0055H   A   
+LIN1 . . . . . . . .  B ADDR   0090H.4 A   
+LIN2 . . . . . . . .  B ADDR   0090H.5 A   
+LIN3 . . . . . . . .  B ADDR   0090H.6 A   
+LIN4 . . . . . . . .  B ADDR   0090H.7 A   
+P0 . . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . . .  D ADDR   00A0H   A   
+P3 . . . . . . . . .  D ADDR   00B0H   A   
+RS . . . . . . . . .  B ADDR   00A0H.5 A   
+RW . . . . . . . . .  B ADDR   00A0H.6 A   
+SENHA1_1 . . . . . .  N NUMB   0041H   A   
+SENHA1_2 . . . . . .  N NUMB   0042H   A   
+SENHA1_3 . . . . . .  N NUMB   0043H   A   
+SENHA1_4 . . . . . .  N NUMB   0044H   A   
+SENHA2_1 . . . . . .  N NUMB   0045H   A   
+SENHA2_2 . . . . . .  N NUMB   0046H   A   
+SENHA2_3 . . . . . .  N NUMB   0047H   A   
+SENHA2_4 . . . . . .  N NUMB   0048H   A   
+SENHA_PADRAO_1 . . .  C ADDR   0026H   A   
+SENHA_PADRAO_2 . . .  C ADDR   0035H   A   
+TECLADO_1. . . . . .  N NUMB   0031H   A   
+TECLADO_2. . . . . .  N NUMB   0032H   A   
+TECLADO_3. . . . . .  N NUMB   0033H   A   
+TECLADO_4. . . . . .  N NUMB   0034H   A   
+TECLADO_5. . . . . .  N NUMB   0035H   A   
+TECLADO_6. . . . . .  N NUMB   0036H   A   
+TENTATIVAS . . . . .  N NUMB   0049H   A   
+__STARTUP__. . . . .  C ADDR   0039H   A   
 
 
 REGISTER BANK(S) USED: 0 
