@@ -1,8 +1,8 @@
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     03/19/2017 12:48:56 PAGE     1
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     03/22/2017 21:40:15 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.5.0
-OBJECT MODULE PLACED IN .\Objects\projeto00_padrao.obj
+NO OBJECT MODULE REQUESTED
 ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE projeto00_padrao.a51 SET(SMALL) DEBUG PRINT(.\Listings\projeto00_padrao
                       .lst) OBJECT(.\Objects\projeto00_padrao.obj) EP
 
@@ -26,191 +26,145 @@ LOC  OBJ            LINE     SOURCE
 
                        9     
 
-0000                  10     org 0000h  
+                      10     EXTERN TIMER_DELAY_50_MS
 
-0000 020026           11     ljmp main  
+*** _________________________^
+*** ERROR #A9 IN 10 (projeto00_padrao.a51, LINE 10): SYNTAX ERROR
+                      11     
 
-                      12     
+0000                  12     org 0000h  
 
-0003                  13     org 0003h  
+0000 020026           13     ljmp main  
 
-0003 020042           14     ljmp INT_INT0
+                      14     
 
-                      15     
+0003                  15     org 0003h  
 
-000B                  16     org 000Bh  
+0003 020026           16     ljmp INT_INT0
 
-000B 020043           17     ljmp INT_TIMER0  
+                      17     
 
-                      18     
+000B                  18     org 000Bh  
 
-0013                  19     org 0013h  
+000B 020027           19     ljmp INT_TIMER0  
 
-0013 020044           20     ljmp INT_INT1  
+                      20     
 
-                      21     
+0013                  21     org 0013h  
 
-001B                  22     org 001Bh  
+0013 020028           22     ljmp INT_INT1  
 
-001B 020045           23     ljmp INT_TIMER1  
+                      23     
 
-                      24     
+001B                  24     org 001Bh  
 
-0023                  25     org 0023h  
+001B 020029           25     ljmp INT_TIMER1  
 
-0023 020046           26     ljmp INT_SERIAL  
+                      26     
 
-                      27     
+0023                  27     org 0023h  
 
-0026                  28     main:
+0023 02002A           28     ljmp INT_SERIAL  
 
-0026 120029           29             lcall timer_configura_timer
+                      29     
 
-                      30             
+0026                  30     main:
 
-0029                  31     timer_configura_timer:
+                      31             
 
-0029 758901           32             mov TMOD, #01h  
+                      32     
 
-                      33             
+                      33     
 
-002C                  34     timer_configura_qtdade_50_ms:
+                      34     
 
-002C 7814             35             mov R0, #14h  
+                      35     
 
-                      36             
+                      36     
 
-002E                  37     timer_delay_50_ms:
+                      37     
 
-                      38             
+                      38     
 
-002E 758C3C           39             mov TH0, #HIGH(65535 - 49987)  
+                      39     
 
-0031 758ABC           40             mov TL0, #LOW(65535 - 49987)     
+0026                  40     INT_INT0:
 
-                      41             
+0026 32               41             reti
 
-0034 C28D             42             clr TF0
+                      42     
 
-0036 D28C             43             setb TR0
+                      43     
 
-                      44             
+                      44     
 
-0038 308DFD           45             jnb TF0, $
+                      45     
 
-                      46                     
+0027                  46     INT_TIMER0:
 
-003B C28D             47             clr TF0
+0027 32               47             reti
 
-003D C28C             48             clr TR0
+                      48             
 
-                      49             
+                      49     
 
-003F D8ED             50             djnz R0, timer_delay_50_ms
+                      50     
 
-                      51             
+                      51     
 
-0041 22               52             ret
+0028                  52     INT_INT1:
 
-                      53     
+0028 32               53             reti
 
                       54     
 
                       55     
 
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     03/22/2017 21:40:15 PAGE     2
+
                       56     
 
                       57     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     03/19/2017 12:48:56 PAGE     2
+0029                  58     INT_TIMER1:
 
-                      58     
+0029 32               59             reti
 
-                      59     
+                      60             
 
-                      60     
+                      61     
 
-0042                  61     INT_INT0:
-
-0042 32               62             reti
+                      62     
 
                       63     
 
-                      64     
+002A                  64     INT_SERIAL:
 
-                      65     
+002A 32               65             reti
 
-                      66     
+                      66             
 
-0043                  67     INT_TIMER0:
+                      67             end
 
-0043 32               68             reti
-
-                      69             
-
-                      70     
-
-                      71     
-
-                      72     
-
-0044                  73     INT_INT1:
-
-0044 32               74             reti
-
-                      75     
-
-                      76     
-
-                      77     
-
-                      78     
-
-0045                  79     INT_TIMER1:
-
-0045 32               80             reti
-
-                      81             
-
-                      82     
-
-                      83     
-
-                      84     
-
-0046                  85     INT_SERIAL:
-
-0046 32               86             reti
-
-                      87             
-
-                      88             end
-
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     03/19/2017 12:48:56 PAGE     3
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     03/22/2017 21:40:15 PAGE     3
 
 SYMBOL TABLE LISTING
 ------ ----- -------
 
 
-N A M E                       T Y P E  V A L U E   ATTRIBUTES
+N A M E             T Y P E  V A L U E   ATTRIBUTES
 
-INT_INT0 . . . . . . . . . .  C ADDR   0042H   A   
-INT_INT1 . . . . . . . . . .  C ADDR   0044H   A   
-INT_SERIAL . . . . . . . . .  C ADDR   0046H   A   
-INT_TIMER0 . . . . . . . . .  C ADDR   0043H   A   
-INT_TIMER1 . . . . . . . . .  C ADDR   0045H   A   
-MAIN . . . . . . . . . . . .  C ADDR   0026H   A   
-TF0. . . . . . . . . . . . .  B ADDR   0088H.5 A   
-TH0. . . . . . . . . . . . .  D ADDR   008CH   A   
-TIMER_CONFIGURA_QTDADE_50_MS  C ADDR   002CH   A   
-TIMER_CONFIGURA_TIMER. . . .  C ADDR   0029H   A   
-TIMER_DELAY_50_MS. . . . . .  C ADDR   002EH   A   
-TL0. . . . . . . . . . . . .  D ADDR   008AH   A   
-TMOD . . . . . . . . . . . .  D ADDR   0089H   A   
-TR0. . . . . . . . . . . . .  B ADDR   0088H.4 A   
+EXTERN . . . . . .    ----   -----       
+INT_INT0 . . . . .  C ADDR   0026H   A   
+INT_INT1 . . . . .  C ADDR   0028H   A   
+INT_SERIAL . . . .  C ADDR   002AH   A   
+INT_TIMER0 . . . .  C ADDR   0027H   A   
+INT_TIMER1 . . . .  C ADDR   0029H   A   
+MAIN . . . . . . .  C ADDR   0026H   A   
+TIMER_DELAY_50_MS.    ----   -----       
 
 
 REGISTER BANK(S) USED: 0 
 
 
-ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
+ASSEMBLY COMPLETE.  0 WARNING(S), 1 ERROR(S)

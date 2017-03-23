@@ -1,0 +1,3 @@
+".\Objects\Projeto_01_Fechadura.obj" 
+TO ".\Objects\Projeto_01_Fechadura" 
+PRINT(".\Listings\Projeto_01_Fechadura.m51") RAMSIZE(256) 

@@ -1,17 +1,17 @@
-BL51 BANKED LINKER/LOCATER V6.22                                                        03/22/2017  21:12:52  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22                                                        03/22/2017  21:35:35  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
-C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\lcd.obj, .\Objects\teclado_matricial.obj TO .\Objects\projeto00_padrao PRINT (.\Li
->> stings\projeto00_padrao.m51) RAMSIZE (256)
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\projeto00_padrao.obj, .\Objects\timers_and_counters.obj TO .\Objects\projeto00_pad
+>> rao PRINT (.\Listings\projeto00_padrao.m51) RAMSIZE (256)
 
 
 INPUT MODULES INCLUDED:
-  .\Objects\lcd.obj (LCD)
-  .\Objects\teclado_matricial.obj (TECLADO_MATRICIAL)
+  .\Objects\projeto00_padrao.obj (PROJETO00_PADRAO)
+  .\Objects\timers_and_counters.obj (TIMERS_AND_COUNTERS)
 
 
-LINK MAP OF MODULE:  .\Objects\projeto00_padrao (LCD)
+LINK MAP OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
 
 
             TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
@@ -21,145 +21,80 @@ LINK MAP OF MODULE:  .\Objects\projeto00_padrao (LCD)
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
-            CODE    0000H     00ABH     ABSOLUTE     
+            CODE    0000H     002BH     ABSOLUTE     
+* OVERLAP * CODE    0000H     0029H     ABSOLUTE     
 
 
 
-SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (LCD)
+SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
 
   VALUE           TYPE          NAME
   ----------------------------------
 
-  -------         MODULE        LCD
-  D:00E0H         SYMBOL        ACC
-  B:0080H.7       SYMBOL        BUSYF
-  C:0048H         SYMBOL        CLR2L
-  C:0052H         SYMBOL        CLR2L1
-  C:00A6H         SYMBOL        CUR1
-  C:00A4H         SYMBOL        CUR_OFF
-  C:00A0H         SYMBOL        CUR_ON
-  C:0074H         SYMBOL        ESCD1
-  C:0061H         SYMBOL        ESCDADO
-  C:0030H         SYMBOL        ESCI1
-  C:001FH         SYMBOL        ESCINST
-  C:0099H         SYMBOL        ESC_S
-  C:008FH         SYMBOL        ESC_STR1
-  C:0095H         SYMBOL        ESC_STR2
-  B:00A0H.7       SYMBOL        E_LCD
-  C:0036H         SYMBOL        GOTOXY
-  C:003FH         SYMBOL        GT1
-  C:0000H         SYMBOL        INIDISP
-  C:0084H         SYMBOL        MSTR1
-  C:008EH         SYMBOL        MSTR21
-  C:007AH         SYMBOL        MSTRING
-  C:0085H         SYMBOL        MSTRINGX
-  D:0080H         SYMBOL        P0
-  D:00A0H         SYMBOL        P2
-  B:00A0H.5       SYMBOL        RS
-  B:00A0H.6       SYMBOL        RW
-  C:0000H         LINE#         27
-  C:0002H         LINE#         28
-BL51 BANKED LINKER/LOCATER V6.22                                                      03/22/2017  21:12:52  PAGE 2
+  -------         MODULE        PROJETO00_PADRAO
+  C:0026H         SYMBOL        INT_INT0
+  C:0028H         SYMBOL        INT_INT1
+  C:002AH         SYMBOL        INT_SERIAL
+  C:0027H         SYMBOL        INT_TIMER0
+  C:0029H         SYMBOL        INT_TIMER1
+  C:0026H         SYMBOL        MAIN
+  C:0000H         LINE#         11
+  C:0003H         LINE#         14
+  C:000BH         LINE#         17
+  C:0013H         LINE#         20
+  C:001BH         LINE#         23
+  C:0023H         LINE#         26
+  C:0026H         LINE#         39
+  C:0027H         LINE#         45
+  C:0028H         LINE#         51
+  C:0029H         LINE#         57
+  C:002AH         LINE#         63
+  -------         ENDMOD        PROJETO00_PADRAO
+
+  -------         MODULE        TIMERS_AND_COUNTERS
+  C:0018H         SYMBOL        ATRASO
+  C:001EH         SYMBOL        ATRASO_MS
+  B:0088H.5       SYMBOL        TF0
+  D:008CH         SYMBOL        TH0
+  C:0000H         SYMBOL        TIMER_CONFIGURA_TIMER
+  C:0003H         SYMBOL        TIMER_DELAY_1_S
+  C:0005H         SYMBOL        TIMER_DELAY_50_MS
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/22/2017  21:35:35  PAGE 2
 
 
-  C:0004H         LINE#         29
-  C:0006H         LINE#         31
-  C:0008H         LINE#         32
-  C:000AH         LINE#         33
-  C:000CH         LINE#         35
-  C:000EH         LINE#         36
-  C:0010H         LINE#         37
-  C:0012H         LINE#         39
-  C:0014H         LINE#         40
-  C:0016H         LINE#         41
-  C:0018H         LINE#         43
-  C:001AH         LINE#         44
-  C:001CH         LINE#         45
-  C:001EH         LINE#         47
-  C:001FH         LINE#         59
-  C:0021H         LINE#         60
-  C:0023H         LINE#         61
-  C:0025H         LINE#         63
-  C:0027H         LINE#         65
-  C:0029H         LINE#         67
-  C:002CH         LINE#         69
-  C:002EH         LINE#         70
-  C:0030H         LINE#         72
-  C:0033H         LINE#         74
-  C:0035H         LINE#         76
-  C:0036H         LINE#         87
-  C:0038H         LINE#         89
-  C:003AH         LINE#         90
-  C:003DH         LINE#         92
-  C:003FH         LINE#         94
-  C:0040H         LINE#         95
-  C:0041H         LINE#         96
-  C:0043H         LINE#         98
-  C:0045H         LINE#         100
-  C:0047H         LINE#         102
-  C:0048H         LINE#         113
-  C:004AH         LINE#         115
-  C:004CH         LINE#         116
-  C:004EH         LINE#         118
-  C:0050H         LINE#         120
-  C:0052H         LINE#         122
-  C:0054H         LINE#         124
-  C:0056H         LINE#         126
-  C:0058H         LINE#         127
-  C:005AH         LINE#         128
-  C:005CH         LINE#         130
-  C:005EH         LINE#         132
-  C:0060H         LINE#         134
-  C:0061H         LINE#         144
-  C:0063H         LINE#         145
-  C:0065H         LINE#         146
-  C:0067H         LINE#         148
-  C:0069H         LINE#         150
-  C:006BH         LINE#         152
-  C:006EH         LINE#         154
-  C:0070H         LINE#         155
-  C:0072H         LINE#         156
-BL51 BANKED LINKER/LOCATER V6.22                                                      03/22/2017  21:12:52  PAGE 3
+  D:008AH         SYMBOL        TL0
+  D:0089H         SYMBOL        TMOD
+  B:0088H.4       SYMBOL        TR0
+  C:0000H         LINE#         11
+  C:0003H         LINE#         14
+  C:0005H         LINE#         24
+  C:0008H         LINE#         25
+  C:000BH         LINE#         27
+  C:000DH         LINE#         28
+  C:000FH         LINE#         30
+  C:0012H         LINE#         32
+  C:0014H         LINE#         33
+  C:0016H         LINE#         35
+  C:0018H         LINE#         49
+  C:0019H         LINE#         50
+  C:001AH         LINE#         51
+  C:001BH         LINE#         53
+  C:001DH         LINE#         55
+  C:001EH         LINE#         65
+  C:0020H         LINE#         66
+  C:0022H         LINE#         68
+  C:0024H         LINE#         69
+  C:0026H         LINE#         71
+  C:0028H         LINE#         73
+  -------         ENDMOD        TIMERS_AND_COUNTERS
 
-
-  C:0074H         LINE#         158
-  C:0077H         LINE#         160
-  C:0079H         LINE#         162
-  C:007AH         LINE#         174
-  C:007BH         LINE#         175
-  C:007CH         LINE#         177
-  C:007EH         LINE#         179
-  C:0081H         LINE#         181
-  C:0082H         LINE#         183
-  C:0084H         LINE#         185
-  C:0085H         LINE#         197
-  C:0086H         LINE#         199
-  C:0088H         LINE#         201
-  C:008BH         LINE#         203
-  C:008CH         LINE#         205
-  C:008EH         LINE#         207
-  C:008FH         LINE#         220
-  C:0091H         LINE#         221
-  C:0093H         LINE#         223
-  C:0095H         LINE#         236
-  C:0097H         LINE#         237
-  C:0099H         LINE#         239
-  C:009CH         LINE#         241
-  C:009FH         LINE#         243
-  C:00A0H         LINE#         254
-  C:00A2H         LINE#         255
-  C:00A4H         LINE#         258
-  C:00A6H         LINE#         260
-  C:00A8H         LINE#         262
-  C:00AAH         LINE#         264
-  -------         ENDMOD        LCD
-
-  -------         MODULE        TECLADO_MATRICIAL
-  -------         ENDMOD        TECLADO_MATRICIAL
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      002AH
 
 ******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 00ABH BYTE ( 8%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0040H BYTE ( 3%) *
 ******************************************************************************
 
-Program Size: data=8.0 xdata=0 code=171
-LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+Program Size: data=8.0 xdata=0 code=84
+LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)

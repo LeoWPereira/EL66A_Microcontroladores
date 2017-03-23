@@ -1,8 +1,8 @@
-A51 MACRO ASSEMBLER  TIMERS_AND_COUNTERS                                                  03/22/2017 20:18:39 PAGE     1
+A51 MACRO ASSEMBLER  TIMERS_AND_COUNTERS                                                  03/22/2017 21:40:15 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.5.0
-OBJECT MODULE PLACED IN .\Objects\timers_and_counters.obj
+NO OBJECT MODULE REQUESTED
 ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE timers_and_counters.a51 SET(SMALL) DEBUG PRINT(.\Listings\timers_and_co
                       unters.lst) OBJECT(.\Objects\timers_and_counters.obj) EP
 
@@ -26,21 +26,23 @@ LOC  OBJ            LINE     SOURCE
 
                        9     
 
-0000                  10     timer_configura_timer:
+                      10     GLOBAL TIMER_DELAY_50_MS
 
-0000 758901           11             mov TMOD, #01h  
+*** _________________________^
+*** ERROR #A9 IN 10 (timers_and_counters.a51, LINE 10): SYNTAX ERROR
+                      11     
 
-                      12             
+0000                  12     TIMER_CONFIGURA_TIMER:
 
-0003                  13     timer_delay_1_s:
+0000 758901           13             mov TMOD, #01h  
 
-0003 7801             14             mov R0, #01h  
+                      14             
 
-                      15             
+0003                  15     TIMER_DELAY_1_S:
 
-                      16     
+0003 7814             16             mov R0, #20d  
 
-                      17     
+                      17             
 
                       18     
 
@@ -52,37 +54,119 @@ LOC  OBJ            LINE     SOURCE
 
                       22     
 
-0005                  23     TIMER_DELAY_50_MS:
+                      23     
 
-0005 758C3C           24             mov TH0, #HIGH(65535 - 49987)    
+                      24     
 
-0008 758ABC           25             mov TL0, #LOW(65535 - 49987)     
+0005                  25     TIMER_DELAY_50_MS:
 
-                      26             
+0005 758C3C           26             mov TH0, #HIGH(65535 - 49987)    
 
-000B C28D             27             clr TF0
+0008 758ABC           27             mov TL0, #LOW(65535 - 49987)     
 
-000D D28C             28             setb TR0
+                      28             
 
-                      29             
+000B C28D             29             clr TF0
 
-000F 308DFD           30             jnb TF0, $
+000D D28C             30             setb TR0
 
-                      31                     
+                      31             
 
-0012 C28D             32             clr TF0
+000F 308DFD           32             jnb TF0, $
 
-0014 C28C             33             clr TR0
+                      33                     
 
-                      34             
+0012 C28D             34             clr TF0
 
-0016 D8ED             35             djnz R0, TIMER_DELAY_50_MS
+0014 C28C             35             clr TR0
 
-                      36     
+                      36             
 
-                      37     end
+0016 D8ED             37             djnz R0, TIMER_DELAY_50_MS
 
-A51 MACRO ASSEMBLER  TIMERS_AND_COUNTERS                                                  03/22/2017 20:18:39 PAGE     2
+                      38     
+
+                      39     
+
+                      40     
+
+                      41     
+
+                      42     
+
+                      43     
+
+                      44     
+
+                      45     
+
+                      46     
+
+                      47     
+
+                      48     
+
+                      49     
+
+0018                  50     ATRASO:
+
+0018 00               51             NOP                              
+
+0019 00               52             NOP                              
+
+001A 00               53             NOP                              
+
+                      54             
+
+001B D8FB             55             DJNZ R0,ATRASO   
+
+A51 MACRO ASSEMBLER  TIMERS_AND_COUNTERS                                                  03/22/2017 21:40:15 PAGE     2
+
+                      56             
+
+001D 22               57             RET                              
+
+                      58     
+
+                      59     
+
+                      60     
+
+                      61     
+
+                      62     
+
+                      63     
+
+                      64     
+
+                      65     
+
+001E                  66     ATRASO_MS:
+
+001E 78C7             67             MOV             R0,#199          
+
+0020 1118             68             CALL    ATRASO
+
+                      69             
+
+0022 78C7             70             MOV             R0,#199          
+
+0024 1118             71             CALL    ATRASO
+
+                      72             
+
+0026 DAF6             73             DJNZ    R2,ATRASO_MS
+
+                      74             
+
+0028 22               75             RET     
+
+                      76     
+
+                      77     END
+
+A51 MACRO ASSEMBLER  TIMERS_AND_COUNTERS                                                  03/22/2017 21:40:15 PAGE     3
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -90,6 +174,9 @@ SYMBOL TABLE LISTING
 
 N A M E                T Y P E  V A L U E   ATTRIBUTES
 
+ATRASO. . . . . . . .  C ADDR   0018H   A   
+ATRASO_MS . . . . . .  C ADDR   001EH   A   
+GLOBAL. . . . . . . .    ----   -----       
 TF0 . . . . . . . . .  B ADDR   0088H.5 A   
 TH0 . . . . . . . . .  D ADDR   008CH   A   
 TIMER_CONFIGURA_TIMER  C ADDR   0000H   A   
@@ -103,4 +190,4 @@ TR0 . . . . . . . . .  B ADDR   0088H.4 A
 REGISTER BANK(S) USED: 0 
 
 
-ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
+ASSEMBLY COMPLETE.  0 WARNING(S), 1 ERROR(S)

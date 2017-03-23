@@ -1,0 +1,57 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        03/22/2017  21:42:46  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\Projeto_01_Fechadura.obj TO .\Objects\Projeto_01_Fechadura PRINT (.\Listings\Proje
+>> to_01_Fechadura.m51) RAMSIZE (256)
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\Projeto_01_Fechadura.obj (PROJETO_01_FECHADURA)
+
+
+LINK MAP OF MODULE:  .\Objects\Projeto_01_Fechadura (PROJETO_01_FECHADURA)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     002BH     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\Projeto_01_Fechadura (PROJETO_01_FECHADURA)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        PROJETO_01_FECHADURA
+  C:0026H         SYMBOL        INT_INT0
+  C:0028H         SYMBOL        INT_INT1
+  C:002AH         SYMBOL        INT_SERIAL
+  C:0027H         SYMBOL        INT_TIMER0
+  C:0029H         SYMBOL        INT_TIMER1
+  C:0026H         SYMBOL        MAIN
+  C:0000H         LINE#         11
+  C:0003H         LINE#         14
+  C:000BH         LINE#         17
+  C:0013H         LINE#         20
+  C:001BH         LINE#         23
+  C:0023H         LINE#         26
+  C:0026H         LINE#         39
+  C:0027H         LINE#         45
+  C:0028H         LINE#         51
+  C:0029H         LINE#         57
+  C:002AH         LINE#         63
+  -------         ENDMOD        PROJETO_01_FECHADURA
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0017H BYTE ( 1%) *
+******************************************************************************
+
+Program Size: data=8.0 xdata=0 code=43
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

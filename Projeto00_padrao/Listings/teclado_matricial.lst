@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  TECLADO_MATRICIAL                                                    03/22/2017 20:50:59 PAGE     1
+A51 MACRO ASSEMBLER  TECLADO_MATRICIAL                                                    03/22/2017 21:32:59 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.5.0
@@ -8,8 +8,63 @@ ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE teclado_matricial.a51 SET(SMALL
 
 LOC  OBJ            LINE     SOURCE
 
-*** WARNING #A41 IN 0 (teclado_matricial.a51, LINE 0): MISSING 'END' STATEMENT
-A51 MACRO ASSEMBLER  TECLADO_MATRICIAL                                                    03/22/2017 20:50:59 PAGE     2
+                       1     
+
+                       2     
+
+                       3     
+
+                       4     
+
+                       5     
+
+                       6     
+
+                       7     
+
+                       8     
+
+                       9     
+
+                      10     
+
+  0090                11     COL1            EQU P1.0
+
+  0091                12     COL2            EQU P1.1
+
+  0092                13     COL3            EQU P1.2
+
+  0093                14     COL4            EQU P1.3
+
+  0094                15     LIN1            EQU P1.4
+
+  0095                16     LIN2            EQU P1.5
+
+  0096                17     LIN3            EQU P1.6
+
+  0097                18     LIN4            EQU P1.7
+
+                      19             
+
+                      20     
+
+  0031                21     TECLADO_1       EQU 31h
+
+  0032                22     TECLADO_2       EQU 32h
+
+  0033                23     TECLADO_3       EQU 33h
+
+  0034                24     TECLADO_4       EQU 34h
+
+  0035                25     TECLADO_5       EQU 35h
+
+  0036                26     TECLADO_6       EQU 36h
+
+                      27     
+
+                      28     END
+
+A51 MACRO ASSEMBLER  TECLADO_MATRICIAL                                                    03/22/2017 21:32:59 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -17,9 +72,24 @@ SYMBOL TABLE LISTING
 
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
+COL1 . . . . . . .  B ADDR   0090H.0 A   
+COL2 . . . . . . .  B ADDR   0090H.1 A   
+COL3 . . . . . . .  B ADDR   0090H.2 A   
+COL4 . . . . . . .  B ADDR   0090H.3 A   
+LIN1 . . . . . . .  B ADDR   0090H.4 A   
+LIN2 . . . . . . .  B ADDR   0090H.5 A   
+LIN3 . . . . . . .  B ADDR   0090H.6 A   
+LIN4 . . . . . . .  B ADDR   0090H.7 A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+TECLADO_1. . . . .  N NUMB   0031H   A   
+TECLADO_2. . . . .  N NUMB   0032H   A   
+TECLADO_3. . . . .  N NUMB   0033H   A   
+TECLADO_4. . . . .  N NUMB   0034H   A   
+TECLADO_5. . . . .  N NUMB   0035H   A   
+TECLADO_6. . . . .  N NUMB   0036H   A   
 
 
 REGISTER BANK(S) USED: 0 
 
 
-ASSEMBLY COMPLETE.  1 WARNING(S), 0 ERROR(S)
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

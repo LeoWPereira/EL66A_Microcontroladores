@@ -1,4 +1,4 @@
-".\Objects\lcd.obj",
-".\Objects\teclado_matricial.obj" 
+".\Objects\projeto00_padrao.obj",
+".\Objects\timers_and_counters.obj" 
 TO ".\Objects\projeto00_padrao" 
 PRINT(".\Listings\projeto00_padrao.m51") RAMSIZE(256) 
