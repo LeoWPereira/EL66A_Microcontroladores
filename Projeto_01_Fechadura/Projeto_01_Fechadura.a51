@@ -78,7 +78,6 @@ SENHA2_3	EQU 47h
 SENHA2_4	EQU 48h
 
 TENTATIVAS  EQU 49h
-ASTERISCO   EQU 50h
 		
 //////////////////////////////////////////////////
 // REGIAO DA MEMORIA DE PROGRAMA COM AS STRINGS //
@@ -121,7 +120,6 @@ __STARTUP__:
 	CALL LE_SENHA
 	
 	MOV TENTATIVAS, #3h
-	MOV ASTERISCO, 	#2Ah
 	
 	// CALL TIMER_CONFIGURA_TIMER
 	
@@ -217,7 +215,7 @@ CONV_ASCII_TO_NUMBER:
 // DESTROI: A										//
 //////////////////////////////////////////////////////
 ESCREVE_ASTERISCO:		
-	MOV 	A, ASTERISCO
+	MOV 	A, #2Ah
 	CALL 	ESCDADO
 	
 	RET
@@ -253,107 +251,40 @@ VARREDURA_TECLADO:
 		
 		RET
 		
-;***************************************************************************
-;NOME: DIGITO1
-;DESCRICAO: Coloca o valor 1 em R1 e grava no dígito correspondente ao valor atual de R2
-;ENTRADA:
-;SAIDA:
-;DESTROI: 
+//////////////////////////////////////////////////////////////////////////
+// NOME: DIGITOX (X = [0,9])											//
+// DESCRICAO: Coloca o valor X em R1 e grava no dígito correspondente	//
+// ao valor atual de R2													//
+// ENTRADA: R1 -> ponteiro para o caracter da senha atual a ser lido	//
+// SAIDA:																//
+// DESTROI: A															//
+//////////////////////////////////////////////////////////////////////////
 DIGITO1: MOV A, #1h
-		 CJNE R3, #1h, GRAVA_TECLADO_2
-		 MOV @R1, A
-		 
-		 RET
-;***************************************************************************
-;NOME: DIGITO2
-;DESCRICAO: Coloca o valor 2 em R1 e grava no dígito correspondente ao valor atual de R2
-;ENTRADA:
-;SAIDA:
-;DESTROI: 
+		 AJMP GRAVA_DIGITO
 DIGITO2: MOV A, #2h
-		 CJNE R3, #1h, GRAVA_TECLADO_2
-		 MOV @R1, A
-		 RET
-;***************************************************************************
-;NOME: DIGITO3
-;DESCRICAO: Coloca o valor 3 em R1 e grava no dígito correspondente ao valor atual de R2
-;ENTRADA:
-;SAIDA:
-;DESTROI: 
+		 AJMP GRAVA_DIGITO
 DIGITO3: MOV A, #3h
-		 CJNE R3, #1h, GRAVA_TECLADO_2
-		 MOV @R1, A
-		 RET
-;***************************************************************************
-;NOME: DIGITO4
-;DESCRICAO: Coloca o valor 4 em R1 e grava no dígito correspondente ao valor atual de R2
-;ENTRADA:
-;SAIDA:
-;DESTROI: 
+		 AJMP GRAVA_DIGITO
 DIGITO4: MOV A, #4h
-		 CJNE R3, #1h, GRAVA_TECLADO_2
-		 MOV @R1, A
-		 RET
-;***************************************************************************
-;NOME: DIGITO5
-;DESCRICAO: Coloca o valor 5 em R1 e grava no dígito correspondente ao valor atual de R2
-;ENTRADA:
-;SAIDA:
-;DESTROI: 
+		 AJMP GRAVA_DIGITO
 DIGITO5: MOV A, #5h
-		 CJNE R3, #1h, GRAVA_TECLADO_2
-		 MOV @R1, A
-		 RET
-;***************************************************************************
-;NOME: DIGITO6
-;DESCRICAO: Coloca o valor 6 em R1 e grava no dígito correspondente ao valor atual de R2
-;ENTRADA:
-;SAIDA:
-;DESTROI: 
+		 AJMP GRAVA_DIGITO
 DIGITO6: MOV A, #6h
-		 CJNE R3, #1h, GRAVA_TECLADO_2
-		 MOV @R1, A
-		 RET
-;***************************************************************************
-;NOME: DIGITO7
-;DESCRICAO: Coloca o valor 7 em R1 e grava no dígito correspondente ao valor atual de R2
-;ENTRADA:
-;SAIDA:
-;DESTROI: 
+		 AJMP GRAVA_DIGITO
 DIGITO7: MOV A, #7h
-		 CJNE R3, #1h, GRAVA_TECLADO_2
-		 MOV @R1, A
-		 RET
-;***************************************************************************
-;NOME: DIGITO8
-;DESCRICAO: Coloca o valor 8 em R1 e grava no dígito correspondente ao valor atual de R2
-;ENTRADA:
-;SAIDA:
-;DESTROI: 
+		 AJMP GRAVA_DIGITO
 DIGITO8: MOV A, #8h
-		 CJNE R3, #1h, GRAVA_TECLADO_2
-		 MOV @R1, A
-		 RET
-;***************************************************************************
-;NOME: DIGITO9
-;DESCRICAO: Coloca o valor 9 em R1 e grava no dígito correspondente ao valor atual de R2
-;ENTRADA:
-;SAIDA:
-;DESTROI: 
+		 AJMP GRAVA_DIGITO
 DIGITO9: MOV A, #9h
-		 CJNE R3, #1h, GRAVA_TECLADO_2
-		 MOV @R1, A
-		 RET
-;***************************************************************************
-;NOME: DIGITO0
-;DESCRICAO: Coloca o valor 0 em R1 e grava no dígito correspondente ao valor atual de R2
-;ENTRADA:
-;SAIDA:
-;DESTROI: 
+		 AJMP GRAVA_DIGITO
 DIGITO0: MOV A, #0h
-		 CJNE R3, #1h, GRAVA_TECLADO_2
-		 MOV @R1, A
-		 RET
+		 AJMP GRAVA_DIGITO
+		 
+GRAVA_DIGITO:
+		CJNE R3, #1h, GRAVA_TECLADO_2
+		MOV @R1, A
+	
+		RET
 		 
 ;***************************************************************************
 ;NOME: GRAVA_TECLADO_2
