@@ -146,32 +146,20 @@ ATRASO_2_S:
 		MOV 	R1, #07h	// coluna
 		CALL 	GOTOXY
 		
+		MOV 	R1, #TECLADO_1
+		MOV 	R3, #1h
+		MOV 	R7, #04h
 LE_4_DIGITOS:
 		MOV 	R0, 100
 		ACALL 	ATRASO_MS
-		MOV 	R3,#1h
 		ACALL 	VARREDURA_TECLADO
 		CALL 	ESCREVE_ASTERISCO
 		
-		MOV 	R0, 100
-		ACALL 	ATRASO_MS
-		MOV 	R3,#2h
-		ACALL 	VARREDURA_TECLADO
-		CALL 	ESCREVE_ASTERISCO
+		INC R1
+		INC R3
 		
-		MOV 	R0, 100
-		ACALL 	ATRASO_MS
-		MOV 	R3,#3h
-		ACALL 	VARREDURA_TECLADO
-		CALL 	ESCREVE_ASTERISCO
+		DJNZ R7, LE_4_DIGITOS
 		
-		MOV 	R0, 100
-		ACALL 	ATRASO_MS
-		MOV 	R3,#4h
-		ACALL 	VARREDURA_TECLADO
-		CALL 	ESCREVE_ASTERISCO
-		
-
 		JMP	 	FIM
 	
 //////////////////////////////////////////////////////
@@ -271,9 +259,9 @@ VARREDURA_TECLADO:
 ;ENTRADA:
 ;SAIDA:
 ;DESTROI: 
-DIGITO1: MOV R1, #1h
+DIGITO1: MOV A, #1h
 		 CJNE R3, #1h, GRAVA_TECLADO_2
-		 MOV TECLADO_1, R1
+		 MOV @R1, A
 		 
 		 RET
 ;***************************************************************************
@@ -282,9 +270,9 @@ DIGITO1: MOV R1, #1h
 ;ENTRADA:
 ;SAIDA:
 ;DESTROI: 
-DIGITO2: MOV R1, #2h
+DIGITO2: MOV A, #2h
 		 CJNE R3, #1h, GRAVA_TECLADO_2
-		 MOV TECLADO_1, R1
+		 MOV @R1, A
 		 RET
 ;***************************************************************************
 ;NOME: DIGITO3
@@ -292,9 +280,9 @@ DIGITO2: MOV R1, #2h
 ;ENTRADA:
 ;SAIDA:
 ;DESTROI: 
-DIGITO3: MOV R1, #3h
+DIGITO3: MOV A, #3h
 		 CJNE R3, #1h, GRAVA_TECLADO_2
-		 MOV TECLADO_1, R1
+		 MOV @R1, A
 		 RET
 ;***************************************************************************
 ;NOME: DIGITO4
@@ -302,9 +290,9 @@ DIGITO3: MOV R1, #3h
 ;ENTRADA:
 ;SAIDA:
 ;DESTROI: 
-DIGITO4: MOV R1, #4h
+DIGITO4: MOV A, #4h
 		 CJNE R3, #1h, GRAVA_TECLADO_2
-		 MOV TECLADO_1, R1
+		 MOV @R1, A
 		 RET
 ;***************************************************************************
 ;NOME: DIGITO5
@@ -312,9 +300,9 @@ DIGITO4: MOV R1, #4h
 ;ENTRADA:
 ;SAIDA:
 ;DESTROI: 
-DIGITO5: MOV R1, #5h
+DIGITO5: MOV A, #5h
 		 CJNE R3, #1h, GRAVA_TECLADO_2
-		 MOV TECLADO_1, R1
+		 MOV @R1, A
 		 RET
 ;***************************************************************************
 ;NOME: DIGITO6
@@ -322,9 +310,9 @@ DIGITO5: MOV R1, #5h
 ;ENTRADA:
 ;SAIDA:
 ;DESTROI: 
-DIGITO6: MOV R1, #6h
+DIGITO6: MOV A, #6h
 		 CJNE R3, #1h, GRAVA_TECLADO_2
-		 MOV TECLADO_1, R1
+		 MOV @R1, A
 		 RET
 ;***************************************************************************
 ;NOME: DIGITO7
@@ -332,9 +320,9 @@ DIGITO6: MOV R1, #6h
 ;ENTRADA:
 ;SAIDA:
 ;DESTROI: 
-DIGITO7: MOV R1, #7h
+DIGITO7: MOV A, #7h
 		 CJNE R3, #1h, GRAVA_TECLADO_2
-		 MOV TECLADO_1, R1
+		 MOV @R1, A
 		 RET
 ;***************************************************************************
 ;NOME: DIGITO8
@@ -342,9 +330,9 @@ DIGITO7: MOV R1, #7h
 ;ENTRADA:
 ;SAIDA:
 ;DESTROI: 
-DIGITO8: MOV R1, #8h
+DIGITO8: MOV A, #8h
 		 CJNE R3, #1h, GRAVA_TECLADO_2
-		 MOV TECLADO_1, R1
+		 MOV @R1, A
 		 RET
 ;***************************************************************************
 ;NOME: DIGITO9
@@ -352,9 +340,9 @@ DIGITO8: MOV R1, #8h
 ;ENTRADA:
 ;SAIDA:
 ;DESTROI: 
-DIGITO9: MOV R1, #9h
+DIGITO9: MOV A, #9h
 		 CJNE R3, #1h, GRAVA_TECLADO_2
-		 MOV TECLADO_1, R1
+		 MOV @R1, A
 		 RET
 ;***************************************************************************
 ;NOME: DIGITO0
@@ -362,9 +350,9 @@ DIGITO9: MOV R1, #9h
 ;ENTRADA:
 ;SAIDA:
 ;DESTROI: 
-DIGITO0: MOV R1, #0h
+DIGITO0: MOV A, #0h
 		 CJNE R3, #1h, GRAVA_TECLADO_2
-		 MOV TECLADO_1, R1
+		 MOV @R1, A
 		 RET
 		 
 ;***************************************************************************
@@ -375,7 +363,7 @@ DIGITO0: MOV R1, #0h
 ;DESTROI: 
 GRAVA_TECLADO_2: 
 				 CJNE R3, #2h, GRAVA_TECLADO_3
-				 MOV TECLADO_2, R1
+				 MOV @R1, A
 				 RET
 ;***************************************************************************
 ;NOME: GRAVA_TECLADO_3
@@ -384,7 +372,7 @@ GRAVA_TECLADO_2:
 ;SAIDA: TECLADO_3
 ;DESTROI: 
 GRAVA_TECLADO_3: CJNE R3, #3h, GRAVA_TECLADO_4
-				 MOV TECLADO_3, R1
+				 MOV @R1, A
 				 RET		
 ;***************************************************************************
 ;NOME: GRAVA_TECLADO_4
@@ -392,7 +380,7 @@ GRAVA_TECLADO_3: CJNE R3, #3h, GRAVA_TECLADO_4
 ;ENTRADA: R1
 ;SAIDA: TECLADO_4
 ;DESTROI: 
-GRAVA_TECLADO_4: MOV TECLADO_4, R1
+GRAVA_TECLADO_4: MOV @R1, A
 				 RET
 
 ////////////////////////////////////////////////
