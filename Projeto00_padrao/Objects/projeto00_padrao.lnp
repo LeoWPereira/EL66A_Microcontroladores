@@ -1,4 +1,3 @@
-".\Objects\projeto00_padrao.obj",
-".\Objects\timers_and_counters.obj" 
+".\Objects\projeto00_padrao.obj" 
 TO ".\Objects\projeto00_padrao" 
 PRINT(".\Listings\projeto00_padrao.m51") RAMSIZE(256) 

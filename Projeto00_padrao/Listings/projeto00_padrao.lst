@@ -1,8 +1,8 @@
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     03/22/2017 21:40:15 PAGE     1
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     03/24/2017 15:22:31 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.5.0
-NO OBJECT MODULE REQUESTED
+OBJECT MODULE PLACED IN .\Objects\projeto00_padrao.obj
 ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE projeto00_padrao.a51 SET(SMALL) DEBUG PRINT(.\Listings\projeto00_padrao
                       .lst) OBJECT(.\Objects\projeto00_padrao.obj) EP
 
@@ -26,51 +26,49 @@ LOC  OBJ            LINE     SOURCE
 
                        9     
 
-                      10     EXTERN TIMER_DELAY_50_MS
+0000                  10     org 0000h  
 
-*** _________________________^
-*** ERROR #A9 IN 10 (projeto00_padrao.a51, LINE 10): SYNTAX ERROR
-                      11     
+0000 020026           11     ljmp main  
 
-0000                  12     org 0000h  
+                      12     
 
-0000 020026           13     ljmp main  
+0003                  13     org 0003h  
 
-                      14     
+0003 020026           14     ljmp INT_INT0
 
-0003                  15     org 0003h  
+                      15     
 
-0003 020026           16     ljmp INT_INT0
+000B                  16     org 000Bh  
 
-                      17     
+000B 020027           17     ljmp INT_TIMER0  
 
-000B                  18     org 000Bh  
+                      18     
 
-000B 020027           19     ljmp INT_TIMER0  
+0013                  19     org 0013h  
 
-                      20     
+0013 020028           20     ljmp INT_INT1  
 
-0013                  21     org 0013h  
+                      21     
 
-0013 020028           22     ljmp INT_INT1  
+001B                  22     org 001Bh  
 
-                      23     
+001B 020029           23     ljmp INT_TIMER1  
 
-001B                  24     org 001Bh  
+                      24     
 
-001B 020029           25     ljmp INT_TIMER1  
+0023                  25     org 0023h  
 
-                      26     
+0023 02002A           26     ljmp INT_SERIAL  
 
-0023                  27     org 0023h  
+                      27     
 
-0023 02002A           28     ljmp INT_SERIAL  
+0026                  28     main:
 
-                      29     
+                      29             
 
-0026                  30     main:
+                      30     
 
-                      31             
+                      31     
 
                       32     
 
@@ -84,69 +82,65 @@ LOC  OBJ            LINE     SOURCE
 
                       37     
 
-                      38     
+0026                  38     INT_INT0:
 
-                      39     
+0026 32               39             reti
 
-0026                  40     INT_INT0:
+                      40     
 
-0026 32               41             reti
+                      41     
 
                       42     
 
                       43     
 
-                      44     
+0027                  44     INT_TIMER0:
 
-                      45     
+0027 32               45             reti
 
-0027                  46     INT_TIMER0:
+                      46             
 
-0027 32               47             reti
+                      47     
 
-                      48             
+                      48     
 
                       49     
 
-                      50     
+0028                  50     INT_INT1:
 
-                      51     
+0028 32               51             reti
 
-0028                  52     INT_INT1:
+                      52     
 
-0028 32               53             reti
+                      53     
 
                       54     
 
                       55     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     03/22/2017 21:40:15 PAGE     2
+0029                  56     INT_TIMER1:
 
-                      56     
+0029 32               57             reti
 
-                      57     
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     03/24/2017 15:22:31 PAGE     2
 
-0029                  58     INT_TIMER1:
+                      58             
 
-0029 32               59             reti
+                      59     
 
-                      60             
+                      60     
 
                       61     
 
-                      62     
+002A                  62     INT_SERIAL:
 
-                      63     
+002A 32               63             reti
 
-002A                  64     INT_SERIAL:
+                      64             
 
-002A 32               65             reti
+                      65             end
 
-                      66             
-
-                      67             end
-
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     03/22/2017 21:40:15 PAGE     3
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     03/24/2017 15:22:31 PAGE     3
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -154,17 +148,15 @@ SYMBOL TABLE LISTING
 
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
-EXTERN . . . . . .    ----   -----       
 INT_INT0 . . . . .  C ADDR   0026H   A   
 INT_INT1 . . . . .  C ADDR   0028H   A   
 INT_SERIAL . . . .  C ADDR   002AH   A   
 INT_TIMER0 . . . .  C ADDR   0027H   A   
 INT_TIMER1 . . . .  C ADDR   0029H   A   
 MAIN . . . . . . .  C ADDR   0026H   A   
-TIMER_DELAY_50_MS.    ----   -----       
 
 
 REGISTER BANK(S) USED: 0 
 
 
-ASSEMBLY COMPLETE.  0 WARNING(S), 1 ERROR(S)
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
