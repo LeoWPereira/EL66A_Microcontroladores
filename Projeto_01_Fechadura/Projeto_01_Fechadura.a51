@@ -102,9 +102,6 @@ STR_LIBERA:
         DB      ' PORTA LIBERADA ',00H
 STR_TRANCA:
         DB      ' PORTA TRANCADA ',00H		
-
-STR_ERRO:
-        DB      'SENHA NECESSARIA',00H
 		
 ////////////////////////////////////////////////
 // 				INICIO DO PROGRAMA			  //
@@ -302,34 +299,23 @@ GRAVA_DIGITO:
 	
 		RET
 		 
-;***************************************************************************
-;NOME: GRAVA_TECLADO_2
-;DESCRICAO: Grava o valor de R1 e no dígito 2 do teclado
-;ENTRADA: R1
-;SAIDA: TECLADO_2
-;DESTROI: 
-GRAVA_TECLADO_2: 
-				 CJNE R3, #2h, GRAVA_TECLADO_3
-				 MOV @R1, A
-				 RET
-;***************************************************************************
-;NOME: GRAVA_TECLADO_3
-;DESCRICAO: Grava o valor de R1 e no dígito 3 do teclado
-;ENTRADA: R1
-;SAIDA: TECLADO_3
-;DESTROI: 
+//////////////////////////////////////////////////////////////////////////
+// NOME: GRAVA_TECLADO_X [2,4]											//
+// DESCRICAO: Grava o valor de R1 e no dígito X do teclado				//
+// ENTRADA: R1															//
+// SAIDA: TECLADO_X														//
+// DESTROI: 															//
+//////////////////////////////////////////////////////////////////////////
+GRAVA_TECLADO_2: CJNE R3, #2h, GRAVA_TECLADO_3
+				 AJMP GRAVA_TECLADO_X
 GRAVA_TECLADO_3: CJNE R3, #3h, GRAVA_TECLADO_4
-				 MOV @R1, A
-				 RET		
-;***************************************************************************
-;NOME: GRAVA_TECLADO_4
-;DESCRICAO: Grava o valor de R1 e no dígito 4 do teclado
-;ENTRADA: R1
-;SAIDA: TECLADO_4
-;DESTROI: 
-GRAVA_TECLADO_4: MOV @R1, A
-				 RET
+				 AJMP GRAVA_TECLADO_X		
+GRAVA_TECLADO_4: AJMP GRAVA_TECLADO_X
 
+GRAVA_TECLADO_X:
+		 MOV @R1, A
+		 
+		 RET
 ////////////////////////////////////////////////
 // 		  INICIO DOS CODIGOS PARA LCD		  //
 ////////////////////////////////////////////////
