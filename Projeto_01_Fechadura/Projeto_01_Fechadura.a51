@@ -90,6 +90,10 @@ SENHA_PADRAO_2:
 		db  	'0912', 00H
 STR_LOGO:
         DB      ' PROFS. LINDOS! ',00H
+STR_LEONARDO_PEREIRA:
+        DB      'Leonardo Pereira',00H
+STR_RODRIGO_ENDO:
+        DB      '  Rodrigo Endo  ',00H
 STR_ENTER:
         DB      'PRESSIONE  ENTER',00H
 STR_SENHA:
@@ -107,21 +111,21 @@ STR_ERRO:
 ////////////////////////////////////////////////		
 
 __STARTUP__:
-	mov DPTR, #2030h  	// inicializa o DPTR com o endereco da senha 01
-	mov R0, #00h 	    // R0 representa o caracter atual do texto a ser lido
-	mov R1, #SENHA1_1 	// R1 possui o endereco do registrador do primeiro numero da senha 01
-	mov R2, #04h	  	// quantidade de digitos da senha 01
-	CALL LE_SENHA
+	CALL 	TIMER_CONFIGURA_TIMER
+
+	mov 	DPTR, #2030h  	// inicializa o DPTR com o endereco da senha 01
+	mov 	R0, #00h 	    // R0 representa o caracter atual do texto a ser lido
+	mov 	R1, #SENHA1_1 	// R1 possui o endereco do registrador do primeiro numero da senha 01
+	mov 	R2, #04h	  	// quantidade de digitos da senha 01
+	CALL 	LE_SENHA
 	
-	mov DPTR, #2035h	// inicializa o DPTR com o endereco da senha 02
-	mov R0, #00h 		// R0 representa o caracter atual do texto a ser lido
-	mov R1, #SENHA2_1	// R1 possui o endereco do registrador do primeiro numero da senha 02
-	mov R2, #04h		// quantidade de digitos da senha 02
-	CALL LE_SENHA
+	mov 	DPTR, #2035h	// inicializa o DPTR com o endereco da senha 02
+	mov 	R0, #00h 		// R0 representa o caracter atual do texto a ser lido
+	mov 	R1, #SENHA2_1	// R1 possui o endereco do registrador do primeiro numero da senha 02
+	mov 	R2, #04h		// quantidade de digitos da senha 02
+	CALL 	LE_SENHA
 	
 	MOV TENTATIVAS, #3h
-	
-	// CALL TIMER_CONFIGURA_TIMER
 	
 // Foi feito um atraso pequeno antes da varredura de cada teclado para tratar o debounce de cada tecla
 MAIN:
@@ -129,13 +133,25 @@ MAIN:
 		MOV     DPTR,#STR_LOGO	// STRING DA PRIMEIRA LINHA
 		CALL    ESC_STR1		// ESCREVE NA PRIMEIRA LINHA
 		
-		MOV 	R1, #08d
-ATRASO_2_S:		
-		MOV 	R2, 250d
-		ACALL 	ATRASO_MS
-		djnz 	R1, ATRASO_2_S
+		// Atrasa 1s para escrever outra string
+		MOV		R1, #01h
+		CALL 	TIMER_DELAY_1_S
 		
-		CALL CLR1L
+		CALL 	CLR1L	// limpa primeira linha do display
+		
+		MOV 	DPTR, #STR_LEONARDO_PEREIRA	// STRING DA PRIMEIRA LINHA
+		CALL    ESC_STR1					// ESCREVE NA PRIMEIRA LINHA
+		
+		MOV 	DPTR, #STR_RODRIGO_ENDO		// STRING DA SEGUNDA LINHA
+		CALL    ESC_STR2					// ESCREVE NA SEGUNDA LINHA
+		
+		// Atrasa 1s para escrever outra string
+		MOV		R1, #01h
+		CALL 	TIMER_DELAY_1_S
+		
+		// Limpa ambas as linhas do display
+		CALL 	CLR1L
+		CALL 	CLR2L
 		
 		MOV     DPTR,#STR_SENHA	// STRING DA PRIMEIRA LINHA
 		CALL    ESC_STR1		// ESCREVE NA PRIMEIRA LINHA
@@ -144,12 +160,12 @@ ATRASO_2_S:
 		MOV 	R1, #07h	// coluna
 		CALL 	GOTOXY
 		
-		MOV 	R1, #TECLADO_1
-		MOV 	R3, #1h
-		MOV 	R7, #04h
+		MOV 	R1, #TECLADO_1 	// ponteiro para a primeira leitura do teclado
+		MOV 	R3, #1h		   	// primeiro digito a ser lido, esse registrador e incrementado automaticamente ao varrer
+		MOV 	R7, #04h		// quantidade de digitos a serem lidos consecutivamente
 LE_4_DIGITOS:
-		MOV 	R0, 100
-		ACALL 	ATRASO_MS
+		MOV 	R0, #05h
+		ACALL 	TIMER_DELAY_20_MS
 		ACALL 	VARREDURA_TECLADO
 		CALL 	ESCREVE_ASTERISCO
 		
@@ -227,7 +243,7 @@ VARREDURA_TECLADO:
 		SETB LIN3
 		SETB LIN4
 		JNB	 COL1, ESCREVE_ASTERISCO
-		JNB  COL2, DIGITO1
+		JMP  DIGITO1// JNB  COL2, DIGITO1
 		JNB  COL3, DIGITO2
 		JNB  COL4, DIGITO3
 		
@@ -604,64 +620,47 @@ CUR1:     MOV    R2,#01
 ////////////////////////////////////////////////
 		  
 TIMER_CONFIGURA_TIMER:
-	mov TMOD, #01h // Seta o timer_0 para o modo 01 (16 bits)
+		MOV TMOD, #01h // Seta o timer_0 para o modo 01 (16 bits)
 	
-	RET
+		RET
 	
 //////////////////////////////////////////////////////
-// NOME: TIMER_DELAY_50_MS							//
-// DESCRICAO: INTRODUZ UM ATRASO DE 50 MS			//
-// P.ENTRADA: R0 = y => (y x 50) ms  				//
+// NOME: TIMER_DELAY_20_MS							//
+// DESCRICAO: INTRODUZ UM ATRASO DE 20 MS			//
+// P.ENTRADA: R0 = y => (y x 25) ms  				//
 // P.SAIDA: -										//
 // ALTERA: R0										//
 //////////////////////////////////////////////////////
-TIMER_DELAY_50_MS:
-	mov TH0, #HIGH(65535 - 49987)
-	mov TL0, #LOW(65535 - 49987)
+TIMER_DELAY_20_MS:
+		MOV TH0, #HIGH(65535 - 53350)
+		MOV TL0, #LOW(65535 - 53350)
 	
-	clr TF0
-	setb TR0
+		CLR TF0
+		SETB TR0
 	
-	jnb TF0, $
+		JNB TF0, $
 		
-	clr TF0
-	clr TR0
+		CLR TF0
+		CLR TR0
 	
-	djnz R0, TIMER_DELAY_50_MS
+		DJNZ R0, TIMER_DELAY_20_MS
 	
-	RET
+		RET
 	
-;***************************************************************************
-;NOME: Atraso
-;DESCRIÇÃO: Introduz um atraso (delay) de T = (60 x R0 + 48)/fosc
-;Para fosc =24MHz => R0=1 => T=4,5us a R0=0 => 0,642ms se R0= 199 => 0,5ms
-;P. ENTRADA: R0 = Valor que multiplica por 60 na fórmula (OBS.: R0 = 0 => 256)
-;P. SAIDA: -
-;Altera: R0
-;***************************************************************************
-Atraso:
-	NOP			;12
-	NOP			;12
-	NOP			;12
-	DJNZ		R0,Atraso	;24
+//////////////////////////////////////////////////////
+// NOME: TIMER_DELAY_1_S							//
+// DESCRICAO: INTRODUZ UM ATRASO DE 1 S				//
+// P.ENTRADA: R1 = y => (y x 1) s 	 				//
+// P.SAIDA: -										//
+// ALTERA: R1										//
+//////////////////////////////////////////////////////
+TIMER_DELAY_1_S:
+		MOV		R0, #50d
+		CALL 	TIMER_DELAY_20_MS
+		
+		DJNZ	R1, TIMER_DELAY_1_S
 	
-	RET			;24
-
-
-;***************************************************************************
-;NOME: ATRASO_MS
-;DESCRICAO: INTRODUZ UM ATRASO DE 1ms A 256ms
-;P.ENTRADA: R2 = 1 => 1ms  A R2 = 0 => 256ms
-;P.SAIDA: -
-;ALTERA: R0,R2
-ATRASO_MS:
-	MOV		R0,#199		;VALOR PARA ATRASO DE 0,5ms
-	CALL	Atraso
-	MOV		R0,#199		;VALOR PARA ATRASO DE 0,5ms
-	CALL	Atraso
-	DJNZ	R2,ATRASO_MS
-	
-	RET
+		RET
 
 ////////////////////////////////////////////////
 // INICIO DOS CODIGOS GERADOS POR INTERRUPCAO //
@@ -671,31 +670,31 @@ ATRASO_MS:
 *
 */
 INT_INT0:
-	RETI
+		RETI
 
 /*
 *
 */
 INT_TIMER0:
-	RETI
+		RETI
 	
 /*
 *
 */
 INT_INT1:
-	RETI
+		RETI
 
 /*
 *
 */
 INT_TIMER1:
-	RETI
+		RETI
 	
 /*
 *
 */
 INT_SERIAL:
-	RETI
+		RETI
 	
 FIM:
-	END
+		END

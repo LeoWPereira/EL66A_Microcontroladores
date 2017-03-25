@@ -1,3 +1,4 @@
 ".\Objects\Projeto_01_Fechadura.obj" 
 TO ".\Objects\Projeto_01_Fechadura" 
 PRINT(".\Listings\Projeto_01_Fechadura.m51") RAMSIZE(256) 
+CODE( 0X0000-0X7FFF )
