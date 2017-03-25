@@ -108,23 +108,22 @@ STR_TRANCA:
 ////////////////////////////////////////////////		
 
 __STARTUP__:
-	CALL 	TIMER_CONFIGURA_TIMER
+		CALL 	TIMER_CONFIGURA_TIMER
 
-	mov 	DPTR, #2030h  	// inicializa o DPTR com o endereco da senha 01
-	mov 	R0, #00h 	    // R0 representa o caracter atual do texto a ser lido
-	mov 	R1, #SENHA1_1 	// R1 possui o endereco do registrador do primeiro numero da senha 01
-	mov 	R2, #04h	  	// quantidade de digitos da senha 01
-	CALL 	LE_SENHA
+		MOV 	DPTR, #2030h  	// inicializa o DPTR com o endereco da senha 01
+		MOV 	R0, #00h 	    // R0 representa o caracter atual do texto a ser lido
+		MOV 	R1, #SENHA1_1 	// R1 possui o endereco do registrador do primeiro numero da senha 01
+		MOV 	R2, #04h	  	// quantidade de digitos da senha 01
+		CALL 	LE_SENHA
 	
-	mov 	DPTR, #2035h	// inicializa o DPTR com o endereco da senha 02
-	mov 	R0, #00h 		// R0 representa o caracter atual do texto a ser lido
-	mov 	R1, #SENHA2_1	// R1 possui o endereco do registrador do primeiro numero da senha 02
-	mov 	R2, #04h		// quantidade de digitos da senha 02
-	CALL 	LE_SENHA
+		MOV 	DPTR, #2035h	// inicializa o DPTR com o endereco da senha 02
+		MOV 	R0, #00h 		// R0 representa o caracter atual do texto a ser lido
+		MOV 	R1, #SENHA2_1	// R1 possui o endereco do registrador do primeiro numero da senha 02
+		MOV 	R2, #04h		// quantidade de digitos da senha 02
+		CALL 	LE_SENHA
 	
-	MOV TENTATIVAS, #3h
+		MOV 	TENTATIVAS, #3h
 	
-// Foi feito um atraso pequeno antes da varredura de cada teclado para tratar o debounce de cada tecla
 MAIN:
 		CALL	INIDISP  
 		MOV     DPTR,#STR_LOGO	// STRING DA PRIMEIRA LINHA
@@ -145,7 +144,8 @@ MAIN:
 		// Atrasa 1s para escrever outra string
 		MOV		R1, #01h
 		CALL 	TIMER_DELAY_1_S
-		
+
+LIMPA_LCD_E_INICIA_SISTEMA:
 		// Limpa ambas as linhas do display
 		CALL 	CLR1L
 		CALL 	CLR2L
@@ -171,8 +171,14 @@ LE_4_DIGITOS:
 		
 		DJNZ R7, LE_4_DIGITOS
 		
-		JMP	 	FIM
-	
+		// Apos ler os 4 digitos da senha, e necessario testar a senha com as duas senhas gravadas na ROM
+		MOV 	R0, #05h
+		ACALL 	TIMER_DELAY_20_MS
+		
+		ACALL 	PRESS_ENT
+		
+		JMP	 	LIMPA_LCD_E_INICIA_SISTEMA
+
 //////////////////////////////////////////////////////
 // NOME: LE_SENHA e LE_SENHA_ROM					//
 // DESCRICAO: ROTINA QUE LE A SENHA CODIFICADA NA	//
@@ -212,13 +218,13 @@ LE_SENHA_ROM:
 // DESTROI: 										//
 //////////////////////////////////////////////////////
 CONV_ASCII_TO_NUMBER:
-	mov A, @R1
+		MOV 	A, @R1
 	
-	ADD A, #-30h
+		ADD 	A, #-30h
 	
-	mov @R1, A
+		MOV 	@R1, A
 	
-	RET
+		RET
 	
 //////////////////////////////////////////////////////
 // NOME: ESCREVE_ASTERISCO							//
@@ -228,12 +234,35 @@ CONV_ASCII_TO_NUMBER:
 // DESTROI: A										//
 //////////////////////////////////////////////////////
 ESCREVE_ASTERISCO:		
-	MOV 	A, #2Ah
-	CALL 	ESCDADO
+		MOV 	A, #2Ah
+		CALL 	ESCDADO
 	
-	RET
+		RET
+	
+// Ao digitar os 4 digitos da senha, e necessario apertar enter
+PRESS_ENT:
+		SETB 	LIN1
+		SETB 	LIN2
+		SETB 	LIN3
+		CLR  	LIN4
+		//JNB  	COL4, TESTA_SENHA1 	// se apertou ENTER, testa senha
+		JNB  	COL2, CLEAR			// se apertou CLR, limpa senha de entrada
+		JMP  	PRESS_ENT
 
-;Varredura de teclado para as senhas normais
+// Reseta os digitos do teclado para as senhas normais
+// Os POPs sao necessarios por causa do ACALL feito no main
+CLEAR: 
+		POP		ACC
+		POP		ACC
+		JMP 	LIMPA_LCD_E_INICIA_SISTEMA
+
+///////////////////////////////////////////////////////
+// NOME: VARREDURA_TECLADO							 //
+// DESCRICAO: Varredura de teclado					 //
+// ENTRADA:											 //	
+// SAIDA:											 //
+// DESTROI:											 //
+///////////////////////////////////////////////////////
 VARREDURA_TECLADO:
 		CLR  LIN1
 		SETB LIN2
