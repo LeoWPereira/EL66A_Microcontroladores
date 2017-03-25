@@ -98,6 +98,10 @@ STR_ENTER:
         DB      'PRESSIONE  ENTER',00H
 STR_SENHA:
         DB      'SENHA: ',00H
+STR_SENHA_VALIDA:
+        DB      '  SENHA VALIDA  ',00H
+STR_SENHA_INVALIDA:
+        DB      ' SENHA INVALIDA ',00H
 STR_LIBERA:
         DB      ' PORTA LIBERADA ',00H
 STR_TRANCA:
@@ -238,24 +242,38 @@ ESCREVE_ASTERISCO:
 		CALL 	ESCDADO
 	
 		RET
-	
-// Ao digitar os 4 digitos da senha, e necessario apertar enter
+		
+//////////////////////////////////////////////////////
+// NOME: PRESS_ENT									//
+// DESCRICAO: Ao digitar os 4 digitos da senha, e	//
+// necessario apertar enter							//
+// ENTRADA: -										//
+// SAIDA: -											//
+// DESTROI: A										//
+//////////////////////////////////////////////////////	
 PRESS_ENT:
 		SETB 	LIN1
 		SETB 	LIN2
 		SETB 	LIN3
 		CLR  	LIN4
-		//JNB  	COL4, TESTA_SENHA1 	// se apertou ENTER, testa senha
+		JNB  	COL4, TESTA_SENHA1 	// se apertou ENTER, testa senha
 		JNB  	COL2, CLEAR			// se apertou CLR, limpa senha de entrada
 		JMP  	PRESS_ENT
 
-// Reseta os digitos do teclado para as senhas normais
-// Os POPs sao necessarios por causa do ACALL feito no main
+//////////////////////////////////////////////////////
+// NOME: CLEAR										//
+// DESCRICAO: Reseta os digitos do teclado para as	//
+// senhas normais. Os POPs sao necessarios por		//
+// causa do ACALL feito no main						//
+// ENTRADA: -										//
+// SAIDA: -											//
+// DESTROI: A										//
+//////////////////////////////////////////////////////
 CLEAR: 
 		POP		ACC
 		POP		ACC
 		JMP 	LIMPA_LCD_E_INICIA_SISTEMA
-
+		
 ///////////////////////////////////////////////////////
 // NOME: VARREDURA_TECLADO							 //
 // DESCRICAO: Varredura de teclado					 //
@@ -292,6 +310,56 @@ VARREDURA_TECLADO:
 		JMP  VARREDURA_TECLADO
 		
 		RET
+
+//////////////////////////////////////////////////////
+// NOME: TESTA_SENHAX [1,2]							//
+// DESCRICAO: Compara os dígitos fornecidos pelo	//
+// usuário com a senha X							//
+// ENTRADA: -										//
+// SAIDA: -											//
+// DESTROI: A										//
+//////////////////////////////////////////////////////
+TESTA_SENHA1:
+		MOV	 	A, SENHA1_1
+		CJNE 	A, TECLADO_1, TESTA_SENHA2
+		MOV	 	A, SENHA1_2
+		CJNE 	A, TECLADO_2, TESTA_SENHA2
+		MOV	 	A, SENHA1_3
+		CJNE 	A, TECLADO_3, TESTA_SENHA2
+		MOV	 	A, SENHA1_4
+		CJNE 	A, TECLADO_4, TESTA_SENHA2
+		JMP 	LIMPA_LCD_E_MOSTRA_SENHA_VALIDA
+	
+TESTA_SENHA2:
+		MOV	 	A, SENHA2_1
+		CJNE 	A, TECLADO_1, LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA
+		MOV	 	A, SENHA2_2
+		CJNE 	A, TECLADO_2, LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA
+		MOV	 	A, SENHA2_3
+		CJNE 	A, TECLADO_3, LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA
+		MOV	 	A, SENHA2_4
+		CJNE 	A, TECLADO_4, LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA
+		JMP 	LIMPA_LCD_E_MOSTRA_SENHA_VALIDA
+		
+LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA:
+		// Limpa ambas as linhas do display
+		CALL 	CLR1L
+		CALL 	CLR2L
+		
+		MOV     DPTR,#STR_SENHA_INVALIDA	// STRING DA PRIMEIRA LINHA
+		CALL    ESC_STR1					// ESCREVE NA PRIMEIRA LINHA
+		
+		JMP 	LIMPA_LCD_E_INICIA_SISTEMA
+		
+LIMPA_LCD_E_MOSTRA_SENHA_VALIDA:
+		// Limpa ambas as linhas do display
+		CALL 	CLR1L
+		CALL 	CLR2L
+		
+		MOV     DPTR,#STR_SENHA_VALIDA	// STRING DA PRIMEIRA LINHA
+		CALL    ESC_STR1				// ESCREVE NA PRIMEIRA LINHA
+		
+		JMP 	LIMPA_LCD_E_INICIA_SISTEMA
 		
 //////////////////////////////////////////////////////////////////////////
 // NOME: DIGITOX (X = [0,9])											//
