@@ -1,0 +1,80 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        03/28/2017  16:29:11  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\Aula_28_03.obj TO .\Objects\Aula_28_03 PRINT (.\Listings\Aula_28_03.m51) RAMSIZE (
+>> 256)
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\Aula_28_03.obj (AULA_28_03)
+
+
+LINK MAP OF MODULE:  .\Objects\Aula_28_03 (AULA_28_03)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0048H     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\Aula_28_03 (AULA_28_03)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        AULA_28_03
+  C:0031H         SYMBOL        ATUALIZA
+  D:00A8H         SYMBOL        IE
+  D:00A0H         SYMBOL        P2
+  D:0088H         SYMBOL        TCON
+  C:0033H         SYMBOL        __INT_INT0__
+  C:003DH         SYMBOL        __INT_INT1__
+  C:0047H         SYMBOL        __INT_SERIAL__
+  C:003CH         SYMBOL        __INT_TIMER0__
+  C:0046H         SYMBOL        __INT_TIMER1__
+  C:0026H         SYMBOL        __START__
+  C:0000H         LINE#         11
+  C:0003H         LINE#         14
+  C:000BH         LINE#         17
+  C:0013H         LINE#         20
+  C:001BH         LINE#         23
+  C:0023H         LINE#         26
+  C:0026H         LINE#         29
+  C:0028H         LINE#         30
+  C:0029H         LINE#         32
+  C:002CH         LINE#         33
+  C:002FH         LINE#         35
+  C:0031H         LINE#         38
+  C:0033H         LINE#         48
+  C:0035H         LINE#         50
+  C:0036H         LINE#         51
+  C:0038H         LINE#         53
+  C:0039H         LINE#         54
+  C:003BH         LINE#         56
+  C:003CH         LINE#         62
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/28/2017  16:29:11  PAGE 2
+
+
+  C:003DH         LINE#         68
+  C:003FH         LINE#         70
+  C:0040H         LINE#         71
+  C:0042H         LINE#         73
+  C:0043H         LINE#         74
+  C:0045H         LINE#         76
+  C:0046H         LINE#         82
+  C:0047H         LINE#         88
+  -------         ENDMOD        AULA_28_03
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0034H BYTE ( 2%) *
+******************************************************************************
+
+Program Size: data=8.0 xdata=0 code=72
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

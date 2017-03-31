@@ -1,0 +1,3 @@
+".\Objects\Aula_28_03.obj" 
+TO ".\Objects\Aula_28_03" 
+PRINT(".\Listings\Aula_28_03.m51") RAMSIZE(256) 

@@ -1,0 +1,216 @@
+A51 MACRO ASSEMBLER  AULA_28_03                                                           03/28/2017 16:29:11 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.5.0
+OBJECT MODULE PLACED IN .\Objects\Aula_28_03.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE Aula_28_03.a51 SET(SMALL) DEBUG PRINT(.\Listings\Aula_28_03.lst) OBJECT
+                      (.\Objects\Aula_28_03.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+
+                       2     
+
+                       3     
+
+                       4     
+
+                       5     
+
+                       6     
+
+                       7     
+
+                       8     
+
+                       9     
+
+0000                  10     org 0000h  
+
+0000 020026           11     ljmp __START__  
+
+                      12     
+
+0003                  13     org 0003h  
+
+0003 020033           14     ljmp __INT_INT0__
+
+                      15     
+
+000B                  16     org 000Bh  
+
+000B 02003C           17     ljmp __INT_TIMER0__  
+
+                      18     
+
+0013                  19     org 0013h  
+
+0013 02003D           20     ljmp __INT_INT1__  
+
+                      21     
+
+001B                  22     org 001Bh  
+
+001B 020046           23     ljmp __INT_TIMER1__  
+
+                      24     
+
+0023                  25     org 0023h  
+
+0023 020047           26     ljmp __INT_SERIAL__  
+
+                      27     
+
+0026                  28     __START__:
+
+0026 D28B             29             setb    TCON.3  
+
+0028 D3               30             setb    C
+
+                      31             
+
+0029 75A885           32             mov     IE, #10000101b  
+
+002C 75A000           33             mov     P2, #0  
+
+                      34             
+
+002F 80FE             35             jmp $
+
+                      36             
+
+0031                  37     ATUALIZA:  
+
+0031 F5A0             38             mov P2, A
+
+                      39             
+
+                      40     
+
+                      41     
+
+                      42     
+
+                      43     
+
+                      44     
+
+                      45     
+
+                      46     
+
+0033                  47     __INT_INT0__:
+
+0033 E5A0             48             mov A, P2
+
+                      49             
+
+0035 13               50             rrc A
+
+0036 50F9             51             jnc ATUALIZA     
+
+                      52             
+
+0038 13               53             rrc A                            
+
+0039 80F6             54             jmp ATUALIZA
+
+                      55     
+
+003B 32               56             reti
+
+                      57     
+
+A51 MACRO ASSEMBLER  AULA_28_03                                                           03/28/2017 16:29:11 PAGE     2
+
+                      58     
+
+                      59     
+
+                      60     
+
+003C                  61     __INT_TIMER0__:
+
+003C 32               62             reti
+
+                      63             
+
+                      64     
+
+                      65     
+
+                      66     
+
+003D                  67     __INT_INT1__:
+
+003D E5A0             68             mov A, P2
+
+                      69     
+
+003F 33               70             rlc A
+
+0040 50EF             71             jnc ATUALIZA  
+
+                      72     
+
+0042 33               73             rlc A  
+
+0043 80EC             74             jmp ATUALIZA
+
+                      75             
+
+0045 32               76             reti
+
+                      77     
+
+                      78     
+
+                      79     
+
+                      80     
+
+0046                  81     __INT_TIMER1__:
+
+0046 32               82             reti
+
+                      83             
+
+                      84     
+
+                      85     
+
+                      86     
+
+0047                  87     __INT_SERIAL__:
+
+0047 32               88             reti
+
+                      89             
+
+                      90             end
+
+A51 MACRO ASSEMBLER  AULA_28_03                                                           03/28/2017 16:29:11 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ATUALIZA . . . . .  C ADDR   0031H   A   
+IE . . . . . . . .  D ADDR   00A8H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+TCON . . . . . . .  D ADDR   0088H   A   
+__INT_INT0__ . . .  C ADDR   0033H   A   
+__INT_INT1__ . . .  C ADDR   003DH   A   
+__INT_SERIAL__ . .  C ADDR   0047H   A   
+__INT_TIMER0__ . .  C ADDR   003CH   A   
+__INT_TIMER1__ . .  C ADDR   0046H   A   
+__START__. . . . .  C ADDR   0026H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
