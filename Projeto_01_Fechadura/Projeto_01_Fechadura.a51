@@ -59,10 +59,10 @@ LIN3 		EQU P1.6
 LIN4 		EQU P1.7
 	
 // ESTADOS DO MOTOR DE PASSO
-ESTADO_UM 		EQU P2.0
-ESTADO_DOIS 	EQU P2.1
-ESTADO_TRES 	EQU P2.2
-ESTADO_QUATRO 	EQU P2.3
+ESTADO_UM 		EQU P3.1
+ESTADO_DOIS 	EQU P3.2
+ESTADO_TRES 	EQU P3.3
+ESTADO_QUATRO 	EQU P3.4
 	
 // BUZZER
 BUZZER			EQU P3.0
@@ -109,18 +109,20 @@ STR_SENHA_VALIDA:
         DB      '  SENHA VALIDA  ',00H
 STR_SENHA_INVALIDA:
         DB      ' SENHA INVALIDA ',00H
-STR_LIBERA:
-        DB      ' PORTA LIBERADA ',00H
-STR_TRANCA:
-        DB      ' PORTA TRANCADA ',00H		
+STR_LIBERANDO_PORTA:
+        DB      'LIBERANDO PORTA ',00H
+STR_TRANCANDO_PORTA:
+        DB      'TRANCANDO PORTA ',00H		
 		
 ////////////////////////////////////////////////
 // 				INICIO DO PROGRAMA			  //
 ////////////////////////////////////////////////		
 
 __STARTUP__:
-		SETB	BUZZER
 		CALL 	TIMER_CONFIGURA_TIMER
+
+		MOV 	R0, #05h
+		LCALL 	ACIONA_BUZZER
 
 		MOV 	DPTR, #2030h  	// inicializa o DPTR com o endereco da senha 01
 		MOV 	R0, #00h 	    // R0 representa o caracter atual do texto a ser lido
@@ -176,13 +178,12 @@ LIMPA_LCD_E_INICIA_SISTEMA:
 LE_4_DIGITOS:
 		MOV 	R0, #0Ah
 		ACALL 	TIMER_DELAY_20_MS
+		
 		ACALL 	VARREDURA_TECLADO
 		CALL 	ESCREVE_ASTERISCO
 		
 		INC R1
 		INC R3
-		
-		SETB	BUZZER
 		
 		DJNZ R7, LE_4_DIGITOS
 		
@@ -249,6 +250,9 @@ CONV_ASCII_TO_NUMBER:
 // DESTROI: A										//
 //////////////////////////////////////////////////////
 ESCREVE_ASTERISCO:		
+		MOV 	R0, #05h
+		LCALL 	ACIONA_BUZZER
+		
 		MOV 	A, #2Ah
 		CALL 	ESCDADO
 	
@@ -281,6 +285,9 @@ PRESS_ENT:
 // DESTROI: A										//
 //////////////////////////////////////////////////////
 CLEAR: 
+		MOV 	R0, #05h
+		LCALL 	ACIONA_BUZZER
+		
 		POP		ACC
 		POP		ACC
 		JMP 	LIMPA_LCD_E_INICIA_SISTEMA
@@ -320,64 +327,6 @@ VARREDURA_TECLADO:
 		JMP  VARREDURA_TECLADO
 		
 		RET
-
-//////////////////////////////////////////////////////
-// NOME: TESTA_SENHAX [1,2]							//
-// DESCRICAO: Compara os dígitos fornecidos pelo	//
-// usuário com a senha X							//
-// ENTRADA: -										//
-// SAIDA: -											//
-// DESTROI: A										//
-//////////////////////////////////////////////////////
-TESTA_SENHA1:
-		MOV	 	A, SENHA1_1
-		CJNE 	A, TECLADO_1, TESTA_SENHA2
-		MOV	 	A, SENHA1_2
-		CJNE 	A, TECLADO_2, TESTA_SENHA2
-		MOV	 	A, SENHA1_3
-		CJNE 	A, TECLADO_3, TESTA_SENHA2
-		MOV	 	A, SENHA1_4
-		CJNE 	A, TECLADO_4, TESTA_SENHA2
-		JMP 	LIMPA_LCD_E_MOSTRA_SENHA_VALIDA
-	
-TESTA_SENHA2:
-		MOV	 	A, SENHA2_1
-		CJNE 	A, TECLADO_1, LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA
-		MOV	 	A, SENHA2_2
-		CJNE 	A, TECLADO_2, LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA
-		MOV	 	A, SENHA2_3
-		CJNE 	A, TECLADO_3, LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA
-		MOV	 	A, SENHA2_4
-		CJNE 	A, TECLADO_4, LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA
-		JMP 	LIMPA_LCD_E_MOSTRA_SENHA_VALIDA
-		
-LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA:
-		// Limpa ambas as linhas do display
-		CALL 	CLR1L
-		CALL 	CLR2L
-		
-		MOV     DPTR,#STR_SENHA_INVALIDA	// STRING DA PRIMEIRA LINHA
-		CALL    ESC_STR1					// ESCREVE NA PRIMEIRA LINHA
-		
-		// Atrasa 1s para escrever outra string
-		MOV		R1, #01h
-		CALL 	TIMER_DELAY_1_S
-		
-		JMP 	LIMPA_LCD_E_INICIA_SISTEMA
-		
-LIMPA_LCD_E_MOSTRA_SENHA_VALIDA:
-		// Limpa ambas as linhas do display
-		CALL 	CLR1L
-		CALL 	CLR2L
-		
-		MOV     DPTR,#STR_SENHA_VALIDA	// STRING DA PRIMEIRA LINHA
-		CALL    ESC_STR1				// ESCREVE NA PRIMEIRA LINHA
-		
-		// Atrasa 1s para escrever outra string
-		MOV		R1, #01h
-		CALL 	TIMER_DELAY_1_S
-		
-		JMP 	LIMPA_LCD_E_INICIA_SISTEMA
 		
 //////////////////////////////////////////////////////////////////////////
 // NOME: DIGITOX (X = [0,9])											//
@@ -413,6 +362,87 @@ GRAVA_DIGITO:
 		MOV @R1, A
 	
 		RET
+
+//////////////////////////////////////////////////////
+// NOME: TESTA_SENHAX [1,2]							//
+// DESCRICAO: Compara os dígitos fornecidos pelo	//
+// usuário com a senha X							//
+// ENTRADA: -										//
+// SAIDA: -											//
+// DESTROI: A										//
+//////////////////////////////////////////////////////
+TESTA_SENHA1:
+		MOV 	R0, #05h
+		LCALL 	ACIONA_BUZZER
+		
+		MOV	 	A, SENHA1_1
+		CJNE 	A, TECLADO_1, TESTA_SENHA2
+		MOV	 	A, SENHA1_2
+		CJNE 	A, TECLADO_2, TESTA_SENHA2
+		MOV	 	A, SENHA1_3
+		CJNE 	A, TECLADO_3, TESTA_SENHA2
+		MOV	 	A, SENHA1_4
+		CJNE 	A, TECLADO_4, TESTA_SENHA2
+		JMP 	LIMPA_LCD_E_MOSTRA_SENHA_VALIDA
+	
+TESTA_SENHA2:
+		MOV	 	A, SENHA2_1
+		CJNE 	A, TECLADO_1, LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA
+		MOV	 	A, SENHA2_2
+		CJNE 	A, TECLADO_2, LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA
+		MOV	 	A, SENHA2_3
+		CJNE 	A, TECLADO_3, LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA
+		MOV	 	A, SENHA2_4
+		CJNE 	A, TECLADO_4, LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA
+		JMP 	LIMPA_LCD_E_MOSTRA_SENHA_VALIDA
+		
+LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA:
+		// Limpa ambas as linhas do display
+		CALL 	CLR1L
+		CALL 	CLR2L
+		
+		MOV     DPTR,#STR_SENHA_INVALIDA	// STRING DA PRIMEIRA LINHA
+		CALL    ESC_STR1					// ESCREVE NA PRIMEIRA LINHA
+		
+		// Atrasa 2s para reiniciar o sistema
+		MOV 	R0, #064h
+		LCALL 	ACIONA_BUZZER
+		
+		// Atrasa 3s para escrever outra string
+		MOV		R1, #01h
+		CALL 	TIMER_DELAY_1_S
+		
+		JMP 	LIMPA_LCD_E_INICIA_SISTEMA
+		
+LIMPA_LCD_E_MOSTRA_SENHA_VALIDA:
+		// Limpa ambas as linhas do display
+		CALL 	CLR1L
+		CALL 	CLR2L
+		
+		MOV     DPTR,#STR_SENHA_VALIDA	// STRING DA PRIMEIRA LINHA
+		CALL    ESC_STR1				// ESCREVE NA PRIMEIRA LINHA
+		
+		// Atrasa 1s para reiniciar o sistema
+		MOV 	R0, #032h
+		LCALL 	ACIONA_BUZZER
+		
+		MOV 	DPTR, #STR_LIBERANDO_PORTA	// STRING DA SEGUNDA LINHA
+		CALL    ESC_STR2					// ESCREVE NA SEGUNDA LINHA
+		
+		MOV 	R5, #1Ah
+		LCALL 	ABRE_FECHADURA
+		
+		// Atrasa 3s para escrever outra string
+		MOV		R1, #03h
+		CALL 	TIMER_DELAY_1_S
+		
+		MOV 	DPTR, #STR_TRANCANDO_PORTA	// STRING DA SEGUNDA LINHA
+		CALL    ESC_STR2					// ESCREVE NA SEGUNDA LINHA
+		
+		MOV 	R5, #1Ah
+		LCALL 	TRANCA_FECHADURA
+		
+		JMP 	LIMPA_LCD_E_INICIA_SISTEMA
 		 
 //////////////////////////////////////////////////////////////////////////
 // NOME: GRAVA_TECLADO_X [2,4]											//
@@ -431,6 +461,94 @@ GRAVA_TECLADO_X:
 		 MOV @R1, A
 		 
 		 RET
+		 
+///////////////////
+// ACIONA BUZZER //
+//  R0 x 20 MS 	 //
+///////////////////
+ACIONA_BUZZER:
+		SETB 	BUZZER
+		ACALL 	TIMER_DELAY_20_MS
+		CLR 	BUZZER
+		
+		RET
+		
+//////////////////////////////////////////////
+// CODIGOS RELACIONADOS AO MOTOR DE PASSOS	//
+//////////////////////////////////////////////
+ABRE_FECHADURA:
+		CLR		ESTADO_DOIS
+		CLR		ESTADO_TRES
+		CLR		ESTADO_QUATRO
+		SETB	ESTADO_UM
+		
+		MOV 	R0, #05h
+		ACALL 	TIMER_DELAY_20_MS
+		
+		SETB	ESTADO_DOIS
+		CLR		ESTADO_TRES
+		CLR		ESTADO_QUATRO
+		CLR		ESTADO_UM
+		
+		MOV 	R0, #05h
+		ACALL 	TIMER_DELAY_20_MS
+		
+		CLR		ESTADO_DOIS
+		SETB	ESTADO_TRES
+		CLR		ESTADO_QUATRO
+		CLR		ESTADO_UM
+		
+		MOV 	R0, #05h
+		ACALL 	TIMER_DELAY_20_MS
+		
+		CLR		ESTADO_DOIS
+		CLR		ESTADO_TRES
+		SETB	ESTADO_QUATRO
+		CLR		ESTADO_UM
+		
+		MOV 	R0, #05h
+		ACALL 	TIMER_DELAY_20_MS
+		
+		DJNZ 	R5, ABRE_FECHADURA
+		
+		RET
+		
+TRANCA_FECHADURA:
+		CLR		ESTADO_DOIS
+		CLR		ESTADO_TRES
+		SETB	ESTADO_QUATRO
+		CLR		ESTADO_UM
+		
+		MOV 	R0, #05h
+		ACALL 	TIMER_DELAY_20_MS
+		
+		CLR		ESTADO_DOIS
+		SETB	ESTADO_TRES
+		CLR		ESTADO_QUATRO
+		CLR		ESTADO_UM
+		
+		MOV 	R0, #05h
+		ACALL 	TIMER_DELAY_20_MS
+		
+		SETB	ESTADO_DOIS
+		CLR		ESTADO_TRES
+		CLR		ESTADO_QUATRO
+		CLR		ESTADO_UM
+		
+		MOV 	R0, #05h
+		ACALL 	TIMER_DELAY_20_MS
+		
+		CLR		ESTADO_DOIS
+		CLR		ESTADO_TRES
+		CLR		ESTADO_QUATRO
+		SETB	ESTADO_UM
+		
+		MOV 	R0, #05h
+		ACALL 	TIMER_DELAY_20_MS
+		
+		DJNZ 	R5, TRANCA_FECHADURA
+
+		RET
 ////////////////////////////////////////////////
 // 		  INICIO DOS CODIGOS PARA LCD		  //
 ////////////////////////////////////////////////
@@ -733,8 +851,8 @@ TIMER_CONFIGURA_TIMER:
 // ALTERA: R0										//
 //////////////////////////////////////////////////////
 TIMER_DELAY_20_MS:
-		MOV TH0, #HIGH(65535 - 53350)
-		MOV TL0, #LOW(65535 - 53350)
+		MOV TH0, #HIGH(65535 - 43350)
+		MOV TL0, #LOW(65535 - 43350)
 	
 		CLR TF0
 		SETB TR0

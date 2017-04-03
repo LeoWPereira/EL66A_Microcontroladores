@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  AULA_28_03                                                           03/28/2017 16:29:11 PAGE     1
+A51 MACRO ASSEMBLER  AULA_28_03                                                           03/31/2017 16:11:21 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.5.0
@@ -8,189 +8,255 @@ ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE Aula_28_03.a51 SET(SMALL) DEBUG
 
 LOC  OBJ            LINE     SOURCE
 
-                       1     
+0000                   1     ORG 00h
 
-                       2     
+                       2             
 
-                       3     
+                       3      
 
-                       4     
+  00B1                 4             step1 EQU P3.1
 
-                       5     
+  00B2                 5             step2 EQU P3.2
 
-                       6     
+  00B3                 6             step3 EQU P3.3
 
-                       7     
+  00B4                 7             step4 EQU P3.4
 
-                       8     
+                       8                     
 
-                       9     
+0000 7805              9             MOV R0, #5
 
-0000                  10     org 0000h  
+                      10             
 
-0000 020026           11     ljmp __START__  
+0002                  11     step_right:
 
-                      12     
+0002 C2B1             12             CLR step1
 
-0003                  13     org 0003h  
+0004 113E             13             ACALL ajustaR5
 
-0003 020033           14     ljmp __INT_INT0__
+0006 D2B1             14             SETB step1
 
                       15     
 
-000B                  16     org 000Bh  
+0008 C2B2             16             CLR step2
 
-000B 02003C           17     ljmp __INT_TIMER0__  
+000A 113E             17             ACALL ajustaR5
 
-                      18     
+000C D2B2             18             SETB step2
 
-0013                  19     org 0013h  
+                      19     
 
-0013 02003D           20     ljmp __INT_INT1__  
+000E C2B3             20             CLR step3
 
-                      21     
+0010 113E             21             ACALL ajustaR5
 
-001B                  22     org 001Bh  
+0012 D2B3             22             SETB step3
 
-001B 020046           23     ljmp __INT_TIMER1__  
+                      23     
 
-                      24     
+0014 C2B4             24             CLR step4
 
-0023                  25     org 0023h  
+0016 113E             25             ACALL ajustaR5
 
-0023 020047           26     ljmp __INT_SERIAL__  
+0018 D2B4             26             SETB step4
 
-                      27     
+                      27             
 
-0026                  28     __START__:
+001A D8E6             28             DJNZ R0, step_right
 
-0026 D28B             29             setb    TCON.3  
+                      29     
 
-0028 D3               30             setb    C
+001C                  30     retornar_a_origem:
 
-                      31             
+001C 1143             31     ACALL timer1s
 
-0029 75A885           32             mov     IE, #10000101b  
+001E 7805             32     MOV R0, #5
 
-002C 75A000           33             mov     P2, #0  
+                      33     
 
-                      34             
+0020                  34     step_left:
 
-002F 80FE             35             jmp $
+0020 C2B4             35             CLR step4
 
-                      36             
+0022 113E             36             ACALL ajustaR5
 
-0031                  37     ATUALIZA:  
+0024 D2B4             37             SETB step4
 
-0031 F5A0             38             mov P2, A
+                      38     
 
-                      39             
+0026 C2B3             39             CLR step3
 
-                      40     
+0028 113E             40             ACALL ajustaR5
 
-                      41     
+002A D2B3             41             SETB step3
 
                       42     
 
-                      43     
+002C C2B2             43             CLR step2
 
-                      44     
+002E 113E             44             ACALL ajustaR5
 
-                      45     
+0030 D2B2             45             SETB step2
 
                       46     
 
-0033                  47     __INT_INT0__:
+0032 C2B1             47             CLR step1
 
-0033 E5A0             48             mov A, P2
+0034 113E             48             ACALL ajustaR5
 
-                      49             
+0036 D2B1             49             SETB step1
 
-0035 13               50             rrc A
+                      50             
 
-0036 50F9             51             jnc ATUALIZA     
+0038 D8E6             51             DJNZ R0, step_left
 
                       52             
 
-0038 13               53             rrc A                            
+003A 1143             53             ACALL timer1s
 
-0039 80F6             54             jmp ATUALIZA
+003C 8044             54             JMP fim
 
-                      55     
+                      55             
 
-003B 32               56             reti
+003E                  56     ajustaR5:
 
-                      57     
+003E 7D01             57                     MOV R5, #1
 
-A51 MACRO ASSEMBLER  AULA_28_03                                                           03/28/2017 16:29:11 PAGE     2
+A51 MACRO ASSEMBLER  AULA_28_03                                                           03/31/2017 16:11:21 PAGE     2
 
-                      58     
+0040 1155             58                     ACALL timer100m
 
-                      59     
+0042 22               59                     RET
 
                       60     
 
-003C                  61     __INT_TIMER0__:
+                      61     
 
-003C 32               62             reti
+                      62     
 
-                      63             
+0043                  63     timer1s:
 
-                      64     
+0043 E4               64                             CLR             A
 
-                      65     
+0044 7D04             65                             MOV             R5,#4                   
 
-                      66     
+0046 12004A           66                             LCALL   timer250m               ;chama a subrotina de 250ms 4x
 
-003D                  67     __INT_INT1__:
+0049 22               67                             RET
 
-003D E5A0             68             mov A, P2
+                      68                             
 
-                      69     
+004A                  69     timer250m:      
 
-003F 33               70             rlc A
+004A 7EFA             70                             MOV     R6,#250         ;roda o de 1ms 250x para 250ms
 
-0040 50EF             71             jnc ATUALIZA  
+004C 120060           71                             LCALL   timer1m
 
-                      72     
+004F ED               72                             MOV             A,R5
 
-0042 33               73             rlc A  
+0050 14               73                             DEC             A
 
-0043 80EC             74             jmp ATUALIZA
+0051 FD               74                             MOV             R5,A
 
-                      75             
+0052 70F6             75                             JNZ             timer250m
 
-0045 32               76             reti
+0054 22               76                             RET
 
                       77     
 
-                      78     
+0055                  78     timer100m:
 
-                      79     
+0055 7E64             79                             MOV     R6,#100         ;roda o de 1ms 100x para 100ms
 
-                      80     
+0057 120060           80                             LCALL   timer1m
 
-0046                  81     __INT_TIMER1__:
+005A ED               81                             MOV             A,R5
 
-0046 32               82             reti
+005B 14               82                             DEC             A
 
-                      83             
+005C FD               83                             MOV             R5,A
 
-                      84     
+005D 70F6             84                             JNZ             timer100m
 
-                      85     
+005F 22               85                             RET
 
                       86     
 
-0047                  87     __INT_SERIAL__:
+                      87     
 
-0047 32               88             reti
+0060                  88     timer1m:        
 
-                      89             
+0060 7F64             89                             MOV     R7,#100         ;roda o de 10us 100x para 1ms
 
-                      90             end
+0062 12006B           90                             LCALL   timer10u    ;chama da subrotina de 10us
 
-A51 MACRO ASSEMBLER  AULA_28_03                                                           03/28/2017 16:29:11 PAGE     3
+0065 EE               91                             MOV             A,R6
+
+0066 14               92                             DEC             A
+
+0067 FE               93                             MOV             R6,A
+
+0068 70F6             94                             JNZ             timer1m
+
+006A 22               95                             RET
+
+                      96                             
+
+                      97     ;loop de 10us                   
+
+006B EF               98     timer10u:       MOV     A,R7
+
+006C 14               99                             DEC             A
+
+006D FF              100                             MOV             R7,A
+
+006E 00              101                             NOP
+
+006F 00              102                             NOP
+
+0070 00              103                             NOP
+
+0071 00              104                             NOP
+
+0072 00              105                             NOP
+
+0073 00              106                             NOP
+
+0074 00              107                             NOP
+
+0075 00              108                             NOP
+
+0076 00              109                             NOP
+
+0077 00              110                             NOP
+
+0078 00              111                             NOP
+
+0079 00              112                             NOP
+
+007A 00              113                             NOP
+
+007B 00              114                             NOP
+
+007C 00              115                             NOP
+
+007D 00              116                             NOP
+
+007E 00              117                             NOP                     
+
+007F 70EA            118                             JNZ             timer10u  
+
+0081 22              119                             RET
+
+                     120                             
+
+0082                 121     fim:
+
+0082 00              122                             NOP
+
+                     123     END
+
+A51 MACRO ASSEMBLER  AULA_28_03                                                           03/31/2017 16:11:21 PAGE     3
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -198,16 +264,21 @@ SYMBOL TABLE LISTING
 
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
-ATUALIZA . . . . .  C ADDR   0031H   A   
-IE . . . . . . . .  D ADDR   00A8H   A   
-P2 . . . . . . . .  D ADDR   00A0H   A   
-TCON . . . . . . .  D ADDR   0088H   A   
-__INT_INT0__ . . .  C ADDR   0033H   A   
-__INT_INT1__ . . .  C ADDR   003DH   A   
-__INT_SERIAL__ . .  C ADDR   0047H   A   
-__INT_TIMER0__ . .  C ADDR   003CH   A   
-__INT_TIMER1__ . .  C ADDR   0046H   A   
-__START__. . . . .  C ADDR   0026H   A   
+AJUSTAR5 . . . . .  C ADDR   003EH   A   
+FIM. . . . . . . .  C ADDR   0082H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+RETORNAR_A_ORIGEM.  C ADDR   001CH   A   
+STEP1. . . . . . .  B ADDR   00B0H.1 A   
+STEP2. . . . . . .  B ADDR   00B0H.2 A   
+STEP3. . . . . . .  B ADDR   00B0H.3 A   
+STEP4. . . . . . .  B ADDR   00B0H.4 A   
+STEP_LEFT. . . . .  C ADDR   0020H   A   
+STEP_RIGHT . . . .  C ADDR   0002H   A   
+TIMER100M. . . . .  C ADDR   0055H   A   
+TIMER10U . . . . .  C ADDR   006BH   A   
+TIMER1M. . . . . .  C ADDR   0060H   A   
+TIMER1S. . . . . .  C ADDR   0043H   A   
+TIMER250M. . . . .  C ADDR   004AH   A   
 
 
 REGISTER BANK(S) USED: 0 
