@@ -36,55 +36,55 @@ ljmp INT_SERIAL
 //       TABELA DE EQUATES DO PROGRAMA		  //
 ////////////////////////////////////////////////
 
-// PARA PLACA USB VERMELHA 1SEM2013
-RS			EQU	P2.5			// COMANDO RS LCD
-RW			EQU	P2.6			// READ/WRITE
-E_LCD		EQU	P2.7			// COMANDO E (ENABLE) LCD
+// PARA PLACA USB VERMELHA
+RS				EQU	P2.5			// COMANDO RS LCD
+RW				EQU	P2.6			// READ/WRITE
+E_LCD			EQU	P2.7			// COMANDO E (ENABLE) LCD
 
-BUSYF		EQU	P0.7			// BUSY FLAG
+BUSYF			EQU	P0.7			// BUSY FLAG
 
 // LEDS DA PLACA
-LED_SEG 	EQU	P3.6
-LED1   		EQU	P3.7
+LED_SEG 		EQU	P3.6
+LED1   			EQU	P3.7
 	
 // LINHAS E COLUNAS DO TECLADO MATRICIAL
-COL1 		EQU P1.0
-COL2 		EQU P1.1
-COL3		EQU P1.2
-COL4 		EQU P1.3
+COL1 			EQU P1.0
+COL2 			EQU P1.1
+COL3			EQU P1.2
+COL4 			EQU P1.3
 
-LIN1 		EQU P1.4
-LIN2		EQU P1.5
-LIN3 		EQU P1.6
-LIN4 		EQU P1.7
+LIN1 			EQU P1.4
+LIN2			EQU P1.5
+LIN3 			EQU P1.6
+LIN4 			EQU P1.7
 	
+// BUZZER
+BUZZER			EQU P3.0	
+
 // ESTADOS DO MOTOR DE PASSO
 ESTADO_UM 		EQU P3.1
 ESTADO_DOIS 	EQU P3.2
 ESTADO_TRES 	EQU P3.3
 ESTADO_QUATRO 	EQU P3.4
 	
-// BUZZER
-BUZZER			EQU P3.0
-	
 // ENDEREÇOS DOS DÍGITOS DOS DADOS DE ENTRADA
-TECLADO_1	EQU 31h
-TECLADO_2	EQU 32h
-TECLADO_3	EQU 33h
-TECLADO_4	EQU 34h
+TECLADO_1		EQU 31h
+TECLADO_2		EQU 32h
+TECLADO_3		EQU 33h
+TECLADO_4		EQU 34h
 
 // ENDEREÇOS DOS DÍGITOS DE CADA SENHA
-SENHA1_1	EQU 35h
-SENHA1_2	EQU 36h
-SENHA1_3	EQU 37h
-SENHA1_4	EQU 38h
+SENHA1_1		EQU 35h
+SENHA1_2		EQU 36h
+SENHA1_3		EQU 37h
+SENHA1_4		EQU 38h
 
-SENHA2_1	EQU 45h
-SENHA2_2	EQU 46h
-SENHA2_3	EQU 47h
-SENHA2_4	EQU 48h
+SENHA2_1		EQU 45h
+SENHA2_2		EQU 46h
+SENHA2_3		EQU 47h
+SENHA2_4		EQU 48h
 
-TENTATIVAS  EQU 50h
+TENTATIVAS  	EQU 50h
 		
 //////////////////////////////////////////////////
 // REGIAO DA MEMORIA DE PROGRAMA COM AS STRINGS //
@@ -101,8 +101,6 @@ STR_LEONARDO_PEREIRA:
         DB      'Leonardo Pereira',00H
 STR_RODRIGO_ENDO:
         DB      '  Rodrigo Endo  ',00H
-STR_ENTER:
-        DB      'PRESSIONE  ENTER',00H
 STR_SENHA:
         DB      'SENHA: ',00H
 STR_SENHA_VALIDA:
@@ -113,6 +111,8 @@ STR_LIBERANDO_PORTA:
         DB      'LIBERANDO PORTA ',00H
 STR_TRANCANDO_PORTA:
         DB      'TRANCANDO PORTA ',00H		
+STR_SISTEMA_BLOQUEADO:
+        DB      'PORTA BLOQUEADA ',00H		
 		
 ////////////////////////////////////////////////
 // 				INICIO DO PROGRAMA			  //
@@ -121,7 +121,7 @@ STR_TRANCANDO_PORTA:
 __STARTUP__:
 		CALL 	TIMER_CONFIGURA_TIMER
 
-		MOV 	R0, #05h
+		MOV 	R0, #0Fh		// R0 x 20 ms com o buzzer acionado - apenas para mostrar que o sistema esta inicializando
 		LCALL 	ACIONA_BUZZER
 
 		MOV 	DPTR, #2030h  	// inicializa o DPTR com o endereco da senha 01
@@ -136,13 +136,12 @@ __STARTUP__:
 		MOV 	R2, #04h		// quantidade de digitos da senha 02
 		CALL 	LE_SENHA
 	
-		MOV 	TENTATIVAS, #3h
-		CLR		BUZZER
+		MOV 	TENTATIVAS, #3h	// Igual ao sistema de cartao de credito - Caso erre 3x seguidas a senha, bloqueia o sistema, tendo que reiniciar o sistema pelo botao fisico de RESET
 	
 MAIN:
-		CALL	INIDISP  
-		MOV     DPTR,#STR_LOGO	// STRING DA PRIMEIRA LINHA
-		CALL    ESC_STR1		// ESCREVE NA PRIMEIRA LINHA
+		CALL	INIDISP  		// chama rotina de inicializacao do display 16x2
+		MOV     DPTR,#STR_LOGO	// seta o DPTR com o endereco da string LOGO
+		CALL    ESC_STR1		// escreve na primeira linha do display
 		
 		// Atrasa 1s para escrever outra string
 		MOV		R1, #01h
@@ -150,11 +149,11 @@ MAIN:
 		
 		CALL 	CLR1L	// limpa primeira linha do display
 		
-		MOV 	DPTR, #STR_LEONARDO_PEREIRA	// STRING DA PRIMEIRA LINHA
-		CALL    ESC_STR1					// ESCREVE NA PRIMEIRA LINHA
+		MOV 	DPTR, #STR_LEONARDO_PEREIRA	// seta o DPTR com o endereco da string LEONARDO_PEREIRA
+		CALL    ESC_STR1					// escreve na primeira linha do display
 		
-		MOV 	DPTR, #STR_RODRIGO_ENDO		// STRING DA SEGUNDA LINHA
-		CALL    ESC_STR2					// ESCREVE NA SEGUNDA LINHA
+		MOV 	DPTR, #STR_RODRIGO_ENDO		// seta o DPTR com o endereco da string RODRIGO_ENDO
+		CALL    ESC_STR2					// escreve na segunda linha do display
 		
 		// Atrasa 1s para escrever outra string
 		MOV		R1, #01h
@@ -165,33 +164,34 @@ LIMPA_LCD_E_INICIA_SISTEMA:
 		CALL 	CLR1L
 		CALL 	CLR2L
 		
-		MOV     DPTR,#STR_SENHA	// STRING DA PRIMEIRA LINHA
-		CALL    ESC_STR1		// ESCREVE NA PRIMEIRA LINHA
+		MOV     DPTR,#STR_SENHA	// seta o DPTR com o endereco da string SENHA
+		CALL    ESC_STR1		// escreve na primeira linha do display
 		
+		// Move para a coluna 07 da primeira linha do display
 		MOV 	R0, #00h 	// linha
 		MOV 	R1, #07h	// coluna
 		CALL 	GOTOXY
 		
 		MOV 	R1, #TECLADO_1 	// ponteiro para a primeira leitura do teclado
-		MOV 	R3, #1h		   	// primeiro digito a ser lido, esse registrador e incrementado automaticamente ao varrer
+		MOV 	R3, #1h		   	// primeiro digito a ser lido, esse registrador e incrementado automaticamente ao terminar de varrer o teclado
 		MOV 	R7, #04h		// quantidade de digitos a serem lidos consecutivamente
 LE_4_DIGITOS:
-		MOV 	R0, #0Ah
+		MOV 	R0, #0Ah 		// R0 x 20 ms de delay - para nao sentir o efeito de bounce no teclado matricial
 		ACALL 	TIMER_DELAY_20_MS
 		
-		ACALL 	VARREDURA_TECLADO
-		CALL 	ESCREVE_ASTERISCO
+		ACALL 	VARREDURA_TECLADO	// permanece varrendo o teclado ate que alguma tecla seja pressionada
+		CALL 	ESCREVE_ASTERISCO	// escreve apenas um * na tela, semelhante a como funciona um sistema de cartao / banco
 		
-		INC R1
-		INC R3
+		INC R1	// incrementa o ponteiro R1, que aponta agora para o proximo digito a ser lido
+		INC R3	
 		
 		DJNZ R7, LE_4_DIGITOS
 		
 		// Apos ler os 4 digitos da senha, e necessario testar a senha com as duas senhas gravadas na ROM
-		MOV 	R0, #0Ah
+		MOV 	R0, #0Ah		// R0 x 20 ms de delay - para nao sentir o efeito de bounce no teclado matricial
 		ACALL 	TIMER_DELAY_20_MS
 		
-		ACALL 	PRESS_ENT
+		ACALL 	PRESS_ENT		// espera o pressionamento da tecla ENTER
 		
 		JMP	 	LIMPA_LCD_E_INICIA_SISTEMA
 
@@ -412,9 +412,20 @@ LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA:
 		MOV		R1, #01h
 		CALL 	TIMER_DELAY_1_S
 		
-		JMP 	LIMPA_LCD_E_INICIA_SISTEMA
+		DJNZ	TENTATIVAS, REINICIA_SISTEMA
+		
+		CALL 	CLR1L
+		MOV     DPTR,#STR_SISTEMA_BLOQUEADO	// STRING DA PRIMEIRA LINHA
+		CALL    ESC_STR1					// ESCREVE NA PRIMEIRA LINHA
+		
+		JMP 	FIM
+
+REINICIA_SISTEMA:
+		RET
 		
 LIMPA_LCD_E_MOSTRA_SENHA_VALIDA:
+		MOV 	TENTATIVAS, #3h // REINICIA NUMERO DE TENTATIVAS
+		
 		// Limpa ambas as linhas do display
 		CALL 	CLR1L
 		CALL 	CLR2L
@@ -442,7 +453,7 @@ LIMPA_LCD_E_MOSTRA_SENHA_VALIDA:
 		MOV 	R5, #1Ah
 		LCALL 	TRANCA_FECHADURA
 		
-		JMP 	LIMPA_LCD_E_INICIA_SISTEMA
+		RET
 		 
 //////////////////////////////////////////////////////////////////////////
 // NOME: GRAVA_TECLADO_X [2,4]											//
