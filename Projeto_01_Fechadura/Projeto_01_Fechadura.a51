@@ -165,7 +165,6 @@ MAIN:
 		MOV		R1, #01h
 		CALL 	TIMER_DELAY_1_S
 
-LIMPA_LCD_E_INICIA_SISTEMA:
 		// Limpa ambas as linhas do display
 		CALL 	CLR1L
 		CALL 	CLR2L
@@ -175,7 +174,8 @@ LIMPA_LCD_E_INICIA_SISTEMA:
 		CALL    ESC_STR1					// escreve na primeira linha do display
 		
 		ACALL 	PRESS_ENT		// espera o pressionamento da tecla ENTER
-		
+
+LIMPA_LCD_E_INICIA_SISTEMA:
 		CALL 	CLR1L
 		
 		// Apos apertar ENTER, pede-se a senha (que precisa bater com uma das 2 senhas pre-definidas)
@@ -206,7 +206,7 @@ LE_4_DIGITOS:
 		MOV 	R0, #0Ah		// R0 x 20 ms de delay - para nao sentir o efeito de bounce no teclado matricial
 		ACALL 	TIMER_DELAY_20_MS
 		
-		ACALL 	PRESS_ENT		// espera o pressionamento da tecla ENTER
+		ACALL 	PRESS_ENT_OU_CLR		// espera o pressionamento da tecla ENTER ou CLR
 		
 		JMP	 	LIMPA_LCD_E_INICIA_SISTEMA
 
@@ -272,7 +272,7 @@ ESCREVE_ASTERISCO:
 		CALL 	ESCDADO
 	
 		RET
-		
+
 //////////////////////////////////////////////////////
 // NOME: PRESS_ENT									//
 // DESCRICAO: Ao digitar os 4 digitos da senha, e	//
@@ -280,16 +280,35 @@ ESCREVE_ASTERISCO:
 // ENTRADA: -										//
 // SAIDA: -											//
 // DESTROI: A										//
-//////////////////////////////////////////////////////	
+//////////////////////////////////////////////////////
 PRESS_ENT:
 		// Apenas LIN4 esta em 0
 		MOV		TECLADO, #01111111b
 		
 VARRE_ENT:
+		JNB  	COL4, CONTINUA_PROG 	// se apertou ENTER, testa senha
+		
+		JMP  	VARRE_ENT
+CONTINUA_PROG:
+		RET
+		
+//////////////////////////////////////////////////////
+// NOME: PRESS_ENT_OU_CLR							//
+// DESCRICAO: Ao digitar os 4 digitos da senha, e	//
+// necessario apertar ENTER							//
+// ENTRADA: -										//
+// SAIDA: -											//
+// DESTROI: A										//
+//////////////////////////////////////////////////////	
+PRESS_ENT_OU_CLR:
+		// Apenas LIN4 esta em 0
+		MOV		TECLADO, #01111111b
+		
+VARRE_ENT_OU_CLR:
 		JNB  	COL2, CLEAR			// se apertou CLR, limpa senha de entrada
 		JNB  	COL4, TESTA_SENHA1 	// se apertou ENTER, testa senha
 		
-		JMP  	VARRE_ENT
+		JMP  	VARRE_ENT_OU_CLR
 
 //////////////////////////////////////////////////////
 // NOME: CLEAR										//
