@@ -146,9 +146,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>142</LineNumber>
+          <LineNumber>197</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>-16768790</Address>
+          <Address>-16768695</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -162,9 +162,9 @@
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>182</LineNumber>
+          <LineNumber>148</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>-16768738</Address>
+          <Address>-16768756</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -173,7 +173,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>Projeto_01_Fechadura.a51</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\Projeto_01_Fechadura\PROJETO_01_FECHADURA\182</Expression>
+          <Expression></Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>

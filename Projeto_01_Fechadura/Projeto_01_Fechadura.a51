@@ -417,22 +417,22 @@ LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA:
 		CALL 	CLR1L
 		CALL 	CLR2L
 		
-		MOV     DPTR,#STR_SENHA_INVALIDA	// STRING DA PRIMEIRA LINHA
-		CALL    ESC_STR1					// ESCREVE NA PRIMEIRA LINHA
+		MOV     DPTR,#STR_SENHA_INVALIDA	// string da primeira linha
+		CALL    ESC_STR1					// escreve na primeira linha
 		
-		// Atrasa 2s para reiniciar o sistema
+		// Aciona o buzzer por 2s
 		MOV 	R0, #064h
 		LCALL 	ACIONA_BUZZER
 		
-		// Atrasa 3s para escrever outra string
+		// Atrasa 3s (contando o tempo do buzzer) para reiniciar o sistema (caso nao tenha errado a senha 3x em sequencia)
 		MOV		R1, #01h
 		CALL 	TIMER_DELAY_1_S
 		
 		DJNZ	TENTATIVAS, REINICIA_SISTEMA
 		
 		CALL 	CLR1L
-		MOV     DPTR,#STR_SISTEMA_BLOQUEADO	// STRING DA PRIMEIRA LINHA
-		CALL    ESC_STR1					// ESCREVE NA PRIMEIRA LINHA
+		MOV     DPTR,#STR_SISTEMA_BLOQUEADO	// string da primeira linha
+		CALL    ESC_STR1					// escreve na primeira linha
 		
 		JMP 	FIM
 
@@ -440,22 +440,23 @@ REINICIA_SISTEMA:
 		RET
 		
 LIMPA_LCD_E_MOSTRA_SENHA_VALIDA:
-		MOV 	TENTATIVAS, #3h // REINICIA NUMERO DE TENTATIVAS
+		MOV 	TENTATIVAS, #3h // reinicia numero de tentativas
 		
 		// Limpa ambas as linhas do display
 		CALL 	CLR1L
 		CALL 	CLR2L
 		
-		MOV     DPTR,#STR_SENHA_VALIDA	// STRING DA PRIMEIRA LINHA
-		CALL    ESC_STR1				// ESCREVE NA PRIMEIRA LINHA
+		MOV     DPTR,#STR_SENHA_VALIDA	// string da primeira linha
+		CALL    ESC_STR1				// escreve na primeira linha
 		
-		// Atrasa 1s para reiniciar o sistema
+		// Aciona por 1s o buzzer
 		MOV 	R0, #032h
 		LCALL 	ACIONA_BUZZER
 		
-		MOV 	DPTR, #STR_LIBERANDO_PORTA	// STRING DA SEGUNDA LINHA
-		CALL    ESC_STR2					// ESCREVE NA SEGUNDA LINHA
+		MOV 	DPTR, #STR_LIBERANDO_PORTA	// string da segunda linha
+		CALL    ESC_STR2					// escreve na segunda linha
 		
+		// Aciona o mecanismo (motor de passos) para abrir a fechadura
 		MOV 	R5, #1Ah
 		LCALL 	ABRE_FECHADURA
 		
@@ -463,9 +464,11 @@ LIMPA_LCD_E_MOSTRA_SENHA_VALIDA:
 		MOV		R1, #03h
 		CALL 	TIMER_DELAY_1_S
 		
-		MOV 	DPTR, #STR_TRANCANDO_PORTA	// STRING DA SEGUNDA LINHA
-		CALL    ESC_STR2					// ESCREVE NA SEGUNDA LINHA
+		CALL 	CLR2L 						// limpa a segunda linha do LCD
+		MOV 	DPTR, #STR_TRANCANDO_PORTA	// string da segunda linha
+		CALL    ESC_STR2					// escreve na segunda linha
 		
+		// Aciona o mecanismo (motor de passos) para trancar a fechadura (basicamente faz o caminho oposto ao ABRE_FECHADURA)
 		MOV 	R5, #1Ah
 		LCALL 	TRANCA_FECHADURA
 		
@@ -481,8 +484,7 @@ LIMPA_LCD_E_MOSTRA_SENHA_VALIDA:
 GRAVA_TECLADO_2: CJNE R3, #2h, GRAVA_TECLADO_3
 				 AJMP GRAVA_TECLADO_X
 GRAVA_TECLADO_3: CJNE R3, #3h, GRAVA_TECLADO_4
-				 AJMP GRAVA_TECLADO_X		
-GRAVA_TECLADO_4: AJMP GRAVA_TECLADO_X
+GRAVA_TECLADO_4: AJMP GRAVA_TECLADO_X		
 
 GRAVA_TECLADO_X:
 		 MOV @R1, A
@@ -504,34 +506,28 @@ ACIONA_BUZZER:
 // CODIGOS RELACIONADOS AO MOTOR DE PASSOS	//
 //////////////////////////////////////////////
 ABRE_FECHADURA:
+		SETB	ESTADO_UM
 		CLR		ESTADO_DOIS
 		CLR		ESTADO_TRES
 		CLR		ESTADO_QUATRO
-		SETB	ESTADO_UM
 		
 		MOV 	R0, #05h
 		ACALL 	TIMER_DELAY_20_MS
 		
-		SETB	ESTADO_DOIS
-		CLR		ESTADO_TRES
-		CLR		ESTADO_QUATRO
 		CLR		ESTADO_UM
+		SETB	ESTADO_DOIS
 		
 		MOV 	R0, #05h
 		ACALL 	TIMER_DELAY_20_MS
 		
 		CLR		ESTADO_DOIS
 		SETB	ESTADO_TRES
-		CLR		ESTADO_QUATRO
-		CLR		ESTADO_UM
 		
 		MOV 	R0, #05h
 		ACALL 	TIMER_DELAY_20_MS
 		
-		CLR		ESTADO_DOIS
 		CLR		ESTADO_TRES
 		SETB	ESTADO_QUATRO
-		CLR		ESTADO_UM
 		
 		MOV 	R0, #05h
 		ACALL 	TIMER_DELAY_20_MS
@@ -541,34 +537,28 @@ ABRE_FECHADURA:
 		RET
 		
 TRANCA_FECHADURA:
+		CLR		ESTADO_UM
 		CLR		ESTADO_DOIS
 		CLR		ESTADO_TRES
 		SETB	ESTADO_QUATRO
-		CLR		ESTADO_UM
 		
 		MOV 	R0, #05h
 		ACALL 	TIMER_DELAY_20_MS
 		
-		CLR		ESTADO_DOIS
 		SETB	ESTADO_TRES
 		CLR		ESTADO_QUATRO
-		CLR		ESTADO_UM
 		
 		MOV 	R0, #05h
 		ACALL 	TIMER_DELAY_20_MS
 		
 		SETB	ESTADO_DOIS
 		CLR		ESTADO_TRES
-		CLR		ESTADO_QUATRO
-		CLR		ESTADO_UM
 		
 		MOV 	R0, #05h
 		ACALL 	TIMER_DELAY_20_MS
 		
-		CLR		ESTADO_DOIS
-		CLR		ESTADO_TRES
-		CLR		ESTADO_QUATRO
 		SETB	ESTADO_UM
+		CLR		ESTADO_DOIS
 		
 		MOV 	R0, #05h
 		ACALL 	TIMER_DELAY_20_MS
@@ -866,7 +856,7 @@ CUR1:     MOV    R2,#01
 ////////////////////////////////////////////////
 		  
 TIMER_CONFIGURA_TIMER:
-		MOV TMOD, #01h // Seta o timer_0 para o modo 01 (16 bits)
+		MOV TMOD, #00000001b // Seta o timer_0 para o modo 01 (16 bits)
 	
 		RET
 	
