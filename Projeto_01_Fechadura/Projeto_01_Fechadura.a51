@@ -67,13 +67,13 @@ ESTADO_DOIS 	EQU P3.2
 ESTADO_TRES 	EQU P3.3
 ESTADO_QUATRO 	EQU P3.4
 	
-// ENDEREÇOS DOS DÍGITOS DOS DADOS DE ENTRADA
+// ENDEREÇOS DOS DIGITOS DOS DADOS DE ENTRADA
 TECLADO_1		EQU 31h
 TECLADO_2		EQU 32h
 TECLADO_3		EQU 33h
 TECLADO_4		EQU 34h
 
-// ENDEREÇOS DOS DÍGITOS DE CADA SENHA
+// ENDEREÇOS DOS DIGITOS DE CADA SENHA
 SENHA1_1		EQU 35h
 SENHA1_2		EQU 36h
 SENHA1_3		EQU 37h
@@ -168,6 +168,15 @@ LIMPA_LCD_E_INICIA_SISTEMA:
 		CALL 	CLR1L
 		CALL 	CLR2L
 		
+		// Inicialmente, sera necessario o usuario apertar ENTER (simulando um sistema de bancos, por exemplo, onde voce precisa primeiro inserir o cartao para depois entrar com a senha)
+		MOV     DPTR,#STR_PRESSIONE_ENTER	// seta o DPTR com o endereco da string PRESSIONE_ENTER
+		CALL    ESC_STR1					// escreve na primeira linha do display
+		
+		ACALL 	PRESS_ENT		// espera o pressionamento da tecla ENTER
+		
+		CALL 	CLR1L
+		
+		// Apos apertar ENTER, pede-se a senha (que precisa bater com uma das 2 senhas pre-definidas)
 		MOV     DPTR,#STR_SENHA	// seta o DPTR com o endereco da string SENHA
 		CALL    ESC_STR1		// escreve na primeira linha do display
 		
@@ -189,7 +198,7 @@ LE_4_DIGITOS:
 		INC R1	// incrementa o ponteiro R1, que aponta agora para o proximo digito a ser lido
 		INC R3	
 		
-		DJNZ R7, LE_4_DIGITOS
+		DJNZ R7, LE_4_DIGITOS // enquanto nao ler os 4 digitos, se mantem no loop
 		
 		// Apos ler os 4 digitos da senha, e necessario testar a senha com as duas senhas gravadas na ROM
 		MOV 	R0, #0Ah		// R0 x 20 ms de delay - para nao sentir o efeito de bounce no teclado matricial
@@ -207,35 +216,35 @@ LE_4_DIGITOS:
 //			DPTR -> Endereco da posicao da senha	//
 //			R0 -> Caracter atual da senha			//
 // SAIDA: -											//
-// DESTROI: R1, R0, R2 								//
+// DESTROI: R1, R0, R2, A 							//
 //////////////////////////////////////////////////////
 LE_SENHA:
-	call LE_SENHA_ROM
+		CALL 	LE_SENHA_ROM
 	
-	INC R1
+		INC 	R1
 	
-	djnz R2, LE_SENHA
+		DJNZ 	R2, LE_SENHA
 	
-	RET
+		RET
 
 LE_SENHA_ROM:
-	mov A, R0
-	movc A, @A + DPTR
-	mov @R1, A
+		MOV 	A, R0
+		MOVC 	A, @A + DPTR
+		MOV		@R1, A
 	
-	inc R0
+		INC		R0
 	
-	call CONV_ASCII_TO_NUMBER
+		CALL	CONV_ASCII_TO_NUMBER
 	
-	RET
+		RET
 	
 //////////////////////////////////////////////////////
 // NOME: CONV_ASCII_TO_NUMBER						//
 // DESCRICAO: ROTINA QUE CONVERTE UM ASCII LIDO		//
 // PARA UM VALOR NUMERICO QUE PODE SER TESTADO		//
-// ENTRADA: -										//
+// ENTRADA: R1 -> Ponteiro para a variavel			//
 // SAIDA: -											//
-// DESTROI: 										//
+// DESTROI: A 										//
 //////////////////////////////////////////////////////
 CONV_ASCII_TO_NUMBER:
 		MOV 	A, @R1
@@ -257,7 +266,7 @@ ESCREVE_ASTERISCO:
 		MOV 	R0, #05h
 		LCALL 	ACIONA_BUZZER
 		
-		MOV 	A, #2Ah
+		MOV 	A, #2Ah // valor em hexa para '*'
 		CALL 	ESCDADO
 	
 		RET
@@ -265,7 +274,7 @@ ESCREVE_ASTERISCO:
 //////////////////////////////////////////////////////
 // NOME: PRESS_ENT									//
 // DESCRICAO: Ao digitar os 4 digitos da senha, e	//
-// necessario apertar enter							//
+// necessario apertar ENTER							//
 // ENTRADA: -										//
 // SAIDA: -											//
 // DESTROI: A										//
