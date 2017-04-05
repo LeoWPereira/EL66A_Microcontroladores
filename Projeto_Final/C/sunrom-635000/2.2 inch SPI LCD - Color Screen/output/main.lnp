@@ -1,0 +1,6 @@
+".\output\main.obj",
+".\output\font.obj",
+".\output\sys.obj",
+".\output\LCD.obj" 
+TO ".\output\main" 
+PRINT(".\output\main.m51") RAMSIZE(256) 

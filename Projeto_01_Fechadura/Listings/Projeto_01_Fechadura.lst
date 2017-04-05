@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/03/2017 21:47:32 PAGE     1
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/04/2017 21:47:44 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.5.0
@@ -42,37 +42,37 @@ LOC  OBJ            LINE     SOURCE
 
 2000                  17     org 2000h  
 
-2000 0220CA           18     ljmp __STARTUP__
+2000 0220EC           18     ljmp __STARTUP__
 
                       19     
 
 2003                  20     org 2003h  
 
-2003 0223A2           21     ljmp INT_INT0
+2003 0223C4           21     ljmp INT_INT0
 
                       22     
 
 200B                  23     org 200Bh  
 
-200B 0223A3           24     ljmp INT_TIMER0
+200B 0223C5           24     ljmp INT_TIMER0
 
                       25     
 
 2013                  26     org 2013h  
 
-2013 0223A4           27     ljmp INT_INT1
+2013 0223C6           27     ljmp INT_INT1
 
                       28     
 
 201B                  29     org 201Bh  
 
-201B 0223A5           30     ljmp INT_TIMER1
+201B 0223C7           30     ljmp INT_TIMER1
 
                       31     
 
 2023                  32     org 2023h  
 
-2023 0223A6           33     ljmp INT_SERIAL
+2023 0223C8           33     ljmp INT_SERIAL
 
                       34     
 
@@ -122,7 +122,7 @@ LOC  OBJ            LINE     SOURCE
 
   0095                57     LIN2                    EQU P1.5
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/03/2017 21:47:32 PAGE     2
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/04/2017 21:47:44 PAGE     2
 
   0096                58     LIN3                    EQU P1.6
 
@@ -235,219 +235,227 @@ LOC  OBJ            LINE     SOURCE
 206D 53454E48        105             DB      'SENHA: ',00H
 
 2071 413A2000                
-2075                 106     STR_SENHA_VALIDA:
+2075                 106     STR_PRESSIONE_ENTER:
 
-2075 20205345        107             DB      '  SENHA VALIDA  ',00H
+2075 50524553        107             DB      'PRESSIONE ENTER ',00H
 
-2079 4E484120                
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/03/2017 21:47:32 PAGE     3
+2079 53494F4E                
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/04/2017 21:47:44 PAGE     3
 
-207D 56414C49                
-2081 44412020                
+207D 4520454E                
+2081 54455220                
 2085 00                      
-2086                 108     STR_SENHA_INVALIDA:
+2086                 108     STR_SENHA_VALIDA:
 
-2086 2053454E        109             DB      ' SENHA INVALIDA ',00H
+2086 20205345        109             DB      '  SENHA VALIDA  ',00H
 
-208A 48412049                
-208E 4E56414C                
-2092 49444120                
+208A 4E484120                
+208E 56414C49                
+2092 44412020                
 2096 00                      
-2097                 110     STR_LIBERANDO_PORTA:
+2097                 110     STR_SENHA_INVALIDA:
 
-2097 4C494245        111             DB      'LIBERANDO PORTA ',00H
+2097 2053454E        111             DB      ' SENHA INVALIDA ',00H
 
-209B 52414E44                
-209F 4F20504F                
-20A3 52544120                
+209B 48412049                
+209F 4E56414C                
+20A3 49444120                
 20A7 00                      
-20A8                 112     STR_TRANCANDO_PORTA:
+20A8                 112     STR_LIBERANDO_PORTA:
 
-20A8 5452414E        113             DB      'TRANCANDO PORTA ',00H          
+20A8 4C494245        113             DB      'LIBERANDO PORTA ',00H
 
-20AC 43414E44                
+20AC 52414E44                
 20B0 4F20504F                
 20B4 52544120                
 20B8 00                      
-20B9                 114     STR_SISTEMA_BLOQUEADO:
+20B9                 114     STR_TRANCANDO_PORTA:
 
-20B9 504F5254        115             DB      'PORTA BLOQUEADA ',00H          
+20B9 5452414E        115             DB      'TRANCANDO PORTA ',00H          
 
-20BD 4120424C                
-20C1 4F515545                
-20C5 41444120                
+20BD 43414E44                
+20C1 4F20504F                
+20C5 52544120                
 20C9 00                      
-                     116                     
+20CA                 116     STR_SISTEMA_BLOQUEADO:
 
-                     117     
+20CA 504F5254        117             DB      'PORTA BLOQUEADA ',00H
 
-                     118     
+20CE 4120424C                
+20D2 4F515545                
+20D6 41444120                
+20DA 00                      
+20DB                 118     STR_TIMEOUT:
 
-                     119     
+20DB 20202020        119             DB      '    TIMEOUT     ',00H                  
 
-                     120     
+20DF 54494D45                
+20E3 4F555420                
+20E7 20202020                
+20EB 00                      
+                     120                     
 
-20CA                 121     __STARTUP__:
+                     121     
 
-20CA 7183            122                     CALL    TIMER_CONFIGURA_TIMER
+                     122     
 
                      123     
 
-20CC 780F            124                     MOV     R0, #0Fh                 
+                     124     
 
-20CE 122252          125                     LCALL   ACIONA_BUZZER
+20EC                 125     __STARTUP__:
 
-                     126     
+20EC 71A5            126                     CALL    TIMER_CONFIGURA_TIMER
 
-20D1 902030          127                     MOV     DPTR, #2030h     
+                     127     
 
-20D4 7800            128                     MOV     R0, #00h             
+20EE 780F            128                     MOV     R0, #0Fh                 
 
-20D6 7935            129                     MOV     R1, #SENHA1_1    
+20F0 122274          129                     LCALL   ACIONA_BUZZER
 
-20D8 7A04            130                     MOV     R2, #04h                 
+                     130     
 
-20DA 312E            131                     CALL    LE_SENHA
+20F3 902030          131                     MOV     DPTR, #2030h     
 
-                     132             
+20F6 7800            132                     MOV     R0, #00h             
 
-20DC 902035          133                     MOV     DPTR, #2035h     
+20F8 7935            133                     MOV     R1, #SENHA1_1    
 
-20DF 7800            134                     MOV     R0, #00h                 
+20FA 7A04            134                     MOV     R2, #04h                 
 
-20E1 7945            135                     MOV     R1, #SENHA2_1    
+20FC 3150            135                     CALL    LE_SENHA
 
-20E3 7A04            136                     MOV     R2, #04h                 
+                     136             
 
-20E5 312E            137                     CALL    LE_SENHA
+20FE 902035          137                     MOV     DPTR, #2035h     
 
-                     138             
+2101 7800            138                     MOV     R0, #00h                 
 
-20E7 755003          139                     MOV     TENTATIVAS, #3h  
+2103 7945            139                     MOV     R1, #SENHA2_1    
 
-                     140             
+2105 7A04            140                     MOV     R2, #04h                 
 
-20EA                 141     MAIN:
+2107 3150            141                     CALL    LE_SENHA
 
-20EA 51BF            142                     CALL    INIDISP                  
+                     142             
 
-20EC 90203A          143                     MOV     DPTR,#STR_LOGO   
+2109 755003          143                     MOV     TENTATIVAS, #3h  
 
-20EF 7167            144                     CALL    ESC_STR1                 
+                     144             
 
-                     145                     
+210C                 145     MAIN:
 
-                     146                     
+210C 51E1            146                     CALL    INIDISP                  
 
-20F1 7901            147                     MOV             R1, #01h
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/04/2017 21:47:44 PAGE     4
 
-20F3 719B            148                     CALL    TIMER_DELAY_1_S
+210E 90203A          147                     MOV     DPTR,#STR_LOGO   
+
+2111 7189            148                     CALL    ESC_STR1                 
 
                      149                     
 
-20F5 7107            150                     CALL    CLR1L    
+                     150                     
 
-                     151                     
+2113 7901            151                     MOV             R1, #01h
 
-20F7 90204B          152                     MOV     DPTR, #STR_LEONARDO_PEREIRA      
+2115 71BD            152                     CALL    TIMER_DELAY_1_S
 
-20FA 7167            153                     CALL    ESC_STR1                                         
+                     153                     
 
-                     154                     
+2117 7129            154                     CALL    CLR1L    
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/03/2017 21:47:32 PAGE     4
+                     155                     
 
-20FC 90205C          155                     MOV     DPTR, #STR_RODRIGO_ENDO          
+2119 90204B          156                     MOV     DPTR, #STR_LEONARDO_PEREIRA      
 
-20FF 716D            156                     CALL    ESC_STR2                                         
-
-                     157                     
+211C 7189            157                     CALL    ESC_STR1                                         
 
                      158                     
 
-2101 7901            159                     MOV             R1, #01h
+211E 90205C          159                     MOV     DPTR, #STR_RODRIGO_ENDO          
 
-2103 719B            160                     CALL    TIMER_DELAY_1_S
+2121 718F            160                     CALL    ESC_STR2                                         
 
-                     161     
+                     161                     
 
-2105                 162     LIMPA_LCD_E_INICIA_SISTEMA:
+                     162                     
 
-                     163                     
+2123 7901            163                     MOV             R1, #01h
 
-2105 7107            164                     CALL    CLR1L
+2125 71BD            164                     CALL    TIMER_DELAY_1_S
 
-2107 7120            165                     CALL    CLR2L
+                     165     
 
-                     166                     
+2127                 166     LIMPA_LCD_E_INICIA_SISTEMA:
 
-2109 90206D          167                     MOV     DPTR,#STR_SENHA  
+                     167                     
 
-210C 7167            168                     CALL    ESC_STR1                 
+2127 7129            168                     CALL    CLR1L
 
-                     169                     
+2129 7142            169                     CALL    CLR2L
 
                      170                     
 
-210E 7800            171                     MOV     R0, #00h         
+212B 90206D          171                     MOV     DPTR,#STR_SENHA  
 
-2110 7907            172                     MOV     R1, #07h         
+212E 7189            172                     CALL    ESC_STR1                 
 
-2112 51F5            173                     CALL    GOTOXY
+                     173                     
 
                      174                     
 
-2114 7931            175                     MOV     R1, #TECLADO_1   
+2130 7800            175                     MOV     R0, #00h         
 
-2116 7B01            176                     MOV     R3, #1h                  
+2132 7907            176                     MOV     R1, #07h         
 
-2118 7F04            177                     MOV     R7, #04h                 
+2134 7117            177                     CALL    GOTOXY
 
-211A                 178     LE_4_DIGITOS:
+                     178                     
 
-211A 780A            179                     MOV     R0, #0Ah                 
+2136 7931            179                     MOV     R1, #TECLADO_1   
 
-211C 7187            180                     ACALL   TIMER_DELAY_20_MS
+2138 7B01            180                     MOV     R3, #1h                  
 
-                     181                     
+213A 7F04            181                     MOV     R7, #04h                 
 
-211E 3165            182                     ACALL   VARREDURA_TECLADO        
+213C                 182     LE_4_DIGITOS:
 
-2120 3140            183                     CALL    ESCREVE_ASTERISCO        
+213C 780A            183                     MOV     R0, #0Ah                 
 
-                     184                     
+213E 71A9            184                     ACALL   TIMER_DELAY_20_MS
 
-2122 09              185                     INC R1   
+                     185                     
 
-2123 0B              186                     INC R3  
+2140 3187            186                     ACALL   VARREDURA_TECLADO        
 
-                     187                     
+2142 3162            187                     CALL    ESCREVE_ASTERISCO        
 
-2124 DFF4            188                     DJNZ R7, LE_4_DIGITOS
+                     188                     
 
-                     189                     
+2144 09              189                     INC R1   
 
-                     190                     
+2145 0B              190                     INC R3  
 
-2126 780A            191                     MOV     R0, #0Ah                 
+                     191                     
 
-2128 7187            192                     ACALL   TIMER_DELAY_20_MS
+2146 DFF4            192                     DJNZ R7, LE_4_DIGITOS
 
                      193                     
 
-212A 314A            194                     ACALL   PRESS_ENT                
+                     194                     
 
-                     195                     
+2148 780A            195                     MOV     R0, #0Ah                 
 
-212C 80D7            196                     JMP             LIMPA_LCD_E_INICIA_SISTEMA
+214A 71A9            196                     ACALL   TIMER_DELAY_20_MS
 
-                     197     
+                     197                     
 
-                     198     
+214C 316C            198                     ACALL   PRESS_ENT                
 
-                     199     
+                     199                     
 
-                     200     
+214E 80D7            200                     JMP             LIMPA_LCD_E_INICIA_SISTEMA
 
                      201     
 
@@ -463,55 +471,55 @@ LOC  OBJ            LINE     SOURCE
 
                      207     
 
-212E                 208     LE_SENHA:
+                     208     
 
-212E 3134            209             call LE_SENHA_ROM
+                     209     
 
-                     210             
+                     210     
 
-2130 09              211             INC R1
+                     211     
 
-                     212             
+2150                 212     LE_SENHA:
 
-2131 DAFB            213             djnz R2, LE_SENHA
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/04/2017 21:47:44 PAGE     5
+
+2150 3156            213             call LE_SENHA_ROM
 
                      214             
 
-2133 22              215             RET
+2152 09              215             INC R1
 
-                     216     
+                     216             
 
-2134                 217     LE_SENHA_ROM:
+2153 DAFB            217             djnz R2, LE_SENHA
 
-2134 E8              218             mov A, R0
+                     218             
 
-2135 93              219             movc A, @A + DPTR
+2155 22              219             RET
 
-2136 F7              220             mov @R1, A
+                     220     
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/03/2017 21:47:32 PAGE     5
+2156                 221     LE_SENHA_ROM:
 
-                     221             
+2156 E8              222             mov A, R0
 
-2137 08              222             inc R0
+2157 93              223             movc A, @A + DPTR
 
-                     223             
-
-2138 313B            224             call CONV_ASCII_TO_NUMBER
+2158 F7              224             mov @R1, A
 
                      225             
 
-213A 22              226             RET
+2159 08              226             inc R0
 
                      227             
 
-                     228     
+215A 315D            228             call CONV_ASCII_TO_NUMBER
 
-                     229     
+                     229             
 
-                     230     
+215C 22              230             RET
 
-                     231     
+                     231             
 
                      232     
 
@@ -521,31 +529,31 @@ LOC  OBJ            LINE     SOURCE
 
                      235     
 
-213B                 236     CONV_ASCII_TO_NUMBER:
+                     236     
 
-213B E7              237                     MOV     A, @R1
+                     237     
 
-                     238             
+                     238     
 
-213C 24D0            239                     ADD     A, #-30h
+                     239     
 
-                     240             
+215D                 240     CONV_ASCII_TO_NUMBER:
 
-213E F7              241                     MOV     @R1, A
+215D E7              241                     MOV     A, @R1
 
                      242             
 
-213F 22              243                     RET
+215E 24D0            243                     ADD     A, #-30h
 
                      244             
 
-                     245     
+2160 F7              245                     MOV     @R1, A
 
-                     246     
+                     246             
 
-                     247     
+2161 22              247                     RET
 
-                     248     
+                     248             
 
                      249     
 
@@ -553,31 +561,31 @@ LOC  OBJ            LINE     SOURCE
 
                      251     
 
-2140                 252     ESCREVE_ASTERISCO:              
+                     252     
 
-2140 7805            253                     MOV     R0, #05h
+                     253     
 
-2142 122252          254                     LCALL   ACIONA_BUZZER
+                     254     
 
-                     255                     
+                     255     
 
-2145 742A            256                     MOV     A, #2Ah
+2162                 256     ESCREVE_ASTERISCO:              
 
-2147 7139            257                     CALL    ESCDADO
+2162 7805            257                     MOV     R0, #05h
 
-                     258             
+2164 122274          258                     LCALL   ACIONA_BUZZER
 
-2149 22              259                     RET
+                     259                     
 
-                     260                     
+2167 742A            260                     MOV     A, #2Ah
 
-                     261     
+2169 715B            261                     CALL    ESCDADO
 
-                     262     
+                     262             
 
-                     263     
+216B 22              263                     RET
 
-                     264     
+                     264                     
 
                      265     
 
@@ -587,29 +595,31 @@ LOC  OBJ            LINE     SOURCE
 
                      268     
 
-214A                 269     PRESS_ENT:
+                     269     
 
-214A D294            270                     SETB    LIN1
+                     270     
 
-214C D295            271                     SETB    LIN2
+                     271     
 
-214E D296            272                     SETB    LIN3
+                     272     
 
-2150 C297            273                     CLR     LIN4
+216C                 273     PRESS_ENT:
 
-2152 309105          274                     JNB     COL2, CLEAR                      
+216C D294            274                     SETB    LIN1
 
-2155 309372          275                     JNB     COL4, TESTA_SENHA1       
+216E D295            275                     SETB    LIN2
 
-2158 80F0            276                     JMP     PRESS_ENT
+2170 D296            276                     SETB    LIN3
 
-                     277     
+2172 C297            277                     CLR     LIN4
 
-                     278     
+2174 309105          278                     JNB     COL2, CLEAR                      
 
-                     279     
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/04/2017 21:47:44 PAGE     6
 
-                     280     
+2177 309372          279                     JNB     COL4, TESTA_SENHA1       
+
+217A 80F0            280                     JMP     PRESS_ENT
 
                      281     
 
@@ -623,31 +633,29 @@ LOC  OBJ            LINE     SOURCE
 
                      286     
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/03/2017 21:47:32 PAGE     6
+                     287     
 
-215A                 287     CLEAR: 
+                     288     
 
-215A 7805            288                     MOV     R0, #05h
+                     289     
 
-215C 122252          289                     LCALL   ACIONA_BUZZER
+                     290     
 
-                     290                     
+217C                 291     CLEAR: 
 
-215F D0E0            291                     POP             ACC
+217C 7805            292                     MOV     R0, #05h
 
-2161 D0E0            292                     POP             ACC
-
-2163 80A0            293                     JMP     LIMPA_LCD_E_INICIA_SISTEMA
+217E 122274          293                     LCALL   ACIONA_BUZZER
 
                      294                     
 
-                     295     
+2181 D0E0            295                     POP             ACC
 
-                     296     
+2183 D0E0            296                     POP             ACC
 
-                     297     
+2185 80A0            297                     JMP     LIMPA_LCD_E_INICIA_SISTEMA
 
-                     298     
+                     298                     
 
                      299     
 
@@ -655,71 +663,71 @@ LOC  OBJ            LINE     SOURCE
 
                      301     
 
-2165                 302     VARREDURA_TECLADO:
+                     302     
 
-2165 C294            303                     CLR  LIN1
+                     303     
 
-2167 D295            304                     SETB LIN2
+                     304     
 
-2169 D296            305                     SETB LIN3
+                     305     
 
-216B D297            306                     SETB LIN4
+2187                 306     VARREDURA_TECLADO:
 
-216D 30912D          307                     JNB  COL2, DIGITO1
+2187 C294            307                     CLR  LIN1
 
-2170 30922E          308                     JNB  COL3, DIGITO2
+2189 D295            308                     SETB LIN2
 
-2173 30932F          309                     JNB  COL4, DIGITO3
+218B D296            309                     SETB LIN3
 
-                     310                     
+218D D297            310                     SETB LIN4
 
-2176 C295            311                     CLR  LIN2
+218F 30912D          311                     JNB  COL2, DIGITO1
 
-2178 D294            312                     SETB LIN1
+2192 30922E          312                     JNB  COL3, DIGITO2
 
-217A 30912C          313                     JNB  COL2, DIGITO4
+2195 30932F          313                     JNB  COL4, DIGITO3
 
-217D 30922D          314                     JNB  COL3, DIGITO5
+                     314                     
 
-2180 30932E          315                     JNB  COL4, DIGITO6
+2198 C295            315                     CLR  LIN2
 
-                     316                     
+219A D294            316                     SETB LIN1
 
-2183 C296            317                     CLR  LIN3
+219C 30912C          317                     JNB  COL2, DIGITO4
 
-2185 D295            318                     SETB LIN2
+219F 30922D          318                     JNB  COL3, DIGITO5
 
-2187 30912B          319                     JNB  COL2, DIGITO7
+21A2 30932E          319                     JNB  COL4, DIGITO6
 
-218A 30922C          320                     JNB  COL3, DIGITO8
+                     320                     
 
-218D 30932D          321                     JNB  COL4, DIGITO9
+21A5 C296            321                     CLR  LIN3
 
-                     322                     
+21A7 D295            322                     SETB LIN2
 
-2190 C297            323                     CLR  LIN4
+21A9 30912B          323                     JNB  COL2, DIGITO7
 
-2192 D296            324                     SETB LIN3
+21AC 30922C          324                     JNB  COL3, DIGITO8
 
-2194 3091C3          325                     JNB  COL2, CLEAR
+21AF 30932D          325                     JNB  COL4, DIGITO9
 
-2197 309227          326                     JNB  COL3, DIGITO0
+                     326                     
 
-219A 80C9            327                     JMP  VARREDURA_TECLADO
+21B2 C297            327                     CLR  LIN4
 
-                     328                     
+21B4 D296            328                     SETB LIN3
 
-219C 22              329                     RET
+21B6 3091C3          329                     JNB  COL2, CLEAR
 
-                     330                     
+21B9 309227          330                     JNB  COL3, DIGITO0
 
-                     331     
+21BC 80C9            331                     JMP  VARREDURA_TECLADO
 
-                     332     
+                     332                     
 
-                     333     
+21BE 22              333                     RET
 
-                     334     
+                     334                     
 
                      335     
 
@@ -729,67 +737,67 @@ LOC  OBJ            LINE     SOURCE
 
                      338     
 
-219D 7401            339     DIGITO1: MOV A, #1h
+                     339     
 
-219F 21C5            340                      AJMP GRAVA_DIGITO
+                     340     
 
-21A1 7402            341     DIGITO2: MOV A, #2h
+                     341     
 
-21A3 21C5            342                      AJMP GRAVA_DIGITO
+                     342     
 
-21A5 7403            343     DIGITO3: MOV A, #3h
+21BF 7401            343     DIGITO1: MOV A, #1h
 
-21A7 21C5            344                      AJMP GRAVA_DIGITO
+21C1 21E7            344                      AJMP GRAVA_DIGITO
 
-21A9 7404            345     DIGITO4: MOV A, #4h
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/04/2017 21:47:44 PAGE     7
 
-21AB 21C5            346                      AJMP GRAVA_DIGITO
+21C3 7402            345     DIGITO2: MOV A, #2h
 
-21AD 7405            347     DIGITO5: MOV A, #5h
+21C5 21E7            346                      AJMP GRAVA_DIGITO
 
-21AF 21C5            348                      AJMP GRAVA_DIGITO
+21C7 7403            347     DIGITO3: MOV A, #3h
 
-21B1 7406            349     DIGITO6: MOV A, #6h
+21C9 21E7            348                      AJMP GRAVA_DIGITO
 
-21B3 21C5            350                      AJMP GRAVA_DIGITO
+21CB 7404            349     DIGITO4: MOV A, #4h
 
-21B5 7407            351     DIGITO7: MOV A, #7h
+21CD 21E7            350                      AJMP GRAVA_DIGITO
 
-21B7 21C5            352                      AJMP GRAVA_DIGITO
+21CF 7405            351     DIGITO5: MOV A, #5h
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/03/2017 21:47:32 PAGE     7
+21D1 21E7            352                      AJMP GRAVA_DIGITO
 
-21B9 7408            353     DIGITO8: MOV A, #8h
+21D3 7406            353     DIGITO6: MOV A, #6h
 
-21BB 21C5            354                      AJMP GRAVA_DIGITO
+21D5 21E7            354                      AJMP GRAVA_DIGITO
 
-21BD 7409            355     DIGITO9: MOV A, #9h
+21D7 7407            355     DIGITO7: MOV A, #7h
 
-21BF 21C5            356                      AJMP GRAVA_DIGITO
+21D9 21E7            356                      AJMP GRAVA_DIGITO
 
-21C1 7400            357     DIGITO0: MOV A, #0h
+21DB 7408            357     DIGITO8: MOV A, #8h
 
-21C3 21C5            358                      AJMP GRAVA_DIGITO
+21DD 21E7            358                      AJMP GRAVA_DIGITO
 
-                     359                      
+21DF 7409            359     DIGITO9: MOV A, #9h
 
-21C5                 360     GRAVA_DIGITO:
+21E1 21E7            360                      AJMP GRAVA_DIGITO
 
-21C5 BB017C          361                     CJNE R3, #1h, GRAVA_TECLADO_2
+21E3 7400            361     DIGITO0: MOV A, #0h
 
-21C8 F7              362                     MOV @R1, A
+21E5 21E7            362                      AJMP GRAVA_DIGITO
 
-                     363             
+                     363                      
 
-21C9 22              364                     RET
+21E7                 364     GRAVA_DIGITO:
 
-                     365     
+21E7 BB017C          365                     CJNE R3, #1h, GRAVA_TECLADO_2
 
-                     366     
+21EA F7              366                     MOV @R1, A
 
-                     367     
+                     367             
 
-                     368     
+21EB 22              368                     RET
 
                      369     
 
@@ -801,183 +809,183 @@ LOC  OBJ            LINE     SOURCE
 
                      373     
 
-21CA                 374     TESTA_SENHA1:
+                     374     
 
-21CA 7805            375                     MOV     R0, #05h
+                     375     
 
-21CC 122252          376                     LCALL   ACIONA_BUZZER
+                     376     
 
-                     377                     
+                     377     
 
-21CF E535            378                     MOV             A, SENHA1_1
+21EC                 378     TESTA_SENHA1:
 
-21D1 B53111          379                     CJNE    A, TECLADO_1, TESTA_SENHA2
+21EC 7805            379                     MOV     R0, #05h
 
-21D4 E536            380                     MOV             A, SENHA1_2
+21EE 122274          380                     LCALL   ACIONA_BUZZER
 
-21D6 B5320C          381                     CJNE    A, TECLADO_2, TESTA_SENHA2
+                     381                     
 
-21D9 E537            382                     MOV             A, SENHA1_3
+21F1 E535            382                     MOV             A, SENHA1_1
 
-21DB B53307          383                     CJNE    A, TECLADO_3, TESTA_SENHA2
+21F3 B53111          383                     CJNE    A, TECLADO_1, TESTA_SENHA2
 
-21DE E538            384                     MOV             A, SENHA1_4
+21F6 E536            384                     MOV             A, SENHA1_2
 
-21E0 B53402          385                     CJNE    A, TECLADO_4, TESTA_SENHA2
+21F8 B5320C          385                     CJNE    A, TECLADO_2, TESTA_SENHA2
 
-21E3 8035            386                     JMP     LIMPA_LCD_E_MOSTRA_SENHA_VALIDA
+21FB E537            386                     MOV             A, SENHA1_3
 
-                     387             
+21FD B53307          387                     CJNE    A, TECLADO_3, TESTA_SENHA2
 
-21E5                 388     TESTA_SENHA2:
+2200 E538            388                     MOV             A, SENHA1_4
 
-21E5 E545            389                     MOV             A, SENHA2_1
+2202 B53402          389                     CJNE    A, TECLADO_4, TESTA_SENHA2
 
-21E7 B53111          390                     CJNE    A, TECLADO_1, LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA
+2205 8035            390                     JMP     LIMPA_LCD_E_MOSTRA_SENHA_VALIDA
 
-21EA E546            391                     MOV             A, SENHA2_2
+                     391             
 
-21EC B5320C          392                     CJNE    A, TECLADO_2, LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA
+2207                 392     TESTA_SENHA2:
 
-21EF E547            393                     MOV             A, SENHA2_3
+2207 E545            393                     MOV             A, SENHA2_1
 
-21F1 B53307          394                     CJNE    A, TECLADO_3, LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA
+2209 B53111          394                     CJNE    A, TECLADO_1, LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA
 
-21F4 E548            395                     MOV             A, SENHA2_4
+220C E546            395                     MOV             A, SENHA2_2
 
-21F6 B53402          396                     CJNE    A, TECLADO_4, LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA
+220E B5320C          396                     CJNE    A, TECLADO_2, LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA
 
-21F9 801F            397                     JMP     LIMPA_LCD_E_MOSTRA_SENHA_VALIDA
+2211 E547            397                     MOV             A, SENHA2_3
 
-                     398                     
+2213 B53307          398                     CJNE    A, TECLADO_3, LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA
 
-21FB                 399     LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA:
+2216 E548            399                     MOV             A, SENHA2_4
 
-                     400                     
+2218 B53402          400                     CJNE    A, TECLADO_4, LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA
 
-21FB 7107            401                     CALL    CLR1L
+221B 801F            401                     JMP     LIMPA_LCD_E_MOSTRA_SENHA_VALIDA
 
-21FD 7120            402                     CALL    CLR2L
+                     402                     
 
-                     403                     
+221D                 403     LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA:
 
-21FF 902086          404                     MOV     DPTR,#STR_SENHA_INVALIDA         
+                     404                     
 
-2202 7167            405                     CALL    ESC_STR1                                         
+221D 7129            405                     CALL    CLR1L
 
-                     406                     
+221F 7142            406                     CALL    CLR2L
 
                      407                     
 
-2204 7864            408                     MOV     R0, #064h
+2221 902097          408                     MOV     DPTR,#STR_SENHA_INVALIDA         
 
-2206 122252          409                     LCALL   ACIONA_BUZZER
+2224 7189            409                     CALL    ESC_STR1                                         
 
                      410                     
 
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/04/2017 21:47:44 PAGE     8
+
                      411                     
 
-2209 7901            412                     MOV             R1, #01h
+2226 7864            412                     MOV     R0, #064h
 
-220B 719B            413                     CALL    TIMER_DELAY_1_S
+2228 122274          413                     LCALL   ACIONA_BUZZER
 
                      414                     
 
-220D D55009          415                     DJNZ    TENTATIVAS, REINICIA_SISTEMA
+                     415                     
 
-                     416                     
+222B 7901            416                     MOV             R1, #01h
 
-2210 7107            417                     CALL    CLR1L
+222D 71BD            417                     CALL    TIMER_DELAY_1_S
 
-2212 9020B9          418                     MOV     DPTR,#STR_SISTEMA_BLOQUEADO      
+                     418                     
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/03/2017 21:47:32 PAGE     8
-
-2215 7167            419                     CALL    ESC_STR1                                         
+222F D55009          419                     DJNZ    TENTATIVAS, REINICIA_SISTEMA
 
                      420                     
 
-2217 61A7            421                     JMP     FIM
+2232 7129            421                     CALL    CLR1L
 
-                     422     
+2234 9020CA          422                     MOV     DPTR,#STR_SISTEMA_BLOQUEADO      
 
-2219                 423     REINICIA_SISTEMA:
+2237 7189            423                     CALL    ESC_STR1                                         
 
-2219 22              424                     RET
+                     424                     
 
-                     425                     
+2239 61C9            425                     JMP     FIM
 
-221A                 426     LIMPA_LCD_E_MOSTRA_SENHA_VALIDA:
+                     426     
 
-221A 755003          427                     MOV     TENTATIVAS, #3h  
+223B                 427     REINICIA_SISTEMA:
 
-                     428                     
+223B 22              428                     RET
 
                      429                     
 
-221D 7107            430                     CALL    CLR1L
+223C                 430     LIMPA_LCD_E_MOSTRA_SENHA_VALIDA:
 
-221F 7120            431                     CALL    CLR2L
+223C 755003          431                     MOV     TENTATIVAS, #3h  
 
                      432                     
 
-2221 902075          433                     MOV     DPTR,#STR_SENHA_VALIDA   
+                     433                     
 
-2224 7167            434                     CALL    ESC_STR1                                 
+223F 7129            434                     CALL    CLR1L
 
-                     435                     
+2241 7142            435                     CALL    CLR2L
 
                      436                     
 
-2226 7832            437                     MOV     R0, #032h
+2243 902086          437                     MOV     DPTR,#STR_SENHA_VALIDA   
 
-2228 122252          438                     LCALL   ACIONA_BUZZER
+2246 7189            438                     CALL    ESC_STR1                                 
 
                      439                     
 
-222B 902097          440                     MOV     DPTR, #STR_LIBERANDO_PORTA       
+                     440                     
 
-222E 716D            441                     CALL    ESC_STR2                                         
+2248 7832            441                     MOV     R0, #032h
 
-                     442                     
+224A 122274          442                     LCALL   ACIONA_BUZZER
 
-2230 7D1A            443                     MOV     R5, #1Ah
+                     443                     
 
-2232 122259          444                     LCALL   ABRE_FECHADURA
+224D 9020A8          444                     MOV     DPTR, #STR_LIBERANDO_PORTA       
 
-                     445                     
+2250 718F            445                     CALL    ESC_STR2                                         
 
                      446                     
 
-2235 7903            447                     MOV             R1, #03h
+2252 7D1A            447                     MOV     R5, #1Ah
 
-2237 719B            448                     CALL    TIMER_DELAY_1_S
+2254 12227B          448                     LCALL   ABRE_FECHADURA
 
                      449                     
 
-2239 9020A8          450                     MOV     DPTR, #STR_TRANCANDO_PORTA       
+                     450                     
 
-223C 716D            451                     CALL    ESC_STR2                                         
+2257 7903            451                     MOV             R1, #03h
 
-                     452                     
+2259 71BD            452                     CALL    TIMER_DELAY_1_S
 
-223E 7D1A            453                     MOV     R5, #1Ah
+                     453                     
 
-2240 12228C          454                     LCALL   TRANCA_FECHADURA
+225B 9020B9          454                     MOV     DPTR, #STR_TRANCANDO_PORTA       
 
-                     455                     
+225E 718F            455                     CALL    ESC_STR2                                         
 
-2243 22              456                     RET
+                     456                     
 
-                     457                      
+2260 7D1A            457                     MOV     R5, #1Ah
 
-                     458     
+2262 1222AE          458                     LCALL   TRANCA_FECHADURA
 
-                     459     
+                     459                     
 
-                     460     
+2265 22              460                     RET
 
-                     461     
+                     461                      
 
                      462     
 
@@ -985,213 +993,213 @@ LOC  OBJ            LINE     SOURCE
 
                      464     
 
-2244 BB0202          465     GRAVA_TECLADO_2: CJNE R3, #2h, GRAVA_TECLADO_3
+                     465     
 
-2247 4150            466                                      AJMP GRAVA_TECLADO_X
+                     466     
 
-2249 BB0302          467     GRAVA_TECLADO_3: CJNE R3, #3h, GRAVA_TECLADO_4
+                     467     
 
-224C 4150            468                                      AJMP GRAVA_TECLADO_X           
+                     468     
 
-224E 4150            469     GRAVA_TECLADO_4: AJMP GRAVA_TECLADO_X
+2266 BB0202          469     GRAVA_TECLADO_2: CJNE R3, #2h, GRAVA_TECLADO_3
 
-                     470     
+2269 4172            470                                      AJMP GRAVA_TECLADO_X
 
-2250                 471     GRAVA_TECLADO_X:
+226B BB0302          471     GRAVA_TECLADO_3: CJNE R3, #3h, GRAVA_TECLADO_4
 
-2250 F7              472                      MOV @R1, A
+226E 4172            472                                      AJMP GRAVA_TECLADO_X           
 
-                     473                      
+2270 4172            473     GRAVA_TECLADO_4: AJMP GRAVA_TECLADO_X
 
-2251 22              474                      RET
+                     474     
 
-                     475                      
+2272                 475     GRAVA_TECLADO_X:
 
-                     476     
+2272 F7              476                      MOV @R1, A
 
-                     477     
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/04/2017 21:47:44 PAGE     9
 
-                     478     
+                     477                      
 
-                     479     
+2273 22              478                      RET
 
-2252                 480     ACIONA_BUZZER:
+                     479                      
 
-2252 D2B0            481                     SETB    BUZZER
+                     480     
 
-2254 7187            482                     ACALL   TIMER_DELAY_20_MS
+                     481     
 
-2256 C2B0            483                     CLR     BUZZER
+                     482     
 
-                     484                     
+                     483     
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/03/2017 21:47:32 PAGE     9
+2274                 484     ACIONA_BUZZER:
 
-2258 22              485                     RET
+2274 D2B0            485                     SETB    BUZZER
 
-                     486                     
+2276 71A9            486                     ACALL   TIMER_DELAY_20_MS
 
-                     487     
+2278 C2B0            487                     CLR     BUZZER
 
-                     488     
+                     488                     
 
-                     489     
+227A 22              489                     RET
 
-2259                 490     ABRE_FECHADURA:
+                     490                     
 
-2259 C2B2            491                     CLR             ESTADO_DOIS
+                     491     
 
-225B C2B3            492                     CLR             ESTADO_TRES
+                     492     
 
-225D C2B4            493                     CLR             ESTADO_QUATRO
+                     493     
 
-225F D2B1            494                     SETB    ESTADO_UM
+227B                 494     ABRE_FECHADURA:
 
-                     495                     
+227B C2B2            495                     CLR             ESTADO_DOIS
 
-2261 7805            496                     MOV     R0, #05h
+227D C2B3            496                     CLR             ESTADO_TRES
 
-2263 7187            497                     ACALL   TIMER_DELAY_20_MS
+227F C2B4            497                     CLR             ESTADO_QUATRO
 
-                     498                     
+2281 D2B1            498                     SETB    ESTADO_UM
 
-2265 D2B2            499                     SETB    ESTADO_DOIS
+                     499                     
 
-2267 C2B3            500                     CLR             ESTADO_TRES
+2283 7805            500                     MOV     R0, #05h
 
-2269 C2B4            501                     CLR             ESTADO_QUATRO
+2285 71A9            501                     ACALL   TIMER_DELAY_20_MS
 
-226B C2B1            502                     CLR             ESTADO_UM
+                     502                     
 
-                     503                     
+2287 D2B2            503                     SETB    ESTADO_DOIS
 
-226D 7805            504                     MOV     R0, #05h
+2289 C2B3            504                     CLR             ESTADO_TRES
 
-226F 7187            505                     ACALL   TIMER_DELAY_20_MS
+228B C2B4            505                     CLR             ESTADO_QUATRO
 
-                     506                     
+228D C2B1            506                     CLR             ESTADO_UM
 
-2271 C2B2            507                     CLR             ESTADO_DOIS
+                     507                     
 
-2273 D2B3            508                     SETB    ESTADO_TRES
+228F 7805            508                     MOV     R0, #05h
 
-2275 C2B4            509                     CLR             ESTADO_QUATRO
+2291 71A9            509                     ACALL   TIMER_DELAY_20_MS
 
-2277 C2B1            510                     CLR             ESTADO_UM
+                     510                     
 
-                     511                     
+2293 C2B2            511                     CLR             ESTADO_DOIS
 
-2279 7805            512                     MOV     R0, #05h
+2295 D2B3            512                     SETB    ESTADO_TRES
 
-227B 7187            513                     ACALL   TIMER_DELAY_20_MS
+2297 C2B4            513                     CLR             ESTADO_QUATRO
 
-                     514                     
+2299 C2B1            514                     CLR             ESTADO_UM
 
-227D C2B2            515                     CLR             ESTADO_DOIS
+                     515                     
 
-227F C2B3            516                     CLR             ESTADO_TRES
+229B 7805            516                     MOV     R0, #05h
 
-2281 D2B4            517                     SETB    ESTADO_QUATRO
+229D 71A9            517                     ACALL   TIMER_DELAY_20_MS
 
-2283 C2B1            518                     CLR             ESTADO_UM
+                     518                     
 
-                     519                     
+229F C2B2            519                     CLR             ESTADO_DOIS
 
-2285 7805            520                     MOV     R0, #05h
+22A1 C2B3            520                     CLR             ESTADO_TRES
 
-2287 7187            521                     ACALL   TIMER_DELAY_20_MS
+22A3 D2B4            521                     SETB    ESTADO_QUATRO
 
-                     522                     
+22A5 C2B1            522                     CLR             ESTADO_UM
 
-2289 DDCE            523                     DJNZ    R5, ABRE_FECHADURA
+                     523                     
 
-                     524                     
+22A7 7805            524                     MOV     R0, #05h
 
-228B 22              525                     RET
+22A9 71A9            525                     ACALL   TIMER_DELAY_20_MS
 
                      526                     
 
-228C                 527     TRANCA_FECHADURA:
+22AB DDCE            527                     DJNZ    R5, ABRE_FECHADURA
 
-228C C2B2            528                     CLR             ESTADO_DOIS
+                     528                     
 
-228E C2B3            529                     CLR             ESTADO_TRES
+22AD 22              529                     RET
 
-2290 D2B4            530                     SETB    ESTADO_QUATRO
+                     530                     
 
-2292 C2B1            531                     CLR             ESTADO_UM
+22AE                 531     TRANCA_FECHADURA:
 
-                     532                     
+22AE C2B2            532                     CLR             ESTADO_DOIS
 
-2294 7805            533                     MOV     R0, #05h
+22B0 C2B3            533                     CLR             ESTADO_TRES
 
-2296 7187            534                     ACALL   TIMER_DELAY_20_MS
+22B2 D2B4            534                     SETB    ESTADO_QUATRO
 
-                     535                     
+22B4 C2B1            535                     CLR             ESTADO_UM
 
-2298 C2B2            536                     CLR             ESTADO_DOIS
+                     536                     
 
-229A D2B3            537                     SETB    ESTADO_TRES
+22B6 7805            537                     MOV     R0, #05h
 
-229C C2B4            538                     CLR             ESTADO_QUATRO
+22B8 71A9            538                     ACALL   TIMER_DELAY_20_MS
 
-229E C2B1            539                     CLR             ESTADO_UM
+                     539                     
 
-                     540                     
+22BA C2B2            540                     CLR             ESTADO_DOIS
 
-22A0 7805            541                     MOV     R0, #05h
+22BC D2B3            541                     SETB    ESTADO_TRES
 
-22A2 7187            542                     ACALL   TIMER_DELAY_20_MS
+22BE C2B4            542                     CLR             ESTADO_QUATRO
 
-                     543                     
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/04/2017 21:47:44 PAGE    10
 
-22A4 D2B2            544                     SETB    ESTADO_DOIS
+22C0 C2B1            543                     CLR             ESTADO_UM
 
-22A6 C2B3            545                     CLR             ESTADO_TRES
+                     544                     
 
-22A8 C2B4            546                     CLR             ESTADO_QUATRO
+22C2 7805            545                     MOV     R0, #05h
 
-22AA C2B1            547                     CLR             ESTADO_UM
+22C4 71A9            546                     ACALL   TIMER_DELAY_20_MS
 
-                     548                     
+                     547                     
 
-22AC 7805            549                     MOV     R0, #05h
+22C6 D2B2            548                     SETB    ESTADO_DOIS
 
-22AE 7187            550                     ACALL   TIMER_DELAY_20_MS
+22C8 C2B3            549                     CLR             ESTADO_TRES
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/03/2017 21:47:32 PAGE    10
+22CA C2B4            550                     CLR             ESTADO_QUATRO
 
-                     551                     
+22CC C2B1            551                     CLR             ESTADO_UM
 
-22B0 C2B2            552                     CLR             ESTADO_DOIS
+                     552                     
 
-22B2 C2B3            553                     CLR             ESTADO_TRES
+22CE 7805            553                     MOV     R0, #05h
 
-22B4 C2B4            554                     CLR             ESTADO_QUATRO
+22D0 71A9            554                     ACALL   TIMER_DELAY_20_MS
 
-22B6 D2B1            555                     SETB    ESTADO_UM
+                     555                     
 
-                     556                     
+22D2 C2B2            556                     CLR             ESTADO_DOIS
 
-22B8 7805            557                     MOV     R0, #05h
+22D4 C2B3            557                     CLR             ESTADO_TRES
 
-22BA 7187            558                     ACALL   TIMER_DELAY_20_MS
+22D6 C2B4            558                     CLR             ESTADO_QUATRO
 
-                     559                     
+22D8 D2B1            559                     SETB    ESTADO_UM
 
-22BC DDCE            560                     DJNZ    R5, TRANCA_FECHADURA
+                     560                     
 
-                     561     
+22DA 7805            561                     MOV     R0, #05h
 
-22BE 22              562                     RET
+22DC 71A9            562                     ACALL   TIMER_DELAY_20_MS
 
-                     563     
+                     563                     
 
-                     564     
+22DE DDCE            564                     DJNZ    R5, TRANCA_FECHADURA
 
                      565     
 
-                     566             
+22E0 22              566                     RET
 
                      567     
 
@@ -1199,7 +1207,7 @@ LOC  OBJ            LINE     SOURCE
 
                      569     
 
-                     570     
+                     570             
 
                      571     
 
@@ -1211,59 +1219,59 @@ LOC  OBJ            LINE     SOURCE
 
                      575     
 
-22BF                 576     INIDISP:                       
+                     576     
 
-22BF 7838            577             MOV     R0,#38H          
+                     577     
 
-22C1 7A05            578             MOV     R2,#05           
+                     578     
 
-22C3 51DE            579             CALL    ESCINST          
+                     579     
 
-                     580             
+22E1                 580     INIDISP:                       
 
-22C5 7838            581                     MOV     R0,#38H          
+22E1 7838            581             MOV     R0,#38H          
 
-22C7 7A01            582             MOV     R2,#01           
+22E3 7A05            582             MOV     R2,#05           
 
-22C9 51DE            583             CALL    ESCINST          
+22E5 7100            583             CALL    ESCINST          
 
                      584             
 
-22CB 7806            585                     MOV     R0,#06H          
+22E7 7838            585                     MOV     R0,#38H          
 
-22CD 7A01            586             MOV     R2,#01           
+22E9 7A01            586             MOV     R2,#01           
 
-22CF 51DE            587             CALL    ESCINST          
+22EB 7100            587             CALL    ESCINST          
 
                      588             
 
-22D1 780C            589                     MOV     R0,#0CH          
+22ED 7806            589                     MOV     R0,#06H          
 
-22D3 7A01            590             MOV     R2,#01           
+22EF 7A01            590             MOV     R2,#01           
 
-22D5 51DE            591             CALL    ESCINST          
+22F1 7100            591             CALL    ESCINST          
 
                      592             
 
-22D7 7801            593                     MOV     R0,#01H          
+22F3 780C            593                     MOV     R0,#0CH          
 
-22D9 7A02            594             MOV     R2,#02           
+22F5 7A01            594             MOV     R2,#01           
 
-22DB 51DE            595             CALL    ESCINST          
+22F7 7100            595             CALL    ESCINST          
 
                      596             
 
-22DD 22              597                     RET
+22F9 7801            597                     MOV     R0,#01H          
 
-                     598                     
+22FB 7A02            598             MOV     R2,#02           
 
-                     599     
+22FD 7100            599             CALL    ESCINST          
 
-                     600     
+                     600             
 
-                     601     
+22FF 22              601                     RET
 
-                     602     
+                     602                     
 
                      603     
 
@@ -1275,55 +1283,55 @@ LOC  OBJ            LINE     SOURCE
 
                      607     
 
-22DE                 608     ESCINST:  
+                     608     
 
-22DE C2A6            609                     CLR             RW                               
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/04/2017 21:47:44 PAGE    11
 
-22E0 C2A5            610                     CLR     RS               
+                     609     
 
-22E2 D2A7            611                     SETB    E_LCD            
+                     610     
 
-                     612                     
+                     611     
 
-22E4 8880            613                     MOV     P0,R0            
+2300                 612     ESCINST:  
 
-                     614                     
+2300 C2A6            613                     CLR             RW                               
 
-22E6 C2A7            615                     CLR     E_LCD            
+2302 C2A5            614                     CLR     RS               
+
+2304 D2A7            615                     SETB    E_LCD            
 
                      616                     
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/03/2017 21:47:32 PAGE    11
-
-22E8 7580FF          617                     MOV             P0,#0xFF                 
+2306 8880            617                     MOV     P0,R0            
 
                      618                     
 
-22EB D2A6            619                     SETB    RW                               
+2308 C2A7            619                     CLR     E_LCD            
 
-22ED D2A7            620                     SETB    E_LCD            
+                     620                     
 
-                     621     
+230A 7580FF          621                     MOV             P0,#0xFF                 
 
-22EF 2087FD          622     ESCI1:  JB      BUSYF,ESCI1                      
+                     622                     
 
-                     623                     
+230D D2A6            623                     SETB    RW                               
 
-22F2 C2A7            624                     CLR     E_LCD            
+230F D2A7            624                     SETB    E_LCD            
 
-                     625             
+                     625     
 
-22F4 22              626                     RET
+2311 2087FD          626     ESCI1:  JB      BUSYF,ESCI1                      
 
                      627                     
 
-                     628     
+2314 C2A7            628                     CLR     E_LCD            
 
-                     629     
+                     629             
 
-                     630     
+2316 22              630                     RET
 
-                     631     
+                     631                     
 
                      632     
 
@@ -1333,49 +1341,49 @@ LOC  OBJ            LINE     SOURCE
 
                      635     
 
-22F5                 636     GOTOXY: 
+                     636     
 
-22F5 C0E0            637                     PUSH    ACC
+                     637     
 
-                     638             
+                     638     
 
-22F7 7480            639                     MOV     A,#80H
+                     639     
 
-22F9 B80102          640             CJNE    R0,#01,GT1       
+2317                 640     GOTOXY: 
 
-                     641             
+2317 C0E0            641                     PUSH    ACC
 
-22FC 74C0            642                     MOV     A,#0C0H
+                     642             
 
-                     643                     
+2319 7480            643                     MOV     A,#80H
 
-22FE 49              644     GT1:    ORL     A,R1             
+231B B80102          644             CJNE    R0,#01,GT1       
 
-22FF F8              645             MOV     R0,A
+                     645             
 
-2300 7A01            646             MOV     R2,#01           
+231E 74C0            646                     MOV     A,#0C0H
 
-                     647             
+                     647                     
 
-2302 51DE            648                     CALL    ESCINST          
+2320 49              648     GT1:    ORL     A,R1             
 
-                     649             
+2321 F8              649             MOV     R0,A
 
-2304 D0E0            650                     POP     ACC
+2322 7A01            650             MOV     R2,#01           
 
                      651             
 
-2306 22              652                     RET
+2324 7100            652                     CALL    ESCINST          
 
                      653             
 
-                     654     
+2326 D0E0            654                     POP     ACC
 
-                     655     
+                     655             
 
-                     656     
+2328 22              656                     RET
 
-                     657     
+                     657             
 
                      658     
 
@@ -1385,63 +1393,63 @@ LOC  OBJ            LINE     SOURCE
 
                      661     
 
-2307                 662     CLR1L:    
+                     662     
 
-2307 C0E0            663             PUSH   ACC
+                     663     
 
-                     664             
+                     664     
 
-2309 7800            665                     MOV    R0,#00               
+                     665     
 
-230B 7900            666             MOV    R1,#00
+2329                 666     CLR1L:    
 
-                     667             
+2329 C0E0            667             PUSH   ACC
 
-230D 51F5            668                     CALL   GOTOXY
+                     668             
 
-                     669             
+232B 7800            669                     MOV    R0,#00               
 
-230F 7910            670                     MOV    R1,#16               
+232D 7900            670             MOV    R1,#00
 
-                     671     
+                     671             
 
-2311 7420            672     CLR1L1: MOV    A,#' '               
+232F 7117            672                     CALL   GOTOXY
 
                      673             
 
-2313 7139            674                     CALL   ESCDADO
+2331 7910            674                     MOV    R1,#16               
 
-                     675             
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/04/2017 21:47:44 PAGE    12
 
-2315 D9FA            676                     DJNZ   R1,CLR1L1
+                     675     
 
-2317 7800            677             MOV    R0,#00               
+2333 7420            676     CLR1L1: MOV    A,#' '               
 
-2319 7900            678             MOV    R1,#00
+                     677             
+
+2335 715B            678                     CALL   ESCDADO
 
                      679             
 
-231B 51F5            680                     CALL   GOTOXY
+2337 D9FA            680                     DJNZ   R1,CLR1L1
 
-                     681             
+2339 7800            681             MOV    R0,#00               
 
-231D D0E0            682                     POP    ACC
-
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/03/2017 21:47:32 PAGE    12
+233B 7900            682             MOV    R1,#00
 
                      683             
 
-231F 22              684                     RET
+233D 7117            684                     CALL   GOTOXY
 
-                     685                     
+                     685             
 
-                     686     
+233F D0E0            686                     POP    ACC
 
-                     687     
+                     687             
 
-                     688     
+2341 22              688                     RET
 
-                     689     
+                     689                     
 
                      690     
 
@@ -1451,61 +1459,61 @@ LOC  OBJ            LINE     SOURCE
 
                      693     
 
-2320                 694     CLR2L:    
+                     694     
 
-2320 C0E0            695             PUSH   ACC
+                     695     
 
-                     696             
+                     696     
 
-2322 7801            697                     MOV    R0,#01               
+                     697     
 
-2324 7900            698             MOV    R1,#00
+2342                 698     CLR2L:    
 
-                     699             
+2342 C0E0            699             PUSH   ACC
 
-2326 51F5            700                     CALL   GOTOXY
+                     700             
 
-                     701             
+2344 7801            701                     MOV    R0,#01               
 
-2328 7910            702                     MOV    R1,#16               
+2346 7900            702             MOV    R1,#00
 
-                     703     
+                     703             
 
-232A 7420            704     CLR2L1: MOV    A,#' '               
+2348 7117            704                     CALL   GOTOXY
 
                      705             
 
-232C 7139            706                     CALL   ESCDADO
+234A 7910            706                     MOV    R1,#16               
 
-                     707             
+                     707     
 
-232E D9FA            708                     DJNZ   R1,CLR2L1
+234C 7420            708     CLR2L1: MOV    A,#' '               
 
-2330 7801            709             MOV    R0,#01               
+                     709             
 
-2332 7900            710             MOV    R1,#00
+234E 715B            710                     CALL   ESCDADO
 
                      711             
 
-2334 51F5            712                     CALL   GOTOXY
+2350 D9FA            712                     DJNZ   R1,CLR2L1
 
-                     713             
+2352 7801            713             MOV    R0,#01               
 
-2336 D0E0            714                     POP    ACC
+2354 7900            714             MOV    R1,#00
 
                      715             
 
-2338 22              716                     RET
+2356 7117            716                     CALL   GOTOXY
 
-                     717                
+                     717             
 
-                     718     
+2358 D0E0            718                     POP    ACC
 
-                     719     
+                     719             
 
-                     720     
+235A 22              720                     RET
 
-                     721     
+                     721                
 
                      722     
 
@@ -1513,57 +1521,57 @@ LOC  OBJ            LINE     SOURCE
 
                      724     
 
-2339                 725     ESCDADO:  
+                     725     
 
-2339 C2A6            726                     CLR             RW                               
+                     726     
 
-233B D2A5            727             SETB    RS               
+                     727     
 
-233D D2A7            728             SETB    E_LCD            
+                     728     
 
-                     729                     
+235B                 729     ESCDADO:  
 
-233F F580            730             MOV     P0,A             
+235B C2A6            730                     CLR             RW                               
 
-                     731             
+235D D2A5            731             SETB    RS               
 
-2341 C2A7            732                     CLR     E_LCD            
+235F D2A7            732             SETB    E_LCD            
 
                      733                     
 
-2343 7580FF          734                     MOV             P0,#0xFF                 
+2361 F580            734             MOV     P0,A             
 
-                     735                     
+                     735             
 
-2346 D2A6            736                     SETB    RW                               
+2363 C2A7            736                     CLR     E_LCD            
 
-2348 C2A5            737                     CLR             RS                               
+                     737                     
 
-234A D2A7            738                     SETB    E_LCD            
+2365 7580FF          738                     MOV             P0,#0xFF                 
 
-                     739     
+                     739                     
 
-234C 2087FD          740     ESCD1:  JB              BUSYF,ESCD1              
+2368 D2A6            740                     SETB    RW                               
 
-                     741     
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/04/2017 21:47:44 PAGE    13
 
-234F C2A7            742                     CLR     E_LCD            
+236A C2A5            741                     CLR             RS                               
+
+236C D2A7            742                     SETB    E_LCD            
 
                      743     
 
-2351 22              744             RET
+236E 2087FD          744     ESCD1:  JB              BUSYF,ESCD1              
 
-                     745                     
+                     745     
 
-                     746     
+2371 C2A7            746                     CLR     E_LCD            
 
                      747     
 
-                     748     
+2373 22              748             RET
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/03/2017 21:47:32 PAGE    13
-
-                     749     
+                     749                     
 
                      750     
 
@@ -1575,41 +1583,41 @@ LOC  OBJ            LINE     SOURCE
 
                      754     
 
-2352                 755     MSTRING:  
+                     755     
 
-2352 E4              756                       CLR    A
+                     756     
 
-2353 93              757               MOVC   A,@A+DPTR       
+                     757     
 
-                     758               
+                     758     
 
-2354 6006            759                       JZ     MSTR1
+2374                 759     MSTRING:  
 
-                     760               
+2374 E4              760                       CLR    A
 
-2356 122339          761                       LCALL  ESCDADO         
+2375 93              761               MOVC   A,@A+DPTR       
 
                      762               
 
-2359 A3              763                       INC    DPTR
+2376 6006            763                       JZ     MSTR1
 
                      764               
 
-235A 80F6            765                       SJMP   MSTRING
+2378 12235B          765                       LCALL  ESCDADO         
 
-                     766                       
+                     766               
 
-235C 22              767     MSTR1:    RET
+237B A3              767                       INC    DPTR
 
-                     768                
+                     768               
 
-                     769     
+237C 80F6            769                       SJMP   MSTRING
 
-                     770     
+                     770                       
 
-                     771     
+237E 22              771     MSTR1:    RET
 
-                     772     
+                     772                
 
                      773     
 
@@ -1621,37 +1629,37 @@ LOC  OBJ            LINE     SOURCE
 
                      777     
 
-235D                 778     MSTRINGX: 
+                     778     
 
-235D E0              779                       MOVX   A,@DPTR         
+                     779     
 
-                     780               
+                     780     
 
-235E 6006            781                       JZ     MSTR21
+                     781     
 
-                     782               
+237F                 782     MSTRINGX: 
 
-2360 122339          783                       LCALL  ESCDADO         
+237F E0              783                       MOVX   A,@DPTR         
 
                      784               
 
-2363 A3              785                       INC    DPTR
+2380 6006            785                       JZ     MSTR21
 
                      786               
 
-2364 80F7            787                       SJMP   MSTRINGX
+2382 12235B          787                       LCALL  ESCDADO         
 
-                     788     
+                     788               
 
-2366 22              789     MSTR21:   RET
+2385 A3              789                       INC    DPTR
 
-                     790     
+                     790               
 
-                     791     
+2386 80F7            791                       SJMP   MSTRINGX
 
                      792     
 
-                     793     
+2388 22              793     MSTR21:   RET
 
                      794     
 
@@ -1665,27 +1673,29 @@ LOC  OBJ            LINE     SOURCE
 
                      799     
 
-2367                 800     ESC_STR1: 
+                     800     
 
-                     801                       
+                     801     
 
-2367 7800            802                       MOV    R0,#00         
+                     802     
 
-2369 7900            803               MOV    R1,#00
+                     803     
 
-                     804               
+2389                 804     ESC_STR1: 
 
-236B 8004            805                       JMP    ESC_S
+                     805                       
 
-                     806               
+2389 7800            806                       MOV    R0,#00         
 
-                     807     
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/04/2017 21:47:44 PAGE    14
 
-                     808     
+238B 7900            807               MOV    R1,#00
 
-                     809     
+                     808               
 
-                     810     
+238D 8004            809                       JMP    ESC_S
+
+                     810               
 
                      811     
 
@@ -1695,37 +1705,35 @@ LOC  OBJ            LINE     SOURCE
 
                      814     
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/03/2017 21:47:32 PAGE    14
-
                      815     
 
-236D                 816     ESC_STR2: 
+                     816     
 
-                     817                       
+                     817     
 
-236D 7801            818                       MOV    R0,#01         
+                     818     
 
-236F 7900            819               MOV    R1,#00
+                     819     
 
-                     820                       
+238F                 820     ESC_STR2: 
 
-2371 1222F5          821     ESC_S:    LCALL  GOTOXY          
+                     821                       
 
-                     822               
+238F 7801            822                       MOV    R0,#01         
 
-2374 122352          823                       LCALL  MSTRING
+2391 7900            823               MOV    R1,#00
 
-                     824               
+                     824                       
 
-2377 22              825                       RET
+2393 122317          825     ESC_S:    LCALL  GOTOXY          
 
-                     826     
+                     826               
 
-                     827     
+2396 122374          827                       LCALL  MSTRING
 
-                     828     
+                     828               
 
-                     829     
+2399 22              829                       RET
 
                      830     
 
@@ -1733,61 +1741,61 @@ LOC  OBJ            LINE     SOURCE
 
                      832     
 
-                     833     ; DESTROI: R0,R2                                                                        //
+                     833     
 
                      834     
 
-2378                 835     CUR_ON:   
+                     835     
 
-2378 780F            836                       MOV    R0,#0FH               
+                     836     
 
-237A 8002            837               SJMP   CUR1
+                     837     ; DESTROI: R0,R2                                                                        //
 
-                     838                       
+                     838     
 
-237C                 839     CUR_OFF:  
+239A                 839     CUR_ON:   
 
-237C 780C            840                       MOV    R0,#0CH               
+239A 780F            840                       MOV    R0,#0FH               
 
-                     841                       
+239C 8002            841               SJMP   CUR1
 
-237E 7A01            842     CUR1:     MOV    R2,#01
+                     842                       
 
-                     843               
+239E                 843     CUR_OFF:  
 
-2380 51DE            844                       CALL   ESCINST               
+239E 780C            844                       MOV    R0,#0CH               
 
-                     845               
+                     845                       
 
-2382 22              846                       RET
+23A0 7A01            846     CUR1:     MOV    R2,#01
 
-                     847                       
+                     847               
 
-                     848     
+23A2 7100            848                       CALL   ESCINST               
 
-                     849     
+                     849               
 
-                     850     
+23A4 22              850                       RET
 
                      851                       
 
-2383                 852     TIMER_CONFIGURA_TIMER:
+                     852     
 
-2383 758901          853                     MOV TMOD, #01h  
+                     853     
 
-                     854             
+                     854     
 
-2386 22              855                     RET
+                     855                       
 
-                     856             
+23A5                 856     TIMER_CONFIGURA_TIMER:
 
-                     857     
+23A5 758901          857                     MOV TMOD, #01h  
 
-                     858     
+                     858             
 
-                     859     
+23A8 22              859                     RET
 
-                     860     
+                     860             
 
                      861     
 
@@ -1795,47 +1803,47 @@ LOC  OBJ            LINE     SOURCE
 
                      863     
 
-2387                 864     TIMER_DELAY_20_MS:
+                     864     
 
-2387 758C56          865                     MOV TH0, #HIGH(65535 - 43350)
+                     865     
 
-238A 758AA9          866                     MOV TL0, #LOW(65535 - 43350)
+                     866     
 
-                     867             
+                     867     
 
-238D C28D            868                     CLR TF0
+23A9                 868     TIMER_DELAY_20_MS:
 
-238F D28C            869                     SETB TR0
+23A9 758C56          869                     MOV TH0, #HIGH(65535 - 43350)
 
-                     870             
+23AC 758AA9          870                     MOV TL0, #LOW(65535 - 43350)
 
-2391 308DFD          871                     JNB TF0, $
+                     871             
 
-                     872                     
+23AF C28D            872                     CLR TF0
 
-2394 C28D            873                     CLR TF0
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/04/2017 21:47:44 PAGE    15
 
-2396 C28C            874                     CLR TR0
+23B1 D28C            873                     SETB TR0
 
-                     875             
+                     874             
 
-2398 D8ED            876                     DJNZ R0, TIMER_DELAY_20_MS
+23B3 308DFD          875                     JNB TF0, $
 
-                     877             
+                     876                     
 
-239A 22              878                     RET
+23B6 C28D            877                     CLR TF0
+
+23B8 C28C            878                     CLR TR0
 
                      879             
 
-                     880     
+23BA D8ED            880                     DJNZ R0, TIMER_DELAY_20_MS
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/03/2017 21:47:32 PAGE    15
+                     881             
 
-                     881     
+23BC 22              882                     RET
 
-                     882     
-
-                     883     
+                     883             
 
                      884     
 
@@ -1843,27 +1851,27 @@ LOC  OBJ            LINE     SOURCE
 
                      886     
 
-239B                 887     TIMER_DELAY_1_S:
+                     887     
 
-239B 7832            888                     MOV             R0, #50d
+                     888     
 
-239D 7187            889                     CALL    TIMER_DELAY_20_MS
+                     889     
 
-                     890                     
+                     890     
 
-239F D9FA            891                     DJNZ    R1, TIMER_DELAY_1_S
+23BD                 891     TIMER_DELAY_1_S:
 
-                     892             
+23BD 7832            892                     MOV             R0, #50d
 
-23A1 22              893                     RET
+23BF 71A9            893                     CALL    TIMER_DELAY_20_MS
 
-                     894     
+                     894                     
 
-                     895     
+23C1 D9FA            895                     DJNZ    R1, TIMER_DELAY_1_S
 
-                     896     
+                     896             
 
-                     897     
+23C3 22              897                     RET
 
                      898     
 
@@ -1873,65 +1881,73 @@ LOC  OBJ            LINE     SOURCE
 
                      901     
 
-23A2                 902     INT_INT0:
+                     902     
 
-23A2 32              903                     RETI
+                     903     
 
                      904     
 
                      905     
 
-                     906     
+23C4                 906     INT_INT0:
 
-                     907     
+23C4 32              907                     RETI
 
-23A3                 908     INT_TIMER0:
+                     908     
 
-23A3 32              909                     RETI
+                     909     
 
-                     910             
+                     910     
 
                      911     
 
-                     912     
+23C5                 912     INT_TIMER0:
 
-                     913     
+23C5 32              913                     RETI
 
-23A4                 914     INT_INT1:
+                     914             
 
-23A4 32              915                     RETI
+                     915     
 
                      916     
 
                      917     
 
-                     918     
+23C6                 918     INT_INT1:
 
-                     919     
+23C6 32              919                     RETI
 
-23A5                 920     INT_TIMER1:
+                     920     
 
-23A5 32              921                     RETI
+                     921     
 
-                     922             
+                     922     
 
                      923     
 
-                     924     
+23C7                 924     INT_TIMER1:
 
-                     925     
+23C7 32              925                     RETI
 
-23A6                 926     INT_SERIAL:
+                     926             
 
-23A6 32              927                     RETI
+                     927     
 
-                     928             
+                     928     
 
-23A7                 929     FIM:
+                     929     
 
-                     930                     END
+23C8                 930     INT_SERIAL:
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/03/2017 21:47:32 PAGE    16
+23C8 32              931                     RETI
+
+                     932             
+
+23C9                 933     FIM:
+
+                     934                     END
+
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/04/2017 21:47:44 PAGE    16
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -1939,86 +1955,86 @@ SYMBOL TABLE LISTING
 
 N A M E                            T Y P E  V A L U E   ATTRIBUTES
 
-ABRE_FECHADURA. . . . . . . . . .  C ADDR   2259H   A   
+ABRE_FECHADURA. . . . . . . . . .  C ADDR   227BH   A   
 ACC . . . . . . . . . . . . . . .  D ADDR   00E0H   A   
-ACIONA_BUZZER . . . . . . . . . .  C ADDR   2252H   A   
+ACIONA_BUZZER . . . . . . . . . .  C ADDR   2274H   A   
 BUSYF . . . . . . . . . . . . . .  B ADDR   0080H.7 A   
 BUZZER. . . . . . . . . . . . . .  B ADDR   00B0H.0 A   
-CLEAR . . . . . . . . . . . . . .  C ADDR   215AH   A   
-CLR1L . . . . . . . . . . . . . .  C ADDR   2307H   A   
-CLR1L1. . . . . . . . . . . . . .  C ADDR   2311H   A   
-CLR2L . . . . . . . . . . . . . .  C ADDR   2320H   A   
-CLR2L1. . . . . . . . . . . . . .  C ADDR   232AH   A   
+CLEAR . . . . . . . . . . . . . .  C ADDR   217CH   A   
+CLR1L . . . . . . . . . . . . . .  C ADDR   2329H   A   
+CLR1L1. . . . . . . . . . . . . .  C ADDR   2333H   A   
+CLR2L . . . . . . . . . . . . . .  C ADDR   2342H   A   
+CLR2L1. . . . . . . . . . . . . .  C ADDR   234CH   A   
 COL1. . . . . . . . . . . . . . .  B ADDR   0090H.0 A   
 COL2. . . . . . . . . . . . . . .  B ADDR   0090H.1 A   
 COL3. . . . . . . . . . . . . . .  B ADDR   0090H.2 A   
 COL4. . . . . . . . . . . . . . .  B ADDR   0090H.3 A   
-CONV_ASCII_TO_NUMBER. . . . . . .  C ADDR   213BH   A   
-CUR1. . . . . . . . . . . . . . .  C ADDR   237EH   A   
-CUR_OFF . . . . . . . . . . . . .  C ADDR   237CH   A   
-CUR_ON. . . . . . . . . . . . . .  C ADDR   2378H   A   
-DIGITO0 . . . . . . . . . . . . .  C ADDR   21C1H   A   
-DIGITO1 . . . . . . . . . . . . .  C ADDR   219DH   A   
-DIGITO2 . . . . . . . . . . . . .  C ADDR   21A1H   A   
-DIGITO3 . . . . . . . . . . . . .  C ADDR   21A5H   A   
-DIGITO4 . . . . . . . . . . . . .  C ADDR   21A9H   A   
-DIGITO5 . . . . . . . . . . . . .  C ADDR   21ADH   A   
-DIGITO6 . . . . . . . . . . . . .  C ADDR   21B1H   A   
-DIGITO7 . . . . . . . . . . . . .  C ADDR   21B5H   A   
-DIGITO8 . . . . . . . . . . . . .  C ADDR   21B9H   A   
-DIGITO9 . . . . . . . . . . . . .  C ADDR   21BDH   A   
-ESCD1 . . . . . . . . . . . . . .  C ADDR   234CH   A   
-ESCDADO . . . . . . . . . . . . .  C ADDR   2339H   A   
-ESCI1 . . . . . . . . . . . . . .  C ADDR   22EFH   A   
-ESCINST . . . . . . . . . . . . .  C ADDR   22DEH   A   
-ESCREVE_ASTERISCO . . . . . . . .  C ADDR   2140H   A   
-ESC_S . . . . . . . . . . . . . .  C ADDR   2371H   A   
-ESC_STR1. . . . . . . . . . . . .  C ADDR   2367H   A   
-ESC_STR2. . . . . . . . . . . . .  C ADDR   236DH   A   
+CONV_ASCII_TO_NUMBER. . . . . . .  C ADDR   215DH   A   
+CUR1. . . . . . . . . . . . . . .  C ADDR   23A0H   A   
+CUR_OFF . . . . . . . . . . . . .  C ADDR   239EH   A   
+CUR_ON. . . . . . . . . . . . . .  C ADDR   239AH   A   
+DIGITO0 . . . . . . . . . . . . .  C ADDR   21E3H   A   
+DIGITO1 . . . . . . . . . . . . .  C ADDR   21BFH   A   
+DIGITO2 . . . . . . . . . . . . .  C ADDR   21C3H   A   
+DIGITO3 . . . . . . . . . . . . .  C ADDR   21C7H   A   
+DIGITO4 . . . . . . . . . . . . .  C ADDR   21CBH   A   
+DIGITO5 . . . . . . . . . . . . .  C ADDR   21CFH   A   
+DIGITO6 . . . . . . . . . . . . .  C ADDR   21D3H   A   
+DIGITO7 . . . . . . . . . . . . .  C ADDR   21D7H   A   
+DIGITO8 . . . . . . . . . . . . .  C ADDR   21DBH   A   
+DIGITO9 . . . . . . . . . . . . .  C ADDR   21DFH   A   
+ESCD1 . . . . . . . . . . . . . .  C ADDR   236EH   A   
+ESCDADO . . . . . . . . . . . . .  C ADDR   235BH   A   
+ESCI1 . . . . . . . . . . . . . .  C ADDR   2311H   A   
+ESCINST . . . . . . . . . . . . .  C ADDR   2300H   A   
+ESCREVE_ASTERISCO . . . . . . . .  C ADDR   2162H   A   
+ESC_S . . . . . . . . . . . . . .  C ADDR   2393H   A   
+ESC_STR1. . . . . . . . . . . . .  C ADDR   2389H   A   
+ESC_STR2. . . . . . . . . . . . .  C ADDR   238FH   A   
 ESTADO_DOIS . . . . . . . . . . .  B ADDR   00B0H.2 A   
 ESTADO_QUATRO . . . . . . . . . .  B ADDR   00B0H.4 A   
 ESTADO_TRES . . . . . . . . . . .  B ADDR   00B0H.3 A   
 ESTADO_UM . . . . . . . . . . . .  B ADDR   00B0H.1 A   
 E_LCD . . . . . . . . . . . . . .  B ADDR   00A0H.7 A   
-FIM . . . . . . . . . . . . . . .  C ADDR   23A7H   A   
-GOTOXY. . . . . . . . . . . . . .  C ADDR   22F5H   A   
-GRAVA_DIGITO. . . . . . . . . . .  C ADDR   21C5H   A   
-GRAVA_TECLADO_2 . . . . . . . . .  C ADDR   2244H   A   
-GRAVA_TECLADO_3 . . . . . . . . .  C ADDR   2249H   A   
-GRAVA_TECLADO_4 . . . . . . . . .  C ADDR   224EH   A   
-GRAVA_TECLADO_X . . . . . . . . .  C ADDR   2250H   A   
-GT1 . . . . . . . . . . . . . . .  C ADDR   22FEH   A   
-INIDISP . . . . . . . . . . . . .  C ADDR   22BFH   A   
-INT_INT0. . . . . . . . . . . . .  C ADDR   23A2H   A   
-INT_INT1. . . . . . . . . . . . .  C ADDR   23A4H   A   
-INT_SERIAL. . . . . . . . . . . .  C ADDR   23A6H   A   
-INT_TIMER0. . . . . . . . . . . .  C ADDR   23A3H   A   
-INT_TIMER1. . . . . . . . . . . .  C ADDR   23A5H   A   
+FIM . . . . . . . . . . . . . . .  C ADDR   23C9H   A   
+GOTOXY. . . . . . . . . . . . . .  C ADDR   2317H   A   
+GRAVA_DIGITO. . . . . . . . . . .  C ADDR   21E7H   A   
+GRAVA_TECLADO_2 . . . . . . . . .  C ADDR   2266H   A   
+GRAVA_TECLADO_3 . . . . . . . . .  C ADDR   226BH   A   
+GRAVA_TECLADO_4 . . . . . . . . .  C ADDR   2270H   A   
+GRAVA_TECLADO_X . . . . . . . . .  C ADDR   2272H   A   
+GT1 . . . . . . . . . . . . . . .  C ADDR   2320H   A   
+INIDISP . . . . . . . . . . . . .  C ADDR   22E1H   A   
+INT_INT0. . . . . . . . . . . . .  C ADDR   23C4H   A   
+INT_INT1. . . . . . . . . . . . .  C ADDR   23C6H   A   
+INT_SERIAL. . . . . . . . . . . .  C ADDR   23C8H   A   
+INT_TIMER0. . . . . . . . . . . .  C ADDR   23C5H   A   
+INT_TIMER1. . . . . . . . . . . .  C ADDR   23C7H   A   
 LED1. . . . . . . . . . . . . . .  B ADDR   00B0H.7 A   
 LED_SEG . . . . . . . . . . . . .  B ADDR   00B0H.6 A   
-LE_4_DIGITOS. . . . . . . . . . .  C ADDR   211AH   A   
-LE_SENHA. . . . . . . . . . . . .  C ADDR   212EH   A   
-LE_SENHA_ROM. . . . . . . . . . .  C ADDR   2134H   A   
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/03/2017 21:47:32 PAGE    17
+LE_4_DIGITOS. . . . . . . . . . .  C ADDR   213CH   A   
+LE_SENHA. . . . . . . . . . . . .  C ADDR   2150H   A   
+LE_SENHA_ROM. . . . . . . . . . .  C ADDR   2156H   A   
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/04/2017 21:47:44 PAGE    17
 
-LIMPA_LCD_E_INICIA_SISTEMA. . . .  C ADDR   2105H   A   
-LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA  C ADDR   21FBH   A   
-LIMPA_LCD_E_MOSTRA_SENHA_VALIDA .  C ADDR   221AH   A   
+LIMPA_LCD_E_INICIA_SISTEMA. . . .  C ADDR   2127H   A   
+LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA  C ADDR   221DH   A   
+LIMPA_LCD_E_MOSTRA_SENHA_VALIDA .  C ADDR   223CH   A   
 LIN1. . . . . . . . . . . . . . .  B ADDR   0090H.4 A   
 LIN2. . . . . . . . . . . . . . .  B ADDR   0090H.5 A   
 LIN3. . . . . . . . . . . . . . .  B ADDR   0090H.6 A   
 LIN4. . . . . . . . . . . . . . .  B ADDR   0090H.7 A   
-MAIN. . . . . . . . . . . . . . .  C ADDR   20EAH   A   
-MSTR1 . . . . . . . . . . . . . .  C ADDR   235CH   A   
-MSTR21. . . . . . . . . . . . . .  C ADDR   2366H   A   
-MSTRING . . . . . . . . . . . . .  C ADDR   2352H   A   
-MSTRINGX. . . . . . . . . . . . .  C ADDR   235DH   A   
+MAIN. . . . . . . . . . . . . . .  C ADDR   210CH   A   
+MSTR1 . . . . . . . . . . . . . .  C ADDR   237EH   A   
+MSTR21. . . . . . . . . . . . . .  C ADDR   2388H   A   
+MSTRING . . . . . . . . . . . . .  C ADDR   2374H   A   
+MSTRINGX. . . . . . . . . . . . .  C ADDR   237FH   A   
 P0. . . . . . . . . . . . . . . .  D ADDR   0080H   A   
 P1. . . . . . . . . . . . . . . .  D ADDR   0090H   A   
 P2. . . . . . . . . . . . . . . .  D ADDR   00A0H   A   
 P3. . . . . . . . . . . . . . . .  D ADDR   00B0H   A   
-PRESS_ENT . . . . . . . . . . . .  C ADDR   214AH   A   
-REINICIA_SISTEMA. . . . . . . . .  C ADDR   2219H   A   
+PRESS_ENT . . . . . . . . . . . .  C ADDR   216CH   A   
+REINICIA_SISTEMA. . . . . . . . .  C ADDR   223BH   A   
 RS. . . . . . . . . . . . . . . .  B ADDR   00A0H.5 A   
 RW. . . . . . . . . . . . . . . .  B ADDR   00A0H.6 A   
 SENHA1_1. . . . . . . . . . . . .  N NUMB   0035H   A   
@@ -2032,32 +2048,34 @@ SENHA2_4. . . . . . . . . . . . .  N NUMB   0048H   A
 SENHA_PADRAO_1. . . . . . . . . .  C ADDR   2030H   A   
 SENHA_PADRAO_2. . . . . . . . . .  C ADDR   2035H   A   
 STR_LEONARDO_PEREIRA. . . . . . .  C ADDR   204BH   A   
-STR_LIBERANDO_PORTA . . . . . . .  C ADDR   2097H   A   
+STR_LIBERANDO_PORTA . . . . . . .  C ADDR   20A8H   A   
 STR_LOGO. . . . . . . . . . . . .  C ADDR   203AH   A   
+STR_PRESSIONE_ENTER . . . . . . .  C ADDR   2075H   A   
 STR_RODRIGO_ENDO. . . . . . . . .  C ADDR   205CH   A   
 STR_SENHA . . . . . . . . . . . .  C ADDR   206DH   A   
-STR_SENHA_INVALIDA. . . . . . . .  C ADDR   2086H   A   
-STR_SENHA_VALIDA. . . . . . . . .  C ADDR   2075H   A   
-STR_SISTEMA_BLOQUEADO . . . . . .  C ADDR   20B9H   A   
-STR_TRANCANDO_PORTA . . . . . . .  C ADDR   20A8H   A   
+STR_SENHA_INVALIDA. . . . . . . .  C ADDR   2097H   A   
+STR_SENHA_VALIDA. . . . . . . . .  C ADDR   2086H   A   
+STR_SISTEMA_BLOQUEADO . . . . . .  C ADDR   20CAH   A   
+STR_TIMEOUT . . . . . . . . . . .  C ADDR   20DBH   A   
+STR_TRANCANDO_PORTA . . . . . . .  C ADDR   20B9H   A   
 TECLADO_1 . . . . . . . . . . . .  N NUMB   0031H   A   
 TECLADO_2 . . . . . . . . . . . .  N NUMB   0032H   A   
 TECLADO_3 . . . . . . . . . . . .  N NUMB   0033H   A   
 TECLADO_4 . . . . . . . . . . . .  N NUMB   0034H   A   
 TENTATIVAS. . . . . . . . . . . .  N NUMB   0050H   A   
-TESTA_SENHA1. . . . . . . . . . .  C ADDR   21CAH   A   
-TESTA_SENHA2. . . . . . . . . . .  C ADDR   21E5H   A   
+TESTA_SENHA1. . . . . . . . . . .  C ADDR   21ECH   A   
+TESTA_SENHA2. . . . . . . . . . .  C ADDR   2207H   A   
 TF0 . . . . . . . . . . . . . . .  B ADDR   0088H.5 A   
 TH0 . . . . . . . . . . . . . . .  D ADDR   008CH   A   
-TIMER_CONFIGURA_TIMER . . . . . .  C ADDR   2383H   A   
-TIMER_DELAY_1_S . . . . . . . . .  C ADDR   239BH   A   
-TIMER_DELAY_20_MS . . . . . . . .  C ADDR   2387H   A   
+TIMER_CONFIGURA_TIMER . . . . . .  C ADDR   23A5H   A   
+TIMER_DELAY_1_S . . . . . . . . .  C ADDR   23BDH   A   
+TIMER_DELAY_20_MS . . . . . . . .  C ADDR   23A9H   A   
 TL0 . . . . . . . . . . . . . . .  D ADDR   008AH   A   
 TMOD. . . . . . . . . . . . . . .  D ADDR   0089H   A   
 TR0 . . . . . . . . . . . . . . .  B ADDR   0088H.4 A   
-TRANCA_FECHADURA. . . . . . . . .  C ADDR   228CH   A   
-VARREDURA_TECLADO . . . . . . . .  C ADDR   2165H   A   
-__STARTUP__ . . . . . . . . . . .  C ADDR   20CAH   A   
+TRANCA_FECHADURA. . . . . . . . .  C ADDR   22AEH   A   
+VARREDURA_TECLADO . . . . . . . .  C ADDR   2187H   A   
+__STARTUP__ . . . . . . . . . . .  C ADDR   20ECH   A   
 
 
 REGISTER BANK(S) USED: 0 

@@ -103,6 +103,8 @@ STR_RODRIGO_ENDO:
         DB      '  Rodrigo Endo  ',00H
 STR_SENHA:
         DB      'SENHA: ',00H
+STR_PRESSIONE_ENTER:
+        DB      'PRESSIONE ENTER ',00H
 STR_SENHA_VALIDA:
         DB      '  SENHA VALIDA  ',00H
 STR_SENHA_INVALIDA:
@@ -112,7 +114,9 @@ STR_LIBERANDO_PORTA:
 STR_TRANCANDO_PORTA:
         DB      'TRANCANDO PORTA ',00H		
 STR_SISTEMA_BLOQUEADO:
-        DB      'PORTA BLOQUEADA ',00H		
+        DB      'PORTA BLOQUEADA ',00H
+STR_TIMEOUT:
+        DB      '    TIMEOUT     ',00H			
 		
 ////////////////////////////////////////////////
 // 				INICIO DO PROGRAMA			  //

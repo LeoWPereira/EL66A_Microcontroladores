@@ -1,0 +1,447 @@
+C51 COMPILER V9.01   LCD                                                                   02/16/2015 17:54:57 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE LCD
+OBJECT MODULE PLACED IN .\output\LCD.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE ..\lib\lcd-2.2\LCD.c BROWSE INCDIR(..\lib) DEBUG OBJECTEXTEND PRINT(.\outpu
+                    -t\LCD.lst) OBJECT(.\output\LCD.obj)
+
+line level    source
+
+   1          #include <reg51.h>
+   2          #include <intrins.h>
+   3          #include <font\font.h>
+   4          #include <sys\sys.h>
+   5          #include <lcd-2.2\lcd.h>
+   6          
+   7          unsigned char bdata bitdata;
+   8          sbit bit7=bitdata^7;
+   9          sbit bit6=bitdata^6;
+  10          sbit bit5=bitdata^5;
+  11          sbit bit4=bitdata^4;
+  12          sbit bit3=bitdata^3;
+  13          sbit bit2=bitdata^2;
+  14          sbit bit1=bitdata^1;
+  15          sbit bit0=bitdata^0;
+  16          
+  17          u16 BACK_COLOR, POINT_COLOR;     
+  18          void LCD_Writ_Bus(char da)   
+  19          {       
+  20   1              bitdata=da;
+  21   1              LCD_SDI=bit7;LCD_SCK=0;LCD_SCK=1;
+  22   1              LCD_SDI=bit6;LCD_SCK=0;LCD_SCK=1;
+  23   1              LCD_SDI=bit5;LCD_SCK=0;LCD_SCK=1;
+  24   1              LCD_SDI=bit4;LCD_SCK=0;LCD_SCK=1;
+  25   1              LCD_SDI=bit3;LCD_SCK=0;LCD_SCK=1;
+  26   1              LCD_SDI=bit2;LCD_SCK=0;LCD_SCK=1;
+  27   1              LCD_SDI=bit1;LCD_SCK=0;LCD_SCK=1;
+  28   1              LCD_SDI=bit0;LCD_SCK=0;LCD_SCK=1; 
+  29   1      } 
+  30          void LCD_WR_DATA8(char da) 
+  31          {
+  32   1          LCD_DC=1;
+  33   1              LCD_Writ_Bus(da);
+  34   1      }  
+  35           void LCD_WR_DATA(int da)
+  36          {
+  37   1          LCD_DC=1;
+  38   1              LCD_Writ_Bus(da>>8);
+  39   1              LCD_Writ_Bus(da);
+  40   1      }         
+  41          void LCD_WR_REG(char da)         
+  42          {
+  43   1          LCD_DC=0;
+  44   1              LCD_Writ_Bus(da);
+  45   1      }
+  46           void LCD_WR_REG_DATA(int reg,int da)
+  47          {
+  48   1          LCD_WR_REG(reg);
+  49   1              LCD_WR_DATA(da);
+  50   1      }
+  51          void Address_set(unsigned int x1,unsigned int y1,unsigned int x2,unsigned int y2)
+  52          {  
+  53   1         LCD_WR_REG(0x2a);
+  54   1         LCD_WR_DATA8(x1>>8);
+C51 COMPILER V9.01   LCD                                                                   02/16/2015 17:54:57 PAGE 2   
+
+  55   1         LCD_WR_DATA8(x1);
+  56   1         LCD_WR_DATA8(x2>>8);
+  57   1         LCD_WR_DATA8(x2);
+  58   1        
+  59   1         LCD_WR_REG(0x2b);
+  60   1         LCD_WR_DATA8(y1>>8);
+  61   1         LCD_WR_DATA8(y1);
+  62   1         LCD_WR_DATA8(y2>>8);
+  63   1         LCD_WR_DATA8(y2);
+  64   1      
+  65   1         LCD_WR_REG(0x2C);
+  66   1      
+  67   1      }
+  68          void Lcd_Init(void)
+  69          {
+  70   1              LCD_CS =1;
+  71   1              if(LCD_CS==0)
+  72   1              {
+  73   2                 LCD_WR_REG_DATA(0,0);
+  74   2                 LCD_ShowString(0,0," ");
+  75   2                 LCD_ShowNum(0,0,0,0);
+  76   2                 LCD_Show2Num(0,0,0,0);
+  77   2                 LCD_DrawPoint_big(0,0);
+  78   2                 LCD_DrawRectangle(0,0,0,0);
+  79   2                 Draw_Circle(0,0,0);
+  80   2               }
+  81   1      
+  82   1          LCD_REST=1;
+  83   1          delayms(5); 
+  84   1              LCD_REST=0;
+  85   1              delayms(5);
+  86   1              LCD_REST=1;
+  87   1              LCD_CS=1; 
+  88   1              delayms(5);
+  89   1              LCD_CS =0; 
+  90   1      
+  91   1                      LCD_WR_REG(0xCB);  
+  92   1              LCD_WR_DATA8(0x39); 
+  93   1              LCD_WR_DATA8(0x2C); 
+  94   1              LCD_WR_DATA8(0x00); 
+  95   1              LCD_WR_DATA8(0x34); 
+  96   1              LCD_WR_DATA8(0x02); 
+  97   1      
+  98   1              LCD_WR_REG(0xCF);  
+  99   1              LCD_WR_DATA8(0x00); 
+ 100   1              LCD_WR_DATA8(0XC1); 
+ 101   1              LCD_WR_DATA8(0X30); 
+ 102   1       
+ 103   1              LCD_WR_REG(0xE8);  
+ 104   1              LCD_WR_DATA8(0x85); 
+ 105   1              LCD_WR_DATA8(0x00); 
+ 106   1              LCD_WR_DATA8(0x78); 
+ 107   1       
+ 108   1              LCD_WR_REG(0xEA);  
+ 109   1              LCD_WR_DATA8(0x00); 
+ 110   1              LCD_WR_DATA8(0x00); 
+ 111   1       
+ 112   1              LCD_WR_REG(0xED);  
+ 113   1              LCD_WR_DATA8(0x64); 
+ 114   1              LCD_WR_DATA8(0x03); 
+ 115   1              LCD_WR_DATA8(0X12); 
+ 116   1              LCD_WR_DATA8(0X81); 
+C51 COMPILER V9.01   LCD                                                                   02/16/2015 17:54:57 PAGE 3   
+
+ 117   1      
+ 118   1              LCD_WR_REG(0xF7);  
+ 119   1              LCD_WR_DATA8(0x20); 
+ 120   1        
+ 121   1              LCD_WR_REG(0xC0);    //Power control 
+ 122   1              LCD_WR_DATA8(0x23);   //VRH[5:0] 
+ 123   1       
+ 124   1              LCD_WR_REG(0xC1);    //Power control 
+ 125   1              LCD_WR_DATA8(0x10);   //SAP[2:0];BT[3:0] 
+ 126   1       
+ 127   1              LCD_WR_REG(0xC5);    //VCM control 
+ 128   1              LCD_WR_DATA8(0x3e); 
+ 129   1              LCD_WR_DATA8(0x28); 
+ 130   1       
+ 131   1              LCD_WR_REG(0xC7);    //VCM control2 
+ 132   1              LCD_WR_DATA8(0x86);  //--
+ 133   1       
+ 134   1              LCD_WR_REG(0x36);    // Memory Access Control 
+ 135   1              LCD_WR_DATA8(0x48); 
+ 136   1      
+ 137   1              LCD_WR_REG(0x3A);    
+ 138   1              LCD_WR_DATA8(0x55); 
+ 139   1      
+ 140   1              LCD_WR_REG(0xB1);    
+ 141   1              LCD_WR_DATA8(0x00);  
+ 142   1              LCD_WR_DATA8(0x18); 
+ 143   1       
+ 144   1              LCD_WR_REG(0xB6);    // Display Function Control 
+ 145   1              LCD_WR_DATA8(0x08); 
+ 146   1              LCD_WR_DATA8(0x82);
+ 147   1              LCD_WR_DATA8(0x27);  
+ 148   1       
+ 149   1              LCD_WR_REG(0xF2);    // 3Gamma Function Disable 
+ 150   1              LCD_WR_DATA8(0x00); 
+ 151   1       
+ 152   1              LCD_WR_REG(0x26);    //Gamma curve selected 
+ 153   1              LCD_WR_DATA8(0x01); 
+ 154   1       
+ 155   1              LCD_WR_REG(0xE0);    //Set Gamma 
+ 156   1              LCD_WR_DATA8(0x0F); 
+ 157   1              LCD_WR_DATA8(0x31); 
+ 158   1              LCD_WR_DATA8(0x2B); 
+ 159   1              LCD_WR_DATA8(0x0C); 
+ 160   1              LCD_WR_DATA8(0x0E); 
+ 161   1              LCD_WR_DATA8(0x08); 
+ 162   1              LCD_WR_DATA8(0x4E); 
+ 163   1              LCD_WR_DATA8(0xF1); 
+ 164   1              LCD_WR_DATA8(0x37); 
+ 165   1              LCD_WR_DATA8(0x07); 
+ 166   1              LCD_WR_DATA8(0x10); 
+ 167   1              LCD_WR_DATA8(0x03); 
+ 168   1              LCD_WR_DATA8(0x0E); 
+ 169   1              LCD_WR_DATA8(0x09); 
+ 170   1              LCD_WR_DATA8(0x00); 
+ 171   1      
+ 172   1              LCD_WR_REG(0XE1);    //Set Gamma 
+ 173   1              LCD_WR_DATA8(0x00); 
+ 174   1              LCD_WR_DATA8(0x0E); 
+ 175   1              LCD_WR_DATA8(0x14); 
+ 176   1              LCD_WR_DATA8(0x03); 
+ 177   1              LCD_WR_DATA8(0x11); 
+ 178   1              LCD_WR_DATA8(0x07); 
+C51 COMPILER V9.01   LCD                                                                   02/16/2015 17:54:57 PAGE 4   
+
+ 179   1              LCD_WR_DATA8(0x31); 
+ 180   1              LCD_WR_DATA8(0xC1); 
+ 181   1              LCD_WR_DATA8(0x48); 
+ 182   1              LCD_WR_DATA8(0x08); 
+ 183   1              LCD_WR_DATA8(0x0F); 
+ 184   1              LCD_WR_DATA8(0x0C); 
+ 185   1              LCD_WR_DATA8(0x31); 
+ 186   1              LCD_WR_DATA8(0x36); 
+ 187   1              LCD_WR_DATA8(0x0F); 
+ 188   1       
+ 189   1              LCD_WR_REG(0x11);    //Exit Sleep 
+ 190   1              delayms(120); 
+ 191   1                                      
+ 192   1              LCD_WR_REG(0x29);    //Display on 
+ 193   1              LCD_WR_REG(0x2c); 
+ 194   1      
+ 195   1      }
+ 196          
+ 197          void LCD_Clear(u16 Color)
+ 198          {
+ 199   1              u8 VH,VL;
+ 200   1              u16 i,j;
+ 201   1              VH=Color>>8;
+ 202   1              VL=Color;       
+ 203   1              Address_set(0,0,LCD_W-1,LCD_H-1);
+ 204   1          for(i=0;i<LCD_W;i++)
+ 205   1               {
+ 206   2                for (j=0;j<LCD_H;j++)
+ 207   2                      {
+ 208   3                       LCD_WR_DATA8(VH);
+ 209   3                               LCD_WR_DATA8(VL);      
+ 210   3      
+ 211   3                  }
+ 212   2      
+ 213   2                }
+ 214   1      }
+ 215          
+ 216          void LCD_DrawPoint(u16 x,u16 y)
+ 217          {
+ 218   1              Address_set(x,y,x,y); 
+ 219   1              LCD_WR_DATA(POINT_COLOR);           
+ 220   1      }        
+ 221          
+ 222          void LCD_DrawPoint_big(u16 x,u16 y)
+ 223          {
+ 224   1              LCD_Fill(x-1,y-1,x+1,y+1,POINT_COLOR);
+ 225   1      } 
+ 226          
+ 227          void LCD_Fill(u16 xsta,u16 ysta,u16 xend,u16 yend,u16 color)
+ 228          {          
+ 229   1              u16 i,j; 
+ 230   1              Address_set(xsta,ysta,xend,yend);       
+ 231   1              for(i=ysta;i<=yend;i++)
+ 232   1              {                                                                                                                       
+ 233   2                      for(j=xsta;j<=xend;j++)LCD_WR_DATA(color);          
+ 234   2              }                                                   
+ 235   1      }  
+ 236          
+ 237          void LCD_DrawLine(u16 x1, u16 y1, u16 x2, u16 y2)
+ 238          {
+ 239   1              u16 t; 
+ 240   1              int xerr=0,yerr=0,delta_x,delta_y,distance; 
+C51 COMPILER V9.01   LCD                                                                   02/16/2015 17:54:57 PAGE 5   
+
+ 241   1              int incx,incy,uRow,uCol; 
+ 242   1      
+ 243   1              delta_x=x2-x1; 
+ 244   1              delta_y=y2-y1; 
+ 245   1              uRow=x1; 
+ 246   1              uCol=y1; 
+ 247   1              if(delta_x>0)incx=1;
+ 248   1              else if(delta_x==0)incx=0;
+ 249   1              else {incx=-1;delta_x=-delta_x;} 
+ 250   1              if(delta_y>0)incy=1; 
+ 251   1              else if(delta_y==0)incy=0; 
+ 252   1              else{incy=-1;delta_y=-delta_y;} 
+ 253   1              if( delta_x>delta_y)distance=delta_x; 
+ 254   1              else distance=delta_y; 
+ 255   1              for(t=0;t<=distance+1;t++ )
+ 256   1              {  
+ 257   2                      LCD_DrawPoint(uRow,uCol);
+ 258   2                      xerr+=delta_x ; 
+ 259   2                      yerr+=delta_y ; 
+ 260   2                      if(xerr>distance) 
+ 261   2                      { 
+ 262   3                              xerr-=distance; 
+ 263   3                              uRow+=incx; 
+ 264   3                      } 
+ 265   2                      if(yerr>distance) 
+ 266   2                      { 
+ 267   3                              yerr-=distance; 
+ 268   3                              uCol+=incy; 
+ 269   3                      } 
+ 270   2              }  
+ 271   1      }    
+ 272          
+ 273          void LCD_DrawRectangle(u16 x1, u16 y1, u16 x2, u16 y2)
+ 274          {
+ 275   1              LCD_DrawLine(x1,y1,x2,y1);
+ 276   1              LCD_DrawLine(x1,y1,x1,y2);
+ 277   1              LCD_DrawLine(x1,y2,x2,y2);
+ 278   1              LCD_DrawLine(x2,y1,x2,y2);
+ 279   1      }
+ 280          
+ 281          void Draw_Circle(u16 x0,u16 y0,u8 r)
+ 282          {
+ 283   1              int a,b;
+ 284   1              int di;
+ 285   1              a=0;b=r;          
+ 286   1              di=3-(r<<1);             
+ 287   1              while(a<=b)
+ 288   1              {
+ 289   2                      LCD_DrawPoint(x0-b,y0-a);             //3           
+ 290   2                      LCD_DrawPoint(x0+b,y0-a);             //0           
+ 291   2                      LCD_DrawPoint(x0-a,y0+b);             //1       
+ 292   2                      LCD_DrawPoint(x0-b,y0-a);             //7           
+ 293   2                      LCD_DrawPoint(x0-a,y0-b);             //2             
+ 294   2                      LCD_DrawPoint(x0+b,y0+a);             //4               
+ 295   2                      LCD_DrawPoint(x0+a,y0-b);             //5
+ 296   2                      LCD_DrawPoint(x0+a,y0+b);             //6 
+ 297   2                      LCD_DrawPoint(x0-b,y0+a);             
+ 298   2                      a++;
+ 299   2           
+ 300   2                      if(di<0)di +=4*a+6;       
+ 301   2                      else
+ 302   2                      {
+C51 COMPILER V9.01   LCD                                                                   02/16/2015 17:54:57 PAGE 6   
+
+ 303   3                              di+=10+4*(a-b);   
+ 304   3                              b--;
+ 305   3                      } 
+ 306   2                      LCD_DrawPoint(x0+a,y0+b);
+ 307   2              }
+ 308   1      } 
+ 309          
+ 310          void LCD_ShowChar(u16 x,u16 y,u8 num,u8 mode)
+ 311          {
+ 312   1          u8 temp;
+ 313   1          u8 pos,t;
+ 314   1              u16 x0=x;
+ 315   1              u16 colortemp=POINT_COLOR;      
+ 316   1          if(x>LCD_W-16||y>LCD_H-16)return;       
+ 317   1              
+ 318   1              num=num-' ';
+ 319   1              Address_set(x,y,x+8-1,y+16-1);      
+ 320   1              if(!mode) 
+ 321   1              {
+ 322   2                      for(pos=0;pos<16;pos++)
+ 323   2                      { 
+ 324   3                              temp=asc2_1608[(u16)num*16+pos];                 
+ 325   3                              for(t=0;t<8;t++)
+ 326   3                          {                 
+ 327   4                              if(temp&0x01)POINT_COLOR=colortemp;
+ 328   4                                      else POINT_COLOR=BACK_COLOR;
+ 329   4                                      LCD_WR_DATA(POINT_COLOR);       
+ 330   4                                      temp>>=1; 
+ 331   4                                      x++;
+ 332   4                          }
+ 333   3                              x=x0;
+ 334   3                              y++;
+ 335   3                      }       
+ 336   2              }else
+ 337   1              {
+ 338   2                      for(pos=0;pos<16;pos++)
+ 339   2                      {
+ 340   3                          temp=asc2_1608[(u16)num*16+pos];             
+ 341   3                              for(t=0;t<8;t++)
+ 342   3                          {                 
+ 343   4                              if(temp&0x01)LCD_DrawPoint(x+t,y+pos);     
+ 344   4                              temp>>=1; 
+ 345   4                          }
+ 346   3                      }
+ 347   2              }
+ 348   1              POINT_COLOR=colortemp;                            
+ 349   1      }   
+ 350          //m^n
+ 351          u32 mypow(u8 m,u8 n)
+ 352          {
+ 353   1              u32 result=1;    
+ 354   1              while(n--)result*=m;    
+ 355   1              return result;
+ 356   1      }                        
+ 357                  
+ 358          void LCD_ShowNum(u16 x,u16 y,u32 num,u8 len)
+ 359          {               
+ 360   1              u8 t,temp;
+ 361   1              u8 enshow=0;
+ 362   1              num=(u16)num;
+ 363   1              for(t=0;t<len;t++)
+ 364   1              {
+C51 COMPILER V9.01   LCD                                                                   02/16/2015 17:54:57 PAGE 7   
+
+ 365   2                      temp=(num/mypow(10,len-t-1))%10;
+ 366   2                      if(enshow==0&&t<(len-1))
+ 367   2                      {
+ 368   3                              if(temp==0)
+ 369   3                              {
+ 370   4                                      LCD_ShowChar(x+8*t,y,' ',0);
+ 371   4                                      continue;
+ 372   4                              }else enshow=1; 
+ 373   3                               
+ 374   3                      }
+ 375   2                      LCD_ShowChar(x+8*t,y,temp+48,0); 
+ 376   2              }
+ 377   1      } 
+ 378           
+ 379          void LCD_Show2Num(u16 x,u16 y,u16 num,u8 len)
+ 380          {               
+ 381   1              u8 t,temp;                                                 
+ 382   1              for(t=0;t<len;t++)
+ 383   1              {
+ 384   2                      temp=(num/mypow(10,len-t-1))%10;
+ 385   2                      LCD_ShowChar(x+8*t,y,temp+'0',0); 
+ 386   2              }
+ 387   1      } 
+ 388          
+ 389          void LCD_ShowString(u16 x,u16 y,const u8 *p)
+ 390          {         
+ 391   1          while(*p!='\0')
+ 392   1          {       
+ 393   2              if(x>LCD_W-16){x=0;y+=16;}
+ 394   2              if(y>LCD_H-16){y=x=0;}
+ 395   2              LCD_ShowChar(x,y,*p,0);
+ 396   2              x+=8;
+ 397   2              p++;
+ 398   2          }  
+ 399   1      }
+ 400          
+ 401          
+ 402          
+ 403          
+ 404          
+ 405          
+ 406          
+ 407          
+ 408          
+ 409          
+ 410          
+ 411          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   2329    ----
+   CONSTANT SIZE    =      2    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      5     109
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
