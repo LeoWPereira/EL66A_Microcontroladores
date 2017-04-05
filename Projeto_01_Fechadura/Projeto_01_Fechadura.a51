@@ -174,6 +174,9 @@ MAIN:
 		CALL    ESC_STR1					// escreve na primeira linha do display
 		
 		ACALL 	PRESS_ENT		// espera o pressionamento da tecla ENTER
+		
+		MOV 	R0, #05h
+		LCALL 	ACIONA_BUZZER
 
 LIMPA_LCD_E_INICIA_SISTEMA:
 		CALL 	CLR1L
@@ -952,4 +955,5 @@ INT_SERIAL:
 		RETI
 	
 FIM:
+		JMP $
 		END
