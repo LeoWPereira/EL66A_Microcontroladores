@@ -48,6 +48,8 @@ LED_SEG 		EQU	P3.6
 LED1   			EQU	P3.7
 	
 // LINHAS E COLUNAS DO TECLADO MATRICIAL
+TECLADO			EQU	P1
+
 COL1 			EQU P1.0
 COL2 			EQU P1.1
 COL3			EQU P1.2
@@ -280,13 +282,14 @@ ESCREVE_ASTERISCO:
 // DESTROI: A										//
 //////////////////////////////////////////////////////	
 PRESS_ENT:
-		SETB 	LIN1
-		SETB 	LIN2
-		SETB 	LIN3
-		CLR  	LIN4
+		// Apenas LIN4 esta em 0
+		MOV		TECLADO, #01111111b
+		
+VARRE_ENT:
 		JNB  	COL2, CLEAR			// se apertou CLR, limpa senha de entrada
 		JNB  	COL4, TESTA_SENHA1 	// se apertou ENTER, testa senha
-		JMP  	PRESS_ENT
+		
+		JMP  	VARRE_ENT
 
 //////////////////////////////////////////////////////
 // NOME: CLEAR										//
