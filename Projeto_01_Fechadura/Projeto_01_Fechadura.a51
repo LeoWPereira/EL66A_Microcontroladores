@@ -14,22 +14,22 @@
 //														//
 //////////////////////////////////////////////////////////
 
-org 2000h // Origem do codigo 
+org 00h//2000h // Origem do codigo 
 ljmp __STARTUP__
 
-org 2003h // Inicio do codigo da interrupcao externa INT0
+org 03h//2003h // Inicio do codigo da interrupcao externa INT0
 ljmp INT_INT0
 
-org 200Bh // Inicio do codigo da interrupcao interna gerada pelo TIMER/COUNTER 0
+org 0Bh//200Bh // Inicio do codigo da interrupcao interna gerada pelo TIMER/COUNTER 0
 ljmp INT_TIMER0
 
-org 2013h // Inicio do codigo da interrupcao externa INT1
+org 013h//2013h // Inicio do codigo da interrupcao externa INT1
 ljmp INT_INT1
 
-org 201Bh // Inicio do codigo da interrupcao interna gerada pelo TIMER/COUNTER 1
+org 01Bh//201Bh // Inicio do codigo da interrupcao interna gerada pelo TIMER/COUNTER 1
 ljmp INT_TIMER1
 
-org 2023h // Inicio do codigo da interrupcao SERIAL
+org 023h//2023h // Inicio do codigo da interrupcao SERIAL
 ljmp INT_SERIAL
 
 ////////////////////////////////////////////////
@@ -87,6 +87,10 @@ SENHA2_3		EQU 47h
 SENHA2_4		EQU 48h
 
 TENTATIVAS  	EQU 50h
+	
+TIMEOUT_LOW		EQU	51h
+TIMEOUT_HIGH	EQU	52h
+TIMEOUT_X1S		EQU	53h
 		
 //////////////////////////////////////////////////
 // REGIAO DA MEMORIA DE PROGRAMA COM AS STRINGS //
@@ -126,6 +130,7 @@ STR_TIMEOUT:
 
 __STARTUP__:
 		CALL 	TIMER_CONFIGURA_TIMER
+		CALL 	INT_CONFIGURA_INTERRUPCOES
 
 		MOV 	R0, #0Fh		// R0 x 20 ms com o buzzer acionado - apenas para mostrar que o sistema esta inicializando
 		LCALL 	ACIONA_BUZZER
@@ -165,6 +170,7 @@ MAIN:
 		MOV		R1, #01h
 		CALL 	TIMER_DELAY_1_S
 
+LIMPA_LCD_E_INICIA_SISTEMA:
 		// Limpa ambas as linhas do display
 		CALL 	CLR1L
 		CALL 	CLR2L
@@ -178,8 +184,14 @@ MAIN:
 		MOV 	R0, #05h
 		LCALL 	ACIONA_BUZZER
 
-LIMPA_LCD_E_INICIA_SISTEMA:
+LIMPA_LCD_E_REINICIA_SISTEMA:
+		CALL	CONFIGURA_VALORES_TIMER_1 // Temos 3 registradores separados para o TIMER_1 (sendo o TIMEOUT_X1S o mais importante -> TIMEOUT_X1S x 1s)
+		SETB	TR1	// Como queremos ter a opcao de TIMEOUT no projeto, aciona o TR1, que comeca a contagem do TIMER_1
+
+LIMPA_LCD_E_PEDE_SENHA:
+		// Limpa ambas as linhas do display
 		CALL 	CLR1L
+		CALL 	CLR2L
 		
 		// Apos apertar ENTER, pede-se a senha (que precisa bater com uma das 2 senhas pre-definidas)
 		MOV     DPTR,#STR_SENHA	// seta o DPTR com o endereco da string SENHA
@@ -311,6 +323,8 @@ VARRE_ENT_OU_CLR:
 		JNB  	COL2, CLEAR			// se apertou CLR, limpa senha de entrada
 		JNB  	COL4, TESTA_SENHA1 	// se apertou ENTER, testa senha
 		
+		JNB		TR1, FINALIZA_VARREDURA_POR_TIMEOUT
+		
 		JMP  	VARRE_ENT_OU_CLR
 
 //////////////////////////////////////////////////////
@@ -328,7 +342,7 @@ CLEAR:
 		
 		POP		ACC
 		POP		ACC
-		JMP 	LIMPA_LCD_E_INICIA_SISTEMA
+		JMP 	LIMPA_LCD_E_PEDE_SENHA
 		
 ///////////////////////////////////////////////////////
 // NOME: VARREDURA_TECLADO							 //
@@ -338,33 +352,40 @@ CLEAR:
 // DESTROI:											 //
 ///////////////////////////////////////////////////////
 VARREDURA_TECLADO:
-		CLR  LIN1
-		SETB LIN2
-		SETB LIN3
-		SETB LIN4
-		JNB  COL2, DIGITO1
-		JNB  COL3, DIGITO2
-		JNB  COL4, DIGITO3
+		CLR  	LIN1
+		SETB 	LIN2
+		SETB 	LIN3
+		SETB 	LIN4
+		JNB  	COL2, DIGITO1
+		JNB  	COL3, DIGITO2
+		JNB  	COL4, DIGITO3
 		
-		CLR  LIN2
-		SETB LIN1
-		JNB  COL2, DIGITO4
-		JNB  COL3, DIGITO5
-		JNB  COL4, DIGITO6
+		CLR  	LIN2
+		SETB 	LIN1
+		JNB  	COL2, DIGITO4
+		JNB  	COL3, DIGITO5
+		JNB  	COL4, DIGITO6
 		
-		CLR  LIN3
-		SETB LIN2
-		JNB  COL2, DIGITO7
-		JNB  COL3, DIGITO8
-		JNB  COL4, DIGITO9
+		CLR  	LIN3
+		SETB 	LIN2
+		JNB  	COL2, DIGITO7
+		JNB  	COL3, DIGITO8
+		JNB  	COL4, DIGITO9
 		
-		CLR  LIN4
-		SETB LIN3
- 		JNB  COL2, CLEAR
-		JNB  COL3, DIGITO0
-		JMP  VARREDURA_TECLADO
+		CLR  	LIN4
+		SETB 	LIN3
+ 		JNB  	COL2, CLEAR
+		JNB  	COL3, DIGITO0
 		
-		RET
+		JNB		TR1, FINALIZA_VARREDURA_POR_TIMEOUT
+		
+		JMP  	VARREDURA_TECLADO
+
+FINALIZA_VARREDURA_POR_TIMEOUT:
+		CALL	ESCREVE_TIMEOUT
+
+		POP		ACC
+		JMP		LIMPA_LCD_E_INICIA_SISTEMA
 		
 //////////////////////////////////////////////////////////////////////////
 // NOME: DIGITOX (X = [0,9])											//
@@ -412,6 +433,8 @@ GRAVA_DIGITO:
 TESTA_SENHA1:
 		MOV 	R0, #05h
 		LCALL 	ACIONA_BUZZER
+		 
+		CLR		TR1 // Se chegou ate aqui é porque o usuario apertou ENTER, entao nao precisa mais dar TIMEOUT
 		
 		MOV	 	A, SENHA1_1
 		CJNE 	A, TECLADO_1, TESTA_SENHA2
@@ -434,6 +457,23 @@ TESTA_SENHA2:
 		CJNE 	A, TECLADO_4, LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA
 		JMP 	LIMPA_LCD_E_MOSTRA_SENHA_VALIDA
 		
+//////////////////////////////////////////////////////////////////////////
+// NOME: GRAVA_TECLADO_X [2,4]											//
+// DESCRICAO: Grava o valor de R1 e no dígito X do teclado				//
+// ENTRADA: R1															//
+// SAIDA: TECLADO_X														//
+// DESTROI: 															//
+//////////////////////////////////////////////////////////////////////////
+GRAVA_TECLADO_2: CJNE R3, #2h, GRAVA_TECLADO_3
+				 AJMP GRAVA_TECLADO_X
+GRAVA_TECLADO_3: CJNE R3, #3h, GRAVA_TECLADO_4
+GRAVA_TECLADO_4: AJMP GRAVA_TECLADO_X		
+
+GRAVA_TECLADO_X:
+		 MOV @R1, A
+		 
+		 RET
+		 
 LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA:
 		// Limpa ambas as linhas do display
 		CALL 	CLR1L
@@ -495,23 +535,6 @@ LIMPA_LCD_E_MOSTRA_SENHA_VALIDA:
 		LCALL 	TRANCA_FECHADURA
 		
 		RET
-		 
-//////////////////////////////////////////////////////////////////////////
-// NOME: GRAVA_TECLADO_X [2,4]											//
-// DESCRICAO: Grava o valor de R1 e no dígito X do teclado				//
-// ENTRADA: R1															//
-// SAIDA: TECLADO_X														//
-// DESTROI: 															//
-//////////////////////////////////////////////////////////////////////////
-GRAVA_TECLADO_2: CJNE R3, #2h, GRAVA_TECLADO_3
-				 AJMP GRAVA_TECLADO_X
-GRAVA_TECLADO_3: CJNE R3, #3h, GRAVA_TECLADO_4
-GRAVA_TECLADO_4: AJMP GRAVA_TECLADO_X		
-
-GRAVA_TECLADO_X:
-		 MOV @R1, A
-		 
-		 RET
 		 
 ///////////////////
 // ACIONA BUZZER //
@@ -588,6 +611,24 @@ TRANCA_FECHADURA:
 		DJNZ 	R5, TRANCA_FECHADURA
 
 		RET
+		
+//////////////////////////////////////////////////////
+//													//
+//////////////////////////////////////////////////////
+ESCREVE_TIMEOUT:
+		CALL 	CLR1L
+		CALL 	CLR2L
+		
+		// Apos apertar ENTER, pede-se a senha (que precisa bater com uma das 2 senhas pre-definidas)
+		MOV     DPTR,#STR_TIMEOUT	// seta o DPTR com o endereco da string SENHA
+		CALL    ESC_STR1			// escreve na primeira linha do display
+		
+		// Atrasa 2s para escrever outra string
+		MOV		R1, #02h
+		CALL 	TIMER_DELAY_1_S
+		
+		RET
+		
 ////////////////////////////////////////////////
 // 		  INICIO DOS CODIGOS PARA LCD		  //
 ////////////////////////////////////////////////
@@ -878,21 +919,37 @@ CUR1:     MOV    R2,#01
 ////////////////////////////////////////////////
 		  
 TIMER_CONFIGURA_TIMER:
-		MOV TMOD, #00000001b // Seta o timer_0 para o modo 01 (16 bits)
-	
+		MOV 	TMOD, #00100001b // Seta o TIMER_0 para o modo 01 (16 bits) e o TIMER_1 para o modo 02 (8 bits com reset)
+		
+		// Para o TIMER_0, TH0 e TL0 representam o necessario para um delay de 20ms
+		MOV 	TH0, #HIGH(65535 - 43350)
+		MOV 	TL0, #LOW(65535 - 43350)
+		
+		////////////////////////////////////////////////////////////////////////////
+		// Aqui configuramos o TIMER_1 (para o TIMEOUT) de 15s -> 250 * 256 * 256 //
+		////////////////////////////////////////////////////////////////////////////
+		
+		// Para o TIMER_0, TH0 e TL0 representam o necessario para um delay de 20ms
+		MOV 	TH1, #0FFh
+		MOV		TL1, #05h
+		
+		RET
+
+CONFIGURA_VALORES_TIMER_1:
+		MOV		TIMEOUT_LOW, 	#0FFh
+		MOV		TIMEOUT_HIGH, 	#01Eh
+		MOV		TIMEOUT_X1S, 	#014h	
+		
 		RET
 	
 //////////////////////////////////////////////////////
 // NOME: TIMER_DELAY_20_MS							//
 // DESCRICAO: INTRODUZ UM ATRASO DE 20 MS			//
-// P.ENTRADA: R0 = y => (y x 25) ms  				//
+// P.ENTRADA: R0 => (R0 x 20) ms  					//
 // P.SAIDA: -										//
 // ALTERA: R0										//
 //////////////////////////////////////////////////////
 TIMER_DELAY_20_MS:
-		MOV TH0, #HIGH(65535 - 43350)
-		MOV TL0, #LOW(65535 - 43350)
-	
 		CLR TF0
 		SETB TR0
 	
@@ -924,6 +981,12 @@ TIMER_DELAY_1_S:
 // INICIO DOS CODIGOS GERADOS POR INTERRUPCAO //
 ////////////////////////////////////////////////
 
+INT_CONFIGURA_INTERRUPCOES:
+		MOV		IE, #10001000b // Configura interrupcao apenas para o TIMER_1
+		MOV		IP,	#00001000b // da prioridade alta para o TIMER_1
+		
+		RET
+
 /*
 *
 */
@@ -946,6 +1009,27 @@ INT_INT1:
 *
 */
 INT_TIMER1:
+		PUSH 	ACC
+		PUSH	PSW
+		
+		MOV		TL1, #05h
+		CLR		TF1
+		
+		DJNZ	TIMEOUT_LOW, FINALIZA_TIMER_2
+		MOV		TIMEOUT_LOW, #0FFh
+		
+		DJNZ	TIMEOUT_HIGH, FINALIZA_TIMER_2
+		MOV		TIMEOUT_HIGH, #01Eh
+		
+		DJNZ	TIMEOUT_X1S, FINALIZA_TIMER_2
+		MOV		TIMEOUT_X1S, #014h	
+		
+		CLR		TR1
+
+FINALIZA_TIMER_2:
+		POP		PSW
+		POP		ACC
+		
 		RETI
 	
 /*
