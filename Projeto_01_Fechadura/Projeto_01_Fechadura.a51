@@ -96,7 +96,7 @@ TIMEOUT_X1S		EQU	53h
 // REGIAO DA MEMORIA DE PROGRAMA COM AS STRINGS //
 //////////////////////////////////////////////////
 
-org 2030h
+org 30h//2030h
 SENHA_PADRAO_1:
 		db  	'2812', 00H
 SENHA_PADRAO_2:
@@ -131,20 +131,20 @@ STR_TIMEOUT:
 __STARTUP__:
 		CALL 	TIMER_CONFIGURA_TIMER
 		CALL 	INT_CONFIGURA_INTERRUPCOES
-
+		
 		MOV 	R0, #0Fh		// R0 x 20 ms com o buzzer acionado - apenas para mostrar que o sistema esta inicializando
 		LCALL 	ACIONA_BUZZER
 
-		MOV 	DPTR, #2030h  	// inicializa o DPTR com o endereco da senha 01
-		MOV 	R0, #00h 	    // R0 representa o caracter atual do texto a ser lido
-		MOV 	R1, #SENHA1_1 	// R1 possui o endereco do registrador do primeiro numero da senha 01
-		MOV 	R2, #04h	  	// quantidade de digitos da senha 01
+		MOV 	DPTR, #SENHA_PADRAO_1  	// inicializa o DPTR com o endereco da senha 01
+		MOV 	R0, #00h 	    		// R0 representa o caracter atual do texto a ser lido
+		MOV 	R1, #SENHA1_1 			// R1 possui o endereco do registrador do primeiro numero da senha 01
+		MOV 	R2, #04h	  			// quantidade de digitos da senha 01
 		CALL 	LE_SENHA
 	
-		MOV 	DPTR, #2035h	// inicializa o DPTR com o endereco da senha 02
-		MOV 	R0, #00h 		// R0 representa o caracter atual do texto a ser lido
-		MOV 	R1, #SENHA2_1	// R1 possui o endereco do registrador do primeiro numero da senha 02
-		MOV 	R2, #04h		// quantidade de digitos da senha 02
+		MOV 	DPTR, #SENHA_PADRAO_2	// inicializa o DPTR com o endereco da senha 02
+		MOV 	R0, #00h 				// R0 representa o caracter atual do texto a ser lido
+		MOV 	R1, #SENHA2_1			// R1 possui o endereco do registrador do primeiro numero da senha 02
+		MOV 	R2, #04h				// quantidade de digitos da senha 02
 		CALL 	LE_SENHA
 	
 		MOV 	TENTATIVAS, #3h	// Igual ao sistema de cartao de credito - Caso erre 3x seguidas a senha, bloqueia o sistema, tendo que reiniciar o sistema pelo botao fisico de RESET
@@ -519,7 +519,7 @@ LIMPA_LCD_E_MOSTRA_SENHA_VALIDA:
 		CALL    ESC_STR2					// escreve na segunda linha
 		
 		// Aciona o mecanismo (motor de passos) para abrir a fechadura
-		MOV 	R5, #1Ah
+		MOV 	R5, #0Dh
 		LCALL 	ABRE_FECHADURA
 		
 		// Atrasa 3s para escrever outra string
@@ -531,10 +531,12 @@ LIMPA_LCD_E_MOSTRA_SENHA_VALIDA:
 		CALL    ESC_STR2					// escreve na segunda linha
 		
 		// Aciona o mecanismo (motor de passos) para trancar a fechadura (basicamente faz o caminho oposto ao ABRE_FECHADURA)
-		MOV 	R5, #1Ah
+		MOV 	R5, #0Dh
 		LCALL 	TRANCA_FECHADURA
 		
-		RET
+		JMP		LIMPA_LCD_E_INICIA_SISTEMA	
+		
+		//RET
 		 
 ///////////////////
 // ACIONA BUZZER //
@@ -587,25 +589,25 @@ TRANCA_FECHADURA:
 		CLR		ESTADO_TRES
 		SETB	ESTADO_QUATRO
 		
-		MOV 	R0, #05h
+		MOV 	R0, #01h
 		ACALL 	TIMER_DELAY_20_MS
 		
 		SETB	ESTADO_TRES
 		CLR		ESTADO_QUATRO
 		
-		MOV 	R0, #05h
+		MOV 	R0, #01h
 		ACALL 	TIMER_DELAY_20_MS
 		
 		SETB	ESTADO_DOIS
 		CLR		ESTADO_TRES
 		
-		MOV 	R0, #05h
+		MOV 	R0, #01h
 		ACALL 	TIMER_DELAY_20_MS
 		
 		SETB	ESTADO_UM
 		CLR		ESTADO_DOIS
 		
-		MOV 	R0, #05h
+		MOV 	R0, #01h
 		ACALL 	TIMER_DELAY_20_MS
 		
 		DJNZ 	R5, TRANCA_FECHADURA

@@ -1,0 +1,479 @@
+A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/10/2017 20:10:58 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.5.0
+OBJECT MODULE PLACED IN .\Objects\pwm_com_timer.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE pwm_com_timer.a51 SET(SMALL) DEBUG PRINT(.\Listings\pwm_com_timer.lst) 
+                      OBJECT(.\Objects\pwm_com_timer.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+
+                       2     
+
+                       3     
+
+                       4     
+
+                       5     
+
+                       6     
+
+                       7     
+
+                       8     
+
+                       9     
+
+  0090                10     PWM_PORT                        EQU     P1
+
+  0090                11     PWM_PIN                         EQU P1.0
+
+  0000                12     PWM_FLAG                        EQU 0    
+
+                      13     
+
+  0031                14     WAVE_FORM                       EQU 31h  
+
+  0032                15     DUTY_CYCLE                      EQU 32h  
+
+  0033                16     PERIOD                          EQU 33h  
+
+                      17     
+
+0000                  18     org 0000h  
+
+0000 0200D5           19     ljmp main  
+
+                      20     
+
+0003                  21     org 0003h  
+
+0003 020122           22     ljmp INT_INT0
+
+                      23     
+
+000B                  24     org 000Bh  
+
+000B 020123           25     ljmp INT_TIMER0  
+
+                      26     
+
+0013                  27     org 0013h  
+
+0013 020124           28     ljmp INT_INT1  
+
+                      29     
+
+001B                  30     org 001Bh  
+
+001B 020125           31     ljmp INT_TIMER1  
+
+                      32     
+
+0023                  33     org 0023h  
+
+0023 020140           34     ljmp INT_SERIAL  
+
+                      35     
+
+                      36     
+
+                      37     
+
+                      38     
+
+0050                  39     org 0050h
+
+0050                  40     SINE_WAVE_25_SAMPLES:
+
+0050 7FA0BFD9         41             DB 127, 160, 191, 217, 237, 250, 255, 250, 237, 217, 191, 160, 127, 94, 63, 37, 17,
+                              4, 0, 4, 17, 37, 63, 94, 127
+
+0054 EDFAFFFA                
+0058 EDD9BFA0                
+005C 7F5E3F25                
+0060 11040004                
+0064 11253F5E                
+0068 7F                      
+0069                  42     SINE_WAVE_37_SAMPLES:
+
+0069 8096ACC0         43             DB 128, 150, 172, 192, 210, 226, 239, 248, 254, 255, 254, 248, 239, 226, 210, 192, 
+                             172, 150, 128, 106, 84, 64, 46, 30, 17, 8, 2, 0, 2, 8, 17, 30, 46, 64, 84, 106, 128
+
+006D D2E2EFF8                
+0071 FEFFFEF8                
+0075 EFE2D2C0                
+0079 AC96806A                
+007D 54402E1E                
+0081 11080200                
+A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/10/2017 20:10:58 PAGE     2
+
+0085 0208111E                
+0089 2E40546A                
+008D 80                      
+008E                  44     SINE_WAVE_71_SAMPLES:
+
+008E 808B96A1         45             DB 128, 139, 150, 161, 172, 182, 192, 201, 210, 218, 226, 233, 239, 245, 248, 253, 
+                             254, 255, 254, 253, 248, 245, 239, 233, 226, 218, 210, 201, 192, 182, 172, 161, 150, 139, 1
+                             28, 117, 106, 95, 84, 74, 64, 55, 46, 38, 30, 24, 17, 13, 8, 5, 2, 1, 0, 1, 2, 5, 8, 13, 17
+                             , 24, 30, 38, 46, 55, 64, 74, 84, 95, 106, 117, 128
+
+0092 ACB6C0C9                
+0096 D2DAE2E9                
+009A EFF5F8FD                
+009E FEFFFEFD                
+00A2 F8F5EFE9                
+00A6 E2DAD2C9                
+00AA C0B6ACA1                
+00AE 968B8075                
+00B2 6A5F544A                
+00B6 40372E26                
+00BA 1E18110D                
+00BE 08050201                
+00C2 00010205                
+00C6 080D1118                
+00CA 1E262E37                
+00CE 404A545F                
+00D2 6A7580                  
+                      46     
+
+00D5                  47     main:
+
+00D5 310A             48             CALL    TIMER_CONFIGURA_TIMER
+
+                      49             
+
+00D7 753101           50             MOV             WAVE_FORM, #01h  
+
+                      51             
+
+00DA E531             52             MOV     A, WAVE_FORM
+
+00DC 6004             53             JZ              RESTART_SINE_WAVE
+
+                      54     
+
+00DE B40215           55             CJNE    A, #02h, RESTART_SQUARE_WAVE
+
+                      56     
+
+00E1 E4               57             CLR             A
+
+                      58             
+
+00E2                  59     RESTART_SINE_WAVE:
+
+00E2 90008E           60             MOV             DPTR, #SINE_WAVE_71_SAMPLES
+
+00E5 7946             61             MOV             R1, #70d
+
+                      62             
+
+00E7 C287             63             CLR             P0.7
+
+                      64     
+
+00E9                  65     NEXT_SAMPLE:
+
+00E9 93               66             MOVC    A, @A + DPTR
+
+00EA F590             67             MOV             PWM_PORT, A
+
+00EC E4               68             CLR             A
+
+                      69             
+
+00ED 78C8             70             MOV             R0, #0C8h
+
+00EF 3114             71             CALL    TIMER_SINE_PERIOD_05_MS
+
+                      72             
+
+00F1 A3               73             INC     DPTR
+
+00F2 D9F5             74             DJNZ    R1, NEXT_SAMPLE
+
+                      75             
+
+00F4 80EC             76             JMP             RESTART_SINE_WAVE
+
+                      77             
+
+00F6                  78     RESTART_SQUARE_WAVE:
+
+00F6 11FA             79             CALL    PWM_SQUARE_WAVE_SETUP
+
+                      80             
+
+00F8 80FE             81             JMP     $
+
+                      82             
+
+00FA                  83     PWM_SQUARE_WAVE_SETUP:
+
+00FA 758900           84             MOV     TMOD, #00h   
+
+00FD 7532E5           85             MOV     DUTY_CYCLE, #229d  
+
+                      86             
+
+A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/10/2017 20:10:58 PAGE     3
+
+                      87             
+
+                      88             
+
+0100 D2AF             89             SETB    EA       
+
+0102 D2AB             90             SETB    ET1  
+
+0104 D28E             91             SETB    TR1  
+
+                      92             
+
+0106 22               93             RET
+
+                      94             
+
+0107                  95     PWM_STOP:
+
+0107 C28C             96             CLR     TR0                     ; Stop timer to stop PWM
+
+                      97             
+
+0109 22               98             RET
+
+                      99     
+
+                     100     
+
+                     101     
+
+                     102     
+
+                     103     
+
+010A                 104     TIMER_CONFIGURA_TIMER:
+
+010A 758902          105             MOV     TMOD, #00000010b  
+
+                     106             
+
+                     107             
+
+010D 758C41          108             MOV     TH0, #041h
+
+0110 758A41          109             MOV     TL0, #041h
+
+                     110             
+
+0113 22              111             RET
+
+                     112             
+
+                     113     
+
+                     114     
+
+                     115     
+
+                     116     
+
+                     117     
+
+                     118     
+
+                     119     
+
+0114                 120     TIMER_SINE_PERIOD_05_MS:
+
+0114 C28D            121             CLR     TF0
+
+0116 D28C            122             SETB    TR0
+
+                     123             
+
+0118 308DFD          124             JNB     TF0, $
+
+                     125                     
+
+011B C28D            126             CLR     TF0
+
+011D C28C            127             CLR     TR0
+
+                     128             
+
+011F D8F3            129             DJNZ    R0, TIMER_SINE_PERIOD_05_MS
+
+                     130             
+
+0121 22              131             RET
+
+                     132     
+
+                     133     
+
+                     134     
+
+                     135     
+
+                     136     
+
+                     137     
+
+                     138     
+
+                     139     
+
+0122                 140     INT_INT0:
+
+0122 32              141             reti
+
+                     142     
+
+                     143     
+
+                     144     
+
+                     145     
+
+0123                 146     INT_TIMER0:
+
+0123 32              147             reti
+
+                     148             
+
+                     149     
+
+                     150     
+
+                     151     
+
+0124                 152     INT_INT1:
+
+A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/10/2017 20:10:58 PAGE     4
+
+0124 32              153             reti
+
+                     154     
+
+                     155     
+
+                     156     
+
+                     157     
+
+0125                 158     INT_TIMER1:
+
+0125 20000E          159             JB              PWM_FLAG, HIGH_DONE      
+
+                     160                                     
+
+0128                 161     LOW_DONE:                       
+
+0128 D200            162             SETB    PWM_FLAG                 
+
+012A D290            163             SETB    PWM_PIN          
+
+012C 74FF            164             MOV     A, #0FFH                 
+
+012E C3              165             CLR     C                        
+
+012F 9532            166             SUBB    A, DUTY_CYCLE            
+
+0131 F58D            167             MOV     TH1, A           
+
+                     168                                     
+
+0133 C28F            169             CLR     TF1                      
+
+                     170             
+
+0135 32              171             RETI                     
+
+                     172                                     
+
+0136                 173     HIGH_DONE:
+
+0136 C200            174             CLR     PWM_FLAG                 
+
+0138 C290            175             CLR     PWM_PIN          
+
+013A 85328D          176             MOV     TH1, DUTY_CYCLE          
+
+013D C28F            177             CLR     TF1                      
+
+                     178             
+
+                     179     
+
+013F 32              180             RETI
+
+                     181             
+
+                     182     
+
+                     183     
+
+                     184     
+
+0140                 185     INT_SERIAL:
+
+0140 32              186             reti
+
+                     187             
+
+                     188             end
+
+A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/10/2017 20:10:58 PAGE     5
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E                  T Y P E  V A L U E   ATTRIBUTES
+
+DUTY_CYCLE. . . . . . .  N NUMB   0032H   A   
+EA. . . . . . . . . . .  B ADDR   00A8H.7 A   
+ET1 . . . . . . . . . .  B ADDR   00A8H.3 A   
+HIGH_DONE . . . . . . .  C ADDR   0136H   A   
+INT_INT0. . . . . . . .  C ADDR   0122H   A   
+INT_INT1. . . . . . . .  C ADDR   0124H   A   
+INT_SERIAL. . . . . . .  C ADDR   0140H   A   
+INT_TIMER0. . . . . . .  C ADDR   0123H   A   
+INT_TIMER1. . . . . . .  C ADDR   0125H   A   
+LOW_DONE. . . . . . . .  C ADDR   0128H   A   
+MAIN. . . . . . . . . .  C ADDR   00D5H   A   
+NEXT_SAMPLE . . . . . .  C ADDR   00E9H   A   
+P0. . . . . . . . . . .  D ADDR   0080H   A   
+P1. . . . . . . . . . .  D ADDR   0090H   A   
+PERIOD. . . . . . . . .  N NUMB   0033H   A   
+PWM_FLAG. . . . . . . .  N NUMB   0000H   A   
+PWM_PIN . . . . . . . .  B ADDR   0090H.0 A   
+PWM_PORT. . . . . . . .  D ADDR   0090H   A   
+PWM_SQUARE_WAVE_SETUP .  C ADDR   00FAH   A   
+PWM_STOP. . . . . . . .  C ADDR   0107H   A   
+RESTART_SINE_WAVE . . .  C ADDR   00E2H   A   
+RESTART_SQUARE_WAVE . .  C ADDR   00F6H   A   
+SINE_WAVE_25_SAMPLES. .  C ADDR   0050H   A   
+SINE_WAVE_37_SAMPLES. .  C ADDR   0069H   A   
+SINE_WAVE_71_SAMPLES. .  C ADDR   008EH   A   
+TF0 . . . . . . . . . .  B ADDR   0088H.5 A   
+TF1 . . . . . . . . . .  B ADDR   0088H.7 A   
+TH0 . . . . . . . . . .  D ADDR   008CH   A   
+TH1 . . . . . . . . . .  D ADDR   008DH   A   
+TIMER_CONFIGURA_TIMER .  C ADDR   010AH   A   
+TIMER_SINE_PERIOD_05_MS  C ADDR   0114H   A   
+TL0 . . . . . . . . . .  D ADDR   008AH   A   
+TMOD. . . . . . . . . .  D ADDR   0089H   A   
+TR0 . . . . . . . . . .  B ADDR   0088H.4 A   
+TR1 . . . . . . . . . .  B ADDR   0088H.6 A   
+WAVE_FORM . . . . . . .  N NUMB   0031H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

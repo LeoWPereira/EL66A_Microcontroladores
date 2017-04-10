@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22                                                        04/06/2017  23:05:41  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22                                                        04/07/2017  15:04:37  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
@@ -20,7 +20,7 @@ LINK MAP OF MODULE:  .\Objects\Projeto_01_Fechadura (PROJETO_01_FECHADURA)
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
-            CODE    0000H     2420H     ABSOLUTE     
+            CODE    0000H     0421H     ABSOLUTE     
 
 
 
@@ -30,102 +30,102 @@ SYMBOL TABLE OF MODULE:  .\Objects\Projeto_01_Fechadura (PROJETO_01_FECHADURA)
   ----------------------------------
 
   -------         MODULE        PROJETO_01_FECHADURA
-  C:22A2H         SYMBOL        ABRE_FECHADURA
+  C:02A3H         SYMBOL        ABRE_FECHADURA
   D:00E0H         SYMBOL        ACC
-  C:229BH         SYMBOL        ACIONA_BUZZER
+  C:029CH         SYMBOL        ACIONA_BUZZER
   B:0080H.7       SYMBOL        BUSYF
   B:00B0H.0       SYMBOL        BUZZER
-  C:2199H         SYMBOL        CLEAR
-  C:2346H         SYMBOL        CLR1L
-  C:2350H         SYMBOL        CLR1L1
-  C:235FH         SYMBOL        CLR2L
-  C:2369H         SYMBOL        CLR2L1
+  C:0199H         SYMBOL        CLEAR
+  C:0347H         SYMBOL        CLR1L
+  C:0351H         SYMBOL        CLR1L1
+  C:0360H         SYMBOL        CLR2L
+  C:036AH         SYMBOL        CLR2L1
   B:0090H.0       SYMBOL        COL1
   B:0090H.1       SYMBOL        COL2
   B:0090H.2       SYMBOL        COL3
   B:0090H.3       SYMBOL        COL4
-  C:23D2H         SYMBOL        CONFIGURA_VALORES_TIMER_1
-  C:218AH         SYMBOL        CONTINUA_PROG
-  C:2173H         SYMBOL        CONV_ASCII_TO_NUMBER
-  C:23BDH         SYMBOL        CUR1
-  C:23BBH         SYMBOL        CUR_OFF
-  C:23B7H         SYMBOL        CUR_ON
-  C:2208H         SYMBOL        DIGITO0
-  C:21E4H         SYMBOL        DIGITO1
-  C:21E8H         SYMBOL        DIGITO2
-  C:21ECH         SYMBOL        DIGITO3
-  C:21F0H         SYMBOL        DIGITO4
-  C:21F4H         SYMBOL        DIGITO5
-  C:21F8H         SYMBOL        DIGITO6
-  C:21FCH         SYMBOL        DIGITO7
-  C:2200H         SYMBOL        DIGITO8
-BL51 BANKED LINKER/LOCATER V6.22                                                      04/06/2017  23:05:41  PAGE 2
+  C:03D3H         SYMBOL        CONFIGURA_VALORES_TIMER_1
+  C:018AH         SYMBOL        CONTINUA_PROG
+  C:0173H         SYMBOL        CONV_ASCII_TO_NUMBER
+  C:03BEH         SYMBOL        CUR1
+  C:03BCH         SYMBOL        CUR_OFF
+  C:03B8H         SYMBOL        CUR_ON
+  C:0208H         SYMBOL        DIGITO0
+  C:01E4H         SYMBOL        DIGITO1
+  C:01E8H         SYMBOL        DIGITO2
+  C:01ECH         SYMBOL        DIGITO3
+  C:01F0H         SYMBOL        DIGITO4
+  C:01F4H         SYMBOL        DIGITO5
+  C:01F8H         SYMBOL        DIGITO6
+  C:01FCH         SYMBOL        DIGITO7
+  C:0200H         SYMBOL        DIGITO8
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/07/2017  15:04:37  PAGE 2
 
 
-  C:2204H         SYMBOL        DIGITO9
-  C:238BH         SYMBOL        ESCD1
-  C:2378H         SYMBOL        ESCDADO
-  C:232EH         SYMBOL        ESCI1
-  C:231DH         SYMBOL        ESCINST
-  C:2178H         SYMBOL        ESCREVE_ASTERISCO
-  C:22F0H         SYMBOL        ESCREVE_TIMEOUT
-  C:23B0H         SYMBOL        ESC_S
-  C:23A6H         SYMBOL        ESC_STR1
-  C:23ACH         SYMBOL        ESC_STR2
+  C:0204H         SYMBOL        DIGITO9
+  C:038CH         SYMBOL        ESCD1
+  C:0379H         SYMBOL        ESCDADO
+  C:032FH         SYMBOL        ESCI1
+  C:031EH         SYMBOL        ESCINST
+  C:0178H         SYMBOL        ESCREVE_ASTERISCO
+  C:02F1H         SYMBOL        ESCREVE_TIMEOUT
+  C:03B1H         SYMBOL        ESC_S
+  C:03A7H         SYMBOL        ESC_STR1
+  C:03ADH         SYMBOL        ESC_STR2
   B:00B0H.2       SYMBOL        ESTADO_DOIS
   B:00B0H.4       SYMBOL        ESTADO_QUATRO
   B:00B0H.3       SYMBOL        ESTADO_TRES
   B:00B0H.1       SYMBOL        ESTADO_UM
   B:00A0H.7       SYMBOL        E_LCD
-  C:241EH         SYMBOL        FIM
-  C:2418H         SYMBOL        FINALIZA_TIMER_2
-  C:21DEH         SYMBOL        FINALIZA_VARREDURA_POR_TIMEOUT
-  C:2334H         SYMBOL        GOTOXY
-  C:220CH         SYMBOL        GRAVA_DIGITO
-  C:2244H         SYMBOL        GRAVA_TECLADO_2
-  C:2249H         SYMBOL        GRAVA_TECLADO_3
-  C:224CH         SYMBOL        GRAVA_TECLADO_4
-  C:224EH         SYMBOL        GRAVA_TECLADO_X
-  C:233DH         SYMBOL        GT1
+  C:041FH         SYMBOL        FIM
+  C:0419H         SYMBOL        FINALIZA_TIMER_2
+  C:01DEH         SYMBOL        FINALIZA_VARREDURA_POR_TIMEOUT
+  C:0335H         SYMBOL        GOTOXY
+  C:020CH         SYMBOL        GRAVA_DIGITO
+  C:0244H         SYMBOL        GRAVA_TECLADO_2
+  C:0249H         SYMBOL        GRAVA_TECLADO_3
+  C:024CH         SYMBOL        GRAVA_TECLADO_4
+  C:024EH         SYMBOL        GRAVA_TECLADO_X
+  C:033EH         SYMBOL        GT1
   D:00A8H         SYMBOL        IE
-  C:22FEH         SYMBOL        INIDISP
-  C:23F1H         SYMBOL        INT_CONFIGURA_INTERRUPCOES
-  C:23F8H         SYMBOL        INT_INT0
-  C:23FAH         SYMBOL        INT_INT1
-  C:241DH         SYMBOL        INT_SERIAL
-  C:23F9H         SYMBOL        INT_TIMER0
-  C:23FBH         SYMBOL        INT_TIMER1
+  C:02FFH         SYMBOL        INIDISP
+  C:03F2H         SYMBOL        INT_CONFIGURA_INTERRUPCOES
+  C:03F9H         SYMBOL        INT_INT0
+  C:03FBH         SYMBOL        INT_INT1
+  C:041EH         SYMBOL        INT_SERIAL
+  C:03FAH         SYMBOL        INT_TIMER0
+  C:03FCH         SYMBOL        INT_TIMER1
   D:00B8H         SYMBOL        IP
   B:00B0H.7       SYMBOL        LED1
   B:00B0H.6       SYMBOL        LED_SEG
-  C:2152H         SYMBOL        LE_4_DIGITOS
-  C:2166H         SYMBOL        LE_SENHA
-  C:216CH         SYMBOL        LE_SENHA_ROM
-  C:2129H         SYMBOL        LIMPA_LCD_E_INICIA_SISTEMA
-  C:2250H         SYMBOL        LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA
-  C:226FH         SYMBOL        LIMPA_LCD_E_MOSTRA_SENHA_VALIDA
-  C:213DH         SYMBOL        LIMPA_LCD_E_PEDE_SENHA
-  C:2139H         SYMBOL        LIMPA_LCD_E_REINICIA_SISTEMA
+  C:0152H         SYMBOL        LE_4_DIGITOS
+  C:0166H         SYMBOL        LE_SENHA
+  C:016CH         SYMBOL        LE_SENHA_ROM
+  C:0129H         SYMBOL        LIMPA_LCD_E_INICIA_SISTEMA
+  C:0250H         SYMBOL        LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA
+  C:026FH         SYMBOL        LIMPA_LCD_E_MOSTRA_SENHA_VALIDA
+  C:013DH         SYMBOL        LIMPA_LCD_E_PEDE_SENHA
+  C:0139H         SYMBOL        LIMPA_LCD_E_REINICIA_SISTEMA
   B:0090H.4       SYMBOL        LIN1
   B:0090H.5       SYMBOL        LIN2
   B:0090H.6       SYMBOL        LIN3
   B:0090H.7       SYMBOL        LIN4
-  C:210EH         SYMBOL        MAIN
-  C:239BH         SYMBOL        MSTR1
-  C:23A5H         SYMBOL        MSTR21
-  C:2391H         SYMBOL        MSTRING
-  C:239CH         SYMBOL        MSTRINGX
+  C:010EH         SYMBOL        MAIN
+  C:039CH         SYMBOL        MSTR1
+  C:03A6H         SYMBOL        MSTR21
+  C:0392H         SYMBOL        MSTRING
+  C:039DH         SYMBOL        MSTRINGX
   D:0080H         SYMBOL        P0
   D:0090H         SYMBOL        P1
   D:00A0H         SYMBOL        P2
   D:00B0H         SYMBOL        P3
-BL51 BANKED LINKER/LOCATER V6.22                                                      04/06/2017  23:05:41  PAGE 3
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/07/2017  15:04:37  PAGE 3
 
 
-  C:2182H         SYMBOL        PRESS_ENT
-  C:218BH         SYMBOL        PRESS_ENT_OU_CLR
+  C:0182H         SYMBOL        PRESS_ENT
+  C:018BH         SYMBOL        PRESS_ENT_OU_CLR
   D:00D0H         SYMBOL        PSW
-  C:226EH         SYMBOL        REINICIA_SISTEMA
+  C:026EH         SYMBOL        REINICIA_SISTEMA
   B:00A0H.5       SYMBOL        RS
   B:00A0H.6       SYMBOL        RW
   N:0035H         SYMBOL        SENHA1_1
@@ -136,27 +136,27 @@ SYMBOL TABLE OF MODULE:  .\Objects\Projeto_01_Fechadura (PROJETO_01_FECHADURA)
   N:0046H         SYMBOL        SENHA2_2
   N:0047H         SYMBOL        SENHA2_3
   N:0048H         SYMBOL        SENHA2_4
-  C:2030H         SYMBOL        SENHA_PADRAO_1
-  C:2035H         SYMBOL        SENHA_PADRAO_2
-  C:204BH         SYMBOL        STR_LEONARDO_PEREIRA
-  C:20A8H         SYMBOL        STR_LIBERANDO_PORTA
-  C:203AH         SYMBOL        STR_LOGO
-  C:2075H         SYMBOL        STR_PRESSIONE_ENTER
-  C:205CH         SYMBOL        STR_RODRIGO_ENDO
-  C:206DH         SYMBOL        STR_SENHA
-  C:2097H         SYMBOL        STR_SENHA_INVALIDA
-  C:2086H         SYMBOL        STR_SENHA_VALIDA
-  C:20CAH         SYMBOL        STR_SISTEMA_BLOQUEADO
-  C:20DBH         SYMBOL        STR_TIMEOUT
-  C:20B9H         SYMBOL        STR_TRANCANDO_PORTA
+  C:0030H         SYMBOL        SENHA_PADRAO_1
+  C:0035H         SYMBOL        SENHA_PADRAO_2
+  C:004BH         SYMBOL        STR_LEONARDO_PEREIRA
+  C:00A8H         SYMBOL        STR_LIBERANDO_PORTA
+  C:003AH         SYMBOL        STR_LOGO
+  C:0075H         SYMBOL        STR_PRESSIONE_ENTER
+  C:005CH         SYMBOL        STR_RODRIGO_ENDO
+  C:006DH         SYMBOL        STR_SENHA
+  C:0097H         SYMBOL        STR_SENHA_INVALIDA
+  C:0086H         SYMBOL        STR_SENHA_VALIDA
+  C:00CAH         SYMBOL        STR_SISTEMA_BLOQUEADO
+  C:00DBH         SYMBOL        STR_TIMEOUT
+  C:00B9H         SYMBOL        STR_TRANCANDO_PORTA
   D:0090H         SYMBOL        TECLADO
   N:0031H         SYMBOL        TECLADO_1
   N:0032H         SYMBOL        TECLADO_2
   N:0033H         SYMBOL        TECLADO_3
   N:0034H         SYMBOL        TECLADO_4
   N:0050H         SYMBOL        TENTATIVAS
-  C:2211H         SYMBOL        TESTA_SENHA1
-  C:222EH         SYMBOL        TESTA_SENHA2
+  C:0211H         SYMBOL        TESTA_SENHA1
+  C:022EH         SYMBOL        TESTA_SENHA2
   B:0088H.5       SYMBOL        TF0
   B:0088H.7       SYMBOL        TF1
   D:008CH         SYMBOL        TH0
@@ -164,449 +164,449 @@ SYMBOL TABLE OF MODULE:  .\Objects\Projeto_01_Fechadura (PROJETO_01_FECHADURA)
   N:0052H         SYMBOL        TIMEOUT_HIGH
   N:0051H         SYMBOL        TIMEOUT_LOW
   N:0053H         SYMBOL        TIMEOUT_X1S
-  C:23C2H         SYMBOL        TIMER_CONFIGURA_TIMER
-  C:23EAH         SYMBOL        TIMER_DELAY_1_S
-  C:23DCH         SYMBOL        TIMER_DELAY_20_MS
+  C:03C3H         SYMBOL        TIMER_CONFIGURA_TIMER
+  C:03EBH         SYMBOL        TIMER_DELAY_1_S
+  C:03DDH         SYMBOL        TIMER_DELAY_20_MS
   D:008AH         SYMBOL        TL0
   D:008BH         SYMBOL        TL1
   D:0089H         SYMBOL        TMOD
   B:0088H.4       SYMBOL        TR0
   B:0088H.6       SYMBOL        TR1
-  C:22C9H         SYMBOL        TRANCA_FECHADURA
-  C:21A4H         SYMBOL        VARREDURA_TECLADO
-  C:2185H         SYMBOL        VARRE_ENT
-  C:218EH         SYMBOL        VARRE_ENT_OU_CLR
-  C:20ECH         SYMBOL        __STARTUP__
+  C:02CAH         SYMBOL        TRANCA_FECHADURA
+  C:01A4H         SYMBOL        VARREDURA_TECLADO
+  C:0185H         SYMBOL        VARRE_ENT
+  C:018EH         SYMBOL        VARRE_ENT_OU_CLR
+  C:00ECH         SYMBOL        __STARTUP__
   C:0000H         LINE#         18
   C:0003H         LINE#         21
-BL51 BANKED LINKER/LOCATER V6.22                                                      04/06/2017  23:05:41  PAGE 4
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/07/2017  15:04:37  PAGE 4
 
 
   C:000BH         LINE#         24
   C:0013H         LINE#         27
   C:001BH         LINE#         30
   C:0023H         LINE#         33
-  C:20ECH         LINE#         132
-  C:20EEH         LINE#         133
-  C:20F0H         LINE#         135
-  C:20F2H         LINE#         136
-  C:20F5H         LINE#         138
-  C:20F8H         LINE#         139
-  C:20FAH         LINE#         140
-  C:20FCH         LINE#         141
-  C:20FEH         LINE#         142
-  C:2100H         LINE#         144
-  C:2103H         LINE#         145
-  C:2105H         LINE#         146
-  C:2107H         LINE#         147
-  C:2109H         LINE#         148
-  C:210BH         LINE#         150
-  C:210EH         LINE#         153
-  C:2110H         LINE#         154
-  C:2113H         LINE#         155
-  C:2115H         LINE#         158
-  C:2117H         LINE#         159
-  C:2119H         LINE#         161
-  C:211BH         LINE#         163
-  C:211EH         LINE#         164
-  C:2120H         LINE#         166
-  C:2123H         LINE#         167
-  C:2125H         LINE#         170
-  C:2127H         LINE#         171
-  C:2129H         LINE#         175
-  C:212BH         LINE#         176
-  C:212DH         LINE#         179
-  C:2130H         LINE#         180
-  C:2132H         LINE#         182
-  C:2134H         LINE#         184
-  C:2136H         LINE#         185
-  C:2139H         LINE#         188
-  C:213BH         LINE#         189
-  C:213DH         LINE#         193
-  C:213FH         LINE#         194
-  C:2141H         LINE#         197
-  C:2144H         LINE#         198
-  C:2146H         LINE#         201
-  C:2148H         LINE#         202
-  C:214AH         LINE#         203
-  C:214CH         LINE#         205
-  C:214EH         LINE#         206
-  C:2150H         LINE#         207
-  C:2152H         LINE#         209
-  C:2154H         LINE#         210
-  C:2156H         LINE#         212
-  C:2158H         LINE#         213
-  C:215AH         LINE#         215
-  C:215BH         LINE#         216
-  C:215CH         LINE#         218
-BL51 BANKED LINKER/LOCATER V6.22                                                      04/06/2017  23:05:41  PAGE 5
+  C:00ECH         LINE#         132
+  C:00EEH         LINE#         133
+  C:00F0H         LINE#         135
+  C:00F2H         LINE#         136
+  C:00F5H         LINE#         138
+  C:00F8H         LINE#         139
+  C:00FAH         LINE#         140
+  C:00FCH         LINE#         141
+  C:00FEH         LINE#         142
+  C:0100H         LINE#         144
+  C:0103H         LINE#         145
+  C:0105H         LINE#         146
+  C:0107H         LINE#         147
+  C:0109H         LINE#         148
+  C:010BH         LINE#         150
+  C:010EH         LINE#         153
+  C:0110H         LINE#         154
+  C:0113H         LINE#         155
+  C:0115H         LINE#         158
+  C:0117H         LINE#         159
+  C:0119H         LINE#         161
+  C:011BH         LINE#         163
+  C:011EH         LINE#         164
+  C:0120H         LINE#         166
+  C:0123H         LINE#         167
+  C:0125H         LINE#         170
+  C:0127H         LINE#         171
+  C:0129H         LINE#         175
+  C:012BH         LINE#         176
+  C:012DH         LINE#         179
+  C:0130H         LINE#         180
+  C:0132H         LINE#         182
+  C:0134H         LINE#         184
+  C:0136H         LINE#         185
+  C:0139H         LINE#         188
+  C:013BH         LINE#         189
+  C:013DH         LINE#         193
+  C:013FH         LINE#         194
+  C:0141H         LINE#         197
+  C:0144H         LINE#         198
+  C:0146H         LINE#         201
+  C:0148H         LINE#         202
+  C:014AH         LINE#         203
+  C:014CH         LINE#         205
+  C:014EH         LINE#         206
+  C:0150H         LINE#         207
+  C:0152H         LINE#         209
+  C:0154H         LINE#         210
+  C:0156H         LINE#         212
+  C:0158H         LINE#         213
+  C:015AH         LINE#         215
+  C:015BH         LINE#         216
+  C:015CH         LINE#         218
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/07/2017  15:04:37  PAGE 5
 
 
-  C:215EH         LINE#         221
-  C:2160H         LINE#         222
-  C:2162H         LINE#         224
-  C:2164H         LINE#         226
-  C:2166H         LINE#         239
-  C:2168H         LINE#         241
-  C:2169H         LINE#         243
-  C:216BH         LINE#         245
-  C:216CH         LINE#         248
-  C:216DH         LINE#         249
-  C:216EH         LINE#         250
-  C:216FH         LINE#         252
-  C:2170H         LINE#         254
-  C:2172H         LINE#         256
-  C:2173H         LINE#         267
-  C:2174H         LINE#         269
-  C:2176H         LINE#         271
-  C:2177H         LINE#         273
-  C:2178H         LINE#         283
-  C:217AH         LINE#         284
-  C:217DH         LINE#         286
-  C:217FH         LINE#         287
-  C:2181H         LINE#         289
-  C:2182H         LINE#         301
-  C:2185H         LINE#         304
-  C:2188H         LINE#         306
-  C:218AH         LINE#         308
-  C:218BH         LINE#         320
-  C:218EH         LINE#         323
-  C:2191H         LINE#         324
-  C:2194H         LINE#         326
-  C:2197H         LINE#         328
-  C:2199H         LINE#         340
-  C:219BH         LINE#         341
-  C:219EH         LINE#         343
-  C:21A0H         LINE#         344
-  C:21A2H         LINE#         345
-  C:21A4H         LINE#         355
-  C:21A6H         LINE#         356
-  C:21A8H         LINE#         357
-  C:21AAH         LINE#         358
-  C:21ACH         LINE#         359
-  C:21AFH         LINE#         360
-  C:21B2H         LINE#         361
-  C:21B5H         LINE#         363
-  C:21B7H         LINE#         364
-  C:21B9H         LINE#         365
-  C:21BCH         LINE#         366
-  C:21BFH         LINE#         367
-  C:21C2H         LINE#         369
-  C:21C4H         LINE#         370
-  C:21C6H         LINE#         371
-  C:21C9H         LINE#         372
-  C:21CCH         LINE#         373
-  C:21CFH         LINE#         375
-  C:21D1H         LINE#         376
-  C:21D3H         LINE#         377
-BL51 BANKED LINKER/LOCATER V6.22                                                      04/06/2017  23:05:41  PAGE 6
+  C:015EH         LINE#         221
+  C:0160H         LINE#         222
+  C:0162H         LINE#         224
+  C:0164H         LINE#         226
+  C:0166H         LINE#         239
+  C:0168H         LINE#         241
+  C:0169H         LINE#         243
+  C:016BH         LINE#         245
+  C:016CH         LINE#         248
+  C:016DH         LINE#         249
+  C:016EH         LINE#         250
+  C:016FH         LINE#         252
+  C:0170H         LINE#         254
+  C:0172H         LINE#         256
+  C:0173H         LINE#         267
+  C:0174H         LINE#         269
+  C:0176H         LINE#         271
+  C:0177H         LINE#         273
+  C:0178H         LINE#         283
+  C:017AH         LINE#         284
+  C:017DH         LINE#         286
+  C:017FH         LINE#         287
+  C:0181H         LINE#         289
+  C:0182H         LINE#         301
+  C:0185H         LINE#         304
+  C:0188H         LINE#         306
+  C:018AH         LINE#         308
+  C:018BH         LINE#         320
+  C:018EH         LINE#         323
+  C:0191H         LINE#         324
+  C:0194H         LINE#         326
+  C:0197H         LINE#         328
+  C:0199H         LINE#         340
+  C:019BH         LINE#         341
+  C:019EH         LINE#         343
+  C:01A0H         LINE#         344
+  C:01A2H         LINE#         345
+  C:01A4H         LINE#         355
+  C:01A6H         LINE#         356
+  C:01A8H         LINE#         357
+  C:01AAH         LINE#         358
+  C:01ACH         LINE#         359
+  C:01AFH         LINE#         360
+  C:01B2H         LINE#         361
+  C:01B5H         LINE#         363
+  C:01B7H         LINE#         364
+  C:01B9H         LINE#         365
+  C:01BCH         LINE#         366
+  C:01BFH         LINE#         367
+  C:01C2H         LINE#         369
+  C:01C4H         LINE#         370
+  C:01C6H         LINE#         371
+  C:01C9H         LINE#         372
+  C:01CCH         LINE#         373
+  C:01CFH         LINE#         375
+  C:01D1H         LINE#         376
+  C:01D3H         LINE#         377
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/07/2017  15:04:37  PAGE 6
 
 
-  C:21D6H         LINE#         378
-  C:21D9H         LINE#         380
-  C:21DCH         LINE#         382
-  C:21DEH         LINE#         385
-  C:21E0H         LINE#         387
-  C:21E2H         LINE#         388
-  C:21E4H         LINE#         398
-  C:21E6H         LINE#         399
-  C:21E8H         LINE#         400
-  C:21EAH         LINE#         401
-  C:21ECH         LINE#         402
-  C:21EEH         LINE#         403
-  C:21F0H         LINE#         404
-  C:21F2H         LINE#         405
-  C:21F4H         LINE#         406
-  C:21F6H         LINE#         407
-  C:21F8H         LINE#         408
-  C:21FAH         LINE#         409
-  C:21FCH         LINE#         410
-  C:21FEH         LINE#         411
-  C:2200H         LINE#         412
-  C:2202H         LINE#         413
-  C:2204H         LINE#         414
-  C:2206H         LINE#         415
-  C:2208H         LINE#         416
-  C:220AH         LINE#         417
-  C:220CH         LINE#         420
-  C:220FH         LINE#         421
-  C:2210H         LINE#         423
-  C:2211H         LINE#         434
-  C:2213H         LINE#         435
-  C:2216H         LINE#         437
-  C:2218H         LINE#         439
-  C:221AH         LINE#         440
-  C:221DH         LINE#         441
-  C:221FH         LINE#         442
-  C:2222H         LINE#         443
-  C:2224H         LINE#         444
-  C:2227H         LINE#         445
-  C:2229H         LINE#         446
-  C:222CH         LINE#         447
-  C:222EH         LINE#         450
-  C:2230H         LINE#         451
-  C:2233H         LINE#         452
-  C:2235H         LINE#         453
-  C:2238H         LINE#         454
-  C:223AH         LINE#         455
-  C:223DH         LINE#         456
-  C:223FH         LINE#         457
-  C:2242H         LINE#         458
-  C:2244H         LINE#         467
-  C:2247H         LINE#         468
-  C:2249H         LINE#         469
-  C:224CH         LINE#         470
-  C:224EH         LINE#         473
-  C:224FH         LINE#         475
-  C:2250H         LINE#         479
-BL51 BANKED LINKER/LOCATER V6.22                                                      04/06/2017  23:05:41  PAGE 7
+  C:01D6H         LINE#         378
+  C:01D9H         LINE#         380
+  C:01DCH         LINE#         382
+  C:01DEH         LINE#         385
+  C:01E0H         LINE#         387
+  C:01E2H         LINE#         388
+  C:01E4H         LINE#         398
+  C:01E6H         LINE#         399
+  C:01E8H         LINE#         400
+  C:01EAH         LINE#         401
+  C:01ECH         LINE#         402
+  C:01EEH         LINE#         403
+  C:01F0H         LINE#         404
+  C:01F2H         LINE#         405
+  C:01F4H         LINE#         406
+  C:01F6H         LINE#         407
+  C:01F8H         LINE#         408
+  C:01FAH         LINE#         409
+  C:01FCH         LINE#         410
+  C:01FEH         LINE#         411
+  C:0200H         LINE#         412
+  C:0202H         LINE#         413
+  C:0204H         LINE#         414
+  C:0206H         LINE#         415
+  C:0208H         LINE#         416
+  C:020AH         LINE#         417
+  C:020CH         LINE#         420
+  C:020FH         LINE#         421
+  C:0210H         LINE#         423
+  C:0211H         LINE#         434
+  C:0213H         LINE#         435
+  C:0216H         LINE#         437
+  C:0218H         LINE#         439
+  C:021AH         LINE#         440
+  C:021DH         LINE#         441
+  C:021FH         LINE#         442
+  C:0222H         LINE#         443
+  C:0224H         LINE#         444
+  C:0227H         LINE#         445
+  C:0229H         LINE#         446
+  C:022CH         LINE#         447
+  C:022EH         LINE#         450
+  C:0230H         LINE#         451
+  C:0233H         LINE#         452
+  C:0235H         LINE#         453
+  C:0238H         LINE#         454
+  C:023AH         LINE#         455
+  C:023DH         LINE#         456
+  C:023FH         LINE#         457
+  C:0242H         LINE#         458
+  C:0244H         LINE#         467
+  C:0247H         LINE#         468
+  C:0249H         LINE#         469
+  C:024CH         LINE#         470
+  C:024EH         LINE#         473
+  C:024FH         LINE#         475
+  C:0250H         LINE#         479
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/07/2017  15:04:37  PAGE 7
 
 
-  C:2252H         LINE#         480
-  C:2254H         LINE#         482
-  C:2257H         LINE#         483
-  C:2259H         LINE#         486
-  C:225BH         LINE#         487
-  C:225EH         LINE#         490
-  C:2260H         LINE#         491
-  C:2262H         LINE#         493
-  C:2265H         LINE#         495
-  C:2267H         LINE#         496
-  C:226AH         LINE#         497
-  C:226CH         LINE#         499
-  C:226EH         LINE#         502
-  C:226FH         LINE#         505
-  C:2272H         LINE#         508
-  C:2274H         LINE#         509
-  C:2276H         LINE#         511
-  C:2279H         LINE#         512
-  C:227BH         LINE#         515
-  C:227DH         LINE#         516
-  C:2280H         LINE#         518
-  C:2283H         LINE#         519
-  C:2285H         LINE#         522
-  C:2287H         LINE#         523
-  C:228AH         LINE#         526
-  C:228CH         LINE#         527
-  C:228EH         LINE#         529
-  C:2290H         LINE#         530
-  C:2293H         LINE#         531
-  C:2295H         LINE#         534
-  C:2297H         LINE#         535
-  C:229AH         LINE#         537
-  C:229BH         LINE#         544
-  C:229DH         LINE#         545
-  C:229FH         LINE#         546
-  C:22A1H         LINE#         548
-  C:22A2H         LINE#         554
-  C:22A4H         LINE#         555
-  C:22A6H         LINE#         556
-  C:22A8H         LINE#         557
-  C:22AAH         LINE#         559
-  C:22ACH         LINE#         560
-  C:22AEH         LINE#         562
-  C:22B0H         LINE#         563
-  C:22B2H         LINE#         565
-  C:22B4H         LINE#         566
-  C:22B6H         LINE#         568
-  C:22B8H         LINE#         569
-  C:22BAH         LINE#         571
-  C:22BCH         LINE#         572
-  C:22BEH         LINE#         574
-  C:22C0H         LINE#         575
-  C:22C2H         LINE#         577
-  C:22C4H         LINE#         578
-  C:22C6H         LINE#         580
-  C:22C8H         LINE#         582
-  C:22C9H         LINE#         585
-BL51 BANKED LINKER/LOCATER V6.22                                                      04/06/2017  23:05:41  PAGE 8
+  C:0252H         LINE#         480
+  C:0254H         LINE#         482
+  C:0257H         LINE#         483
+  C:0259H         LINE#         486
+  C:025BH         LINE#         487
+  C:025EH         LINE#         490
+  C:0260H         LINE#         491
+  C:0262H         LINE#         493
+  C:0265H         LINE#         495
+  C:0267H         LINE#         496
+  C:026AH         LINE#         497
+  C:026CH         LINE#         499
+  C:026EH         LINE#         502
+  C:026FH         LINE#         505
+  C:0272H         LINE#         508
+  C:0274H         LINE#         509
+  C:0276H         LINE#         511
+  C:0279H         LINE#         512
+  C:027BH         LINE#         515
+  C:027DH         LINE#         516
+  C:0280H         LINE#         518
+  C:0283H         LINE#         519
+  C:0285H         LINE#         522
+  C:0287H         LINE#         523
+  C:028AH         LINE#         526
+  C:028CH         LINE#         527
+  C:028EH         LINE#         529
+  C:0290H         LINE#         530
+  C:0293H         LINE#         531
+  C:0295H         LINE#         534
+  C:0297H         LINE#         535
+  C:029AH         LINE#         537
+  C:029CH         LINE#         546
+  C:029EH         LINE#         547
+  C:02A0H         LINE#         548
+  C:02A2H         LINE#         550
+  C:02A3H         LINE#         556
+  C:02A5H         LINE#         557
+  C:02A7H         LINE#         558
+  C:02A9H         LINE#         559
+  C:02ABH         LINE#         561
+  C:02ADH         LINE#         562
+  C:02AFH         LINE#         564
+  C:02B1H         LINE#         565
+  C:02B3H         LINE#         567
+  C:02B5H         LINE#         568
+  C:02B7H         LINE#         570
+  C:02B9H         LINE#         571
+  C:02BBH         LINE#         573
+  C:02BDH         LINE#         574
+  C:02BFH         LINE#         576
+  C:02C1H         LINE#         577
+  C:02C3H         LINE#         579
+  C:02C5H         LINE#         580
+  C:02C7H         LINE#         582
+  C:02C9H         LINE#         584
+  C:02CAH         LINE#         587
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/07/2017  15:04:37  PAGE 8
 
 
-  C:22CBH         LINE#         586
-  C:22CDH         LINE#         587
-  C:22CFH         LINE#         588
-  C:22D1H         LINE#         590
-  C:22D3H         LINE#         591
-  C:22D5H         LINE#         593
-  C:22D7H         LINE#         594
-  C:22D9H         LINE#         596
-  C:22DBH         LINE#         597
-  C:22DDH         LINE#         599
-  C:22DFH         LINE#         600
-  C:22E1H         LINE#         602
-  C:22E3H         LINE#         603
-  C:22E5H         LINE#         605
-  C:22E7H         LINE#         606
-  C:22E9H         LINE#         608
-  C:22EBH         LINE#         609
-  C:22EDH         LINE#         611
-  C:22EFH         LINE#         613
-  C:22F0H         LINE#         619
-  C:22F2H         LINE#         620
-  C:22F4H         LINE#         623
-  C:22F7H         LINE#         624
-  C:22F9H         LINE#         627
-  C:22FBH         LINE#         628
-  C:22FDH         LINE#         630
-  C:22FEH         LINE#         646
-  C:2300H         LINE#         647
-  C:2302H         LINE#         648
-  C:2304H         LINE#         650
-  C:2306H         LINE#         651
-  C:2308H         LINE#         652
-  C:230AH         LINE#         654
-  C:230CH         LINE#         655
-  C:230EH         LINE#         656
-  C:2310H         LINE#         658
-  C:2312H         LINE#         659
-  C:2314H         LINE#         660
-  C:2316H         LINE#         662
-  C:2318H         LINE#         663
-  C:231AH         LINE#         664
-  C:231CH         LINE#         666
-  C:231DH         LINE#         678
-  C:231FH         LINE#         679
-  C:2321H         LINE#         680
-  C:2323H         LINE#         682
-  C:2325H         LINE#         684
-  C:2327H         LINE#         686
-  C:232AH         LINE#         688
-  C:232CH         LINE#         689
-  C:232EH         LINE#         691
-  C:2331H         LINE#         693
-  C:2333H         LINE#         695
-  C:2334H         LINE#         706
-  C:2336H         LINE#         708
-  C:2338H         LINE#         709
-  C:233BH         LINE#         711
-BL51 BANKED LINKER/LOCATER V6.22                                                      04/06/2017  23:05:41  PAGE 9
+  C:02CCH         LINE#         588
+  C:02CEH         LINE#         589
+  C:02D0H         LINE#         590
+  C:02D2H         LINE#         592
+  C:02D4H         LINE#         593
+  C:02D6H         LINE#         595
+  C:02D8H         LINE#         596
+  C:02DAH         LINE#         598
+  C:02DCH         LINE#         599
+  C:02DEH         LINE#         601
+  C:02E0H         LINE#         602
+  C:02E2H         LINE#         604
+  C:02E4H         LINE#         605
+  C:02E6H         LINE#         607
+  C:02E8H         LINE#         608
+  C:02EAH         LINE#         610
+  C:02ECH         LINE#         611
+  C:02EEH         LINE#         613
+  C:02F0H         LINE#         615
+  C:02F1H         LINE#         621
+  C:02F3H         LINE#         622
+  C:02F5H         LINE#         625
+  C:02F8H         LINE#         626
+  C:02FAH         LINE#         629
+  C:02FCH         LINE#         630
+  C:02FEH         LINE#         632
+  C:02FFH         LINE#         648
+  C:0301H         LINE#         649
+  C:0303H         LINE#         650
+  C:0305H         LINE#         652
+  C:0307H         LINE#         653
+  C:0309H         LINE#         654
+  C:030BH         LINE#         656
+  C:030DH         LINE#         657
+  C:030FH         LINE#         658
+  C:0311H         LINE#         660
+  C:0313H         LINE#         661
+  C:0315H         LINE#         662
+  C:0317H         LINE#         664
+  C:0319H         LINE#         665
+  C:031BH         LINE#         666
+  C:031DH         LINE#         668
+  C:031EH         LINE#         680
+  C:0320H         LINE#         681
+  C:0322H         LINE#         682
+  C:0324H         LINE#         684
+  C:0326H         LINE#         686
+  C:0328H         LINE#         688
+  C:032BH         LINE#         690
+  C:032DH         LINE#         691
+  C:032FH         LINE#         693
+  C:0332H         LINE#         695
+  C:0334H         LINE#         697
+  C:0335H         LINE#         708
+  C:0337H         LINE#         710
+  C:0339H         LINE#         711
+  C:033CH         LINE#         713
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/07/2017  15:04:37  PAGE 9
 
 
-  C:233DH         LINE#         713
-  C:233EH         LINE#         714
-  C:233FH         LINE#         715
-  C:2341H         LINE#         717
-  C:2343H         LINE#         719
-  C:2345H         LINE#         721
-  C:2346H         LINE#         732
-  C:2348H         LINE#         734
-  C:234AH         LINE#         735
-  C:234CH         LINE#         737
-  C:234EH         LINE#         739
-  C:2350H         LINE#         741
-  C:2352H         LINE#         743
-  C:2354H         LINE#         745
-  C:2356H         LINE#         746
-  C:2358H         LINE#         747
-  C:235AH         LINE#         749
-  C:235CH         LINE#         751
-  C:235EH         LINE#         753
-  C:235FH         LINE#         764
-  C:2361H         LINE#         766
-  C:2363H         LINE#         767
-  C:2365H         LINE#         769
-  C:2367H         LINE#         771
-  C:2369H         LINE#         773
-  C:236BH         LINE#         775
-  C:236DH         LINE#         777
-  C:236FH         LINE#         778
-  C:2371H         LINE#         779
-  C:2373H         LINE#         781
-  C:2375H         LINE#         783
-  C:2377H         LINE#         785
-  C:2378H         LINE#         795
-  C:237AH         LINE#         796
-  C:237CH         LINE#         797
-  C:237EH         LINE#         799
-  C:2380H         LINE#         801
-  C:2382H         LINE#         803
-  C:2385H         LINE#         805
-  C:2387H         LINE#         806
-  C:2389H         LINE#         807
-  C:238BH         LINE#         809
-  C:238EH         LINE#         811
-  C:2390H         LINE#         813
-  C:2391H         LINE#         825
-  C:2392H         LINE#         826
-  C:2393H         LINE#         828
-  C:2395H         LINE#         830
-  C:2398H         LINE#         832
-  C:2399H         LINE#         834
-  C:239BH         LINE#         836
-  C:239CH         LINE#         848
-  C:239DH         LINE#         850
-  C:239FH         LINE#         852
-  C:23A2H         LINE#         854
-  C:23A3H         LINE#         856
-  C:23A5H         LINE#         858
-BL51 BANKED LINKER/LOCATER V6.22                                                      04/06/2017  23:05:41  PAGE 10
+  C:033EH         LINE#         715
+  C:033FH         LINE#         716
+  C:0340H         LINE#         717
+  C:0342H         LINE#         719
+  C:0344H         LINE#         721
+  C:0346H         LINE#         723
+  C:0347H         LINE#         734
+  C:0349H         LINE#         736
+  C:034BH         LINE#         737
+  C:034DH         LINE#         739
+  C:034FH         LINE#         741
+  C:0351H         LINE#         743
+  C:0353H         LINE#         745
+  C:0355H         LINE#         747
+  C:0357H         LINE#         748
+  C:0359H         LINE#         749
+  C:035BH         LINE#         751
+  C:035DH         LINE#         753
+  C:035FH         LINE#         755
+  C:0360H         LINE#         766
+  C:0362H         LINE#         768
+  C:0364H         LINE#         769
+  C:0366H         LINE#         771
+  C:0368H         LINE#         773
+  C:036AH         LINE#         775
+  C:036CH         LINE#         777
+  C:036EH         LINE#         779
+  C:0370H         LINE#         780
+  C:0372H         LINE#         781
+  C:0374H         LINE#         783
+  C:0376H         LINE#         785
+  C:0378H         LINE#         787
+  C:0379H         LINE#         797
+  C:037BH         LINE#         798
+  C:037DH         LINE#         799
+  C:037FH         LINE#         801
+  C:0381H         LINE#         803
+  C:0383H         LINE#         805
+  C:0386H         LINE#         807
+  C:0388H         LINE#         808
+  C:038AH         LINE#         809
+  C:038CH         LINE#         811
+  C:038FH         LINE#         813
+  C:0391H         LINE#         815
+  C:0392H         LINE#         827
+  C:0393H         LINE#         828
+  C:0394H         LINE#         830
+  C:0396H         LINE#         832
+  C:0399H         LINE#         834
+  C:039AH         LINE#         836
+  C:039CH         LINE#         838
+  C:039DH         LINE#         850
+  C:039EH         LINE#         852
+  C:03A0H         LINE#         854
+  C:03A3H         LINE#         856
+  C:03A4H         LINE#         858
+  C:03A6H         LINE#         860
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/07/2017  15:04:37  PAGE 10
 
 
-  C:23A6H         LINE#         871
-  C:23A8H         LINE#         872
-  C:23AAH         LINE#         874
-  C:23ACH         LINE#         887
-  C:23AEH         LINE#         888
-  C:23B0H         LINE#         890
-  C:23B3H         LINE#         892
-  C:23B6H         LINE#         894
-  C:23B7H         LINE#         905
-  C:23B9H         LINE#         906
-  C:23BBH         LINE#         909
-  C:23BDH         LINE#         911
-  C:23BFH         LINE#         913
-  C:23C1H         LINE#         915
-  C:23C2H         LINE#         922
-  C:23C5H         LINE#         925
-  C:23C8H         LINE#         926
-  C:23CBH         LINE#         933
-  C:23CEH         LINE#         934
-  C:23D1H         LINE#         936
-  C:23D2H         LINE#         939
-  C:23D5H         LINE#         940
-  C:23D8H         LINE#         941
-  C:23DBH         LINE#         943
-  C:23DCH         LINE#         953
-  C:23DEH         LINE#         954
-  C:23E0H         LINE#         956
-  C:23E3H         LINE#         958
-  C:23E5H         LINE#         959
-  C:23E7H         LINE#         961
-  C:23E9H         LINE#         963
-  C:23EAH         LINE#         973
-  C:23ECH         LINE#         974
-  C:23EEH         LINE#         976
-  C:23F0H         LINE#         978
-  C:23F1H         LINE#         985
-  C:23F4H         LINE#         986
-  C:23F7H         LINE#         988
-  C:23F8H         LINE#         994
-  C:23F9H         LINE#         1000
-  C:23FAH         LINE#         1006
-  C:23FBH         LINE#         1012
-  C:23FDH         LINE#         1013
-  C:23FFH         LINE#         1015
-  C:2402H         LINE#         1016
-  C:2404H         LINE#         1018
-  C:2407H         LINE#         1019
-  C:240AH         LINE#         1021
-  C:240DH         LINE#         1022
-  C:2410H         LINE#         1024
-  C:2413H         LINE#         1025
-  C:2416H         LINE#         1027
-  C:2418H         LINE#         1030
-  C:241AH         LINE#         1031
-  C:241CH         LINE#         1033
-  C:241DH         LINE#         1039
-  C:241EH         LINE#         1042
-BL51 BANKED LINKER/LOCATER V6.22                                                      04/06/2017  23:05:41  PAGE 11
+  C:03A7H         LINE#         873
+  C:03A9H         LINE#         874
+  C:03ABH         LINE#         876
+  C:03ADH         LINE#         889
+  C:03AFH         LINE#         890
+  C:03B1H         LINE#         892
+  C:03B4H         LINE#         894
+  C:03B7H         LINE#         896
+  C:03B8H         LINE#         907
+  C:03BAH         LINE#         908
+  C:03BCH         LINE#         911
+  C:03BEH         LINE#         913
+  C:03C0H         LINE#         915
+  C:03C2H         LINE#         917
+  C:03C3H         LINE#         924
+  C:03C6H         LINE#         927
+  C:03C9H         LINE#         928
+  C:03CCH         LINE#         935
+  C:03CFH         LINE#         936
+  C:03D2H         LINE#         938
+  C:03D3H         LINE#         941
+  C:03D6H         LINE#         942
+  C:03D9H         LINE#         943
+  C:03DCH         LINE#         945
+  C:03DDH         LINE#         955
+  C:03DFH         LINE#         956
+  C:03E1H         LINE#         958
+  C:03E4H         LINE#         960
+  C:03E6H         LINE#         961
+  C:03E8H         LINE#         963
+  C:03EAH         LINE#         965
+  C:03EBH         LINE#         975
+  C:03EDH         LINE#         976
+  C:03EFH         LINE#         978
+  C:03F1H         LINE#         980
+  C:03F2H         LINE#         987
+  C:03F5H         LINE#         988
+  C:03F8H         LINE#         990
+  C:03F9H         LINE#         996
+  C:03FAH         LINE#         1002
+  C:03FBH         LINE#         1008
+  C:03FCH         LINE#         1014
+  C:03FEH         LINE#         1015
+  C:0400H         LINE#         1017
+  C:0403H         LINE#         1018
+  C:0405H         LINE#         1020
+  C:0408H         LINE#         1021
+  C:040BH         LINE#         1023
+  C:040EH         LINE#         1024
+  C:0411H         LINE#         1026
+  C:0414H         LINE#         1027
+  C:0417H         LINE#         1029
+  C:0419H         LINE#         1032
+  C:041BH         LINE#         1033
+  C:041DH         LINE#         1035
+  C:041EH         LINE#         1041
+  C:041FH         LINE#         1044
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/07/2017  15:04:37  PAGE 11
 
 
   -------         ENDMOD        PROJETO_01_FECHADURA
 
 ******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0402H BYTE (50%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0403H BYTE (50%) *
 ******************************************************************************
 
-Program Size: data=8.0 xdata=0 code=9248
+Program Size: data=8.0 xdata=0 code=1057
 LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
