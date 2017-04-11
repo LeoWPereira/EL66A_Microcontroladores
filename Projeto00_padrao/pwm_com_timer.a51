@@ -145,15 +145,15 @@ PWM_SQUARE_WAVE_CONFIG_PERIOD:
 	// Considerando 20 ciclos de maquina para a interrupcao
 	// 0xE * 0xFF * 0xFF =~ 1Hz 
 	// 0x0 * 0x4 * 0xFF = 1kHz
-	MOV		PERIOD_MSB, #001h
-	MOV		PERIOD_MED, #004h
+	MOV		PERIOD_MSB, #00Eh
+	MOV		PERIOD_MED, #0FFh
 	MOV		PERIOD_LSB, #0FFh
 	
 	MOV		R6, PERIOD_MED
 	MOV		R7, PERIOD_MSB
 	
-	MOV 	TH1, 		#0FFh
-	MOV		TL1, 		PERIOD_LSB
+	MOV 	TH1, #0FFh
+	MOV		TL1, PERIOD_LSB
 	
 	RET
 

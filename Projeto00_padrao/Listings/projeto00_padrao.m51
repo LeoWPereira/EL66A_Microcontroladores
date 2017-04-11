@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22                                                        04/11/2017  16:15:54  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22                                                        04/11/2017  16:50:46  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
@@ -20,7 +20,7 @@ LINK MAP OF MODULE:  .\Objects\projeto00_padrao (PWM_COM_TIMER)
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
-            CODE    0000H     01AEH     ABSOLUTE     
+            CODE    0000H     0196H     ABSOLUTE     
 
 
 
@@ -38,13 +38,13 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PWM_COM_TIMER)
   B:00A8H.7       SYMBOL        EA
   B:00A8H.3       SYMBOL        ET1
   C:0159H         SYMBOL        HIGH_DONE
-  C:0197H         SYMBOL        INT_INT0
-  C:0199H         SYMBOL        INT_INT1
-  C:01ADH         SYMBOL        INT_SERIAL
-  C:0198H         SYMBOL        INT_TIMER0
-  C:019AH         SYMBOL        INT_TIMER1
-  C:01A3H         SYMBOL        JUMP_SINE_INT
-  C:01A8H         SYMBOL        JUMP_SQUARE_INT
+  C:017FH         SYMBOL        INT_INT0
+  C:0181H         SYMBOL        INT_INT1
+  C:0195H         SYMBOL        INT_SERIAL
+  C:0180H         SYMBOL        INT_TIMER0
+  C:0182H         SYMBOL        INT_TIMER1
+  C:018BH         SYMBOL        JUMP_SINE_INT
+  C:0190H         SYMBOL        JUMP_SQUARE_INT
   C:014CH         SYMBOL        LOW_DONE
   C:00D5H         SYMBOL        MAIN
   D:0080H         SYMBOL        P0
@@ -59,7 +59,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PWM_COM_TIMER)
   D:0090H         SYMBOL        PWM_PORT
   C:0103H         SYMBOL        PWM_SINE_WAVE_CONFIG_PERIOD
   C:00E2H         SYMBOL        PWM_SINE_WAVE_NEXT_PERIOD
-BL51 BANKED LINKER/LOCATER V6.22                                                      04/11/2017  16:15:54  PAGE 2
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/11/2017  16:50:46  PAGE 2
 
 
   C:00F7H         SYMBOL        PWM_SINE_WAVE_SETUP
@@ -72,16 +72,10 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PWM_COM_TIMER)
   C:008EH         SYMBOL        SINE_WAVE_71_SAMPLES
   C:0117H         SYMBOL        SQUARE_WAVE
   C:00E9H         SYMBOL        TESTA_R1
-  B:0088H.5       SYMBOL        TF0
   B:0088H.7       SYMBOL        TF1
-  D:008CH         SYMBOL        TH0
   D:008DH         SYMBOL        TH1
-  C:017FH         SYMBOL        TIMER_CONFIGURA_TIMER
-  C:0189H         SYMBOL        TIMER_SINE_PERIOD_05_MS
-  D:008AH         SYMBOL        TL0
   D:008BH         SYMBOL        TL1
   D:0089H         SYMBOL        TMOD
-  B:0088H.4       SYMBOL        TR0
   B:0088H.6       SYMBOL        TR1
   N:0031H         SYMBOL        WAVE_FORM
   N:0000H         SYMBOL        WAVE_FORM_SINE
@@ -119,15 +113,15 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PWM_COM_TIMER)
   C:0102H         LINE#         104
   C:0103H         LINE#         112
   C:0106H         LINE#         113
-BL51 BANKED LINKER/LOCATER V6.22                                                      04/11/2017  16:15:54  PAGE 3
-
-
   C:0109H         LINE#         114
   C:010CH         LINE#         116
   C:010EH         LINE#         117
   C:0110H         LINE#         119
   C:0113H         LINE#         120
   C:0116H         LINE#         122
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/11/2017  16:50:46  PAGE 3
+
+
   C:0117H         LINE#         128
   C:0119H         LINE#         130
   C:011BH         LINE#         133
@@ -177,39 +171,28 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PWM_COM_TIMER)
   C:0178H         LINE#         214
   C:017BH         LINE#         215
   C:017EH         LINE#         217
-  C:017FH         LINE#         224
-  C:0182H         LINE#         227
-BL51 BANKED LINKER/LOCATER V6.22                                                      04/11/2017  16:15:54  PAGE 4
+  C:017FH         LINE#         227
+  C:0180H         LINE#         233
+  C:0181H         LINE#         239
+  C:0182H         LINE#         245
+  C:0184H         LINE#         247
+  C:0186H         LINE#         249
+  C:0188H         LINE#         251
+  C:018BH         LINE#         254
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/11/2017  16:50:46  PAGE 4
 
 
-  C:0185H         LINE#         228
-  C:0188H         LINE#         230
-  C:0189H         LINE#         240
-  C:018BH         LINE#         241
-  C:018DH         LINE#         243
-  C:0190H         LINE#         245
-  C:0192H         LINE#         246
-  C:0194H         LINE#         248
-  C:0196H         LINE#         250
-  C:0197H         LINE#         260
-  C:0198H         LINE#         266
-  C:0199H         LINE#         272
-  C:019AH         LINE#         278
-  C:019CH         LINE#         280
-  C:019EH         LINE#         282
-  C:01A0H         LINE#         284
-  C:01A3H         LINE#         287
-  C:01A5H         LINE#         289
-  C:01A7H         LINE#         290
-  C:01A8H         LINE#         293
-  C:01AAH         LINE#         295
-  C:01ACH         LINE#         296
-  C:01ADH         LINE#         301
+  C:018DH         LINE#         256
+  C:018FH         LINE#         257
+  C:0190H         LINE#         260
+  C:0192H         LINE#         262
+  C:0194H         LINE#         263
+  C:0195H         LINE#         268
   -------         ENDMOD        PWM_COM_TIMER
 
 ******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0170H BYTE (17%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0158H BYTE (16%) *
 ******************************************************************************
 
-Program Size: data=8.0 xdata=0 code=430
+Program Size: data=8.0 xdata=0 code=406
 LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

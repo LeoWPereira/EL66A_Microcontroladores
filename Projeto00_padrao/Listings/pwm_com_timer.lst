@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 16:15:53 PAGE     1
+A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 16:50:45 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.5.0
@@ -66,31 +66,31 @@ LOC  OBJ            LINE     SOURCE
 
 0003                  29     org 0003h  
 
-0003 020197           30     ljmp INT_INT0
+0003 02017F           30     ljmp INT_INT0
 
                       31     
 
 000B                  32     org 000Bh  
 
-000B 020198           33     ljmp INT_TIMER0  
+000B 020180           33     ljmp INT_TIMER0  
 
                       34     
 
 0013                  35     org 0013h  
 
-0013 020199           36     ljmp INT_INT1  
+0013 020181           36     ljmp INT_INT1  
 
                       37     
 
 001B                  38     org 001Bh  
 
-001B 02019A           39     ljmp INT_TIMER1  
+001B 020182           39     ljmp INT_TIMER1  
 
                       40     
 
 0023                  41     org 0023h  
 
-0023 0201AD           42     ljmp INT_SERIAL  
+0023 020195           42     ljmp INT_SERIAL  
 
                       43     
 
@@ -115,7 +115,7 @@ LOC  OBJ            LINE     SOURCE
 0068 7F                      
 0069                  50     SINE_WAVE_37_SAMPLES:
 
-A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 16:15:53 PAGE     2
+A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 16:50:45 PAGE     2
 
 0069 8096ACC0         51             DB 128, 150, 172, 192, 210, 226, 239, 248, 254, 255, 254, 248, 239, 226, 210, 192, 
                              172, 150, 128, 106, 84, 64, 46, 30, 17, 8, 2, 0, 2, 8, 17, 30, 46, 64, 84, 106, 128
@@ -157,7 +157,7 @@ LOC  OBJ            LINE     SOURCE
 
 00D5                  55     main:
 
-00D5 753100           56             MOV             WAVE_FORM, #WAVE_FORM_SINE  
+00D5 753101           56             MOV             WAVE_FORM, #WAVE_FORM_SQUARE  
 
 00D8 E531             57             MOV             A, WAVE_FORM
 
@@ -219,7 +219,7 @@ LOC  OBJ            LINE     SOURCE
 
 00F1 E4               86             CLR             A
 
-A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 16:15:53 PAGE     3
+A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 16:50:45 PAGE     3
 
                       87             
 
@@ -285,7 +285,7 @@ LOC  OBJ            LINE     SOURCE
 
                      118             
 
-0110 758DFF          119             MOV     TH1,            #0FFh
+0110 85348D          119             MOV     TH1,            PERIOD_MED
 
 0113 85338B          120             MOV             TL1,            PERIOD_LSB
 
@@ -343,9 +343,9 @@ LOC  OBJ            LINE     SOURCE
 
                      147             
 
-012A 753501          148             MOV             PERIOD_MSB, #001h
+012A 75350E          148             MOV             PERIOD_MSB, #00Eh
 
-012D 753404          149             MOV             PERIOD_MED, #004h
+012D 7534FF          149             MOV             PERIOD_MED, #0FFh
 
 0130 7533FF          150             MOV             PERIOD_LSB, #0FFh
 
@@ -353,15 +353,15 @@ LOC  OBJ            LINE     SOURCE
 
 0133 AE34            152             MOV             R6, PERIOD_MED
 
-A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 16:15:53 PAGE     4
+A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 16:50:45 PAGE     4
 
 0135 AF35            153             MOV             R7, PERIOD_MSB
 
                      154             
 
-0137 758DFF          155             MOV     TH1,            #0FFh
+0137 758DFF          155             MOV     TH1, #0FFh
 
-013A 85338B          156             MOV             TL1,            PERIOD_LSB
+013A 85338B          156             MOV             TL1, PERIOD_LSB
 
                      157             
 
@@ -487,7 +487,7 @@ LOC  OBJ            LINE     SOURCE
 
                      218     
 
-A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 16:15:53 PAGE     5
+A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 16:50:45 PAGE     5
 
                      219     
 
@@ -497,29 +497,29 @@ LOC  OBJ            LINE     SOURCE
 
                      222     
 
-017F                 223     TIMER_CONFIGURA_TIMER:
+                     223     
 
-017F 758902          224             MOV     TMOD, #00000010b  
+                     224     
 
-                     225             
+                     225     
 
-                     226             
+017F                 226     INT_INT0:
 
-0182 758C41          227             MOV     TH0, #041h
+017F 32              227             RETI
 
-0185 758A41          228             MOV     TL0, #041h
+                     228     
 
-                     229             
+                     229     
 
-0188 22              230             RET
+                     230     
 
-                     231             
+                     231     
 
-                     232     
+0180                 232     INT_TIMER0:
 
-                     233     
+0180 32              233             RETI
 
-                     234     
+                     234             
 
                      235     
 
@@ -527,141 +527,73 @@ LOC  OBJ            LINE     SOURCE
 
                      237     
 
-                     238     
+0181                 238     INT_INT1:
 
-0189                 239     TIMER_SINE_PERIOD_05_MS:
+0181 32              239             RETI
 
-0189 C28D            240             CLR     TF0
+                     240     
 
-018B D28C            241             SETB    TR0
+                     241     
 
-                     242             
+                     242     
 
-018D 308DFD          243             JNB     TF0, $
+                     243     
 
-                     244                     
+0182                 244     INT_TIMER1:
 
-0190 C28D            245             CLR     TF0
+0182 C0E0            245             PUSH    ACC
 
-0192 C28C            246             CLR     TR0
+                     246     
 
-                     247             
+0184 E531            247             MOV             A, WAVE_FORM
 
-0194 D8F3            248             DJNZ    R0, TIMER_SINE_PERIOD_05_MS
+                     248             
 
-                     249             
+0186 6003            249             JZ              JUMP_SINE_INT
 
-0196 22              250             RET
+                     250     
 
-                     251     
+0188 B40205          251             CJNE    A, #02h, JUMP_SQUARE_INT
 
                      252     
 
-                     253     
+018B                 253     JUMP_SINE_INT:
 
-                     254     
+018B 11EE            254             CALL    PWM_INTERRUPT_SINE_NEXT_SAMPLE
 
                      255     
 
-                     256     
+018D D0E0            256             POP             ACC
 
-                     257     
+018F 32              257             RETI
 
                      258     
 
-0197                 259     INT_INT0:
+0190                 259     JUMP_SQUARE_INT:
 
-0197 32              260             RETI
+0190 3141            260             CALL    PWM_INTERRUPT_SQUARE_WAVE
 
-                     261     
+                     261             
 
-                     262     
+0192 D0E0            262             POP             ACC
 
-                     263     
+0194 32              263             RETI
 
                      264     
 
-0198                 265     INT_TIMER0:
+                     265     
 
-0198 32              266             RETI
+                     266     
 
-                     267             
+0195                 267     INT_SERIAL:
 
-                     268     
+0195 32              268             RETI
 
-                     269     
+                     269             
 
-                     270     
+                     270             END
 
-0199                 271     INT_INT1:
-
-0199 32              272             RETI
-
-                     273     
-
-                     274     
-
-                     275     
-
-                     276     
-
-019A                 277     INT_TIMER1:
-
-019A C0E0            278             PUSH    ACC
-
-                     279     
-
-019C E531            280             MOV             A, WAVE_FORM
-
-                     281             
-
-019E 6003            282             JZ              JUMP_SINE_INT
-
-                     283     
-
-01A0 B40205          284             CJNE    A, #02h, JUMP_SQUARE_INT
-
-A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 16:15:53 PAGE     6
-
-                     285     
-
-01A3                 286     JUMP_SINE_INT:
-
-01A3 11EE            287             CALL    PWM_INTERRUPT_SINE_NEXT_SAMPLE
-
-                     288     
-
-01A5 D0E0            289             POP             ACC
-
-01A7 32              290             RETI
-
-                     291     
-
-01A8                 292     JUMP_SQUARE_INT:
-
-01A8 3141            293             CALL    PWM_INTERRUPT_SQUARE_WAVE
-
-                     294             
-
-01AA D0E0            295             POP             ACC
-
-01AC 32              296             RETI
-
-                     297     
-
-                     298     
-
-                     299     
-
-01AD                 300     INT_SERIAL:
-
-01AD 32              301             RETI
-
-                     302             
-
-                     303             END
-
-A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 16:15:53 PAGE     7
+A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 16:50:45 PAGE     6
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -677,13 +609,13 @@ DUTY_CYCLE . . . . . . . . . .  N NUMB   0032H   A
 EA . . . . . . . . . . . . . .  B ADDR   00A8H.7 A   
 ET1. . . . . . . . . . . . . .  B ADDR   00A8H.3 A   
 HIGH_DONE. . . . . . . . . . .  C ADDR   0159H   A   
-INT_INT0 . . . . . . . . . . .  C ADDR   0197H   A   
-INT_INT1 . . . . . . . . . . .  C ADDR   0199H   A   
-INT_SERIAL . . . . . . . . . .  C ADDR   01ADH   A   
-INT_TIMER0 . . . . . . . . . .  C ADDR   0198H   A   
-INT_TIMER1 . . . . . . . . . .  C ADDR   019AH   A   
-JUMP_SINE_INT. . . . . . . . .  C ADDR   01A3H   A   
-JUMP_SQUARE_INT. . . . . . . .  C ADDR   01A8H   A   
+INT_INT0 . . . . . . . . . . .  C ADDR   017FH   A   
+INT_INT1 . . . . . . . . . . .  C ADDR   0181H   A   
+INT_SERIAL . . . . . . . . . .  C ADDR   0195H   A   
+INT_TIMER0 . . . . . . . . . .  C ADDR   0180H   A   
+INT_TIMER1 . . . . . . . . . .  C ADDR   0182H   A   
+JUMP_SINE_INT. . . . . . . . .  C ADDR   018BH   A   
+JUMP_SQUARE_INT. . . . . . . .  C ADDR   0190H   A   
 LOW_DONE . . . . . . . . . . .  C ADDR   014CH   A   
 MAIN . . . . . . . . . . . . .  C ADDR   00D5H   A   
 P0 . . . . . . . . . . . . . .  D ADDR   0080H   A   
@@ -708,16 +640,10 @@ SINE_WAVE_37_SAMPLES . . . . .  C ADDR   0069H   A
 SINE_WAVE_71_SAMPLES . . . . .  C ADDR   008EH   A   
 SQUARE_WAVE. . . . . . . . . .  C ADDR   0117H   A   
 TESTA_R1 . . . . . . . . . . .  C ADDR   00E9H   A   
-TF0. . . . . . . . . . . . . .  B ADDR   0088H.5 A   
 TF1. . . . . . . . . . . . . .  B ADDR   0088H.7 A   
-TH0. . . . . . . . . . . . . .  D ADDR   008CH   A   
 TH1. . . . . . . . . . . . . .  D ADDR   008DH   A   
-TIMER_CONFIGURA_TIMER. . . . .  C ADDR   017FH   A   
-TIMER_SINE_PERIOD_05_MS. . . .  C ADDR   0189H   A   
-TL0. . . . . . . . . . . . . .  D ADDR   008AH   A   
 TL1. . . . . . . . . . . . . .  D ADDR   008BH   A   
 TMOD . . . . . . . . . . . . .  D ADDR   0089H   A   
-TR0. . . . . . . . . . . . . .  B ADDR   0088H.4 A   
 TR1. . . . . . . . . . . . . .  B ADDR   0088H.6 A   
 WAVE_FORM. . . . . . . . . . .  N NUMB   0031H   A   
 WAVE_FORM_SINE . . . . . . . .  N NUMB   0000H   A   
