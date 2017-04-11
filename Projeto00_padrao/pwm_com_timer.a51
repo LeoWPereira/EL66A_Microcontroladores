@@ -9,11 +9,19 @@
 
 PWM_PORT			EQU	P1
 PWM_PIN				EQU P1.0
-PWM_FLAG 			EQU 0	// Flag to indicate high/low signal
+	
+PWM_FLAG 			EQU 0	// Flag to indicate high/low pwm signal
+
+WAVE_FORM_SINE		EQU 00h
+WAVE_FORM_SQUARE	EQU 01h
 
 WAVE_FORM 			EQU 31h	// 00h = sine wave; 01h = square wave
 DUTY_CYCLE			EQU 32h // 00h = 0% duty cycle; FFh = 100% duty cycle
-PERIOD				EQU 33h	// 
+
+// 3 bytes for Period: from 0000h til FFFFFFh (16777215 us) So .... 1 Hz = 1000000 = 0F4240h
+PERIOD_LSB			EQU 33h
+PERIOD_MED			EQU 34h	
+PERIOD_MSB			EQU 35h
 
 org 0000h // Origem do codigo 
 ljmp main //
@@ -45,88 +53,166 @@ SINE_WAVE_71_SAMPLES:
 	DB 128, 139, 150, 161, 172, 182, 192, 201, 210, 218, 226, 233, 239, 245, 248, 253, 254, 255, 254, 253, 248, 245, 239, 233, 226, 218, 210, 201, 192, 182, 172, 161, 150, 139, 128, 117, 106, 95, 84, 74, 64, 55, 46, 38, 30, 24, 17, 13, 8, 5, 2, 1, 0, 1, 2, 5, 8, 13, 17, 24, 30, 38, 46, 55, 64, 74, 84, 95, 106, 117, 128
 
 main:
-	CALL	TIMER_CONFIGURA_TIMER
+	MOV		WAVE_FORM, #WAVE_FORM_SQUARE // wave form
+	MOV		A, WAVE_FORM
 	
-	MOV		WAVE_FORM, #01h // wave form
-	
-	MOV 	A, WAVE_FORM
-	JZ		RESTART_SINE_WAVE
+	JZ		SINE_WAVE
 
-	CJNE	A, #02h, RESTART_SQUARE_WAVE
+	CJNE	A, #02h, SQUARE_WAVE
 
 	CLR		A
+
+///////////////
+// SINE WAVE //
+///////////////
+SINE_WAVE:
+	CALL	PWM_SINE_WAVE_SETUP
 	
-RESTART_SINE_WAVE:
+PWM_SINE_WAVE_NEXT_PERIOD:
 	MOV		DPTR, #SINE_WAVE_71_SAMPLES
 	MOV		R1, #70d
 	
 	CLR		P0.7
+	
+TESTA_R1:
+	MOV		A, R1
+	JZ		PWM_SINE_WAVE_NEXT_PERIOD
+	
+	JMP 	TESTA_R1
 
-NEXT_SAMPLE:
+PWM_INTERRUPT_SINE_NEXT_SAMPLE:
 	MOVC	A, @A + DPTR
 	MOV		PWM_PORT, A
 	CLR		A
 	
-	MOV		R0, #0C8h
-	CALL	TIMER_SINE_PERIOD_05_MS
-	
 	INC 	DPTR
-	DJNZ	R1, NEXT_SAMPLE
+	DEC		R1
 	
-	JMP		RESTART_SINE_WAVE
+	CALL	PWM_SINE_WAVE_CONFIG_PERIOD
 	
-RESTART_SQUARE_WAVE:
-	CALL	PWM_SQUARE_WAVE_SETUP
+	RET
 	
-	JMP 	$
+PWM_SINE_WAVE_SETUP:
+	MOV 	TMOD, #00010000b  // Timer1 in Mode 1 (16 bits without auto-reload)
 	
-PWM_SQUARE_WAVE_SETUP:
-	MOV 	TMOD, #00h  // Timer1 in Mode 0
-	MOV 	DUTY_CYCLE, #229d // Set pulse width control (50%)
+	CALL	PWM_SINE_WAVE_CONFIG_PERIOD
 	
-	// The value loaded in R7 is value X as
-	// discussed above.
 	SETB 	EA 	// Enable Interrupts
 	SETB 	ET1 // Enable Timer 1 Interrupt
 	SETB 	TR1 // Start Timer
 	
 	RET
 	
+// Considerando 70 amostras:
+// 1 Hz = 1000000 us
+// 30 us para executar cada sample
+// 1000000 / 70 - 30 = 14255 contagens / sample
+// 14255 = 0x00 * 0x37 * 0xFF
+PWM_SINE_WAVE_CONFIG_PERIOD:
+	MOV		PERIOD_MSB, #001h
+	MOV		PERIOD_MED, #0C8h // FF - 37
+	MOV		PERIOD_LSB, #000h // FF - FF
+	
+	MOV		R6, PERIOD_MED
+	MOV		R7, PERIOD_MSB
+	
+	MOV 	TH1, 		PERIOD_MED
+	MOV		TL1, 		PERIOD_LSB
+	
+	RET
+
+/////////////////
+// SQUARE WAVE //
+/////////////////	
+SQUARE_WAVE:
+	CALL	PWM_SQUARE_WAVE_SETUP
+	
+	JMP 	$
+	
+PWM_SQUARE_WAVE_SETUP:
+	MOV 	TMOD, #00010000b  // Timer1 in Mode 1 (16 bits without auto-reload)
+	MOV 	DUTY_CYCLE, #35d // Set pulse width control (50%)
+	
+	CALL	PWM_SQUARE_WAVE_CONFIG_PERIOD
+	
+	SETB 	EA 	// Enable Interrupts
+	SETB 	ET1 // Enable Timer 1 Interrupt
+	SETB 	TR1 // Start Timer
+	
+	RET
+	
+PWM_SQUARE_WAVE_CONFIG_PERIOD:
+	// Considerando 20 ciclos de maquina para a interrupcao
+	// 0xE * 0xFF * 0xFF =~ 1Hz 
+	// 0x0 * 0x4 * 0xFF = 1kHz
+	MOV		PERIOD_MSB, #001h
+	MOV		PERIOD_MED, #004h
+	MOV		PERIOD_LSB, #0FFh
+	
+	MOV		R6, PERIOD_MED
+	MOV		R7, PERIOD_MSB
+	
+	MOV 	TH1, 		#0FFh
+	MOV		TL1, 		PERIOD_LSB
+	
+	RET
+
 PWM_STOP:
-	CLR 	TR0			; Stop timer to stop PWM
-	
-	RET
-
-////////////////////////////////////////////////
-// INICIO DOS CODIGOS RELACIONADOS A TIMER 	  //
-////////////////////////////////////////////////
-
-TIMER_CONFIGURA_TIMER:
-	MOV 	TMOD, #00000010b // Seta o timer_0 para o modo 02 (08 bits com auto-reload)
-	
-	// Para o TIMER_0, TH0 e TL0 representam o necessario para um delay de 01ms
-	MOV 	TH0, #041h
-	MOV 	TL0, #041h
+	CLR 	TR1			; Stop timer to stop PWM
 	
 	RET
 	
-//////////////////////////////////////////////////////
-// NOME: TIMER_SINE_PERIOD_05_MS					//
-// DESCRICAO: INTRODUZ UM PERIODO DE 05 MS			//
-// P.ENTRADA: R0 => (R0 x 05) ms  					//
-// P.SAIDA: -										//
-// ALTERA: R0										//
-//////////////////////////////////////////////////////
-TIMER_SINE_PERIOD_05_MS:
-	CLR 	TF0
-	SETB 	TR0
+PWM_INTERRUPT_SQUARE_WAVE:	
+	DJNZ	R6, CONTINUE
+	MOV		R6, PERIOD_MED
 	
-	JNB 	TF0, $
+	DJNZ	R7, CONTINUE
+	MOV		R7, PERIOD_MSB	
+
+	JB		PWM_FLAG, HIGH_DONE	// If PWM_FLAG flag is set then we just finished
+				
+LOW_DONE:			
+	SETB 	PWM_FLAG
+	SETB 	PWM_PIN
+	
+	MOV		TH1, #0FFh
+	MOV 	TL1, DUTY_CYCLE		
+	
+	CLR 	TF1
+	
+	RET
+				
+HIGH_DONE:
+	CLR 	PWM_FLAG			// Make PWM_FLAG = 0 to indicate start of low section
+	CLR 	PWM_PIN				// Make PWM output pin low
+	
+	MOV  	A, #0FFh		// Subtract DUTY_CYCLE from A. A = PERIOD_LSB - DUTY_CYCLE
+	CLR		C
+	SUBB	A, DUTY_CYCLE
+	
+	MOV 	TH1, #0FFh			// Load high byte of timer with DUTY_CYCLE
+	MOV		TL1, A
+	
+	CLR 	TF1					// Clear the Timer 1 interrupt flag
+	
+	RET
+
+CONTINUE:
+	JNB		PWM_FLAG, CONTINUE_LOW
+	
+CONTINUE_HIGH:
+	MOV  	A, #0FFh		// Subtract DUTY_CYCLE from A. A = PERIOD_LSB - DUTY_CYCLE
+	CLR		C
+	SUBB	A, DUTY_CYCLE
+	
+	MOV 	TH1, #0FFh			// Load high byte of timer with DUTY_CYCLE
+	MOV		TL1, A
+
+	RET
 		
-	CLR 	TF0
-	CLR 	TR0
-	
-	DJNZ 	R0, TIMER_SINE_PERIOD_05_MS
+CONTINUE_LOW:
+	MOV		TH1, #0FFh
+	MOV 	TL1, DUTY_CYCLE
 	
 	RET
 
@@ -138,51 +224,47 @@ TIMER_SINE_PERIOD_05_MS:
 *
 */
 INT_INT0:
-	reti
+	RETI
 
 /*
 *
 */
 INT_TIMER0:
-	reti
-	
-/*
-*
-*/
-INT_INT1:
-	reti
-
-/*
-*
-*/
-INT_TIMER1:
-	JB		PWM_FLAG, HIGH_DONE	// If PWM_FLAG flag is set then we just finished
-				
-LOW_DONE:			
-	SETB 	PWM_FLAG		// Make PWM_FLAG=1 to indicate start of high section
-	SETB 	PWM_PIN		// Make PWM output pin High
-	MOV 	A, #0FFH		// Move FFH (255) to A
-	CLR 	C			// Clear C (the carry bit) so it does not affect the subtraction
-	SUBB 	A, DUTY_CYCLE		// Subtract R7 from A. A = 255 - R7.
-	MOV 	TH1, A		// so the value loaded into TH0 + R7 = 255
-				// (pulse width control value)
-	CLR 	TF1			// Clear the Timer 0 interrupt flag
-	
-	RETI			// Return from Interrupt to where
-				// the program came from
-HIGH_DONE:
-	CLR 	PWM_FLAG		// Make PWM_FLAG=0 to indicate start of low section
-	CLR 	PWM_PIN		// Make PWM output pin low
-	MOV 	TH1, DUTY_CYCLE		// Load high byte of timer with R7
-	CLR 	TF1			// Clear the Timer 0 interrupt flag
-	
-
 	RETI
 	
 /*
 *
 */
-INT_SERIAL:
-	reti
+INT_INT1:
+	RETI
+
+/*
+*
+*/
+INT_TIMER1:
+	PUSH	ACC
+
+	MOV		A, WAVE_FORM
 	
-	end
+	JZ		JUMP_SINE_INT
+
+	CJNE	A, #02h, JUMP_SQUARE_INT
+
+JUMP_SINE_INT:
+	CALL	PWM_INTERRUPT_SINE_NEXT_SAMPLE
+
+	POP		ACC
+	RETI
+
+JUMP_SQUARE_INT:
+	CALL 	PWM_INTERRUPT_SQUARE_WAVE
+	
+	POP		ACC
+	RETI
+/*
+*
+*/
+INT_SERIAL:
+	RETI
+	
+	END
