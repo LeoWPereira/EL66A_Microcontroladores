@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     03/24/2017 15:22:31 PAGE     1
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     04/11/2017 21:45:33 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.5.0
@@ -34,47 +34,47 @@ LOC  OBJ            LINE     SOURCE
 
 0003                  13     org 0003h  
 
-0003 020026           14     ljmp INT_INT0
+0003 020031           14     ljmp INT_INT0
 
                       15     
 
 000B                  16     org 000Bh  
 
-000B 020027           17     ljmp INT_TIMER0  
+000B 020032           17     ljmp INT_TIMER0  
 
                       18     
 
 0013                  19     org 0013h  
 
-0013 020028           20     ljmp INT_INT1  
+0013 020033           20     ljmp INT_INT1  
 
                       21     
 
 001B                  22     org 001Bh  
 
-001B 020029           23     ljmp INT_TIMER1  
+001B 020034           23     ljmp INT_TIMER1  
 
                       24     
 
 0023                  25     org 0023h  
 
-0023 02002A           26     ljmp INT_SERIAL  
+0023 020035           26     ljmp INT_SERIAL  
 
                       27     
 
 0026                  28     main:
 
-                      29             
+0026 7812             29             mov r0, #12h
 
-                      30     
+0028 E6               30             mov a, @r0
 
-                      31     
+0029 751115           31             mov 11h, #15h
 
-                      32     
+002C D3               32             setb c
 
-                      33     
+002D 9511             33             subb a, 11h
 
-                      34     
+002F F50F             34             mov 0fh, a
 
                       35     
 
@@ -82,9 +82,9 @@ LOC  OBJ            LINE     SOURCE
 
                       37     
 
-0026                  38     INT_INT0:
+                      38     
 
-0026 32               39             reti
+                      39     
 
                       40     
 
@@ -92,23 +92,23 @@ LOC  OBJ            LINE     SOURCE
 
                       42     
 
-                      43     
+0031                  43     INT_INT0:
 
-0027                  44     INT_TIMER0:
+0031 32               44             reti
 
-0027 32               45             reti
+                      45     
 
-                      46             
+                      46     
 
                       47     
 
                       48     
 
-                      49     
+0032                  49     INT_TIMER0:
 
-0028                  50     INT_INT1:
+0032 32               50             reti
 
-0028 32               51             reti
+                      51             
 
                       52     
 
@@ -116,31 +116,41 @@ LOC  OBJ            LINE     SOURCE
 
                       54     
 
-                      55     
+0033                  55     INT_INT1:
 
-0029                  56     INT_TIMER1:
+0033 32               56             reti
 
-0029 32               57             reti
+                      57     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     03/24/2017 15:22:31 PAGE     2
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     04/11/2017 21:45:33 PAGE     2
 
-                      58             
+                      58     
 
                       59     
 
                       60     
 
-                      61     
+0034                  61     INT_TIMER1:
 
-002A                  62     INT_SERIAL:
+0034 32               62             reti
 
-002A 32               63             reti
+                      63             
 
-                      64             
+                      64     
 
-                      65             end
+                      65     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     03/24/2017 15:22:31 PAGE     3
+                      66     
+
+0035                  67     INT_SERIAL:
+
+0035 32               68             reti
+
+                      69             
+
+                      70             end
+
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     04/11/2017 21:45:33 PAGE     3
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -148,11 +158,11 @@ SYMBOL TABLE LISTING
 
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
-INT_INT0 . . . . .  C ADDR   0026H   A   
-INT_INT1 . . . . .  C ADDR   0028H   A   
-INT_SERIAL . . . .  C ADDR   002AH   A   
-INT_TIMER0 . . . .  C ADDR   0027H   A   
-INT_TIMER1 . . . .  C ADDR   0029H   A   
+INT_INT0 . . . . .  C ADDR   0031H   A   
+INT_INT1 . . . . .  C ADDR   0033H   A   
+INT_SERIAL . . . .  C ADDR   0035H   A   
+INT_TIMER0 . . . .  C ADDR   0032H   A   
+INT_TIMER1 . . . .  C ADDR   0034H   A   
 MAIN . . . . . . .  C ADDR   0026H   A   
 
 

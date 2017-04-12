@@ -136,16 +136,32 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>189</LineNumber>
+          <LineNumber>29</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>-16776893</Address>
+          <Address>-16777178</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>C:\Users\leona\Google Drive\UTFPR\6 Semestre\Sistemas Microcontrolados\Projetos\Projeto00_padrao\pwm_com_timer.a51</Filename>
+          <Filename>C:\Users\leona\Google Drive\UTFPR\6 Semestre\Sistemas Microcontrolados\Projetos\Projeto00_padrao\projeto00_padrao.a51</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression></Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
+          <LineNumber>28</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>0</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>0</BreakIfRCount>
+          <Filename>C:\Users\leona\Google Drive\UTFPR\6 Semestre\Sistemas Microcontrolados\Projetos\Projeto00_padrao\projeto00_padrao.a51</Filename>
           <ExecCommand></ExecCommand>
           <Expression></Expression>
         </Bp>
@@ -154,39 +170,34 @@
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>P1</ItemText>
+          <ItemText>TH0</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>TH0</ItemText>
+          <ItemText>TL0</ItemText>
         </Ww>
         <Ww>
           <count>2</count>
           <WinNumber>1</WinNumber>
-          <ItemText>TL0</ItemText>
+          <ItemText>TH1</ItemText>
         </Ww>
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
-          <ItemText>P1.0</ItemText>
+          <ItemText>TL1</ItemText>
         </Ww>
         <Ww>
           <count>4</count>
           <WinNumber>1</WinNumber>
-          <ItemText>TH1</ItemText>
-        </Ww>
-        <Ww>
-          <count>5</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>TL1</ItemText>
+          <ItemText>TF1</ItemText>
         </Ww>
       </WatchWindow1>
       <MemoryWindow1>
         <Mm>
           <WinNumber>1</WinNumber>
           <SubType>0</SubType>
-          <ItemText>d:33h</ItemText>
+          <ItemText>d:11h</ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow1>
@@ -229,12 +240,7 @@
         <Wi>
           <IntNumber>0</IntNumber>
           <FirstString>P1</FirstString>
-          <SecondString>FF00000000000000000000000000000000E06F400000000000000000000000000000000050310000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000001000000000000000000E03F1E00000000000000000000000000000000000000000000FF</SecondString>
-        </Wi>
-        <Wi>
-          <IntNumber>1</IntNumber>
-          <FirstString>PWM_PIN</FirstString>
-          <SecondString>008000000000000000000000000000000000F03F0000000000000000000000000000000050574D5F50494E000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000002000000000000000000E03F1E00000000000000000000000000000000000000F80000FF</SecondString>
+          <SecondString>FF00000000000000000000000000000000E06F400000000000000000000000000000000050310000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000001000000000000000000F03F1A00000000000000000000000000000000000000000000FF</SecondString>
         </Wi>
       </LogicAnalyzers>
     </TargetOption>

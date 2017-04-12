@@ -534,9 +534,7 @@ LIMPA_LCD_E_MOSTRA_SENHA_VALIDA:
 		MOV 	R5, #0Dh
 		LCALL 	TRANCA_FECHADURA
 		
-		JMP		LIMPA_LCD_E_INICIA_SISTEMA	
-		
-		//RET
+		RET
 		 
 ///////////////////
 // ACIONA BUZZER //
@@ -927,11 +925,11 @@ TIMER_CONFIGURA_TIMER:
 		MOV 	TH0, #HIGH(65535 - 43350)
 		MOV 	TL0, #LOW(65535 - 43350)
 		
-		////////////////////////////////////////////////////////////////////////////
-		// Aqui configuramos o TIMER_1 (para o TIMEOUT) de 15s -> 250 * 256 * 256 //
-		////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////
+		// Aqui configuramos o TIMER_1 (para o TIMEOUT) //
+		// 	  Interrupcao a ser chamada a cada 200 us	//
+		//////////////////////////////////////////////////
 		
-		// Para o TIMER_0, TH0 e TL0 representam o necessario para um delay de 20ms
 		MOV 	TH1, #0FFh
 		MOV		TL1, #05h
 		
@@ -1008,7 +1006,15 @@ INT_INT1:
 		RETI
 
 /*
+* Para podermos utilizar valores elevados para nosso TIMEOUT, decidimos 
+* utilizar até 3 bytes (TIMEOUT_LOW, TIMEOUT_HIGH, TIMEOUT_X1S) para definir
+* o tempo do nosso TIMEOUT
 *
+* Mantendo TIMEOUT_LOW em 0xFF e TIMEOUT_HIGH em 0x1E, juntamente com os 200 us
+* que a interrupcao e chamada, temos aproximadamente 1 s.
+* Desta forma, basta configurar o TIMEOUT_X1S para a quantidade de segundos desejado
+* Da forma como esta configurado, e possivel configurar o sistema para trabalhar com
+* um TIMEOUT de ate 255 s ( ~4.25 min)
 */
 INT_TIMER1:
 		PUSH 	ACC

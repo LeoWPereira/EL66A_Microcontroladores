@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 16:50:45 PAGE     1
+A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 17:09:07 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.5.0
@@ -66,31 +66,31 @@ LOC  OBJ            LINE     SOURCE
 
 0003                  29     org 0003h  
 
-0003 02017F           30     ljmp INT_INT0
+0003 020181           30     ljmp INT_INT0
 
                       31     
 
 000B                  32     org 000Bh  
 
-000B 020180           33     ljmp INT_TIMER0  
+000B 020182           33     ljmp INT_TIMER0  
 
                       34     
 
 0013                  35     org 0013h  
 
-0013 020181           36     ljmp INT_INT1  
+0013 020183           36     ljmp INT_INT1  
 
                       37     
 
 001B                  38     org 001Bh  
 
-001B 020182           39     ljmp INT_TIMER1  
+001B 020184           39     ljmp INT_TIMER1  
 
                       40     
 
 0023                  41     org 0023h  
 
-0023 020195           42     ljmp INT_SERIAL  
+0023 020197           42     ljmp INT_SERIAL  
 
                       43     
 
@@ -115,7 +115,7 @@ LOC  OBJ            LINE     SOURCE
 0068 7F                      
 0069                  50     SINE_WAVE_37_SAMPLES:
 
-A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 16:50:45 PAGE     2
+A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 17:09:07 PAGE     2
 
 0069 8096ACC0         51             DB 128, 150, 172, 192, 210, 226, 239, 248, 254, 255, 254, 248, 239, 226, 210, 192, 
                              172, 150, 128, 106, 84, 64, 46, 30, 17, 8, 2, 0, 2, 8, 17, 30, 46, 64, 84, 106, 128
@@ -157,7 +157,7 @@ LOC  OBJ            LINE     SOURCE
 
 00D5                  55     main:
 
-00D5 753101           56             MOV             WAVE_FORM, #WAVE_FORM_SQUARE  
+00D5 753100           56             MOV             WAVE_FORM, #WAVE_FORM_SINE  
 
 00D8 E531             57             MOV             A, WAVE_FORM
 
@@ -167,7 +167,7 @@ LOC  OBJ            LINE     SOURCE
 
                       60     
 
-00DC B40238           61             CJNE    A, #02h, SQUARE_WAVE
+00DC B4023A           61             CJNE    A, #02h, SQUARE_WAVE
 
                       62     
 
@@ -183,7 +183,7 @@ LOC  OBJ            LINE     SOURCE
 
 00E0                  68     SINE_WAVE:
 
-00E0 11F7             69             CALL    PWM_SINE_WAVE_SETUP
+00E0 11FB             69             CALL    PWM_SINE_WAVE_SETUP
 
                       70             
 
@@ -213,299 +213,299 @@ LOC  OBJ            LINE     SOURCE
 
 00EE                  83     PWM_INTERRUPT_SINE_NEXT_SAMPLE:
 
-00EE 93               84             MOVC    A, @A + DPTR
+00EE DF0A             84             DJNZ    R7, CONTINUE_SINE
 
-00EF F590             85             MOV             PWM_PORT, A
+00F0 AF35             85             MOV             R7, PERIOD_MSB
 
-00F1 E4               86             CLR             A
+                      86             
 
-A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 16:50:45 PAGE     3
+A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 17:09:07 PAGE     3
 
-                      87             
+00F2 93               87             MOVC    A, @A + DPTR
 
-00F2 A3               88             INC     DPTR
+00F3 F590             88             MOV             PWM_PORT, A
 
-00F3 19               89             DEC             R1
+00F5 E4               89             CLR             A
 
                       90             
 
-00F4 3103             91             CALL    PWM_SINE_WAVE_CONFIG_PERIOD
+00F6 A3               91             INC     DPTR
 
-                      92             
+00F7 19               92             DEC             R1
 
-00F6 22               93             RET
+                      93             
 
-                      94             
+00F8 3107             94             CALL    PWM_SINE_WAVE_CONFIG_PERIOD
 
-00F7                  95     PWM_SINE_WAVE_SETUP:
+                      95     
 
-00F7 758910           96             MOV     TMOD, #00010000b   
+00FA                  96     CONTINUE_SINE:
 
-                      97             
+00FA 22               97             RET
 
-00FA 3103             98             CALL    PWM_SINE_WAVE_CONFIG_PERIOD
+                      98             
 
-                      99             
+00FB                  99     PWM_SINE_WAVE_SETUP:
 
-00FC D2AF            100             SETB    EA       
+00FB 758910          100             MOV     TMOD, #00010000b   
 
-00FE D2AB            101             SETB    ET1  
+                     101             
 
-0100 D28E            102             SETB    TR1  
+00FE 3107            102             CALL    PWM_SINE_WAVE_CONFIG_PERIOD
 
                      103             
 
-0102 22              104             RET
+0100 D2AF            104             SETB    EA       
 
-                     105             
+0102 D2AB            105             SETB    ET1  
 
-                     106     
+0104 D28E            106             SETB    TR1  
 
-                     107     
+                     107             
 
-                     108     
+0106 22              108             RET
 
-                     109     
+                     109             
 
                      110     
 
-0103                 111     PWM_SINE_WAVE_CONFIG_PERIOD:
+                     111     
 
-0103 753501          112             MOV             PERIOD_MSB, #001h
+                     112     
 
-0106 7534C8          113             MOV             PERIOD_MED, #0C8h  
+                     113     
 
-0109 753300          114             MOV             PERIOD_LSB, #000h  
+                     114     
 
-                     115             
+                     115     
 
-010C AE34            116             MOV             R6, PERIOD_MED
+                     116     
 
-010E AF35            117             MOV             R7, PERIOD_MSB
+                     117     
 
-                     118             
+                     118     
 
-0110 85348D          119             MOV     TH1,            PERIOD_MED
+0107                 119     PWM_SINE_WAVE_CONFIG_PERIOD:
 
-0113 85338B          120             MOV             TL1,            PERIOD_LSB
+0107 753501          120             MOV             PERIOD_MSB, #001h
 
-                     121             
+010A 7534C8          121             MOV             PERIOD_MED, #0C8h
 
-0116 22              122             RET
+010D 753352          122             MOV             PERIOD_LSB, #052h
 
-                     123     
+                     123             
 
-                     124     
+0110 AF35            124             MOV             R7, PERIOD_MSB
 
-                     125     
+                     125             
 
-                     126     
+0112 85348D          126             MOV     TH1, PERIOD_MED
 
-0117                 127     SQUARE_WAVE:
+0115 85338B          127             MOV             TL1, PERIOD_LSB
 
-0117 311B            128             CALL    PWM_SQUARE_WAVE_SETUP
+                     128             
 
-                     129             
+0118 22              129             RET
 
-0119 80FE            130             JMP     $
+                     130     
 
-                     131             
+                     131     
 
-011B                 132     PWM_SQUARE_WAVE_SETUP:
+                     132     
 
-011B 758910          133             MOV     TMOD, #00010000b   
+                     133     
 
-011E 753223          134             MOV     DUTY_CYCLE, #35d  
+0119                 134     SQUARE_WAVE:
 
-                     135             
+0119 311D            135             CALL    PWM_SQUARE_WAVE_SETUP
 
-0121 312A            136             CALL    PWM_SQUARE_WAVE_CONFIG_PERIOD
+                     136             
 
-                     137             
+011B 80FE            137             JMP     $
 
-0123 D2AF            138             SETB    EA       
+                     138             
 
-0125 D2AB            139             SETB    ET1  
+011D                 139     PWM_SQUARE_WAVE_SETUP:
 
-0127 D28E            140             SETB    TR1  
+011D 758910          140             MOV     TMOD, #00010000b   
 
-                     141             
+0120 753223          141             MOV     DUTY_CYCLE, #35d  
 
-0129 22              142             RET
+                     142             
 
-                     143             
+0123 312C            143             CALL    PWM_SQUARE_WAVE_CONFIG_PERIOD
 
-012A                 144     PWM_SQUARE_WAVE_CONFIG_PERIOD:
+                     144             
 
-                     145             
+0125 D2AF            145             SETB    EA       
 
-                     146             
+0127 D2AB            146             SETB    ET1  
 
-                     147             
+0129 D28E            147             SETB    TR1  
 
-012A 75350E          148             MOV             PERIOD_MSB, #00Eh
+                     148             
 
-012D 7534FF          149             MOV             PERIOD_MED, #0FFh
+012B 22              149             RET
 
-0130 7533FF          150             MOV             PERIOD_LSB, #0FFh
+                     150             
 
-                     151             
+012C                 151     PWM_SQUARE_WAVE_CONFIG_PERIOD:
 
-0133 AE34            152             MOV             R6, PERIOD_MED
+                     152             
 
-A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 16:50:45 PAGE     4
+A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 17:09:07 PAGE     4
 
-0135 AF35            153             MOV             R7, PERIOD_MSB
+                     153             
 
                      154             
 
-0137 758DFF          155             MOV     TH1, #0FFh
+012C 75350E          155             MOV             PERIOD_MSB, #00Eh
 
-013A 85338B          156             MOV             TL1, PERIOD_LSB
+012F 7534FF          156             MOV             PERIOD_MED, #0FFh
 
-                     157             
+0132 7533FF          157             MOV             PERIOD_LSB, #0FFh
 
-013D 22              158             RET
+                     158             
 
-                     159     
+0135 AE34            159             MOV             R6, PERIOD_MED
 
-013E                 160     PWM_STOP:
+0137 AF35            160             MOV             R7, PERIOD_MSB
 
-013E C28E            161             CLR     TR1                     ; Stop timer to stop PWM
+                     161             
 
-                     162             
+0139 758DFF          162             MOV     TH1, #0FFh
 
-0140 22              163             RET
+013C 85338B          163             MOV             TL1, PERIOD_LSB
 
                      164             
 
-0141                 165     PWM_INTERRUPT_SQUARE_WAVE:      
+013F 22              165             RET
 
-0141 DE27            166             DJNZ    R6, CONTINUE
+                     166     
 
-0143 AE34            167             MOV             R6, PERIOD_MED
+0140                 167     PWM_STOP:
 
-                     168             
+0140 C28E            168             CLR     TR1                     ; Stop timer to stop PWM
 
-0145 DF23            169             DJNZ    R7, CONTINUE
+                     169             
 
-0147 AF35            170             MOV             R7, PERIOD_MSB  
+0142 22              170             RET
 
-                     171     
+                     171             
 
-0149 20000D          172             JB              PWM_FLAG, HIGH_DONE      
+0143                 172     PWM_INTERRUPT_SQUARE_WAVE:      
 
-                     173                                     
+0143 DE27            173             DJNZ    R6, CONTINUE_SQUARE
 
-014C                 174     LOW_DONE:                       
+0145 AE34            174             MOV             R6, PERIOD_MED
 
-014C D200            175             SETB    PWM_FLAG
+                     175             
 
-014E D290            176             SETB    PWM_PIN
+0147 DF23            176             DJNZ    R7, CONTINUE_SQUARE
 
-                     177             
+0149 AF35            177             MOV             R7, PERIOD_MSB  
 
-0150 758DFF          178             MOV             TH1, #0FFh
+                     178     
 
-0153 85328B          179             MOV     TL1, DUTY_CYCLE         
+014B 20000D          179             JB              PWM_FLAG, HIGH_DONE      
 
-                     180             
+                     180                                     
 
-0156 C28F            181             CLR     TF1
+014E                 181     LOW_DONE:                       
 
-                     182             
+014E D200            182             SETB    PWM_FLAG
 
-0158 22              183             RET
+0150 D290            183             SETB    PWM_PIN
 
-                     184                                     
+                     184             
 
-0159                 185     HIGH_DONE:
+0152 758DFF          185             MOV             TH1, #0FFh
 
-0159 C200            186             CLR     PWM_FLAG                         
+0155 85328B          186             MOV     TL1, DUTY_CYCLE         
 
-015B C290            187             CLR     PWM_PIN                          
+                     187             
 
-                     188             
+0158 C28F            188             CLR     TF1
 
-015D 74FF            189             MOV     A, #0FFh                 
+                     189             
 
-015F C3              190             CLR             C
+015A 22              190             RET
 
-0160 9532            191             SUBB    A, DUTY_CYCLE
+                     191                                     
 
-                     192             
+015B                 192     HIGH_DONE:
 
-0162 758DFF          193             MOV     TH1, #0FFh                       
+015B C200            193             CLR     PWM_FLAG                         
 
-0165 F58B            194             MOV             TL1, A
+015D C290            194             CLR     PWM_PIN                          
 
                      195             
 
-0167 C28F            196             CLR     TF1                                      
+015F 74FF            196             MOV     A, #0FFh                 
 
-                     197             
+0161 C3              197             CLR             C
 
-0169 22              198             RET
+0162 9532            198             SUBB    A, DUTY_CYCLE
 
-                     199     
+                     199             
 
-016A                 200     CONTINUE:
+0164 758DFF          200             MOV     TH1, #0FFh                       
 
-016A 30000B          201             JNB             PWM_FLAG, CONTINUE_LOW
+0167 F58B            201             MOV             TL1, A
 
                      202             
 
-016D                 203     CONTINUE_HIGH:
+0169 C28F            203             CLR     TF1                                      
 
-016D 74FF            204             MOV     A, #0FFh                 
+                     204             
 
-016F C3              205             CLR             C
+016B 22              205             RET
 
-0170 9532            206             SUBB    A, DUTY_CYCLE
+                     206     
 
-                     207             
+016C                 207     CONTINUE_SQUARE:
 
-0172 758DFF          208             MOV     TH1, #0FFh                       
+016C 30000B          208             JNB             PWM_FLAG, CONTINUE_SQUARE_LOW
 
-0175 F58B            209             MOV             TL1, A
+                     209             
 
-                     210     
+016F                 210     CONTINUE_SQUARE_HIGH:
 
-0177 22              211             RET
+016F 74FF            211             MOV     A, #0FFh                 
 
-                     212                     
+0171 C3              212             CLR             C
 
-0178                 213     CONTINUE_LOW:
+0172 9532            213             SUBB    A, DUTY_CYCLE
 
-0178 758DFF          214             MOV             TH1, #0FFh
+                     214             
 
-017B 85328B          215             MOV     TL1, DUTY_CYCLE
+0174 758DFF          215             MOV     TH1, #0FFh                       
 
-                     216             
+0177 F58B            216             MOV             TL1, A
 
-017E 22              217             RET
+                     217     
 
-                     218     
+0179 22              218             RET
 
-A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 16:50:45 PAGE     5
+A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 17:09:07 PAGE     5
 
-                     219     
+                     219                     
 
-                     220     
+017A                 220     CONTINUE_SQUARE_LOW:
 
-                     221     
+017A 758DFF          221             MOV             TH1, #0FFh
 
-                     222     
+017D 85328B          222             MOV     TL1, DUTY_CYCLE
 
-                     223     
+                     223             
 
-                     224     
+0180 22              224             RET
 
                      225     
 
-017F                 226     INT_INT0:
+                     226     
 
-017F 32              227             RETI
+                     227     
 
                      228     
 
@@ -515,11 +515,11 @@ LOC  OBJ            LINE     SOURCE
 
                      231     
 
-0180                 232     INT_TIMER0:
+                     232     
 
-0180 32              233             RETI
+0181                 233     INT_INT0:
 
-                     234             
+0181 32              234             RETI
 
                      235     
 
@@ -527,73 +527,87 @@ LOC  OBJ            LINE     SOURCE
 
                      237     
 
-0181                 238     INT_INT1:
+                     238     
 
-0181 32              239             RETI
+0182                 239     INT_TIMER0:
 
-                     240     
+0182 32              240             RETI
 
-                     241     
+                     241             
 
                      242     
 
                      243     
 
-0182                 244     INT_TIMER1:
+                     244     
 
-0182 C0E0            245             PUSH    ACC
+0183                 245     INT_INT1:
 
-                     246     
+0183 32              246             RETI
 
-0184 E531            247             MOV             A, WAVE_FORM
+                     247     
 
-                     248             
+                     248     
 
-0186 6003            249             JZ              JUMP_SINE_INT
+                     249     
 
                      250     
 
-0188 B40205          251             CJNE    A, #02h, JUMP_SQUARE_INT
+0184                 251     INT_TIMER1:
 
-                     252     
+0184 C0E0            252             PUSH    ACC
 
-018B                 253     JUMP_SINE_INT:
+                     253     
 
-018B 11EE            254             CALL    PWM_INTERRUPT_SINE_NEXT_SAMPLE
+0186 E531            254             MOV             A, WAVE_FORM
 
-                     255     
+                     255             
 
-018D D0E0            256             POP             ACC
+0188 6003            256             JZ              JUMP_SINE_INT
 
-018F 32              257             RETI
+                     257     
 
-                     258     
+018A B40205          258             CJNE    A, #02h, JUMP_SQUARE_INT
 
-0190                 259     JUMP_SQUARE_INT:
+                     259     
 
-0190 3141            260             CALL    PWM_INTERRUPT_SQUARE_WAVE
+018D                 260     JUMP_SINE_INT:
 
-                     261             
+018D 11EE            261             CALL    PWM_INTERRUPT_SINE_NEXT_SAMPLE
 
-0192 D0E0            262             POP             ACC
+                     262     
 
-0194 32              263             RETI
+018F D0E0            263             POP             ACC
 
-                     264     
+0191 32              264             RETI
 
                      265     
 
-                     266     
+0192                 266     JUMP_SQUARE_INT:
 
-0195                 267     INT_SERIAL:
+0192 3143            267             CALL    PWM_INTERRUPT_SQUARE_WAVE
 
-0195 32              268             RETI
+                     268             
 
-                     269             
+0194 D0E0            269             POP             ACC
 
-                     270             END
+0196 32              270             RETI
 
-A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 16:50:45 PAGE     6
+                     271     
+
+                     272     
+
+                     273     
+
+0197                 274     INT_SERIAL:
+
+0197 32              275             RETI
+
+                     276             
+
+                     277             END
+
+A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 17:09:07 PAGE     6
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -602,21 +616,22 @@ SYMBOL TABLE LISTING
 N A M E                         T Y P E  V A L U E   ATTRIBUTES
 
 ACC. . . . . . . . . . . . . .  D ADDR   00E0H   A   
-CONTINUE . . . . . . . . . . .  C ADDR   016AH   A   
-CONTINUE_HIGH. . . . . . . . .  C ADDR   016DH   A   
-CONTINUE_LOW . . . . . . . . .  C ADDR   0178H   A   
+CONTINUE_SINE. . . . . . . . .  C ADDR   00FAH   A   
+CONTINUE_SQUARE. . . . . . . .  C ADDR   016CH   A   
+CONTINUE_SQUARE_HIGH . . . . .  C ADDR   016FH   A   
+CONTINUE_SQUARE_LOW. . . . . .  C ADDR   017AH   A   
 DUTY_CYCLE . . . . . . . . . .  N NUMB   0032H   A   
 EA . . . . . . . . . . . . . .  B ADDR   00A8H.7 A   
 ET1. . . . . . . . . . . . . .  B ADDR   00A8H.3 A   
-HIGH_DONE. . . . . . . . . . .  C ADDR   0159H   A   
-INT_INT0 . . . . . . . . . . .  C ADDR   017FH   A   
-INT_INT1 . . . . . . . . . . .  C ADDR   0181H   A   
-INT_SERIAL . . . . . . . . . .  C ADDR   0195H   A   
-INT_TIMER0 . . . . . . . . . .  C ADDR   0180H   A   
-INT_TIMER1 . . . . . . . . . .  C ADDR   0182H   A   
-JUMP_SINE_INT. . . . . . . . .  C ADDR   018BH   A   
-JUMP_SQUARE_INT. . . . . . . .  C ADDR   0190H   A   
-LOW_DONE . . . . . . . . . . .  C ADDR   014CH   A   
+HIGH_DONE. . . . . . . . . . .  C ADDR   015BH   A   
+INT_INT0 . . . . . . . . . . .  C ADDR   0181H   A   
+INT_INT1 . . . . . . . . . . .  C ADDR   0183H   A   
+INT_SERIAL . . . . . . . . . .  C ADDR   0197H   A   
+INT_TIMER0 . . . . . . . . . .  C ADDR   0182H   A   
+INT_TIMER1 . . . . . . . . . .  C ADDR   0184H   A   
+JUMP_SINE_INT. . . . . . . . .  C ADDR   018DH   A   
+JUMP_SQUARE_INT. . . . . . . .  C ADDR   0192H   A   
+LOW_DONE . . . . . . . . . . .  C ADDR   014EH   A   
 MAIN . . . . . . . . . . . . .  C ADDR   00D5H   A   
 P0 . . . . . . . . . . . . . .  D ADDR   0080H   A   
 P1 . . . . . . . . . . . . . .  D ADDR   0090H   A   
@@ -625,20 +640,20 @@ PERIOD_MED . . . . . . . . . .  N NUMB   0034H   A
 PERIOD_MSB . . . . . . . . . .  N NUMB   0035H   A   
 PWM_FLAG . . . . . . . . . . .  N NUMB   0000H   A   
 PWM_INTERRUPT_SINE_NEXT_SAMPLE  C ADDR   00EEH   A   
-PWM_INTERRUPT_SQUARE_WAVE. . .  C ADDR   0141H   A   
+PWM_INTERRUPT_SQUARE_WAVE. . .  C ADDR   0143H   A   
 PWM_PIN. . . . . . . . . . . .  B ADDR   0090H.0 A   
 PWM_PORT . . . . . . . . . . .  D ADDR   0090H   A   
-PWM_SINE_WAVE_CONFIG_PERIOD. .  C ADDR   0103H   A   
+PWM_SINE_WAVE_CONFIG_PERIOD. .  C ADDR   0107H   A   
 PWM_SINE_WAVE_NEXT_PERIOD. . .  C ADDR   00E2H   A   
-PWM_SINE_WAVE_SETUP. . . . . .  C ADDR   00F7H   A   
-PWM_SQUARE_WAVE_CONFIG_PERIOD.  C ADDR   012AH   A   
-PWM_SQUARE_WAVE_SETUP. . . . .  C ADDR   011BH   A   
-PWM_STOP . . . . . . . . . . .  C ADDR   013EH   A   
+PWM_SINE_WAVE_SETUP. . . . . .  C ADDR   00FBH   A   
+PWM_SQUARE_WAVE_CONFIG_PERIOD.  C ADDR   012CH   A   
+PWM_SQUARE_WAVE_SETUP. . . . .  C ADDR   011DH   A   
+PWM_STOP . . . . . . . . . . .  C ADDR   0140H   A   
 SINE_WAVE. . . . . . . . . . .  C ADDR   00E0H   A   
 SINE_WAVE_25_SAMPLES . . . . .  C ADDR   0050H   A   
 SINE_WAVE_37_SAMPLES . . . . .  C ADDR   0069H   A   
 SINE_WAVE_71_SAMPLES . . . . .  C ADDR   008EH   A   
-SQUARE_WAVE. . . . . . . . . .  C ADDR   0117H   A   
+SQUARE_WAVE. . . . . . . . . .  C ADDR   0119H   A   
 TESTA_R1 . . . . . . . . . . .  C ADDR   00E9H   A   
 TF1. . . . . . . . . . . . . .  B ADDR   0088H.7 A   
 TH1. . . . . . . . . . . . . .  D ADDR   008DH   A   
