@@ -48,14 +48,27 @@ ljmp INT_SERIAL
 //////////////////////////////////////////////////
 
 // BUZZER
-BUZZER				EQU P3.0
+BUZZER						EQU P3.0
 	
-SENSOR_EXTERNO_1	EQU P3.2 // Bit do PORT P3 reservado para a INT0
-SENSOR_EXTERNO_2	EQU P3.3 // Bit do PORT P3 reservado para a INT1
+SENSOR_EXTERNO_1			EQU P3.2 // Bit do PORT P3 reservado para a INT0
+SENSOR_EXTERNO_2			EQU P3.3 // Bit do PORT P3 reservado para a INT1
 
 // LEDS DA PLACA
-LED_SEG 			EQU	P3.6
-LED1   				EQU	P3.7
+LED_SEG 					EQU	P3.6
+LED1   						EQU	P3.7
+	
+DISTANCIA_SENSORES			EQU 31h	 // Distancia entre os dois sensores (em cm)
+
+FLAG_CALCULAR_VELOCIDADE	EQU 32h  // Se essa flag esta em 1 -> calcula a velocidade e mostra no display de 7 segmentos
+	
+VELOCIDADE_VEICULO_UNIDADE	EQU	33h
+VELOCIDADE_VEICULO_DEZENA	EQU	34h
+
+// Registradores disponibilizados para medir tempo com variacao de 200 us (0.2 ms)
+// Com esses 3 registradores (configurados na rotina INT_TIMER1) e possivel registrar um tempo de medicao de ate 255000 ms (255 s)
+TIMER_MEDICOES_LOW			EQU	35h
+TIMER_MEDICOES_HIGH			EQU	36h
+TIMER_MEDICOES_X1S			EQU	37h
 	
 //////////////////////////////////////////////////
 // REGIAO DA MEMORIA DE PROGRAMA COM AS STRINGS //
@@ -66,10 +79,61 @@ LED1   				EQU	P3.7
 //////////////////////////////////////////////////
 
 __STARTUP__:
+		LCALL	SETA_VARIAVEIS_INICIAIS
 		LCALL	TIMER_CONFIGURA_TIMER
 		LCALL	INT_CONFIGURA_INTERRUPCOES
+
+INICIO:
+		LCALL	RESETA_TIMER_MEDICOES
 		
-		LJMP	FIM
+ESPERA_SENSOR_2:
+		MOV		A, FLAG_CALCULAR_VELOCIDADE
+		CJNE	A, #01h, ESPERA_SENSOR_2
+		
+		LCALL	CALCULA_VELOCIDADE
+		
+		LCALL	SETA_VARIAVEIS_INICIAIS
+		AJMP	INICIO
+
+//////////////////////////////////////////////////////
+// NOME: SETA_VARIAVEIS_INICIAIS					//
+// DESCRICAO: 										//
+// P.ENTRADA: 					 					//
+// P.SAIDA: -										//
+// ALTERA:  										//
+//////////////////////////////////////////////////////
+SETA_VARIAVEIS_INICIAIS:
+		MOV		DISTANCIA_SENSORES, #100d  		// (distancia de 1m entre sensores)
+		MOV		FLAG_CALCULAR_VELOCIDADE, #00h
+		MOV		VELOCIDADE_VEICULO_UNIDADE, #00h
+		MOV		VELOCIDADE_VEICULO_DEZENA, #00h
+		
+		RET
+		
+//////////////////////////////////////////////////////
+// NOME: RESETA_TIMER_MEDICOES						//
+// DESCRICAO: 										//
+// P.ENTRADA: 					 					//
+// P.SAIDA: -										//
+// ALTERA:  										//
+//////////////////////////////////////////////////////
+RESETA_TIMER_MEDICOES:
+		MOV		TIMER_MEDICOES_LOW, #00h
+		MOV		TIMER_MEDICOES_HIGH, #00h
+		MOV		TIMER_MEDICOES_X1S, #00h
+		
+		RET
+
+//////////////////////////////////////////////////////
+// NOME: CALCULA_VELOCIDADE							//
+// DESCRICAO: 										//
+// P.ENTRADA: 					 					//
+// P.SAIDA: 										//
+// ALTERA:  										//
+//////////////////////////////////////////////////////
+CALCULA_VELOCIDADE:
+		
+		RET	
 
 //////////////////////////////////////////////////
 // 	      CODIGOS RELACIONADOS AO BUZZER		//
@@ -115,11 +179,19 @@ ACIONA_BUZZER_X1S:
 // ALTERA: 											//
 //////////////////////////////////////////////////////
 TIMER_CONFIGURA_TIMER:
-		MOV 	TMOD, #00000001b // Seta o TIMER_0 para o modo 01 (16 bits)
+		MOV 	TMOD, #00100001b // Seta o TIMER_0 para o modo 01 (16 bits) e o TIMER_1 para o modo 02 (8 bits com reset)
 		
 		// Para o TIMER_0, TH0 e TL0 representam o necessario para um delay de 20ms
 		MOV 	TH0, #HIGH(65535 - 43350)
 		MOV 	TL0, #LOW(65535 - 43350)
+		
+		////////////////////////////////////////////////////
+		// Aqui configuramos o TIMER_1 (para as medicoes) //
+		// 	  Interrupcao a ser chamada a cada 200 us	  //
+		////////////////////////////////////////////////////
+		
+		MOV 	TH1, #0FFh
+		MOV		TL1, #05h
 				
 		RET
 
@@ -175,14 +247,17 @@ INT_CONFIGURA_INTERRUPCOES:
 		SETB	EA
 		SETB	EX0
 		SETB	EX1
+		SETB	ET1
 		
 		// Bits da palavra IP - Interrupt Priority
 		SETB	PX0		// Alta prioridade para o SENSOR_EXTERNO_1
 		SETB	PX1		// Alta prioridade para o SENSOR_EXTERNO_2
+		CLR		PT1		// Baixa prioridade para o TIMER/COUNTER 1
 		
 		// Bits da palavra TCON - Timer Control
-		SETB	IE0		// Interrupcao para Borda
-		SETB	IE1		// Interrupcao para Borda
+		SETB	IE0		// Interrupcao por Borda
+		SETB	IE1		// Interrupcao por Borda
+		CLR		IT1		// Interrupcao por Nivel
 		
 		RET
 
@@ -194,6 +269,14 @@ INT_CONFIGURA_INTERRUPCOES:
 // ALTERA: 											//
 //////////////////////////////////////////////////////
 INT_EXT0:
+		PUSH 	ACC
+		PUSH	PSW
+		
+		SETB	TR1
+		
+		POP		PSW
+		POP		ACC
+		
 		RETI
 
 //////////////////////////////////////////////////////
@@ -214,16 +297,58 @@ INT_TIMER0:
 // ALTERA: 											//
 //////////////////////////////////////////////////////
 INT_EXT1:
+		PUSH 	ACC
+		PUSH	PSW
+		
+		CLR		TR1
+		
+		MOV		FLAG_CALCULAR_VELOCIDADE, #01h
+		
+		POP		PSW
+		POP		ACC
+		
 		RETI
 
 //////////////////////////////////////////////////////
 // NOME: INT_TIMER1									//
-// DESCRICAO: 										//
-// P.ENTRADA:					 	 				//
-// P.SAIDA: 										//
-// ALTERA: 											//
+// DESCRICAO: ESTA ROTINA SERA CHAMADA A CADA 200US //
+// TODA VEZ QUE A INT_EXT0 FOR ACIONADA. PERMITE 	//
+// CALCULAR O TEMPO GASTO PELO VEICULO PARA SAIR DO //
+// PRIMEIRO SENSOR E ALCANCAR O SEGUNDO				//
+// P.ENTRADA: -				 	 					//
+// P.SAIDA: TIMER_MEDICOES_LOW; TIMER_MEDICOES_HIGH //
+// ALTERA: TIMER_MEDICOES_LOW; TIMER_MEDICOES_HIGH	//
 //////////////////////////////////////////////////////
 INT_TIMER1:
+		PUSH 	ACC
+		PUSH	PSW
+		
+		MOV		TL1, #05h
+		CLR		TF1
+		
+		MOV		A, TIMER_MEDICOES_LOW
+		CJNE	A, #0FFh, INCREMENTA_TIMER_MEDICOES_LOW
+	
+		MOV		A, TIMER_MEDICOES_HIGH
+		CJNE	A, #01Eh, INCREMENTA_TIMER_MEDICOES_HIGH
+		
+		MOV		TIMER_MEDICOES_LOW, #00h
+		MOV		TIMER_MEDICOES_HIGH, #00h
+		INC		TIMER_MEDICOES_X1S
+		AJMP	FINALIZA_TIMER_1
+	
+INCREMENTA_TIMER_MEDICOES_LOW:
+		INC		TIMER_MEDICOES_LOW
+		AJMP	FINALIZA_TIMER_1
+		
+INCREMENTA_TIMER_MEDICOES_HIGH:
+		MOV		TIMER_MEDICOES_LOW, #00h
+		INC		TIMER_MEDICOES_HIGH
+
+FINALIZA_TIMER_1:
+		POP		PSW
+		POP		ACC
+		
 		RETI
 	
 //////////////////////////////////////////////////////
