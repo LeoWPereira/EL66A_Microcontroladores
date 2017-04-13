@@ -1,0 +1,120 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        04/12/2017  23:40:44  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\Projeto_02_Lombada_Eletronica.obj TO .\Objects\Projeto_02_Lombada_Eletronica PRINT
+>>  (.\Listings\Projeto_02_Lombada_Eletronica.m51) RAMSIZE (256)
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\Projeto_02_Lombada_Eletronica.obj (PROJETO_02_LOMBADA_ELETRONICA)
+
+
+LINK MAP OF MODULE:  .\Objects\Projeto_02_Lombada_Eletronica (PROJETO_02_LOMBADA_ELETRONICA)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0072H     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\Projeto_02_Lombada_Eletronica (PROJETO_02_LOMBADA_ELETRONICA)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        PROJETO_02_LOMBADA_ELETRONICA
+  C:0036H         SYMBOL        ACIONA_BUZZER_X1S
+  C:002FH         SYMBOL        ACIONA_BUZZER_X20MS
+  B:00B0H.0       SYMBOL        BUZZER
+  B:00A8H.7       SYMBOL        EA
+  B:00A8H.0       SYMBOL        EX0
+  B:00A8H.2       SYMBOL        EX1
+  C:0070H         SYMBOL        FIM
+  B:0088H.1       SYMBOL        IE0
+  B:0088H.3       SYMBOL        IE1
+  C:005CH         SYMBOL        INT_CONFIGURA_INTERRUPCOES
+  C:006BH         SYMBOL        INT_EXT0
+  C:006DH         SYMBOL        INT_EXT1
+  C:006FH         SYMBOL        INT_SERIAL
+  C:006CH         SYMBOL        INT_TIMER0
+  C:006EH         SYMBOL        INT_TIMER1
+  B:00B0H.7       SYMBOL        LED1
+  B:00B0H.6       SYMBOL        LED_SEG
+  D:00B0H         SYMBOL        P3
+  B:00B8H.0       SYMBOL        PX0
+  B:00B8H.2       SYMBOL        PX1
+  B:00B0H.2       SYMBOL        SENSOR_EXTERNO_1
+  B:00B0H.3       SYMBOL        SENSOR_EXTERNO_2
+  B:0088H.5       SYMBOL        TF0
+  D:008CH         SYMBOL        TH0
+  C:003DH         SYMBOL        TIMER_CONFIGURA_TIMER
+  C:0055H         SYMBOL        TIMER_DELAY_1_S
+  C:0047H         SYMBOL        TIMER_DELAY_20_MS
+  D:008AH         SYMBOL        TL0
+  D:0089H         SYMBOL        TMOD
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/12/2017  23:40:44  PAGE 2
+
+
+  B:0088H.4       SYMBOL        TR0
+  C:0026H         SYMBOL        __STARTUP__
+  C:0000H         LINE#         29
+  C:0003H         LINE#         32
+  C:000BH         LINE#         35
+  C:0013H         LINE#         38
+  C:001BH         LINE#         41
+  C:0023H         LINE#         44
+  C:0026H         LINE#         69
+  C:0029H         LINE#         70
+  C:002CH         LINE#         72
+  C:002FH         LINE#         86
+  C:0031H         LINE#         87
+  C:0033H         LINE#         88
+  C:0035H         LINE#         90
+  C:0036H         LINE#         100
+  C:0038H         LINE#         101
+  C:003AH         LINE#         102
+  C:003CH         LINE#         104
+  C:003DH         LINE#         118
+  C:0040H         LINE#         121
+  C:0043H         LINE#         122
+  C:0046H         LINE#         124
+  C:0047H         LINE#         134
+  C:0049H         LINE#         135
+  C:004BH         LINE#         137
+  C:004EH         LINE#         139
+  C:0050H         LINE#         140
+  C:0052H         LINE#         142
+  C:0054H         LINE#         144
+  C:0055H         LINE#         154
+  C:0057H         LINE#         155
+  C:0059H         LINE#         157
+  C:005BH         LINE#         159
+  C:005CH         LINE#         175
+  C:005EH         LINE#         176
+  C:0060H         LINE#         177
+  C:0062H         LINE#         180
+  C:0064H         LINE#         181
+  C:0066H         LINE#         184
+  C:0068H         LINE#         185
+  C:006AH         LINE#         187
+  C:006BH         LINE#         197
+  C:006CH         LINE#         207
+  C:006DH         LINE#         217
+  C:006EH         LINE#         227
+  C:006FH         LINE#         237
+  C:0070H         LINE#         240
+  -------         ENDMOD        PROJETO_02_LOMBADA_ELETRONICA
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 005EH BYTE ( 4%) *
+******************************************************************************
+
+Program Size: data=8.0 xdata=0 code=114
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,543 @@
+A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        04/12/2017 23:40:43 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.5.0
+OBJECT MODULE PLACED IN .\Objects\Projeto_02_Lombada_Eletronica.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE Projeto_02_Lombada_Eletronica.a51 SET(SMALL) DEBUG PRINT(.\Listings\Pro
+                      jeto_02_Lombada_Eletronica.lst) OBJECT(.\Objects\Projeto_02_Lombada_Eletronica.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+
+                       2     
+
+                       3     
+
+                       4     
+
+                       5     
+
+                       6     
+
+                       7     
+
+                       8     
+
+                       9     
+
+                      10     
+
+                      11     
+
+                      12     
+
+                      13     
+
+                      14     
+
+                      15     
+
+                      16     
+
+                      17     
+
+                      18     
+
+                      19     
+
+                      20     
+
+                      21     
+
+                      22     
+
+                      23     
+
+                      24     
+
+                      25     
+
+                      26     
+
+                      27     
+
+0000                  28     org 00h 
+
+0000 020026           29     ljmp __STARTUP__
+
+                      30     
+
+0003                  31     org 03h 
+
+0003 02006B           32     ljmp INT_EXT0
+
+                      33     
+
+000B                  34     org 0Bh 
+
+000B 02006C           35     ljmp INT_TIMER0
+
+                      36     
+
+0013                  37     org 013h 
+
+0013 02006D           38     ljmp INT_EXT1
+
+                      39     
+
+001B                  40     org 01Bh 
+
+001B 02006E           41     ljmp INT_TIMER1
+
+                      42     
+
+0023                  43     org 023h 
+
+0023 02006F           44     ljmp INT_SERIAL
+
+                      45     
+
+                      46     
+
+                      47     
+
+                      48     
+
+                      49     
+
+                      50     
+
+  00B0                51     BUZZER                          EQU P3.0
+
+                      52             
+
+  00B2                53     SENSOR_EXTERNO_1        EQU P3.2  
+
+  00B3                54     SENSOR_EXTERNO_2        EQU P3.3  
+
+                      55     
+
+                      56     
+
+  00B6                57     LED_SEG                         EQU     P3.6
+
+A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        04/12/2017 23:40:43 PAGE     2
+
+  00B7                58     LED1                            EQU     P3.7
+
+                      59             
+
+                      60     
+
+                      61     
+
+                      62     
+
+                      63     
+
+                      64     
+
+                      65     
+
+                      66     
+
+                      67     
+
+0026                  68     __STARTUP__:
+
+0026 12003D           69                     LCALL   TIMER_CONFIGURA_TIMER
+
+0029 12005C           70                     LCALL   INT_CONFIGURA_INTERRUPCOES
+
+                      71                     
+
+002C 020070           72                     LJMP    FIM
+
+                      73     
+
+                      74     
+
+                      75     
+
+                      76     
+
+                      77     
+
+                      78     
+
+                      79     
+
+                      80     
+
+                      81     
+
+                      82     
+
+                      83     
+
+                      84     
+
+002F                  85     ACIONA_BUZZER_X20MS:
+
+002F D2B0             86                     SETB    BUZZER
+
+0031 1147             87                     ACALL   TIMER_DELAY_20_MS
+
+0033 C2B0             88                     CLR     BUZZER
+
+                      89                     
+
+0035 22               90                     RET
+
+                      91                     
+
+                      92     
+
+                      93     
+
+                      94     
+
+                      95     
+
+                      96     
+
+                      97     
+
+                      98     
+
+0036                  99     ACIONA_BUZZER_X1S:
+
+0036 D2B0            100                     SETB    BUZZER
+
+0038 1155            101                     ACALL   TIMER_DELAY_1_S
+
+003A C2B0            102                     CLR     BUZZER
+
+                     103                     
+
+003C 22              104                     RET
+
+                     105     
+
+                     106     
+
+                     107     
+
+                     108     
+
+                     109     
+
+                     110     
+
+                     111     
+
+                     112     
+
+                     113     
+
+                     114     
+
+                     115     
+
+                     116     
+
+003D                 117     TIMER_CONFIGURA_TIMER:
+
+003D 758901          118                     MOV     TMOD, #00000001b  
+
+                     119                     
+
+                     120                     
+
+0040 758C56          121                     MOV     TH0, #HIGH(65535 - 43350)
+
+0043 758AA9          122                     MOV     TL0, #LOW(65535 - 43350)
+
+                     123                                     
+
+A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        04/12/2017 23:40:43 PAGE     3
+
+0046 22              124                     RET
+
+                     125     
+
+                     126     
+
+                     127     
+
+                     128     
+
+                     129     
+
+                     130     
+
+                     131     
+
+                     132     
+
+0047                 133     TIMER_DELAY_20_MS:
+
+0047 C28D            134                     CLR TF0
+
+0049 D28C            135                     SETB TR0
+
+                     136             
+
+004B 308DFD          137                     JNB TF0, $
+
+                     138                     
+
+004E C28D            139                     CLR TF0
+
+0050 C28C            140                     CLR TR0
+
+                     141             
+
+0052 D8F3            142                     DJNZ R0, TIMER_DELAY_20_MS
+
+                     143             
+
+0054 22              144                     RET
+
+                     145                     
+
+                     146     
+
+                     147     
+
+                     148     
+
+                     149     
+
+                     150     
+
+                     151     
+
+                     152     
+
+0055                 153     TIMER_DELAY_1_S:
+
+0055 7832            154                     MOV             R0, #50d
+
+0057 1147            155                     CALL    TIMER_DELAY_20_MS
+
+                     156                     
+
+0059 D9FA            157                     DJNZ    R1, TIMER_DELAY_1_S
+
+                     158             
+
+005B 22              159                     RET
+
+                     160     
+
+                     161     
+
+                     162     
+
+                     163     
+
+                     164     
+
+                     165     
+
+                     166     
+
+                     167     
+
+                     168     
+
+                     169     
+
+                     170     
+
+                     171     
+
+                     172     
+
+005C                 173     INT_CONFIGURA_INTERRUPCOES:
+
+                     174                     
+
+005C D2AF            175                     SETB    EA
+
+005E D2A8            176                     SETB    EX0
+
+0060 D2AA            177                     SETB    EX1
+
+                     178                     
+
+                     179                     
+
+0062 D2B8            180                     SETB    PX0              
+
+0064 D2BA            181                     SETB    PX1              
+
+                     182                     
+
+                     183                     
+
+0066 D289            184                     SETB    IE0              
+
+0068 D28B            185                     SETB    IE1              
+
+                     186                     
+
+006A 22              187                     RET
+
+                     188     
+
+                     189     
+
+A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        04/12/2017 23:40:43 PAGE     4
+
+                     190     
+
+                     191     
+
+                     192     
+
+                     193     
+
+                     194     
+
+                     195     
+
+006B                 196     INT_EXT0:
+
+006B 32              197                     RETI
+
+                     198     
+
+                     199     
+
+                     200     
+
+                     201     
+
+                     202     
+
+                     203     
+
+                     204     
+
+                     205     
+
+006C                 206     INT_TIMER0:
+
+006C 32              207                     RETI
+
+                     208             
+
+                     209     
+
+                     210     
+
+                     211     
+
+                     212     
+
+                     213     
+
+                     214     
+
+                     215     
+
+006D                 216     INT_EXT1:
+
+006D 32              217                     RETI
+
+                     218     
+
+                     219     
+
+                     220     
+
+                     221     
+
+                     222     
+
+                     223     
+
+                     224     
+
+                     225     
+
+006E                 226     INT_TIMER1:
+
+006E 32              227                     RETI
+
+                     228             
+
+                     229     
+
+                     230     
+
+                     231     
+
+                     232     
+
+                     233     
+
+                     234     
+
+                     235     
+
+006F                 236     INT_SERIAL:
+
+006F 32              237                     RETI
+
+                     238             
+
+0070                 239     FIM:
+
+0070 80FE            240                     JMP $
+
+                     241                     END
+
+A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        04/12/2017 23:40:43 PAGE     5
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E                     T Y P E  V A L U E   ATTRIBUTES
+
+ACIONA_BUZZER_X1S. . . . .  C ADDR   0036H   A   
+ACIONA_BUZZER_X20MS. . . .  C ADDR   002FH   A   
+BUZZER . . . . . . . . . .  B ADDR   00B0H.0 A   
+EA . . . . . . . . . . . .  B ADDR   00A8H.7 A   
+EX0. . . . . . . . . . . .  B ADDR   00A8H.0 A   
+EX1. . . . . . . . . . . .  B ADDR   00A8H.2 A   
+FIM. . . . . . . . . . . .  C ADDR   0070H   A   
+IE0. . . . . . . . . . . .  B ADDR   0088H.1 A   
+IE1. . . . . . . . . . . .  B ADDR   0088H.3 A   
+INT_CONFIGURA_INTERRUPCOES  C ADDR   005CH   A   
+INT_EXT0 . . . . . . . . .  C ADDR   006BH   A   
+INT_EXT1 . . . . . . . . .  C ADDR   006DH   A   
+INT_SERIAL . . . . . . . .  C ADDR   006FH   A   
+INT_TIMER0 . . . . . . . .  C ADDR   006CH   A   
+INT_TIMER1 . . . . . . . .  C ADDR   006EH   A   
+LED1 . . . . . . . . . . .  B ADDR   00B0H.7 A   
+LED_SEG. . . . . . . . . .  B ADDR   00B0H.6 A   
+P3 . . . . . . . . . . . .  D ADDR   00B0H   A   
+PX0. . . . . . . . . . . .  B ADDR   00B8H.0 A   
+PX1. . . . . . . . . . . .  B ADDR   00B8H.2 A   
+SENSOR_EXTERNO_1 . . . . .  B ADDR   00B0H.2 A   
+SENSOR_EXTERNO_2 . . . . .  B ADDR   00B0H.3 A   
+TF0. . . . . . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . . . . . .  D ADDR   008CH   A   
+TIMER_CONFIGURA_TIMER. . .  C ADDR   003DH   A   
+TIMER_DELAY_1_S. . . . . .  C ADDR   0055H   A   
+TIMER_DELAY_20_MS. . . . .  C ADDR   0047H   A   
+TL0. . . . . . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . . . . . .  B ADDR   0088H.4 A   
+__STARTUP__. . . . . . . .  C ADDR   0026H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

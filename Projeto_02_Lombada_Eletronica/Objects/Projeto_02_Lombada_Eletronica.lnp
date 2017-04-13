@@ -1,0 +1,3 @@
+".\Objects\Projeto_02_Lombada_Eletronica.obj" 
+TO ".\Objects\Projeto_02_Lombada_Eletronica" 
+PRINT(".\Listings\Projeto_02_Lombada_Eletronica.m51") RAMSIZE(256) 
