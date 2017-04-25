@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 17:09:07 PAGE     1
+A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/25/2017 15:03:58 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.5.0
@@ -115,7 +115,7 @@ LOC  OBJ            LINE     SOURCE
 0068 7F                      
 0069                  50     SINE_WAVE_37_SAMPLES:
 
-A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 17:09:07 PAGE     2
+A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/25/2017 15:03:58 PAGE     2
 
 0069 8096ACC0         51             DB 128, 150, 172, 192, 210, 226, 239, 248, 254, 255, 254, 248, 239, 226, 210, 192, 
                              172, 150, 128, 106, 84, 64, 46, 30, 17, 8, 2, 0, 2, 8, 17, 30, 46, 64, 84, 106, 128
@@ -157,7 +157,7 @@ LOC  OBJ            LINE     SOURCE
 
 00D5                  55     main:
 
-00D5 753100           56             MOV             WAVE_FORM, #WAVE_FORM_SINE  
+00D5 753101           56             MOV             WAVE_FORM, #WAVE_FORM_SQUARE  
 
 00D8 E531             57             MOV             A, WAVE_FORM
 
@@ -219,7 +219,7 @@ LOC  OBJ            LINE     SOURCE
 
                       86             
 
-A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 17:09:07 PAGE     3
+A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/25/2017 15:03:58 PAGE     3
 
 00F2 93               87             MOVC    A, @A + DPTR
 
@@ -353,7 +353,7 @@ LOC  OBJ            LINE     SOURCE
 
                      152             
 
-A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 17:09:07 PAGE     4
+A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/25/2017 15:03:58 PAGE     4
 
                      153             
 
@@ -487,7 +487,7 @@ LOC  OBJ            LINE     SOURCE
 
 0179 22              218             RET
 
-A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 17:09:07 PAGE     5
+A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/25/2017 15:03:58 PAGE     5
 
                      219                     
 
@@ -607,7 +607,7 @@ LOC  OBJ            LINE     SOURCE
 
                      277             END
 
-A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/11/2017 17:09:07 PAGE     6
+A51 MACRO ASSEMBLER  PWM_COM_TIMER                                                        04/25/2017 15:03:58 PAGE     6
 
 SYMBOL TABLE LISTING
 ------ ----- -------

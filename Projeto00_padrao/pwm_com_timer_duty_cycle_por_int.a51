@@ -53,6 +53,12 @@ SINE_WAVE_71_SAMPLES:
 	DB 128, 139, 150, 161, 172, 182, 192, 201, 210, 218, 226, 233, 239, 245, 248, 253, 254, 255, 254, 253, 248, 245, 239, 233, 226, 218, 210, 201, 192, 182, 172, 161, 150, 139, 128, 117, 106, 95, 84, 74, 64, 55, 46, 38, 30, 24, 17, 13, 8, 5, 2, 1, 0, 1, 2, 5, 8, 13, 17, 24, 30, 38, 46, 55, 64, 74, 84, 95, 106, 117, 128
 
 main:
+	// Habilita Interrupcao 0 e 1
+	SETB	EX0 // interrupcao 0 
+	SETB	EX1	// interrupcao 1 
+	SETB	IE0 // interrupcao por borda
+	SETB 	IE1 // interrupcao por borda
+	
 	MOV		WAVE_FORM, #WAVE_FORM_SQUARE // wave form
 	MOV		A, WAVE_FORM
 	
@@ -138,7 +144,7 @@ SQUARE_WAVE:
 	
 PWM_SQUARE_WAVE_SETUP:
 	MOV 	TMOD, #00010000b  // Timer1 in Mode 1 (16 bits without auto-reload)
-	MOV 	DUTY_CYCLE, #35d // Set pulse width control (50%)
+	MOV 	DUTY_CYCLE, #127d // Set pulse width control (50%)
 	
 	CALL	PWM_SQUARE_WAVE_CONFIG_PERIOD
 	
@@ -152,8 +158,8 @@ PWM_SQUARE_WAVE_CONFIG_PERIOD:
 	// Considerando 20 ciclos de maquina para a interrupcao
 	// 0xE * 0xFF * 0xFF =~ 1Hz 
 	// 0x0 * 0x4 * 0xFF = 1kHz
-	MOV		PERIOD_MSB, #00Eh
-	MOV		PERIOD_MED, #0FFh
+	MOV		PERIOD_MSB, #000h
+	MOV		PERIOD_MED, #004h
 	MOV		PERIOD_LSB, #0FFh
 	
 	MOV		R6, PERIOD_MED
@@ -228,9 +234,15 @@ CONTINUE_SQUARE_LOW:
 ////////////////////////////////////////////////
 
 /*
-*
+* Decrementa o DUTY_CYCLE em 1
 */
 INT_INT0:
+	PUSH 	ACC
+	
+	DEC 	DUTY_CYCLE
+	
+	POP		ACC
+	
 	RETI
 
 /*
@@ -240,9 +252,15 @@ INT_TIMER0:
 	RETI
 	
 /*
-*
+* Incrementa o DUTY_CYCLE em 1
 */
 INT_INT1:
+	PUSH 	ACC
+	
+	INC 	DUTY_CYCLE
+	
+	POP		ACC
+
 	RETI
 
 /*

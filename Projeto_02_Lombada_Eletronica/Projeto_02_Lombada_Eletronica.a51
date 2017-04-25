@@ -49,9 +49,10 @@ ljmp INT_SERIAL
 
 PINO_LED_VERDE				EQU P1.0
 PINO_LED_VERMELHO			EQU P1.1
+PINO_LED_AMARELO			EQU	P1.2	
 
 // BUZZER
-BUZZER						EQU P1.2
+BUZZER						EQU P1.3
 	
 SENSOR_EXTERNO_1			EQU P3.2 // Bit do PORT P3 reservado para a INT0
 SENSOR_EXTERNO_2			EQU P3.3 // Bit do PORT P3 reservado para a INT1
@@ -97,6 +98,7 @@ TIMER_MEDICOES_X1S			EQU	43h
 __STARTUP__:
 		CLR		PINO_LED_VERDE
 		CLR		PINO_LED_VERMELHO
+		CLR		PINO_LED_AMARELO
 		CLR		BUZZER
 
 		LCALL	SETA_VARIAVEIS_INICIAIS
@@ -107,6 +109,8 @@ INICIO:
 		LCALL	RESETA_TIMER_MEDICOES
 		
 ESPERA_SENSOR_2:
+		LCALL	SINALIZA_LOMBADA_LIGADA
+		
 		MOV		A, FLAG_CALCULAR_VELOCIDADE
 		CJNE	A, #01h, ESPERA_SENSOR_2
 		
@@ -143,6 +147,29 @@ RESETA_TIMER_MEDICOES:
 		MOV		TIMER_MEDICOES_X1S, #00h
 		
 		RET
+		
+//////////////////////////////////////////////////////
+// NOME: AGUARDA_MEDICAO							//
+// DESCRICAO: CHAMA PWM PARA FAZER O LED VERDE		//
+// PISCAR DURANTE 2 S COM FREQUENCIA DE 1 HZ 		//
+// P.ENTRADA: 					 					//
+// P.SAIDA: 										//
+// ALTERA:  										//
+//////////////////////////////////////////////////////
+SINALIZA_LOMBADA_LIGADA:
+		MOV		R0, #001h // quantidade de periodos
+		MOV		R1, #128d // duty cycle (50%)
+		
+		// Considerando 20 ciclos de maquina para a interrupcao
+		// 0xE * 0xFF * 0xFF =~ 1Hz 
+		MOV		R2, #00Eh
+		MOV		R3, #0FFh
+		MOV		R4, #0FFh
+		MOV		R5, #00000100b // ativa o led amarelo, sinalizando que a lombada esta funcionando
+		
+		LCALL	PWM_SQUARE_WAVE_SETUP_AND_START
+		
+		RET	
 
 //////////////////////////////////////////////////////
 // NOME: CALCULA_VELOCIDADE							//
@@ -172,7 +199,7 @@ VELOCIDADE_ABAIXO_DO_LIMITE:
 		MOV		R2, #00Eh
 		MOV		R3, #0FFh
 		MOV		R4, #0FFh
-		MOV		R5, #00000111b // ativa o led verde, o led vermelhor e o buzzer para teste
+		MOV		R5, #00000001b // ativa o led verde, sinalizando que o veiculo passou em velocidade abaixo do limite
 		
 		LCALL	PWM_SQUARE_WAVE_SETUP_AND_START
 		
@@ -302,7 +329,8 @@ TIMER_DELAY_1_S:
 //			  R5-> FLAG PARA PINOS A SEREM ATIVADOS //
 //				bit 0 = PINO_LED_VERDE				//
 //				bit 1 = PINO_LED_VERMELHO			//
-//				bit 2 = BUZZER						//
+//				bit 2 = PINO_LED_AMARELO			//
+//				bit 3 = BUZZER						//
 // P.SAIDA: 										//
 // ALTERA: A										//
 //////////////////////////////////////////////////////
@@ -377,7 +405,8 @@ PWM_STOP:
 //			  R5-> FLAG PARA PINOS A SEREM ATIVADOS //
 //				bit 0 = PINO_LED_VERDE				//
 //				bit 1 = PINO_LED_VERMELHO			//
-//				bit 2 = BUZZER						//
+//				bit 2 = PINO_LED_AMARELO			//
+//				bit 3 = BUZZER						//
 // P.SAIDA: - 										//
 // ALTERA: R6, R7									//
 //////////////////////////////////////////////////////
@@ -452,7 +481,8 @@ CONTINUE_SQUARE_LOW:
 // P.ENTRADA: R5-> FLAG PARA PINOS					//
 //				bit 0 = PINO_LED_VERDE				//
 //				bit 1 = PINO_LED_VERMELHO			//
-//				bit 2 = BUZZER						//
+//				bit 2 = PINO_LED_AMARELO			//
+//				bit 3 = BUZZER						//
 // P.SAIDA: 										//
 // ALTERA: 											//
 //////////////////////////////////////////////////////
@@ -475,9 +505,16 @@ NAO_ATIVA_BIT_1:
 		ANL		A, R5
 		JZ		NAO_ATIVA_BIT_2
 		
-		CPL 	BUZZER
+		CPL 	PINO_LED_AMARELO
 
 NAO_ATIVA_BIT_2:
+		MOV		A, #08h
+		ANL		A, R5
+		JZ		NAO_ATIVA_BIT_3
+		
+		CPL 	BUZZER
+
+NAO_ATIVA_BIT_3:
 		RET
 
 //////////////////////////////////////////////////
