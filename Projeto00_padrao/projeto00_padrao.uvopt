@@ -129,30 +129,62 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGDP51</Key>
-          <Name>(98=-1,-1,-1,-1,0)(82=-1,-1,-1,-1,0)(83=-1,-1,-1,-1,0)(84=-1,-1,-1,-1,0)(85=-1,-1,-1,-1,0)(5056=-1,-1,-1,-1,0)(5055=-1,-1,-1,-1,0)(91=-1,-1,-1,-1,0)(92=-1,-1,-1,-1,0)(94=-1,-1,-1,-1,0)(95=-1,-1,-1,-1,0)(100=-1,-1,-1,-1,0)(5008=-1,-1,-1,-1,0)(5015=-1,-1,-1,-1,0)(5057=-1,-1,-1,-1,0)(5003=-1,-1,-1,-1,0)(2003=-1,-1,-1,-1,0)(5061=-1,-1,-1,-1,0)(5113=-1,-1,-1,-1,0)</Name>
+          <Name>(98=-1,-1,-1,-1,0)(82=-1,-1,-1,-1,0)(83=-1,-1,-1,-1,0)(84=-1,-1,-1,-1,0)(85=615,427,823,542,1)(5056=-1,-1,-1,-1,0)(5055=-1,-1,-1,-1,0)(91=-1,-1,-1,-1,0)(92=-1,-1,-1,-1,0)(94=-1,-1,-1,-1,0)(95=-1,-1,-1,-1,0)(100=-1,-1,-1,-1,0)(5008=-1,-1,-1,-1,0)(5015=-1,-1,-1,-1,0)(5057=-1,-1,-1,-1,0)(5003=-1,-1,-1,-1,0)(2003=-1,-1,-1,-1,0)(5061=-1,-1,-1,-1,0)(5113=-1,-1,-1,-1,0)</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
       <Breakpoint>
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>29</LineNumber>
+          <LineNumber>36</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>-16777178</Address>
+          <Address>-16777197</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>C:\Users\leona\Google Drive\UTFPR\6 Semestre\Sistemas Microcontrolados\Projetos\Projeto00_padrao\projeto00_padrao.a51</Filename>
+          <Filename>C:\Users\leona\Google Drive\UTFPR\6 Semestre\Sistemas Microcontrolados\Projetos\Projeto00_padrao\pwm_com_timer_duty_cycle_por_int.a51</Filename>
           <ExecCommand></ExecCommand>
           <Expression></Expression>
         </Bp>
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
+          <LineNumber>30</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>-16777213</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>C:\Users\leona\Google Drive\UTFPR\6 Semestre\Sistemas Microcontrolados\Projetos\Projeto00_padrao\pwm_com_timer_duty_cycle_por_int.a51</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression></Expression>
+        </Bp>
+        <Bp>
+          <Number>2</Number>
+          <Type>0</Type>
           <LineNumber>28</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>0</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>0</BreakIfRCount>
+          <Filename>C:\Users\leona\Google Drive\UTFPR\6 Semestre\Sistemas Microcontrolados\Projetos\Projeto00_padrao\projeto00_padrao.a51</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression></Expression>
+        </Bp>
+        <Bp>
+          <Number>3</Number>
+          <Type>0</Type>
+          <LineNumber>29</LineNumber>
           <EnabledFlag>1</EnabledFlag>
           <Address>0</Address>
           <ByteObject>0</ByteObject>
@@ -192,12 +224,17 @@
           <WinNumber>1</WinNumber>
           <ItemText>TF1</ItemText>
         </Ww>
+        <Ww>
+          <count>5</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>p1.0</ItemText>
+        </Ww>
       </WatchWindow1>
       <MemoryWindow1>
         <Mm>
           <WinNumber>1</WinNumber>
           <SubType>0</SubType>
-          <ItemText>d:11h</ItemText>
+          <ItemText>d:32h</ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow1>
@@ -239,8 +276,8 @@
       <LogicAnalyzers>
         <Wi>
           <IntNumber>0</IntNumber>
-          <FirstString>P1</FirstString>
-          <SecondString>FF00000000000000000000000000000000E06F400000000000000000000000000000000050310000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000001000000000000000000F03F1A00000000000000000000000000000000000000000000FF</SecondString>
+          <FirstString>PWM_PIN</FirstString>
+          <SecondString>FF0000000000000000000000000000000000F03F0000000000000000000000000000000050574D5F50494E000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000001000000000000000000F03F1700000000000000000000000000000000000000000000FF</SecondString>
         </Wi>
       </LogicAnalyzers>
     </TargetOption>
@@ -309,6 +346,18 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\pwm_com_timer.a51</PathWithFileName>
       <FilenameWithoutPath>pwm_com_timer.a51</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>1</GroupNumber>
+      <FileNumber>6</FileNumber>
+      <FileType>2</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>.\pwm_com_timer_duty_cycle_por_int.a51</PathWithFileName>
+      <FilenameWithoutPath>pwm_com_timer_duty_cycle_por_int.a51</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

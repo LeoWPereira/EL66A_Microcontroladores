@@ -14,22 +14,22 @@
 //														//
 //////////////////////////////////////////////////////////
 
-org 00h//2000h // Origem do codigo 
+org 2000h // Origem do codigo 
 ljmp __STARTUP__
 
-org 03h//2003h // Inicio do codigo da interrupcao externa INT0
+org 2003h // Inicio do codigo da interrupcao externa INT0
 ljmp INT_INT0
 
-org 0Bh//200Bh // Inicio do codigo da interrupcao interna gerada pelo TIMER/COUNTER 0
+org 200Bh // Inicio do codigo da interrupcao interna gerada pelo TIMER/COUNTER 0
 ljmp INT_TIMER0
 
-org 013h//2013h // Inicio do codigo da interrupcao externa INT1
+org 2013h // Inicio do codigo da interrupcao externa INT1
 ljmp INT_INT1
 
-org 01Bh//201Bh // Inicio do codigo da interrupcao interna gerada pelo TIMER/COUNTER 1
+org 201Bh // Inicio do codigo da interrupcao interna gerada pelo TIMER/COUNTER 1
 ljmp INT_TIMER1
 
-org 023h//2023h // Inicio do codigo da interrupcao SERIAL
+org 2023h // Inicio do codigo da interrupcao SERIAL
 ljmp INT_SERIAL
 
 ////////////////////////////////////////////////
@@ -96,7 +96,7 @@ TIMEOUT_X1S		EQU	53h
 // REGIAO DA MEMORIA DE PROGRAMA COM AS STRINGS //
 //////////////////////////////////////////////////
 
-org 30h//2030h
+org 2030h
 SENHA_PADRAO_1:
 		db  	'2812', 00H
 SENHA_PADRAO_2:

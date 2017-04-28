@@ -526,7 +526,7 @@
                   <RVCTZI>0</RVCTZI>
                   <RVCTOtherData>0</RVCTOtherData>
                   <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>1</IncludeInBuild>
+                  <IncludeInBuild>0</IncludeInBuild>
                   <AlwaysBuild>2</AlwaysBuild>
                   <GenerateAssemblyFile>2</GenerateAssemblyFile>
                   <AssembleAssemblyFile>2</AssembleAssemblyFile>
@@ -552,6 +552,11 @@
                   </Ax51>
                 </File51>
               </FileOption>
+            </File>
+            <File>
+              <FileName>pwm_com_timer_duty_cycle_por_int.a51</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\pwm_com_timer_duty_cycle_por_int.a51</FilePath>
             </File>
           </Files>
         </Group>

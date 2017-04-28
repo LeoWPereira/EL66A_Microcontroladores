@@ -20,27 +20,29 @@
 // - O sistema devera, ainda, ter um alarme em forma de led e buzzer quando	//
 // a velocidade ultrapassar os 40 km/h.										//
 // 																			//
+// CONSIDERE QUE 1 ESTADO = 0.375 us										//
+//																			//
 // @author: Leonardo Winter Pereira 										//
 // @author: Rodrigo Yudi Endo												//
 //																			//
 //////////////////////////////////////////////////////////////////////////////
 
-org 00h//2000h // Origem do codigo 
+org 000h // Origem do codigo 
 ljmp __STARTUP__
 
-org 03h//2003h // Inicio do codigo da interrupcao externa INT0
+org 003h // Inicio do codigo da interrupcao externa INT0
 ljmp INT_EXT0
 
-org 0Bh//200Bh // Inicio do codigo da interrupcao interna gerada pelo TIMER/COUNTER 0
+org 00Bh // Inicio do codigo da interrupcao interna gerada pelo TIMER/COUNTER 0
 ljmp INT_TIMER0
 
-org 013h//2013h // Inicio do codigo da interrupcao externa INT1
+org 013h // Inicio do codigo da interrupcao externa INT1
 ljmp INT_EXT1
 
-org 01Bh//201Bh // Inicio do codigo da interrupcao interna gerada pelo TIMER/COUNTER 1
+org 01Bh // Inicio do codigo da interrupcao interna gerada pelo TIMER/COUNTER 1
 ljmp INT_TIMER1
 
-org 023h//2023h // Inicio do codigo da interrupcao SERIAL
+org 023h // Inicio do codigo da interrupcao SERIAL
 ljmp INT_SERIAL
 
 //////////////////////////////////////////////////
@@ -54,8 +56,8 @@ PINO_LED_AMARELO			EQU	P1.2
 // BUZZER
 BUZZER						EQU P1.3
 	
-SENSOR_EXTERNO_1			EQU P3.2 // Bit do PORT P3 reservado para a INT0
-SENSOR_EXTERNO_2			EQU P3.3 // Bit do PORT P3 reservado para a INT1
+//SENSOR_EXTERNO_1			EQU P3.2 // Bit do PORT P3 reservado para a INT0
+//SENSOR_EXTERNO_2			EQU P3.3 // Bit do PORT P3 reservado para a INT1
 
 // LEDS DA PLACA
 LED_SEG 					EQU	P3.6
@@ -76,31 +78,36 @@ PWM_QTDADE_PERIODOS			EQU 36h
 	
 DISTANCIA_SENSORES			EQU 37h	 // Distancia entre os dois sensores (em cm)
 
-FLAG_CALCULAR_VELOCIDADE	EQU 38h  // Se essa flag esta em 1 -> calcula a velocidade e mostra no display de 7 segmentos
+FLAG_PASSOU_PRIMEIRO_SENSOR EQU 38h
+FLAG_CALCULAR_VELOCIDADE	EQU 39h  // Se essa flag esta em 1 -> calcula a velocidade e mostra no display de 7 segmentos
 	
-VELOCIDADE_VEICULO_UNIDADE	EQU	39h
-VELOCIDADE_VEICULO_DEZENA	EQU	40h
+// Velocidade em km/h
+VELOCIDADE_VEICULO_UNIDADE	EQU	40h
+VELOCIDADE_VEICULO_DEZENA	EQU	41h
+VELOCIDADE_VEICULO			EQU 42h	
 
-// Registradores disponibilizados para medir tempo com variacao de 200 us (0.2 ms)
-// Com esses 3 registradores (configurados na rotina INT_TIMER1) e possivel registrar um tempo de medicao de ate 255000 ms (255 s)
-TIMER_MEDICOES_LOW			EQU	41h
-TIMER_MEDICOES_HIGH			EQU	42h
-TIMER_MEDICOES_X1S			EQU	43h
+VELOCIDADE_LIMITE			EQU 43h	// em cm/ms (x36 = km / h)
+	
+TIMER_MEDICOES_LOW			EQU	44h
+
+// Registradores disponibilizados para medir tempo com variacao de 1 ms
+// Com esses 2 registradores (configurados na rotina INT_TIMER1) e possivel registrar um tempo de medicao de ate 65 s
+TIMER_MEDICOES_LSB			EQU	45h
+TIMER_MEDICOES_MSB			EQU	46h
 	
 //////////////////////////////////////////////////
 // REGIAO DA MEMORIA DE PROGRAMA COM AS STRINGS //
 //////////////////////////////////////////////////
+
+org 030h
+//TAB7SEG:
+	//DB 3FH, 06H, 5BH, 4FH, 66H, 6DH, 7DH, 07H, 7FH, 6FH, 77H, 7CH, 39H, 5EH, 79H, 71H
 
 //////////////////////////////////////////////////
 // 				INICIO DO PROGRAMA			    //
 //////////////////////////////////////////////////
 
 __STARTUP__:
-		CLR		PINO_LED_VERDE
-		CLR		PINO_LED_VERMELHO
-		CLR		PINO_LED_AMARELO
-		CLR		BUZZER
-
 		LCALL	SETA_VARIAVEIS_INICIAIS
 		LCALL	TIMER_CONFIGURA_TIMER
 		LCALL	INT_CONFIGURA_INTERRUPCOES
@@ -127,10 +134,17 @@ ESPERA_SENSOR_2:
 // ALTERA:  										//
 //////////////////////////////////////////////////////
 SETA_VARIAVEIS_INICIAIS:
-		MOV		DISTANCIA_SENSORES, #100d  		// (distancia de 1m entre sensores)
-		MOV		FLAG_CALCULAR_VELOCIDADE, #00h
+		CLR		PINO_LED_VERDE
+		CLR		PINO_LED_VERMELHO
+		CLR		PINO_LED_AMARELO
+		CLR		BUZZER
+		
+		MOV		DISTANCIA_SENSORES, 		#100d	// (distancia de 1m entre sensores)
+		MOV		VELOCIDADE_LIMITE,			#040d	// velocidade limite de 40 km/h
+		MOV		FLAG_PASSOU_PRIMEIRO_SENSOR,#00h 
+		MOV		FLAG_CALCULAR_VELOCIDADE, 	#00h
 		MOV		VELOCIDADE_VEICULO_UNIDADE, #00h
-		MOV		VELOCIDADE_VEICULO_DEZENA, #00h
+		MOV		VELOCIDADE_VEICULO_DEZENA, 	#00h
 		
 		RET
 		
@@ -142,16 +156,19 @@ SETA_VARIAVEIS_INICIAIS:
 // ALTERA:  										//
 //////////////////////////////////////////////////////
 RESETA_TIMER_MEDICOES:
-		MOV		TIMER_MEDICOES_LOW, #00h
-		MOV		TIMER_MEDICOES_HIGH, #00h
-		MOV		TIMER_MEDICOES_X1S, #00h
+		MOV		TIMER_MEDICOES_LOW, 	#00h
+		MOV		TIMER_MEDICOES_LSB, 	#00h
+		MOV		TIMER_MEDICOES_MSB, 	#00h
+		
+		MOV		VELOCIDADE_VEICULO, 	#00h
 		
 		RET
 		
 //////////////////////////////////////////////////////
-// NOME: AGUARDA_MEDICAO							//
-// DESCRICAO: CHAMA PWM PARA FAZER O LED VERDE		//
-// PISCAR DURANTE 2 S COM FREQUENCIA DE 1 HZ 		//
+// NOME: SINALIZA_LOMBADA_LIGADA					//
+// DESCRICAO: CHAMA PWM PARA FAZER O LED AMARELO	//
+// PISCAR DURANTE 1 S COM FREQUENCIA DE 1 HZ 		//
+// E DUTY CYCLE DE 50%								//
 // P.ENTRADA: 					 					//
 // P.SAIDA: 										//
 // ALTERA:  										//
@@ -160,9 +177,10 @@ SINALIZA_LOMBADA_LIGADA:
 		MOV		R0, #001h // quantidade de periodos
 		MOV		R1, #128d // duty cycle (50%)
 		
-		// Considerando 20 ciclos de maquina para a interrupcao
-		// 0xE * 0xFF * 0xFF =~ 1Hz 
-		MOV		R2, #00Eh
+		// Considerando 20 ciclos de maquina para a interrupcao (20 x 0.375 us = 7.5 us)
+		// 2666666 (0x28B0AA) estados em 32 MHz para frequencia de 1 Hz
+		// 0x29 * 0xFF * 0xFF =~ 1Hz 
+		MOV		R2, #029h
 		MOV		R3, #0FFh
 		MOV		R4, #0FFh
 		MOV		R5, #00000100b // ativa o led amarelo, sinalizando que a lombada esta funcionando
@@ -176,9 +194,32 @@ SINALIZA_LOMBADA_LIGADA:
 // DESCRICAO: 										//
 // P.ENTRADA: 					 					//
 // P.SAIDA: 										//
-// ALTERA:  										//
+// ALTERA: C, B  					 				//
 //////////////////////////////////////////////////////
 CALCULA_VELOCIDADE:
+		CLR		C // para poder fazer a comparacao para ver se a velocidade e maior ou menor do que o limite permitido
+		
+		// Aqui temos que calcular a velocidade (distancia / tempo)
+		// distancia e conhecida, e o tempo esta em 3 registradores
+
+		//MOV	VELOCIDADE_VEICULO, #VALOR_CALCULADO
+		//LCALL	MOSTRA_VELOCIDADE_DISPLAY
+		
+		// Soma a velocidade medida do veiculo com 215d
+		// Se essa soma setar o Carry, e porque a velocidade esta acima do limite
+		// Caso contrario, velocidade abaixo do limite
+		MOV		A, #0FFh
+		SUBB	A, VELOCIDADE_LIMITE
+		
+		ADDC	A, VELOCIDADE_VEICULO
+		
+		JC		ACIMA_DO_LIMITE
+		LCALL	VELOCIDADE_ABAIXO_DO_LIMITE
+		
+		RET
+
+ACIMA_DO_LIMITE:
+		LCALL	VELOCIDADE_ACIMA_DO_LIMITE
 		
 		RET	
 		
@@ -194,16 +235,41 @@ VELOCIDADE_ABAIXO_DO_LIMITE:
 		MOV		R0, #02h // quantidade de periodos
 		MOV		R1, #128d // duty cycle (50%)
 		
-		// Considerando 20 ciclos de maquina para a interrupcao
-		// 0xE * 0xFF * 0xFF =~ 1Hz 
-		MOV		R2, #00Eh
+		// Considerando 20 ciclos de maquina para a interrupcao (20 x 0.375 us = 7.5 us)
+		// 2666666 (0x28B0AA) estados em 32 MHz para frequencia de 1 Hz
+		// 0x29 * 0xFF * 0xFF =~ 1Hz  
+		MOV		R2, #029h
 		MOV		R3, #0FFh
 		MOV		R4, #0FFh
 		MOV		R5, #00000001b // ativa o led verde, sinalizando que o veiculo passou em velocidade abaixo do limite
 		
 		LCALL	PWM_SQUARE_WAVE_SETUP_AND_START
 		
-		RET	
+		RET
+
+//////////////////////////////////////////////////////
+// NOME: VELOCIDADE_ACIMA_DO_LIMITE					//
+// DESCRICAO: CHAMA PWM PARA FAZER O LED VEMELHO	//
+// PISCAR DURANTE 2 S COM FREQUENCIA DE 1 HZ 		//
+// P.ENTRADA: 					 					//
+// P.SAIDA: 										//
+// ALTERA:  										//
+//////////////////////////////////////////////////////
+VELOCIDADE_ACIMA_DO_LIMITE:
+		MOV		R0, #02h // quantidade de periodos
+		MOV		R1, #128d // duty cycle (50%)
+		
+		// Considerando 20 ciclos de maquina para a interrupcao (20 x 0.375 us = 7.5 us)
+		// 2666666 (0x28B0AA) estados em 32 MHz para frequencia de 1 Hz
+		// 0x29 * 0xFF * 0xFF =~ 1Hz 
+		MOV		R2, #029h
+		MOV		R3, #0FFh
+		MOV		R4, #0FFh
+		MOV		R5, #00001010b // ativa o led vermelho e o buzzer, sinalizando que o veiculo passou em velocidade acima do limite
+		
+		LCALL	PWM_SQUARE_WAVE_SETUP_AND_START
+		
+		RET
 
 //////////////////////////////////////////////////
 // 	      CODIGOS RELACIONADOS AO BUZZER		//
@@ -253,13 +319,14 @@ TIMER_CONFIGURA_TIMER:
 		
 		ACALL	TIMER_SETA_VALORES_TIMER_PADRAO
 		
-		////////////////////////////////////////////////////
-		// Aqui configuramos o TIMER_1 (para as medicoes) //
-		// 	  Interrupcao a ser chamada a cada 200 us	  //
-		////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////
+		//    Aqui configuramos o TIMER_1 (para as medicoes)  //
+		// 	     Interrupcao a ser chamada a cada 50 us	      //
+		// 50 us = 133 instrucoes (onde 1 executa em 0.375us) //
+		////////////////////////////////////////////////////////
 		
 		MOV 	TH1, #0FFh
-		MOV		TL1, #05h
+		MOV		TL1, #122d
 				
 		RET
 		
@@ -272,8 +339,9 @@ TIMER_CONFIGURA_TIMER:
 //////////////////////////////////////////////////////
 TIMER_SETA_VALORES_TIMER_PADRAO:
 		// Para o TIMER_0, TH0 e TL0 representam o necessario para um delay de 20ms
-		MOV 	TH0, #HIGH(65535 - 43350)
-		MOV 	TL0, #LOW(65535 - 43350)
+		// Se 1 estado executa em 0.375 us, precisamos de 53330 estados para executar 20ms
+		MOV 	TH0, #HIGH(65535 - 53330)
+		MOV 	TL0, #LOW(65535 - 53330)
 				
 		RET
 
@@ -365,9 +433,6 @@ PWM_PARAR:
 // ALTERA: R6; R7 									//
 //////////////////////////////////////////////////////
 PWM_SQUARE_WAVE_CONFIG_PERIOD:
-		// Considerando 20 ciclos de maquina para a interrupcao
-		// 0xE * 0xFF * 0xFF =~ 1Hz 
-		// 0x0 * 0x4 * 0xFF = 1kHz
 		MOV		PWM_PERIODO_MSB, R2
 		MOV		PWM_PERIODO_MED, R3
 		MOV		PWM_PERIODO_LSB, R4
@@ -559,7 +624,11 @@ INT_EXT0:
 		PUSH 	ACC
 		PUSH	PSW
 		
+		MOV 	R0, #05h 		// R0 x 20 ms de delay - para nao sentir o efeito de bounce no teclado matricial
+		ACALL 	TIMER_DELAY_20_MS
+		
 		SETB	TR1
+		MOV		FLAG_PASSOU_PRIMEIRO_SENSOR, #01h
 		
 		POP		PSW
 		POP		ACC
@@ -581,16 +650,23 @@ INT_TIMER0:
 // DESCRICAO: 										//
 // P.ENTRADA:					 	 				//
 // P.SAIDA: 										//
-// ALTERA: 											//
+// ALTERA: A										//
 //////////////////////////////////////////////////////
 INT_EXT1:
 		PUSH 	ACC
 		PUSH	PSW
 		
+		MOV 	R0, #05h 		// R0 x 20 ms de delay - para nao sentir o efeito de bounce no teclado matricial
+		ACALL 	TIMER_DELAY_20_MS
+		
+		MOV		A, FLAG_PASSOU_PRIMEIRO_SENSOR
+		JZ		FINALIZA_INT_EXT1	
+		
 		CLR		TR1
 		
 		MOV		FLAG_CALCULAR_VELOCIDADE, #01h
 		
+FINALIZA_INT_EXT1:
 		POP		PSW
 		POP		ACC
 		
@@ -603,34 +679,34 @@ INT_EXT1:
 // CALCULAR O TEMPO GASTO PELO VEICULO PARA SAIR DO //
 // PRIMEIRO SENSOR E ALCANCAR O SEGUNDO				//
 // P.ENTRADA: -				 	 					//
-// P.SAIDA: TIMER_MEDICOES_LOW; TIMER_MEDICOES_HIGH //
-// ALTERA: TIMER_MEDICOES_LOW; TIMER_MEDICOES_HIGH	//
+// P.SAIDA: TIMER_MEDICOES_LOW; TIMER_MEDICOES_LSB  //
+// ALTERA: TIMER_MEDICOES_LOW; TIMER_MEDICOES_LSB	//
 //////////////////////////////////////////////////////
 INT_TIMER1:
 		PUSH 	ACC
 		PUSH	PSW
 		
-		MOV		TL1, #05h
+		MOV		TL1, #122d
 		CLR		TF1
 		
 		MOV		A, TIMER_MEDICOES_LOW
-		CJNE	A, #0FFh, INCREMENTA_TIMER_MEDICOES_LOW
+		CJNE	A, #014h, INCREMENTA_TIMER_MEDICOES_LOW
 	
-		MOV		A, TIMER_MEDICOES_HIGH
-		CJNE	A, #01Eh, INCREMENTA_TIMER_MEDICOES_HIGH
+		MOV		A, TIMER_MEDICOES_LSB
+		CJNE	A, #0FFh, INCREMENTA_TIMER_MEDICOES_LSB
 		
 		MOV		TIMER_MEDICOES_LOW, #00h
-		MOV		TIMER_MEDICOES_HIGH, #00h
-		INC		TIMER_MEDICOES_X1S
+		MOV		TIMER_MEDICOES_LSB, #00h
+		INC		TIMER_MEDICOES_MSB
 		AJMP	FINALIZA_TIMER_1
 	
 INCREMENTA_TIMER_MEDICOES_LOW:
 		INC		TIMER_MEDICOES_LOW
 		AJMP	FINALIZA_TIMER_1
 		
-INCREMENTA_TIMER_MEDICOES_HIGH:
+INCREMENTA_TIMER_MEDICOES_LSB:
 		MOV		TIMER_MEDICOES_LOW, #00h
-		INC		TIMER_MEDICOES_HIGH
+		INC		TIMER_MEDICOES_LSB
 
 FINALIZA_TIMER_1:
 		POP		PSW

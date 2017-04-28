@@ -26,7 +26,7 @@
     <ToolsetNumber>0x0</ToolsetNumber>
     <ToolsetName>MCS-51</ToolsetName>
     <TargetOption>
-      <CLK51>12000000</CLK51>
+      <CLK51>32000000</CLK51>
       <OPTTT>
         <gFlags>1</gFlags>
         <BeepAtEnd>1</BeepAtEnd>
@@ -91,8 +91,8 @@
         </Book>
       </Books>
       <DebugOpt>
-        <uSim>1</uSim>
-        <uTrg>0</uTrg>
+        <uSim>0</uSim>
+        <uTrg>1</uTrg>
         <sLdApp>1</sLdApp>
         <sGomain>1</sGomain>
         <sRbreak>1</sRbreak>
@@ -111,8 +111,8 @@
         <sRSysVw>1</sRSysVw>
         <tRSysVw>1</tRSysVw>
         <sRunDeb>0</sRunDeb>
-        <sLrtime>0</sLrtime>
-        <nTsel>-1</nTsel>
+        <sLrtime>1</sLrtime>
+        <nTsel>0</nTsel>
         <sDll></sDll>
         <sDllPa></sDllPa>
         <sDlgDll></sDlgDll>
@@ -122,10 +122,15 @@
         <tDllPa></tDllPa>
         <tDlgDll></tDlgDll>
         <tDlgPa></tDlgPa>
-        <tIfile></tIfile>
-        <pMon></pMon>
+        <tIfile>.\debug.ini</tIfile>
+        <pMon>BIN\MON51.DLL</pMon>
       </DebugOpt>
       <TargetDriverDllRegistry>
+        <SetRegEntry>
+          <Number>0</Number>
+          <Key>MON51</Key>
+          <Name>-S3 -B9600 -O15</Name>
+        </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGDP51</Key>
@@ -136,18 +141,18 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>206</LineNumber>
+          <LineNumber>207</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>-16777087</Address>
+          <Address>-16777093</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>C:\Users\leona\Google Drive\UTFPR\6 Semestre\Sistemas Microcontrolados\Projetos\Projeto_02_Lombada_Eletronica\Projeto_02_Lombada_Eletronica.a51</Filename>
+          <Filename>Projeto_02_Lombada_Eletronica.a51</Filename>
           <ExecCommand></ExecCommand>
-          <Expression></Expression>
+          <Expression>\\Projeto_02_Lombada_Eletronica\PROJETO_02_LOMBADA_ELETRONICA\207</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -166,7 +171,7 @@
         <Mm>
           <WinNumber>1</WinNumber>
           <SubType>0</SubType>
-          <ItemText>d:0x38</ItemText>
+          <ItemText>d:0x42</ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow1>
