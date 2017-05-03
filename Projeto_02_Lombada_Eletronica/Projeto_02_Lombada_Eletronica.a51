@@ -49,6 +49,9 @@ PINO_LED_VERMELHO			EQU P1.6
 	
 BUZZER						EQU P1.7
 	
+TRIGGER_ULTRASSOM_RECEPTOR	EQU P3.0
+TRIGGER_ULTRASSOM_ENVIO		EQU P3.1
+	
 // LEDS DA PLACA
 LED_SEG 					EQU	P3.6
 LED1   						EQU	P3.7
@@ -123,11 +126,6 @@ ESPERA_FLAG_MEDIR_DISTANCIA_2:
 		MOV		R1, #DISTANCIA_ATUAL
 		LCALL	MEDIR_DISTANCIA
 		
-		// Necessario reprogramar os timers e as interrupcoes devido ao calculo da distancia pelo sensor
-		LCALL	TIMER_CONFIGURA_TIMER
-		LCALL	INT_CONFIGURA_INTERRUPCOES
-		LCALL	RESETA_TIMER_MEDICOES
-		
 		LCALL	CALCULA_VELOCIDADE
 		
 		AJMP	__STARTUP__
@@ -143,7 +141,7 @@ SETA_VARIAVEIS_INICIAIS:
 		SETB	PINO_LED_VERMELHO
 		SETB	BUZZER
 		
-		MOV		VELOCIDADE_LIMITE,			#010d	// velocidade limite de 40 km/h
+		MOV		VELOCIDADE_LIMITE,			#020d	// velocidade limite de 20 cm/s
 		MOV		FLAG_MEDIR_DISTANCIA_INIT,	#00h 
 		MOV		FLAG_CALCULAR_VELOCIDADE, 	#00h
 		MOV		VELOCIDADE_VEICULO_UNIDADE, #00h
@@ -182,36 +180,37 @@ MEDIR_DISTANCIA:
 		
 		MOV 	PORT_DISPLAY, #00h
 		
-		CLR 	P3.0               // sets P3.0 as output for sending trigger
-		SETB 	P3.1              // sets P3.1 as input for receiving echo
+		CLR 	TRIGGER_ULTRASSOM_RECEPTOR	// P3.0 configurado para enviar sinal de trigger
+		SETB 	TRIGGER_ULTRASSOM_ENVIO     // P3.1 configurado para receber sinal de trigger
 
-		MOV 	TMOD,#00100000B    // sets timer1 as mode 2 auto reload timer
-		MOV 	TL1,#130D    // loads the initial value to start counting from
-		MOV 	TH1,#130D    // loads the reload value
+		MOV 	TMOD, #00100000B	// seta timer 1 para o modo 02
+		MOV 	TL1, #130D    
+		MOV 	TH1, #130D    
 		
-		MOV 	A,#00h // clears accumulator
+		MOV 	A, #00h
 		
-		SETB 	P3.0        // starts the trigger pulse
+		SETB 	TRIGGER_ULTRASSOM_RECEPTOR	// inicia o pulso para o trigger
 		
-		ACALL 	TIMER_DELAY_10_US     // gives 10uS width for the trigger pulse
+		ACALL 	TIMER_DELAY_10_US     // o trigger precisa de um pulso de 10 us para funcionar corretamente
 		
-		CLR 	P3.0         // ends the trigger pulse
+		CLR 	TRIGGER_ULTRASSOM_RECEPTOR
 
-HERE: 	
-		JNB 	P3.1,HERE    // loops here until echo is received
-BACK: 	
-		SETB 	TR1         // starts the timer1
-HERE1: 
-		JNB 	TF1,HERE1   // loops here until timer overflows (ie;48 count)
+ESPERANDO_RESPOSTA_ECHO: 	
+		JNB 	TRIGGER_ULTRASSOM_ENVIO, $    // aguarda o recebimento do trigger (sinal de eco)
+
+ECHO_AINDA_DISPONIVEL: 	
+		SETB 	TR1         
+
+		JNB 	TF1, $
       
-		CLR 	TR1          // stops the timer
-		CLR 	TF1          // clears timer flag 1
+		CLR 	TR1          
+		CLR 	TF1          
       
-		INC 	A            // increments A for every timer1 overflow
+		INC 	A	// o acumulador ira representar a distancia adquirida pelo sensor de ultrassom
       
-		JB 		P3.1,BACK     // jumps to BACK if echo is still available
+		JB 		TRIGGER_ULTRASSOM_ENVIO, ECHO_AINDA_DISPONIVEL	// continua no loop enquanto ainda nao tiver recebido um echo como resposta
       
-		MOV 	@R1, A         // saves the value of A to R4
+		MOV 	@R1, A	// armazena o valor (referente a distancia) no endereco apontado por R1
 	  
 		RET
 
@@ -308,19 +307,6 @@ VELOCIDADE_ACIMA_DO_LIMITE:
 		CLR		PINO_LED_VERMELHO
 		CLR		BUZZER
 
-		/*MOV		R0, #02h // quantidade de periodos
-		MOV		R1, #128d // duty cycle (50%)
-		
-		// Considerando 20 ciclos de maquina para a interrupcao (20 x 0.375 us = 7.5 us)
-		// 2666666 (0x28B0AA) estados em 32 MHz para frequencia de 1 Hz
-		// 0x29 * 0xFF * 0xFF =~ 1Hz 
-		MOV		R2, #029h
-		MOV		R3, #0FFh
-		MOV		R4, #0FFh
-		MOV		R5, #00000101b // ativa o led vermelho e o buzzer, sinalizando que o veiculo passou em velocidade acima do limite
-		
-		LCALL	PWM_SQUARE_WAVE_SETUP_AND_START*/
-		
 		RET
 
 //////////////////////////////////////////////////////
@@ -446,186 +432,6 @@ TIMER_DELAY_1_MS:
 		MOV 	R7, #250d        
 		DJNZ 	R7, $
         
-		RET
-		
-//////////////////////////////////////////////////
-//    INICIO DOS CODIGOS RELACIONADOS AO PWM	//
-//////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////
-// NOME: PWM_SQUARE_WAVE_SETUP_AND_START			//
-// DESCRICAO: 										//
-// P.ENTRADA: R0-> QUANTIDADE DE PERIODOS ATE PARAR	//
-//			  R1-> DUTY CYCLE						//
-//			  R2-> PWM_PERIODO_MSB					//
-//			  R3-> PWM_PERIODO_MED					//
-//			  R4-> PWM_PERIODO_LSB					//
-//			  R5-> FLAG PARA PINOS A SEREM ATIVADOS //
-//				bit 0 = PINO_LED_VERMELHO			//
-//				bit 1 = BUZZER						//
-// P.SAIDA: 										//
-// ALTERA: A										//
-//////////////////////////////////////////////////////
-PWM_SQUARE_WAVE_SETUP_AND_START:
-		MOV 	PWM_DUTY_CYCLE, R1
-	
-		LCALL	PWM_SQUARE_WAVE_CONFIG_PERIOD
-	
-		SETB 	TR0
-
-CONTINUA_PWM:
-		LCALL	PWM_SQUARE_WAVE
-		
-		MOV 	A, PWM_COUNTER
-		CJNE	A, PWM_QTDADE_PERIODOS, CONTINUA_PWM
-
-PWM_PARAR:
-		LCALL	PWM_STOP
-		
-		MOV		PWM_COUNTER, #00h
-		
-		RET
-
-//////////////////////////////////////////////////////
-// NOME: PWM_SQUARE_WAVE_CONFIG_PERIOD				//
-// DESCRICAO: 										//
-// P.ENTRADA: R0-> QUANTIDADE DE PERIODOS ATE PARAR //
-//			  R2-> PWM_PERIODO_MSB					//
-//			  R3-> PWM_PERIODO_MED					//
-//			  R4-> PWM_PERIODO_LSB					//
-// P.SAIDA: R6, R7 									//
-// ALTERA: R6, R7 									//
-//////////////////////////////////////////////////////
-PWM_SQUARE_WAVE_CONFIG_PERIOD:
-		MOV		PWM_PERIODO_MSB, R2
-		MOV		PWM_PERIODO_MED, R3
-		MOV		PWM_PERIODO_LSB, R4
-		
-		// PWM_QTDADE_PERIODOS soma 2x R0 pois o PWM_COUNTER (que trabalha juntamente com esse outro registrador)
-		// e incrementado toda vez que o PWM_PIN muda de estado
-		MOV		A, R0
-		ADD		A, R0
-		MOV		PWM_QTDADE_PERIODOS, A
-		
-		MOV		R6, PWM_PERIODO_MED
-		MOV		R7, PWM_PERIODO_MSB
-		
-		MOV 	TH0, #0FFh
-		MOV		TL0, PWM_PERIODO_LSB
-		
-		RET
-
-//////////////////////////////////////////////////////
-// NOME: PWM_STOP									//
-// DESCRICAO: 										//
-// P.ENTRADA:					 	 				//
-// P.SAIDA: 										//
-// ALTERA: 											//
-//////////////////////////////////////////////////////
-PWM_STOP:
-		CLR 	TR0
-		
-		RET
-	
-//////////////////////////////////////////////////////
-// NOME: PWM_SQUARE_WAVE							//
-// DESCRICAO: 										//
-// P.ENTRADA: R6; R7					 	 		//
-//			  R5-> FLAG PARA PINOS A SEREM ATIVADOS //
-//				bit 0 = PINO_LED_VERMELHO			//
-//				bit 1 = BUZZER						//
-// P.SAIDA: - 										//
-// ALTERA: R6, R7									//
-//////////////////////////////////////////////////////
-PWM_SQUARE_WAVE:	
-		JNB 	TF0, $
-	
-		DJNZ	R6, CONTINUE_SQUARE
-		MOV		R6, PWM_PERIODO_MED
-		
-		DJNZ	R7, CONTINUE_SQUARE
-		MOV		R7, PWM_PERIODO_MSB	
-
-		// Se chegou ate aqui, incrementa o contador do PWM (para sinalizar a quantidade de vezes que queremos chamar o PWM)
-		INC		PWM_COUNTER
-
-		JB		PWM_FLAG, HIGH_DONE
-	
-LOW_DONE:			
-		SETB 	PWM_FLAG
-		
-		LCALL	DEFINE_PINOS_A_SEREM_ATIVADOS_DESATIVADOS
-		
-		MOV		TH0, #0FFh
-		MOV 	TL0, PWM_DUTY_CYCLE		
-		
-		CLR 	TF0
-		
-		RET
-				
-HIGH_DONE:
-		CLR 	PWM_FLAG			// Make PWM_FLAG = 0 to indicate start of low section
-			
-		LCALL	DEFINE_PINOS_A_SEREM_ATIVADOS_DESATIVADOS
-		
-		MOV  	A, #0FFh		// Subtract DUTY_CYCLE from A. A = PERIOD_LSB - DUTY_CYCLE
-		CLR		C
-		SUBB	A, PWM_DUTY_CYCLE
-		
-		MOV 	TH0, #0FFh			// Load high byte of timer with DUTY_CYCLE
-		MOV		TL0, A
-		
-		CLR 	TF0					// Clear the Timer 1 interrupt flag
-		
-		RET
-
-CONTINUE_SQUARE:
-		JNB		PWM_FLAG, CONTINUE_SQUARE_LOW
-	
-CONTINUE_SQUARE_HIGH:
-		MOV  	A, #0FFh		// Subtract DUTY_CYCLE from A. A = PERIOD_LSB - DUTY_CYCLE
-		CLR		C
-		SUBB	A, PWM_DUTY_CYCLE
-		
-		MOV 	TH0, #0FFh			// Load high byte of timer with DUTY_CYCLE
-		MOV		TL0, A
-		
-		CLR 	TF0
-
-		RET
-		
-CONTINUE_SQUARE_LOW:
-		MOV		TH0, #0FFh
-		MOV 	TL0, PWM_DUTY_CYCLE
-		
-		CLR 	TF0
-		
-		RET
-
-//////////////////////////////////////////////////////
-// NOME: DEFINE_PINOS_A_SEREM_ATIVADOS_DESATIVADOS	//
-// DESCRICAO: 										//
-// P.ENTRADA: R5-> FLAG PARA PINOS					//
-//				bit 0 = PINO_LED_VERMELHO			//
-//				bit 1 = BUZZER						//
-// P.SAIDA: 										//
-// ALTERA: 											//
-//////////////////////////////////////////////////////
-DEFINE_PINOS_A_SEREM_ATIVADOS_DESATIVADOS:
-		MOV		A, #01h
-		ANL		A, R5
-		JZ		NAO_ATIVA_BIT_0
-		
-		CPL 	PINO_LED_VERMELHO
-		
-NAO_ATIVA_BIT_0:
-		MOV		A, #02h
-		ANL		A, R5
-		JZ		NAO_ATIVA_BIT_1
-		
-		CPL 	BUZZER
-
-NAO_ATIVA_BIT_1:
 		RET
 
 //////////////////////////////////////////////////
