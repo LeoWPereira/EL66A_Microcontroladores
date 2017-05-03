@@ -1,0 +1,197 @@
+A51 MACRO ASSEMBLER  RUBAO_LINDAO                                                         04/28/2017 20:18:53 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.5.0
+OBJECT MODULE PLACED IN .\Objects\rubao_lindao.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE rubao_lindao.a51 SET(SMALL) DEBUG PRINT(.\Listings\rubao_lindao.lst) OB
+                      JECT(.\Objects\rubao_lindao.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 00H                 
+
+0000 900076            2     MOV DPTR,#LUT           
+
+0003 759000            3     MOV P1,#00000000B       
+
+0006 758000            4     MOV P0,#00000000B       
+
+0009 C2B0              5     CLR P3.0                
+
+000B D2B1              6     SETB P3.1               
+
+000D 758920            7     MOV TMOD,#00100000B     
+
+0010 758BCF            8     MAIN: MOV TL1,#207D     
+
+0013 758DCF            9           MOV TH1,#207D     
+
+0016 7400             10           MOV A,#00000000B  
+
+0018 D2B0             11           SETB P3.0         
+
+001A 1133             12           ACALL DELAY1      
+
+001C C2B0             13           CLR P3.0          
+
+001E 30B1FD           14     HERE: JNB P3.1,HERE     
+
+0021 D28E             15     BACK: SETB TR1          
+
+0023 308FFD           16     HERE1: JNB TF1,HERE1    
+
+0026 C28E             17           CLR TR1           
+
+0028 C28F             18           CLR TF1           
+
+002A 04               19           INC A             
+
+002B 20B1F3           20           JB P3.1,BACK      
+
+002E FC               21           MOV R4,A          
+
+002F 1138             22           ACALL DLOOP       
+
+0031 80DD             23           SJMP MAIN         
+
+                      24     
+
+0033 7E02             25     DELAY1: MOV R6,#2D      
+
+0035 DEFE             26     LABEL1: DJNZ R6,LABEL1
+
+0037 22               27             RET     
+
+                      28     
+
+0038 7D64             29     DLOOP: MOV R5,#100D     
+
+003A EC               30     BACK1: MOV A,R4         
+
+003B 75F064           31            MOV B,#100D      
+
+003E 84               32            DIV AB           
+
+003F D290             33            SETB P1.0        
+
+0041 1173             34            ACALL DISPLAY    
+
+0043 F580             35            MOV P0,A         
+
+0045 116E             36            ACALL DELAY      
+
+0047 116E             37            ACALL DELAY
+
+0049 E5F0             38            MOV A,B          
+
+004B 75F00A           39            MOV B,#10D       
+
+004E 84               40            DIV AB           
+
+004F C290             41            CLR P1.0         
+
+0051 D291             42            SETB P1.1        
+
+0053 1173             43            ACALL DISPLAY
+
+0055 F580             44            MOV P0,A         
+
+0057 116E             45            ACALL DELAY
+
+0059 116E             46            ACALL DELAY
+
+005B E5F0             47            MOV A,B          
+
+005D C291             48            CLR P1.1         
+
+005F D292             49            SETB P1.2        
+
+0061 1173             50            ACALL DISPLAY
+
+0063 F580             51            MOV P0,A         
+
+0065 116E             52            ACALL DELAY
+
+0067 116E             53            ACALL DELAY
+
+0069 C292             54            CLR P1.2        
+
+006B DDCD             55            DJNZ R5,BACK1   
+
+006D 22               56            RET
+
+                      57     
+
+A51 MACRO ASSEMBLER  RUBAO_LINDAO                                                         04/28/2017 20:18:53 PAGE     2
+
+006E 7FFA             58     DELAY: MOV R7,#250D         
+
+0070 DFFE             59     LABEL2: DJNZ R7,LABEL2
+
+0072 22               60             RET
+
+                      61     
+
+0073 93               62     DISPLAY: MOVC A,@A+DPTR    
+
+0074 F4               63              CPL A             
+
+0075 22               64              RET
+
+0076 3F               65     LUT: DB 3FH                
+
+0077 06               66          DB 06H
+
+0078 5B               67          DB 5BH
+
+0079 4F               68          DB 4FH
+
+007A 66               69          DB 66H
+
+007B 6D               70          DB 6DH
+
+007C 7D               71          DB 7DH
+
+007D 07               72          DB 07H
+
+007E 7F               73          DB 7FH
+
+007F 6F               74          DB 6FH
+
+                      75     END
+
+A51 MACRO ASSEMBLER  RUBAO_LINDAO                                                         04/28/2017 20:18:53 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+B. . . . . . . . .  D ADDR   00F0H   A   
+BACK . . . . . . .  C ADDR   0021H   A   
+BACK1. . . . . . .  C ADDR   003AH   A   
+DELAY. . . . . . .  C ADDR   006EH   A   
+DELAY1 . . . . . .  C ADDR   0033H   A   
+DISPLAY. . . . . .  C ADDR   0073H   A   
+DLOOP. . . . . . .  C ADDR   0038H   A   
+HERE . . . . . . .  C ADDR   001EH   A   
+HERE1. . . . . . .  C ADDR   0023H   A   
+LABEL1 . . . . . .  C ADDR   0035H   A   
+LABEL2 . . . . . .  C ADDR   0070H   A   
+LUT. . . . . . . .  C ADDR   0076H   A   
+MAIN . . . . . . .  C ADDR   0010H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+TF1. . . . . . . .  B ADDR   0088H.7 A   
+TH1. . . . . . . .  D ADDR   008DH   A   
+TL1. . . . . . . .  D ADDR   008BH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR1. . . . . . . .  B ADDR   0088H.6 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

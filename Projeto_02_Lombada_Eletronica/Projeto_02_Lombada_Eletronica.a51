@@ -49,16 +49,12 @@ ljmp INT_SERIAL
 //       TABELA DE EQUATES DO PROGRAMA		    //
 //////////////////////////////////////////////////
 
-PINO_LED_VERDE				EQU P1.0
 PINO_LED_VERMELHO			EQU P1.1
 PINO_LED_AMARELO			EQU	P1.2	
 
 // BUZZER
 BUZZER						EQU P1.3
 	
-//SENSOR_EXTERNO_1			EQU P3.2 // Bit do PORT P3 reservado para a INT0
-//SENSOR_EXTERNO_2			EQU P3.3 // Bit do PORT P3 reservado para a INT1
-
 // LEDS DA PLACA
 LED_SEG 					EQU	P3.6
 LED1   						EQU	P3.7
@@ -100,8 +96,8 @@ TIMER_MEDICOES_MSB			EQU	46h
 //////////////////////////////////////////////////
 
 org 030h
-//TAB7SEG:
-	//DB 3FH, 06H, 5BH, 4FH, 66H, 6DH, 7DH, 07H, 7FH, 6FH, 77H, 7CH, 39H, 5EH, 79H, 71H
+TAB7SEG:
+	DB 3FH, 06H, 5BH, 4FH, 66H, 6DH, 7DH, 07H, 7FH, 6FH, 77H, 7CH, 39H, 5EH, 79H, 71H
 
 //////////////////////////////////////////////////
 // 				INICIO DO PROGRAMA			    //
@@ -115,13 +111,15 @@ __STARTUP__:
 INICIO:
 		LCALL	RESETA_TIMER_MEDICOES
 		
+		SETB	TR1
+		
 ESPERA_SENSOR_2:
 		LCALL	SINALIZA_LOMBADA_LIGADA
 		
 		MOV		A, FLAG_CALCULAR_VELOCIDADE
 		CJNE	A, #01h, ESPERA_SENSOR_2
 		
-		LCALL	CALCULA_VELOCIDADE
+		LCALL	MEDIR_DISTANCIA
 		
 		LCALL	SETA_VARIAVEIS_INICIAIS
 		AJMP	INICIO
@@ -134,7 +132,6 @@ ESPERA_SENSOR_2:
 // ALTERA:  										//
 //////////////////////////////////////////////////////
 SETA_VARIAVEIS_INICIAIS:
-		CLR		PINO_LED_VERDE
 		CLR		PINO_LED_VERMELHO
 		CLR		PINO_LED_AMARELO
 		CLR		BUZZER
@@ -183,11 +180,23 @@ SINALIZA_LOMBADA_LIGADA:
 		MOV		R2, #029h
 		MOV		R3, #0FFh
 		MOV		R4, #0FFh
-		MOV		R5, #00000100b // ativa o led amarelo, sinalizando que a lombada esta funcionando
+		MOV		R5, #00000010b // ativa o led amarelo, sinalizando que a lombada esta funcionando
 		
 		LCALL	PWM_SQUARE_WAVE_SETUP_AND_START
 		
 		RET	
+		
+//////////////////////////////////////////////////////
+// NOME: MEDIR_DISTANCIA							//
+// DESCRICAO: 										//
+// P.ENTRADA: 					 					//
+// P.SAIDA: 										//
+// ALTERA: 		  					 				//
+//////////////////////////////////////////////////////
+MEDIR_DISTANCIA:
+		MOV		A,  
+
+		RET
 
 //////////////////////////////////////////////////////
 // NOME: CALCULA_VELOCIDADE							//
@@ -214,7 +223,6 @@ CALCULA_VELOCIDADE:
 		ADDC	A, VELOCIDADE_VEICULO
 		
 		JC		ACIMA_DO_LIMITE
-		LCALL	VELOCIDADE_ABAIXO_DO_LIMITE
 		
 		RET
 
@@ -222,30 +230,6 @@ ACIMA_DO_LIMITE:
 		LCALL	VELOCIDADE_ACIMA_DO_LIMITE
 		
 		RET	
-		
-//////////////////////////////////////////////////////
-// NOME: VELOCIDADE_ABAIXO_DO_LIMITE				//
-// DESCRICAO: CHAMA PWM PARA FAZER O LED VERDE		//
-// PISCAR DURANTE 2 S COM FREQUENCIA DE 1 HZ 		//
-// P.ENTRADA: 					 					//
-// P.SAIDA: 										//
-// ALTERA:  										//
-//////////////////////////////////////////////////////
-VELOCIDADE_ABAIXO_DO_LIMITE:
-		MOV		R0, #02h // quantidade de periodos
-		MOV		R1, #128d // duty cycle (50%)
-		
-		// Considerando 20 ciclos de maquina para a interrupcao (20 x 0.375 us = 7.5 us)
-		// 2666666 (0x28B0AA) estados em 32 MHz para frequencia de 1 Hz
-		// 0x29 * 0xFF * 0xFF =~ 1Hz  
-		MOV		R2, #029h
-		MOV		R3, #0FFh
-		MOV		R4, #0FFh
-		MOV		R5, #00000001b // ativa o led verde, sinalizando que o veiculo passou em velocidade abaixo do limite
-		
-		LCALL	PWM_SQUARE_WAVE_SETUP_AND_START
-		
-		RET
 
 //////////////////////////////////////////////////////
 // NOME: VELOCIDADE_ACIMA_DO_LIMITE					//
@@ -265,41 +249,9 @@ VELOCIDADE_ACIMA_DO_LIMITE:
 		MOV		R2, #029h
 		MOV		R3, #0FFh
 		MOV		R4, #0FFh
-		MOV		R5, #00001010b // ativa o led vermelho e o buzzer, sinalizando que o veiculo passou em velocidade acima do limite
+		MOV		R5, #00000101b // ativa o led vermelho e o buzzer, sinalizando que o veiculo passou em velocidade acima do limite
 		
 		LCALL	PWM_SQUARE_WAVE_SETUP_AND_START
-		
-		RET
-
-//////////////////////////////////////////////////
-// 	      CODIGOS RELACIONADOS AO BUZZER		//
-//////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////
-// NOME: ACIONA_BUZZER_X20MS						//
-// DESCRICAO: ACIONA O BUZZER NA FAIXA [20,5100] MS	//
-// P.ENTRADA: R0 -> R0 * 20 MS					 	//
-// P.SAIDA: -										//
-// ALTERA: R0 										//
-//////////////////////////////////////////////////////
-ACIONA_BUZZER_X20MS:
-		SETB 	BUZZER
-		ACALL 	TIMER_DELAY_20_MS
-		CLR 	BUZZER
-		
-		RET
-		
-//////////////////////////////////////////////////////
-// NOME: ACIONA_BUZZER_X1S							//
-// DESCRICAO: ACIONA O BUZZER NA FAIXA [01,255] S	//
-// P.ENTRADA: R1 -> R1 * 01 S					 	//
-// P.SAIDA: -										//
-// ALTERA: R1 										//
-//////////////////////////////////////////////////////
-ACIONA_BUZZER_X1S:
-		SETB 	BUZZER
-		ACALL 	TIMER_DELAY_1_S
-		CLR 	BUZZER
 		
 		RET
 
@@ -315,7 +267,7 @@ ACIONA_BUZZER_X1S:
 // ALTERA: 											//
 //////////////////////////////////////////////////////
 TIMER_CONFIGURA_TIMER:
-		MOV 	TMOD, #00100001b // Seta o TIMER_0 para o modo 01 (16 bits) e o TIMER_1 para o modo 02 (8 bits com reset)
+		MOV 	TMOD, #00100010b // Seta o TIMER_0 para o modo 02 (08 bits com reset) e o TIMER_1 para o modo 02 (8 bits com reset)
 		
 		ACALL	TIMER_SETA_VALORES_TIMER_PADRAO
 		
@@ -340,46 +292,9 @@ TIMER_CONFIGURA_TIMER:
 TIMER_SETA_VALORES_TIMER_PADRAO:
 		// Para o TIMER_0, TH0 e TL0 representam o necessario para um delay de 20ms
 		// Se 1 estado executa em 0.375 us, precisamos de 53330 estados para executar 20ms
-		MOV 	TH0, #HIGH(65535 - 53330)
-		MOV 	TL0, #LOW(65535 - 53330)
+		MOV 	TH0, #207d
+		MOV 	TL0, #207d
 				
-		RET
-
-//////////////////////////////////////////////////////
-// NOME: TIMER_DELAY_20_MS							//
-// DESCRICAO: INTRODUZ UM ATRASO DE 20 MS			//
-// P.ENTRADA: R0 => (R0 x 20) MS  					//
-// P.SAIDA: -										//
-// ALTERA: R0										//
-//////////////////////////////////////////////////////
-TIMER_DELAY_20_MS:
-		LCALL	TIMER_SETA_VALORES_TIMER_PADRAO
-		
-		CLR 	TF0
-		SETB 	TR0
-	
-		JNB 	TF0, $
-		
-		CLR 	TF0
-		CLR 	TR0
-	
-		DJNZ 	R0, TIMER_DELAY_20_MS
-	
-		RET
-		
-//////////////////////////////////////////////////////
-// NOME: TIMER_DELAY_1_S							//
-// DESCRICAO: INTRODUZ UM ATRASO DE 1 S				//
-// P.ENTRADA: R1 => (R1 x 1) S 	 					//
-// P.SAIDA: -										//
-// ALTERA: R1										//
-//////////////////////////////////////////////////////
-TIMER_DELAY_1_S:
-		MOV		R0, #50d
-		CALL 	TIMER_DELAY_20_MS
-		
-		DJNZ	R1, TIMER_DELAY_1_S
-	
 		RET
 		
 //////////////////////////////////////////////////
@@ -544,10 +459,9 @@ CONTINUE_SQUARE_LOW:
 // NOME: DEFINE_PINOS_A_SEREM_ATIVADOS_DESATIVADOS	//
 // DESCRICAO: 										//
 // P.ENTRADA: R5-> FLAG PARA PINOS					//
-//				bit 0 = PINO_LED_VERDE				//
-//				bit 1 = PINO_LED_VERMELHO			//
-//				bit 2 = PINO_LED_AMARELO			//
-//				bit 3 = BUZZER						//
+//				bit 0 = PINO_LED_VERMELHO			//
+//				bit 1 = PINO_LED_AMARELO			//
+//				bit 2 = BUZZER						//
 // P.SAIDA: 										//
 // ALTERA: 											//
 //////////////////////////////////////////////////////
@@ -556,30 +470,23 @@ DEFINE_PINOS_A_SEREM_ATIVADOS_DESATIVADOS:
 		ANL		A, R5
 		JZ		NAO_ATIVA_BIT_0
 		
-		CPL 	PINO_LED_VERDE
+		CPL 	PINO_LED_VERMELHO
 		
 NAO_ATIVA_BIT_0:
 		MOV		A, #02h
 		ANL		A, R5
 		JZ		NAO_ATIVA_BIT_1
 		
-		CPL 	PINO_LED_VERMELHO
+		CPL 	PINO_LED_AMARELO
 
 NAO_ATIVA_BIT_1:
 		MOV		A, #04h
 		ANL		A, R5
 		JZ		NAO_ATIVA_BIT_2
 		
-		CPL 	PINO_LED_AMARELO
-
-NAO_ATIVA_BIT_2:
-		MOV		A, #08h
-		ANL		A, R5
-		JZ		NAO_ATIVA_BIT_3
-		
 		CPL 	BUZZER
 
-NAO_ATIVA_BIT_3:
+NAO_ATIVA_BIT_2:
 		RET
 
 //////////////////////////////////////////////////
@@ -597,18 +504,18 @@ NAO_ATIVA_BIT_3:
 INT_CONFIGURA_INTERRUPCOES:
 		// Bits da palavra IE - Interrupt Enable
 		SETB	EA
-		SETB	EX0
-		SETB	EX1
+		//SETB	EX0
+		//SETB	EX1
 		SETB	ET1
 		
 		// Bits da palavra IP - Interrupt Priority
-		SETB	PX0		// Alta prioridade para o SENSOR_EXTERNO_1
-		SETB	PX1		// Alta prioridade para o SENSOR_EXTERNO_2
+		//SETB	PX0		// Alta prioridade para o SENSOR_EXTERNO_1
+		//SETB	PX1		// Alta prioridade para o SENSOR_EXTERNO_2
 		CLR		PT1		// Baixa prioridade para o TIMER/COUNTER 1
 		
 		// Bits da palavra TCON - Timer Control
-		SETB	IE0		// Interrupcao por Borda
-		SETB	IE1		// Interrupcao por Borda
+		//SETB	IE0		// Interrupcao por Borda
+		//SETB	IE1		// Interrupcao por Borda
 		CLR		IT1		// Interrupcao por Nivel
 		
 		RET
@@ -621,17 +528,14 @@ INT_CONFIGURA_INTERRUPCOES:
 // ALTERA: 											//
 //////////////////////////////////////////////////////
 INT_EXT0:
-		PUSH 	ACC
+		/*PUSH 	ACC
 		PUSH	PSW
-		
-		MOV 	R0, #05h 		// R0 x 20 ms de delay - para nao sentir o efeito de bounce no teclado matricial
-		ACALL 	TIMER_DELAY_20_MS
 		
 		SETB	TR1
 		MOV		FLAG_PASSOU_PRIMEIRO_SENSOR, #01h
 		
 		POP		PSW
-		POP		ACC
+		POP		ACC*/
 		
 		RETI
 
@@ -653,7 +557,7 @@ INT_TIMER0:
 // ALTERA: A										//
 //////////////////////////////////////////////////////
 INT_EXT1:
-		PUSH 	ACC
+		/*PUSH 	ACC
 		PUSH	PSW
 		
 		MOV 	R0, #05h 		// R0 x 20 ms de delay - para nao sentir o efeito de bounce no teclado matricial
@@ -668,7 +572,7 @@ INT_EXT1:
 		
 FINALIZA_INT_EXT1:
 		POP		PSW
-		POP		ACC
+		POP		ACC*/
 		
 		RETI
 
@@ -690,14 +594,20 @@ INT_TIMER1:
 		CLR		TF1
 		
 		MOV		A, TIMER_MEDICOES_LOW
-		CJNE	A, #014h, INCREMENTA_TIMER_MEDICOES_LOW
+		CJNE	A, #020d, INCREMENTA_TIMER_MEDICOES_LOW      // neste ponto, o TIMER_MEDICAO_LSB passa a contar 1 ms em cada novo estado 
 	
 		MOV		A, TIMER_MEDICOES_LSB
-		CJNE	A, #0FFh, INCREMENTA_TIMER_MEDICOES_LSB
+		CJNE	A, #0250d, INCREMENTA_TIMER_MEDICOES_LSB	// neste ponto, o TIMER_MEDICAO_MSB passa a contar 250 ms em cada novo estado
 		
 		MOV		TIMER_MEDICOES_LOW, #00h
 		MOV		TIMER_MEDICOES_LSB, #00h
 		INC		TIMER_MEDICOES_MSB
+		
+		MOV		A, TIMER_MEDICOES_MSB
+		CJNE	A, #02d, FINALIZA_TIMER_1	// neste ponto, o TIMER_MEDICAO_MSB passa a contar 250 ms em cada novo estado
+		
+		CLR		TR1
+		MOV		FLAG_CALCULAR_VELOCIDADE, #01h
 		AJMP	FINALIZA_TIMER_1
 	
 INCREMENTA_TIMER_MEDICOES_LOW:
