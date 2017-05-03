@@ -40,6 +40,11 @@ ljmp INT_SERIAL
 //       TABELA DE EQUATES DO PROGRAMA		    //
 //////////////////////////////////////////////////
 
+PORT_DISPLAY				EQU	P0
+
+DISPLAY_UNIDADE				EQU P1.0
+DISPLAY_DEZENA				EQU P1.1
+
 PINO_LED_VERMELHO			EQU P1.6
 	
 BUZZER						EQU P1.7
@@ -172,12 +177,10 @@ RESETA_TIMER_MEDICOES:
 // ALTERA: R1, A		  					 		//
 //////////////////////////////////////////////////////
 MEDIR_DISTANCIA:
-		CLR		ET1
-
-		MOV 	DPTR,#TAB7SEG          // moves the address of LUT to DPTR
+		CLR		DISPLAY_UNIDADE 
+		CLR 	DISPLAY_DEZENA
 		
-		MOV 	P1,#11000000b      // sets P1 as output port
-		MOV 	P0,#00h      // sets P0 as output port
+		MOV 	PORT_DISPLAY, #00h
 		
 		CLR 	P3.0               // sets P3.0 as output for sending trigger
 		SETB 	P3.1              // sets P3.1 as input for receiving echo
@@ -190,7 +193,7 @@ MEDIR_DISTANCIA:
 		
 		SETB 	P3.0        // starts the trigger pulse
 		
-		ACALL 	DELAY1     // gives 10uS width for the trigger pulse
+		ACALL 	TIMER_DELAY_10_US     // gives 10uS width for the trigger pulse
 		
 		CLR 	P3.0         // ends the trigger pulse
 
@@ -211,17 +214,6 @@ HERE1:
 		MOV 	@R1, A         // saves the value of A to R4
 	  
 		RET
-
-/************************************/
-
-DELAY1: 
-		MOV 	R6,#2D     // 10uS delay
-LABEL1: 
-		DJNZ 	R6,LABEL1
-	  
-DELAY: MOV R7,#250D        // 1mS delay
-LABEL2: DJNZ R7,LABEL2
-        RET
 
 //////////////////////////////////////////////////////
 // NOME: CALCULA_VELOCIDADE							//
@@ -255,7 +247,7 @@ DISTANCIA_ANTERIOR_MAIOR_QUE_ATUAL:
 		MOV		VELOCIDADE_VEICULO, A
 		
 DLOOP: 
-	   // Soma a velocidade medida do veiculo com 215d
+	   // Soma a velocidade medida do veiculo com (0xFF - VELOCIDADE_LIMITE)
 	   // Se essa soma setar o Carry, e porque a velocidade esta acima do limite
 	   // Caso contrario, velocidade abaixo do limite
 	   MOV		A, #0FFh
@@ -274,19 +266,19 @@ BACK1:
        
 		DIV 	AB          // isolates the first digit
        
-		SETB 	P1.1       // activates LED display unit D1
+		SETB 	DISPLAY_UNIDADE       // activates LED display unit D1
        ACALL MOSTRA_VELOCIDADE_DISPLAY   // calls DISPLAY subroutine
-       ACALL DELAY     // 1mS delay
-       ACALL DELAY
+	   
+	   ACALL 	TIMER_DELAY_1_MS     
        
 	   MOV A,B         // moves the remainder of 2nd division to A
-       CLR P1.1        // deactivates LED display unit D2
-       SETB P1.2       // activates LED display unit D3
+       CLR DISPLAY_UNIDADE        // deactivates LED display unit D2
+       SETB DISPLAY_DEZENA       // activates LED display unit D3
        ACALL MOSTRA_VELOCIDADE_DISPLAY
-       ACALL DELAY
-       ACALL DELAY
        
-	   CLR P1.2       // deactivates LED display unit D3
+	   ACALL 	TIMER_DELAY_1_MS 
+       
+	   CLR DISPLAY_DEZENA       // deactivates LED display unit D3
 	   
 	   DJNZ R6,BACK1
 	   MOV	R6,#15h
@@ -339,11 +331,11 @@ VELOCIDADE_ACIMA_DO_LIMITE:
 // ALTERA: A  										//
 //////////////////////////////////////////////////////
 MOSTRA_VELOCIDADE_DISPLAY:
-		MOV DPTR,#TAB7SEG          // moves the address of LUT to DPTR
+		MOV 	DPTR, #TAB7SEG	// Move para o DPTR o endereco dos valores para o display de 7 segmentos
 		
-		MOVC 	A,@A+DPTR   // gets the digit drive pattern for the content in A
-        CPL 	A           // complements the digit drive pattern (see Note 1)
-		MOV 	P0,A        // moves digit drive pattern for 1st digit to P0
+		MOVC 	A, @A + DPTR	// busca pelo valor referente ao digito a ser impresso
+        CPL 	A           	// complementa o digito a ser impresso (necessario para que o display seja usado corretamente)
+		MOV 	PORT_DISPLAY, A // Envia para o port do display
 		
 		RET
 
@@ -429,6 +421,32 @@ TIMER_DELAY_1_S:
 		DJNZ	R1, TIMER_DELAY_1_S
 	
 		RET
+
+//////////////////////////////////////////////////////
+// NOME: TIMER_DELAY_10_US							//
+// DESCRICAO: INTRODUZ UM ATRASO DE 10 US			//
+// P.ENTRADA: 										//
+// P.SAIDA: -										//
+// ALTERA: R6										//
+//////////////////////////////////////////////////////
+TIMER_DELAY_10_US: 
+		MOV 	R6, #2D     
+		DJNZ 	R6, $
+		
+		RET
+
+//////////////////////////////////////////////////////
+// NOME: TIMER_DELAY_1_MS							//
+// DESCRICAO: INTRODUZ UM ATRASO DE 1 MS			//
+// P.ENTRADA: 										//
+// P.SAIDA: -										//
+// ALTERA: R7										//
+//////////////////////////////////////////////////////
+TIMER_DELAY_1_MS: 
+		MOV 	R7, #250d        
+		DJNZ 	R7, $
+        
+		RET
 		
 //////////////////////////////////////////////////
 //    INICIO DOS CODIGOS RELACIONADOS AO PWM	//
@@ -443,10 +461,8 @@ TIMER_DELAY_1_S:
 //			  R3-> PWM_PERIODO_MED					//
 //			  R4-> PWM_PERIODO_LSB					//
 //			  R5-> FLAG PARA PINOS A SEREM ATIVADOS //
-//				bit 0 = PINO_LED_VERDE				//
-//				bit 1 = PINO_LED_VERMELHO			//
-//				bit 2 = PINO_LED_AMARELO			//
-//				bit 3 = BUZZER						//
+//				bit 0 = PINO_LED_VERMELHO			//
+//				bit 1 = BUZZER						//
 // P.SAIDA: 										//
 // ALTERA: A										//
 //////////////////////////////////////////////////////
@@ -477,8 +493,8 @@ PWM_PARAR:
 //			  R2-> PWM_PERIODO_MSB					//
 //			  R3-> PWM_PERIODO_MED					//
 //			  R4-> PWM_PERIODO_LSB					//
-// P.SAIDA: R6; R7 									//
-// ALTERA: R6; R7 									//
+// P.SAIDA: R6, R7 									//
+// ALTERA: R6, R7 									//
 //////////////////////////////////////////////////////
 PWM_SQUARE_WAVE_CONFIG_PERIOD:
 		MOV		PWM_PERIODO_MSB, R2
@@ -516,10 +532,8 @@ PWM_STOP:
 // DESCRICAO: 										//
 // P.ENTRADA: R6; R7					 	 		//
 //			  R5-> FLAG PARA PINOS A SEREM ATIVADOS //
-//				bit 0 = PINO_LED_VERDE				//
-//				bit 1 = PINO_LED_VERMELHO			//
-//				bit 2 = PINO_LED_AMARELO			//
-//				bit 3 = BUZZER						//
+//				bit 0 = PINO_LED_VERMELHO			//
+//				bit 1 = BUZZER						//
 // P.SAIDA: - 										//
 // ALTERA: R6, R7									//
 //////////////////////////////////////////////////////
@@ -630,17 +644,14 @@ INT_CONFIGURA_INTERRUPCOES:
 		// Bits da palavra IE - Interrupt Enable
 		SETB	EA
 		SETB	EX0
-		//SETB	EX1
 		SETB	ET1
 		
 		// Bits da palavra IP - Interrupt Priority
 		CLR		PX0		// Baixa prioridade para o SENSOR_EXTERNO_1
-		//SETB	PX1		// Alta prioridade para o SENSOR_EXTERNO_2
 		SETB	PT1		// Alta prioridade para o TIMER/COUNTER 1
 		
 		// Bits da palavra TCON - Timer Control
 		CLR		IE0		// Interrupcao por Borda
-		//SETB	IE1		// Interrupcao por Borda
 		CLR		IT1		// Interrupcao por Nivel
 		
 		RET
@@ -658,7 +669,7 @@ INT_EXT0:
 		
 		MOV		FLAG_MEDIR_DISTANCIA_INIT, #01h
 		
-		MOV 	R0, #05h 		// R0 x 20 ms de delay - para nao sentir o efeito de bounce no teclado matricial
+		MOV 	R0, #05h 		// R0 x 20 ms de delay - para nao sentir o efeito de bounce no trigger da "pistola"
 		ACALL 	TIMER_DELAY_20_MS
 		
 		POP		PSW
@@ -684,23 +695,6 @@ INT_TIMER0:
 // ALTERA: A										//
 //////////////////////////////////////////////////////
 INT_EXT1:
-		/*PUSH 	ACC
-		PUSH	PSW
-		
-		MOV 	R0, #05h 		// R0 x 20 ms de delay - para nao sentir o efeito de bounce no teclado matricial
-		ACALL 	TIMER_DELAY_20_MS
-		
-		MOV		A, FLAG_PASSOU_PRIMEIRO_SENSOR
-		JZ		FINALIZA_INT_EXT1	
-		
-		CLR		TR1
-		
-		MOV		FLAG_CALCULAR_VELOCIDADE, #01h
-		
-FINALIZA_INT_EXT1:
-		POP		PSW
-		POP		ACC*/
-		
 		RETI
 
 //////////////////////////////////////////////////////
