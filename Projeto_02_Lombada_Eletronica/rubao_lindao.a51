@@ -1,12 +1,12 @@
 ORG 00H                // origin
-MOV DPTR,#LUT          // moves the address of LUT to DPTR
+
 MOV P1,#00000000B      // sets P1 as output port
 MOV P0,#00000000B      // sets P0 as output port
 CLR P3.0               // sets P3.0 as output for sending trigger
 SETB P3.1              // sets P3.1 as input for receiving echo
 MOV TMOD,#00100000B    // sets timer1 as mode 2 auto reload timer
-MAIN: MOV TL1,#207D    // loads the initial value to start counting from
-      MOV TH1,#207D    // loads the reload value
+MAIN: MOV TL1,#130D    // loads the initial value to start counting from
+      MOV TH1,#130D    // loads the reload value
       MOV A,#00000000B // clears accumulator
       SETB P3.0        // starts the trigger pulse
       ACALL DELAY1     // gives 10uS width for the trigger pulse
@@ -31,8 +31,7 @@ BACK1: MOV A,R4        // loads the value in R4 to A
        MOV B,#100D     // loads B with 100D
        DIV AB          // isolates the first digit
        SETB P1.0       // activates LED display unit D1
-       ACALL DISPLAY   // calls DISPLAY subroutine
-       MOV P0,A        // moves digit drive pattern for 1st digit to P0
+       ACALL MOSTRA_VELOCIDADE_DISPLAY   // calls DISPLAY subroutine
        ACALL DELAY     // 1mS delay
        ACALL DELAY
        MOV A,B         // moves the remainder of 1st division to A
@@ -40,15 +39,13 @@ BACK1: MOV A,R4        // loads the value in R4 to A
        DIV AB          // isolates the second digit
        CLR P1.0        // deactivates LED display unit D1
        SETB P1.1       // activates LED display unit D2
-       ACALL DISPLAY
-       MOV P0,A        // moves digit drive pattern for 2nd digit to P0
+       ACALL MOSTRA_VELOCIDADE_DISPLAY
        ACALL DELAY
        ACALL DELAY
        MOV A,B         // moves the remainder of 2nd division to A
        CLR P1.1        // deactivates LED display unit D2
        SETB P1.2       // activates LED display unit D3
-       ACALL DISPLAY
-       MOV P0,A        // moves the digit drive pattern for 3rd digit to P0
+       ACALL MOSTRA_VELOCIDADE_DISPLAY
        ACALL DELAY
        ACALL DELAY
        CLR P1.2       // deactivates LED display unit D3
@@ -59,17 +56,22 @@ DELAY: MOV R7,#250D        // 1mS delay
 LABEL2: DJNZ R7,LABEL2
         RET
 
-DISPLAY: MOVC A,@A+DPTR   // gets the digit drive pattern for the content in A
-         CPL A            // complements the digit drive pattern (see Note 1)
-         RET
-LUT: DB 3FH               // look up table (LUT) starts here
-     DB 06H
-     DB 5BH
-     DB 4FH
-     DB 66H
-     DB 6DH
-     DB 7DH
-     DB 07H
-     DB 7FH
-     DB 6FH
+TAB7SEG:
+	DB 3FH, 06H, 5BH, 4FH, 66H, 6DH, 7DH, 07H, 7FH, 6FH
+		 
+//////////////////////////////////////////////////////
+// NOME: MOSTRA_VELOCIDADE_DISPLAY					//
+// DESCRICAO: 										//
+// P.ENTRADA: 					 					//
+// P.SAIDA: 										//
+// ALTERA:  										//
+//////////////////////////////////////////////////////
+MOSTRA_VELOCIDADE_DISPLAY:
+		MOV DPTR,#TAB7SEG          // moves the address of LUT to DPTR
+		
+		MOVC A,@A+DPTR   // gets the digit drive pattern for the content in A
+        CPL A            // complements the digit drive pattern (see Note 1)
+		MOV P0,A        // moves digit drive pattern for 1st digit to P0
+
+		RET
 END

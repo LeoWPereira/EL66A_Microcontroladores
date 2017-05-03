@@ -49,11 +49,10 @@ ljmp INT_SERIAL
 //       TABELA DE EQUATES DO PROGRAMA		    //
 //////////////////////////////////////////////////
 
-PINO_LED_VERMELHO			EQU P1.1
-PINO_LED_AMARELO			EQU	P1.2	
-
+PINO_LED_VERMELHO			EQU P1.6
+	
 // BUZZER
-BUZZER						EQU P1.3
+BUZZER						EQU P1.7
 	
 // LEDS DA PLACA
 LED_SEG 					EQU	P3.6
@@ -74,7 +73,7 @@ PWM_QTDADE_PERIODOS			EQU 36h
 	
 DISTANCIA_SENSORES			EQU 37h	 // Distancia entre os dois sensores (em cm)
 
-FLAG_PASSOU_PRIMEIRO_SENSOR EQU 38h
+FLAG_MEDIR_DISTANCIA_INIT 	EQU 38h
 FLAG_CALCULAR_VELOCIDADE	EQU 39h  // Se essa flag esta em 1 -> calcula a velocidade e mostra no display de 7 segmentos
 	
 // Velocidade em km/h
@@ -90,6 +89,9 @@ TIMER_MEDICOES_LOW			EQU	44h
 // Com esses 2 registradores (configurados na rotina INT_TIMER1) e possivel registrar um tempo de medicao de ate 65 s
 TIMER_MEDICOES_LSB			EQU	45h
 TIMER_MEDICOES_MSB			EQU	46h
+	
+DISTANCIA_ANTERIOR			EQU	47h
+DISTANCIA_ATUAL				EQU	48h
 	
 //////////////////////////////////////////////////
 // REGIAO DA MEMORIA DE PROGRAMA COM AS STRINGS //
@@ -107,22 +109,37 @@ __STARTUP__:
 		LCALL	SETA_VARIAVEIS_INICIAIS
 		LCALL	TIMER_CONFIGURA_TIMER
 		LCALL	INT_CONFIGURA_INTERRUPCOES
-
-INICIO:
+		LCALL	RESETA_TIMER_MEDICOES
+		
+ESPERA_TRIGGER_CALCULAR_DISTANCIA_INIT:
+		MOV		A, FLAG_MEDIR_DISTANCIA_INIT
+		CJNE	A, #01h, ESPERA_TRIGGER_CALCULAR_DISTANCIA_INIT
+		
+		MOV		R1, #DISTANCIA_ANTERIOR
+		LCALL	MEDIR_DISTANCIA
+		
+		// Necessario reprogramar os timers e as interrupcoes devido ao calculo da distancia pelo sensor
+		LCALL	TIMER_CONFIGURA_TIMER
+		LCALL	INT_CONFIGURA_INTERRUPCOES
 		LCALL	RESETA_TIMER_MEDICOES
 		
 		SETB	TR1
 		
-ESPERA_SENSOR_2:
-		LCALL	SINALIZA_LOMBADA_LIGADA
-		
+ESPERA_FLAG_MEDIR_DISTANCIA_2:
 		MOV		A, FLAG_CALCULAR_VELOCIDADE
-		CJNE	A, #01h, ESPERA_SENSOR_2
+		CJNE	A, #01h, ESPERA_FLAG_MEDIR_DISTANCIA_2
 		
+		MOV		R1, #DISTANCIA_ATUAL
 		LCALL	MEDIR_DISTANCIA
 		
-		LCALL	SETA_VARIAVEIS_INICIAIS
-		AJMP	INICIO
+		// Necessario reprogramar os timers e as interrupcoes devido ao calculo da distancia pelo sensor
+		LCALL	TIMER_CONFIGURA_TIMER
+		LCALL	INT_CONFIGURA_INTERRUPCOES
+		LCALL	RESETA_TIMER_MEDICOES
+		
+		LCALL	CALCULA_VELOCIDADE
+		
+		AJMP	__STARTUP__
 
 //////////////////////////////////////////////////////
 // NOME: SETA_VARIAVEIS_INICIAIS					//
@@ -133,15 +150,15 @@ ESPERA_SENSOR_2:
 //////////////////////////////////////////////////////
 SETA_VARIAVEIS_INICIAIS:
 		CLR		PINO_LED_VERMELHO
-		CLR		PINO_LED_AMARELO
 		CLR		BUZZER
 		
-		MOV		DISTANCIA_SENSORES, 		#100d	// (distancia de 1m entre sensores)
-		MOV		VELOCIDADE_LIMITE,			#040d	// velocidade limite de 40 km/h
-		MOV		FLAG_PASSOU_PRIMEIRO_SENSOR,#00h 
+		MOV		VELOCIDADE_LIMITE,			#010d	// velocidade limite de 40 km/h
+		MOV		FLAG_MEDIR_DISTANCIA_INIT,	#00h 
 		MOV		FLAG_CALCULAR_VELOCIDADE, 	#00h
 		MOV		VELOCIDADE_VEICULO_UNIDADE, #00h
 		MOV		VELOCIDADE_VEICULO_DEZENA, 	#00h
+		MOV		DISTANCIA_ANTERIOR, 		#00h			
+		MOV		DISTANCIA_ATUAL, 			#00h				
 		
 		RET
 		
@@ -159,44 +176,66 @@ RESETA_TIMER_MEDICOES:
 		
 		MOV		VELOCIDADE_VEICULO, 	#00h
 		
-		RET
-		
-//////////////////////////////////////////////////////
-// NOME: SINALIZA_LOMBADA_LIGADA					//
-// DESCRICAO: CHAMA PWM PARA FAZER O LED AMARELO	//
-// PISCAR DURANTE 1 S COM FREQUENCIA DE 1 HZ 		//
-// E DUTY CYCLE DE 50%								//
-// P.ENTRADA: 					 					//
-// P.SAIDA: 										//
-// ALTERA:  										//
-//////////////////////////////////////////////////////
-SINALIZA_LOMBADA_LIGADA:
-		MOV		R0, #001h // quantidade de periodos
-		MOV		R1, #128d // duty cycle (50%)
-		
-		// Considerando 20 ciclos de maquina para a interrupcao (20 x 0.375 us = 7.5 us)
-		// 2666666 (0x28B0AA) estados em 32 MHz para frequencia de 1 Hz
-		// 0x29 * 0xFF * 0xFF =~ 1Hz 
-		MOV		R2, #029h
-		MOV		R3, #0FFh
-		MOV		R4, #0FFh
-		MOV		R5, #00000010b // ativa o led amarelo, sinalizando que a lombada esta funcionando
-		
-		LCALL	PWM_SQUARE_WAVE_SETUP_AND_START
-		
 		RET	
 		
 //////////////////////////////////////////////////////
 // NOME: MEDIR_DISTANCIA							//
 // DESCRICAO: 										//
-// P.ENTRADA: 					 					//
+// P.ENTRADA: R1 -> ponteiro para endereco de dist.	//
 // P.SAIDA: 										//
-// ALTERA: 		  					 				//
+// ALTERA: R1, A		  					 		//
 //////////////////////////////////////////////////////
 MEDIR_DISTANCIA:
-		MOV		A,  
+		CLR		ET1
 
+		MOV 	DPTR,#TAB7SEG          // moves the address of LUT to DPTR
+		
+		MOV 	P1,#00h      // sets P1 as output port
+		MOV 	P0,#00h      // sets P0 as output port
+		
+		CLR 	P3.0               // sets P3.0 as output for sending trigger
+		SETB 	P3.1              // sets P3.1 as input for receiving echo
+
+		MOV 	TMOD,#00100000B    // sets timer1 as mode 2 auto reload timer
+		MOV 	TL1,#130D    // loads the initial value to start counting from
+		MOV 	TH1,#130D    // loads the reload value
+		
+		MOV 	A,#00h // clears accumulator
+		
+		SETB 	P3.0        // starts the trigger pulse
+		
+		ACALL 	DELAY1     // gives 10uS width for the trigger pulse
+		
+		CLR 	P3.0         // ends the trigger pulse
+
+HERE: 	
+		JNB 	P3.1,HERE    // loops here until echo is received
+BACK: 	
+		SETB 	TR1         // starts the timer1
+HERE1: 
+		JNB 	TF1,HERE1   // loops here until timer overflows (ie;48 count)
+      
+		CLR 	TR1          // stops the timer
+		CLR 	TF1          // clears timer flag 1
+      
+		INC 	A            // increments A for every timer1 overflow
+      
+		JB 		P3.1,BACK     // jumps to BACK if echo is still available
+      
+		MOV 	@R1, A         // saves the value of A to R4
+	  
 		RET
+
+/************************************/
+
+DELAY1: 
+		MOV 	R6,#2D     // 10uS delay
+LABEL1: 
+		DJNZ 	R6,LABEL1
+	  
+DELAY: MOV R7,#250D        // 1mS delay
+LABEL2: DJNZ R7,LABEL2
+        RET
 
 //////////////////////////////////////////////////////
 // NOME: CALCULA_VELOCIDADE							//
@@ -208,23 +247,65 @@ MEDIR_DISTANCIA:
 CALCULA_VELOCIDADE:
 		CLR		C // para poder fazer a comparacao para ver se a velocidade e maior ou menor do que o limite permitido
 		
-		// Aqui temos que calcular a velocidade (distancia / tempo)
-		// distancia e conhecida, e o tempo esta em 3 registradores
+		MOV 	A, DISTANCIA_ANTERIOR
+		MOV		B, DISTANCIA_ATUAL
+		
+		SUBB	A, B
 
-		//MOV	VELOCIDADE_VEICULO, #VALOR_CALCULADO
-		//LCALL	MOSTRA_VELOCIDADE_DISPLAY
+		JNC		DISTANCIA_ANTERIOR_MAIOR_QUE_ATUAL	
 		
-		// Soma a velocidade medida do veiculo com 215d
-		// Se essa soma setar o Carry, e porque a velocidade esta acima do limite
-		// Caso contrario, velocidade abaixo do limite
-		MOV		A, #0FFh
-		SUBB	A, VELOCIDADE_LIMITE
+DISTANCIA_ATUAL_MAIOR_QUE_ANTERIOR:
+		MOV 	A, DISTANCIA_ATUAL
+		SUBB	A, DISTANCIA_ANTERIOR
 		
-		ADDC	A, VELOCIDADE_VEICULO
+		MOV		VELOCIDADE_VEICULO, A
 		
-		JC		ACIMA_DO_LIMITE
+		JMP		DLOOP
+
+DISTANCIA_ANTERIOR_MAIOR_QUE_ATUAL:
+		MOV 	A, DISTANCIA_ANTERIOR
+		SUBB	A, DISTANCIA_ATUAL
 		
-		RET
+		MOV		VELOCIDADE_VEICULO, A
+		
+DLOOP: 
+		MOV 	R5,#100D    // loads R5 with 100D
+		MOV		R6,#15D
+BACK1: 
+		MOV 	A,VELOCIDADE_VEICULO        // loads the value in R4 to A
+		MOV 	B,#10D     // loads B with 100D
+       
+		DIV 	AB          // isolates the first digit
+       
+		SETB 	P1.1       // activates LED display unit D1
+       ACALL MOSTRA_VELOCIDADE_DISPLAY   // calls DISPLAY subroutine
+       ACALL DELAY     // 1mS delay
+       ACALL DELAY
+       
+	   MOV A,B         // moves the remainder of 2nd division to A
+       CLR P1.1        // deactivates LED display unit D2
+       SETB P1.2       // activates LED display unit D3
+       ACALL MOSTRA_VELOCIDADE_DISPLAY
+       ACALL DELAY
+       ACALL DELAY
+       
+	   CLR P1.2       // deactivates LED display unit D3
+	   
+	   DJNZ R6,BACK1
+	   MOV	R6,#15h
+       DJNZ R5,BACK1  // repeats the display loop 100 times
+	   
+	   // Soma a velocidade medida do veiculo com 215d
+	   // Se essa soma setar o Carry, e porque a velocidade esta acima do limite
+	   // Caso contrario, velocidade abaixo do limite
+	   MOV		A, #0FFh
+	   SUBB		A, VELOCIDADE_LIMITE
+		
+	   ADDC		A, VELOCIDADE_VEICULO
+		
+	   JC		ACIMA_DO_LIMITE
+	   
+       RET
 
 ACIMA_DO_LIMITE:
 		LCALL	VELOCIDADE_ACIMA_DO_LIMITE
@@ -252,6 +333,22 @@ VELOCIDADE_ACIMA_DO_LIMITE:
 		MOV		R5, #00000101b // ativa o led vermelho e o buzzer, sinalizando que o veiculo passou em velocidade acima do limite
 		
 		LCALL	PWM_SQUARE_WAVE_SETUP_AND_START
+		
+		RET
+
+//////////////////////////////////////////////////////
+// NOME: MOSTRA_VELOCIDADE_DISPLAY					//
+// DESCRICAO: 										//
+// P.ENTRADA: A 					 				//
+// P.SAIDA: 										//
+// ALTERA: A  										//
+//////////////////////////////////////////////////////
+MOSTRA_VELOCIDADE_DISPLAY:
+		MOV DPTR,#TAB7SEG          // moves the address of LUT to DPTR
+		
+		MOVC 	A,@A+DPTR   // gets the digit drive pattern for the content in A
+        CPL 	A           // complements the digit drive pattern (see Note 1)
+		MOV 	P0,A        // moves digit drive pattern for 1st digit to P0
 		
 		RET
 
@@ -295,6 +392,47 @@ TIMER_SETA_VALORES_TIMER_PADRAO:
 		MOV 	TH0, #207d
 		MOV 	TL0, #207d
 				
+		RET
+		
+//////////////////////////////////////////////////////
+// NOME: TIMER_DELAY_20_MS							//
+// DESCRICAO: INTRODUZ UM ATRASO DE 20 MS			//
+// P.ENTRADA: R0 => (R0 x 20) ms  					//
+// P.SAIDA: -										//
+// ALTERA: R0										//
+//////////////////////////////////////////////////////
+TIMER_DELAY_20_MS:
+		MOV 	TMOD, #00000001b // Seta o TIMER_0 para o modo 01 (16 bits) e o TIMER_1 para o modo 02 (8 bits com reset)
+		
+		// Para o TIMER_0, TH0 e TL0 representam o necessario para um delay de 20ms
+		MOV 	TH0, #HIGH(65535 - 43350)
+		MOV 	TL0, #LOW(65535 - 43350)
+
+		CLR 	TF0
+		SETB 	TR0
+	
+		JNB 	TF0, $
+		
+		CLR 	TF0
+		CLR 	TR0
+	
+		DJNZ R0, TIMER_DELAY_20_MS
+	
+		RET
+	
+//////////////////////////////////////////////////////
+// NOME: TIMER_DELAY_1_S							//
+// DESCRICAO: INTRODUZ UM ATRASO DE 1 S				//
+// P.ENTRADA: R1 = y => (y x 1) s 	 				//
+// P.SAIDA: -										//
+// ALTERA: R1										//
+//////////////////////////////////////////////////////
+TIMER_DELAY_1_S:
+		MOV		R0, #50d
+		CALL 	TIMER_DELAY_20_MS
+		
+		DJNZ	R1, TIMER_DELAY_1_S
+	
 		RET
 		
 //////////////////////////////////////////////////
@@ -460,8 +598,7 @@ CONTINUE_SQUARE_LOW:
 // DESCRICAO: 										//
 // P.ENTRADA: R5-> FLAG PARA PINOS					//
 //				bit 0 = PINO_LED_VERMELHO			//
-//				bit 1 = PINO_LED_AMARELO			//
-//				bit 2 = BUZZER						//
+//				bit 1 = BUZZER						//
 // P.SAIDA: 										//
 // ALTERA: 											//
 //////////////////////////////////////////////////////
@@ -477,16 +614,9 @@ NAO_ATIVA_BIT_0:
 		ANL		A, R5
 		JZ		NAO_ATIVA_BIT_1
 		
-		CPL 	PINO_LED_AMARELO
-
-NAO_ATIVA_BIT_1:
-		MOV		A, #04h
-		ANL		A, R5
-		JZ		NAO_ATIVA_BIT_2
-		
 		CPL 	BUZZER
 
-NAO_ATIVA_BIT_2:
+NAO_ATIVA_BIT_1:
 		RET
 
 //////////////////////////////////////////////////
@@ -504,17 +634,17 @@ NAO_ATIVA_BIT_2:
 INT_CONFIGURA_INTERRUPCOES:
 		// Bits da palavra IE - Interrupt Enable
 		SETB	EA
-		//SETB	EX0
+		SETB	EX0
 		//SETB	EX1
 		SETB	ET1
 		
 		// Bits da palavra IP - Interrupt Priority
-		//SETB	PX0		// Alta prioridade para o SENSOR_EXTERNO_1
+		CLR		PX0		// Baixa prioridade para o SENSOR_EXTERNO_1
 		//SETB	PX1		// Alta prioridade para o SENSOR_EXTERNO_2
-		CLR		PT1		// Baixa prioridade para o TIMER/COUNTER 1
+		SETB	PT1		// Alta prioridade para o TIMER/COUNTER 1
 		
 		// Bits da palavra TCON - Timer Control
-		//SETB	IE0		// Interrupcao por Borda
+		CLR	IE0		// Interrupcao por Borda
 		//SETB	IE1		// Interrupcao por Borda
 		CLR		IT1		// Interrupcao por Nivel
 		
@@ -528,14 +658,16 @@ INT_CONFIGURA_INTERRUPCOES:
 // ALTERA: 											//
 //////////////////////////////////////////////////////
 INT_EXT0:
-		/*PUSH 	ACC
+		PUSH 	ACC
 		PUSH	PSW
 		
-		SETB	TR1
-		MOV		FLAG_PASSOU_PRIMEIRO_SENSOR, #01h
+		MOV		FLAG_MEDIR_DISTANCIA_INIT, #01h
+		
+		MOV 	R0, #05h 		// R0 x 20 ms de delay - para nao sentir o efeito de bounce no teclado matricial
+		ACALL 	TIMER_DELAY_20_MS
 		
 		POP		PSW
-		POP		ACC*/
+		POP		ACC
 		
 		RETI
 
