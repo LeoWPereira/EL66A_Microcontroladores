@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:08:53 PAGE     1
+A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:53:04 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.5.0
@@ -48,305 +48,305 @@ LOC  OBJ            LINE     SOURCE
 
                       20     
 
-                      21     
+0000                  21     org 000h  
 
-                      22     
+0000 020040           22     ljmp __STARTUP__
 
                       23     
 
-                      24     
+0003                  24     org 003h  
 
-                      25     
+0003 0201F9           25     ljmp INT_EXT0
 
                       26     
 
-                      27     
+000B                  27     org 00Bh  
 
-                      28     
+000B 020209           28     ljmp INT_TIMER0
 
                       29     
 
-0000                  30     org 000h  
+0013                  30     org 013h  
 
-0000 020040           31     ljmp __STARTUP__
+0013 02020A           31     ljmp INT_EXT1
 
                       32     
 
-0003                  33     org 003h  
+001B                  33     org 01Bh  
 
-0003 020204           34     ljmp INT_EXT0
+001B 02020B           34     ljmp INT_TIMER1
 
                       35     
 
-000B                  36     org 00Bh  
+0023                  36     org 023h  
 
-000B 020214           37     ljmp INT_TIMER0
+0023 020240           37     ljmp INT_SERIAL
 
                       38     
 
-0013                  39     org 013h  
+                      39     
 
-0013 020215           40     ljmp INT_EXT1
+                      40     
 
                       41     
 
-001B                  42     org 01Bh  
+                      42     
 
-001B 020216           43     ljmp INT_TIMER1
+  0096                43     PINO_LED_VERMELHO                       EQU P1.6
 
-                      44     
+                      44             
 
-0023                  45     org 023h  
+  0097                45     BUZZER                                          EQU P1.7
 
-0023 02024B           46     ljmp INT_SERIAL
+                      46             
 
                       47     
 
-                      48     
+  00B6                48     LED_SEG                                         EQU     P3.6
 
-                      49     
+  00B7                49     LED1                                            EQU     P3.7
 
-                      50     
+                      50             
 
-                      51     
+  0000                51     PWM_FLAG                                        EQU 0    
 
-  0096                52     PINO_LED_VERMELHO                       EQU P1.6
+                      52     
 
-                      53             
+  0031                53     PWM_DUTY_CYCLE                          EQU 31h  
 
                       54     
 
-  0097                55     BUZZER                                          EQU P1.7
+  0032                55     PWM_COUNTER                                     EQU 32h
 
-                      56             
+                      56     
 
                       57     
 
-A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:08:53 PAGE     2
+A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:53:04 PAGE     2
 
-  00B6                58     LED_SEG                                         EQU     P3.6
+  0033                58     PWM_PERIODO_LSB                         EQU 33h
 
-  00B7                59     LED1                                            EQU     P3.7
+  0034                59     PWM_PERIODO_MED                         EQU 34h 
 
-                      60             
+  0035                60     PWM_PERIODO_MSB                         EQU 35h
 
-  0000                61     PWM_FLAG                                        EQU 0    
+                      61             
 
-                      62     
+  0036                62     PWM_QTDADE_PERIODOS                     EQU 36h
 
-  0031                63     PWM_DUTY_CYCLE                          EQU 31h  
+                      63             
 
-                      64     
+  0037                64     FLAG_MEDIR_DISTANCIA_INIT       EQU 37h
 
-  0032                65     PWM_COUNTER                                     EQU 32h
+  0038                65     FLAG_CALCULAR_VELOCIDADE        EQU 38h   
 
-                      66     
+                      66             
 
                       67     
 
-  0033                68     PWM_PERIODO_LSB                         EQU 33h
+  0039                68     VELOCIDADE_VEICULO_UNIDADE      EQU     39h
 
-  0034                69     PWM_PERIODO_MED                         EQU 34h 
+  0040                69     VELOCIDADE_VEICULO_DEZENA       EQU     40h
 
-  0035                70     PWM_PERIODO_MSB                         EQU 35h
+  0041                70     VELOCIDADE_VEICULO                      EQU 41h 
 
-                      71             
+                      71     
 
-  0036                72     PWM_QTDADE_PERIODOS                     EQU 36h
+  0042                72     VELOCIDADE_LIMITE                       EQU 42h  
 
                       73             
 
-  0037                74     DISTANCIA_SENSORES                      EQU 37h   
+  0043                74     TIMER_MEDICOES_LOW                      EQU     43h
 
                       75     
 
-  0038                76     FLAG_MEDIR_DISTANCIA_INIT       EQU 38h
+                      76     
 
-  0039                77     FLAG_CALCULAR_VELOCIDADE        EQU 39h   
+                      77     
 
-                      78             
+  0044                78     TIMER_MEDICOES_LSB                      EQU     44h
 
-                      79     
+  0045                79     TIMER_MEDICOES_MSB                      EQU     45h
 
-  0040                80     VELOCIDADE_VEICULO_UNIDADE      EQU     40h
+                      80             
 
-  0041                81     VELOCIDADE_VEICULO_DEZENA       EQU     41h
+  0046                81     DISTANCIA_ANTERIOR                      EQU     46h
 
-  0042                82     VELOCIDADE_VEICULO                      EQU 42h 
+  0047                82     DISTANCIA_ATUAL                         EQU     47h
 
-                      83     
+                      83             
 
-  0043                84     VELOCIDADE_LIMITE                       EQU 43h  
+                      84     
 
-                      85             
+                      85     
 
-  0044                86     TIMER_MEDICOES_LOW                      EQU     44h
+                      86     
 
                       87     
 
-                      88     
+0030                  88     org 030h
 
-                      89     
+0030                  89     TAB7SEG:
 
-  0045                90     TIMER_MEDICOES_LSB                      EQU     45h
-
-  0046                91     TIMER_MEDICOES_MSB                      EQU     46h
-
-                      92             
-
-  0047                93     DISTANCIA_ANTERIOR                      EQU     47h
-
-  0048                94     DISTANCIA_ATUAL                         EQU     48h
-
-                      95             
-
-                      96     
-
-                      97     
-
-                      98     
-
-                      99     
-
-0030                 100     org 030h
-
-0030                 101     TAB7SEG:
-
-0030 3F065B4F        102             DB 3FH, 06H, 5BH, 4FH, 66H, 6DH, 7DH, 07H, 7FH, 6FH, 77H, 7CH, 39H, 5EH, 79H, 71H
+0030 3F065B4F         90             DB 3FH, 06H, 5BH, 4FH, 66H, 6DH, 7DH, 07H, 7FH, 6FH, 77H, 7CH, 39H, 5EH, 79H, 71H
 
 0034 666D7D07                
 0038 7F6F777C                
 003C 395E7971                
-                     103     
+                      91     
 
-                     104     
+                      92     
 
-                     105     
+                      93     
 
-                     106     
+                      94     
 
-                     107     
+                      95     
 
-0040                 108     __STARTUP__:
+0040                  96     __STARTUP__:
 
-0040 120079          109                     LCALL   SETA_VARIAVEIS_INICIAIS
+0040 120073           97                     LCALL   SETA_VARIAVEIS_INICIAIS
 
-0043 12013E          110                     LCALL   TIMER_CONFIGURA_TIMER
+0043 1201EA           98                     LCALL   INT_CONFIGURA_INTERRUPCOES
 
-0046 1201F5          111                     LCALL   INT_CONFIGURA_INTERRUPCOES
+                      99                     
 
-0049 120093          112                     LCALL   RESETA_TIMER_MEDICOES
+0046                 100     ESPERA_TRIGGER_CALCULAR_DISTANCIA_INIT:
+
+0046 E537            101                     MOV             A, FLAG_MEDIR_DISTANCIA_INIT
+
+0048 B401FB          102                     CJNE    A, #01h, ESPERA_TRIGGER_CALCULAR_DISTANCIA_INIT
+
+                     103                     
+
+004B 7946            104                     MOV             R1, #DISTANCIA_ANTERIOR
+
+004D 12009A          105                     LCALL   MEDIR_DISTANCIA
+
+                     106                     
+
+                     107                     
+
+0050 120133          108                     LCALL   TIMER_CONFIGURA_TIMER
+
+0053 1201EA          109                     LCALL   INT_CONFIGURA_INTERRUPCOES
+
+0056 12008D          110                     LCALL   RESETA_TIMER_MEDICOES
+
+                     111                     
+
+0059 D28E            112                     SETB    TR1
 
                      113                     
 
-004C                 114     ESPERA_TRIGGER_CALCULAR_DISTANCIA_INIT:
+005B                 114     ESPERA_FLAG_MEDIR_DISTANCIA_2:
 
-004C E538            115                     MOV             A, FLAG_MEDIR_DISTANCIA_INIT
+005B E538            115                     MOV             A, FLAG_CALCULAR_VELOCIDADE
 
-004E B401FB          116                     CJNE    A, #01h, ESPERA_TRIGGER_CALCULAR_DISTANCIA_INIT
+005D B401FB          116                     CJNE    A, #01h, ESPERA_FLAG_MEDIR_DISTANCIA_2
 
                      117                     
 
-0051 7947            118                     MOV             R1, #DISTANCIA_ANTERIOR
+0060 7947            118                     MOV             R1, #DISTANCIA_ATUAL
 
-0053 1200A0          119                     LCALL   MEDIR_DISTANCIA
+0062 12009A          119                     LCALL   MEDIR_DISTANCIA
 
                      120                     
 
-A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:08:53 PAGE     3
+A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:53:04 PAGE     3
 
                      121                     
 
-0056 12013E          122                     LCALL   TIMER_CONFIGURA_TIMER
+0065 120133          122                     LCALL   TIMER_CONFIGURA_TIMER
 
-0059 1201F5          123                     LCALL   INT_CONFIGURA_INTERRUPCOES
+0068 1201EA          123                     LCALL   INT_CONFIGURA_INTERRUPCOES
 
-005C 120093          124                     LCALL   RESETA_TIMER_MEDICOES
+006B 12008D          124                     LCALL   RESETA_TIMER_MEDICOES
 
                      125                     
 
-005F D28E            126                     SETB    TR1
+006E 1200D5          126                     LCALL   CALCULA_VELOCIDADE
 
                      127                     
 
-0061                 128     ESPERA_FLAG_MEDIR_DISTANCIA_2:
+0071 0140            128                     AJMP    __STARTUP__
 
-0061 E539            129                     MOV             A, FLAG_CALCULAR_VELOCIDADE
+                     129     
 
-0063 B401FB          130                     CJNE    A, #01h, ESPERA_FLAG_MEDIR_DISTANCIA_2
+                     130     
 
-                     131                     
+                     131     
 
-0066 7948            132                     MOV             R1, #DISTANCIA_ATUAL
+                     132     
 
-0068 1200A0          133                     LCALL   MEDIR_DISTANCIA
+                     133     
 
-                     134                     
+                     134     
 
-                     135                     
+                     135     
 
-006B 12013E          136                     LCALL   TIMER_CONFIGURA_TIMER
+                     136     
 
-006E 1201F5          137                     LCALL   INT_CONFIGURA_INTERRUPCOES
+0073                 137     SETA_VARIAVEIS_INICIAIS:
 
-0071 120093          138                     LCALL   RESETA_TIMER_MEDICOES
+0073 D296            138                     SETB    PINO_LED_VERMELHO
 
-                     139                     
+0075 D297            139                     SETB    BUZZER
 
-0074 1200DB          140                     LCALL   CALCULA_VELOCIDADE
+                     140                     
 
-                     141                     
+0077 75420A          141                     MOV             VELOCIDADE_LIMITE,                      #010d    
 
-0077 0140            142                     AJMP    __STARTUP__
+007A 753700          142                     MOV             FLAG_MEDIR_DISTANCIA_INIT,      #00h 
 
-                     143     
+007D 753800          143                     MOV             FLAG_CALCULAR_VELOCIDADE,       #00h
 
-                     144     
+0080 753900          144                     MOV             VELOCIDADE_VEICULO_UNIDADE, #00h
 
-                     145     
+0083 754000          145                     MOV             VELOCIDADE_VEICULO_DEZENA,      #00h
 
-                     146     
+0086 754600          146                     MOV             DISTANCIA_ANTERIOR,             #00h                    
 
-                     147     
-
-                     148     
-
-                     149     
-
-                     150     
-
-0079                 151     SETA_VARIAVEIS_INICIAIS:
-
-0079 C296            152                     CLR             PINO_LED_VERMELHO
-
-007B C297            153                     CLR             BUZZER
-
-                     154                     
-
-007D 75430A          155                     MOV             VELOCIDADE_LIMITE,                      #010d    
-
-0080 753800          156                     MOV             FLAG_MEDIR_DISTANCIA_INIT,      #00h 
-
-0083 753900          157                     MOV             FLAG_CALCULAR_VELOCIDADE,       #00h
-
-0086 754000          158                     MOV             VELOCIDADE_VEICULO_UNIDADE, #00h
-
-0089 754100          159                     MOV             VELOCIDADE_VEICULO_DEZENA,      #00h
-
-008C 754700          160                     MOV             DISTANCIA_ANTERIOR,             #00h                    
-
-008F 754800          161                     MOV             DISTANCIA_ATUAL,                        #00h               
+0089 754700          147                     MOV             DISTANCIA_ATUAL,                        #00h               
                                           
+
+                     148                     
+
+008C 22              149                     RET
+
+                     150                     
+
+                     151     
+
+                     152     
+
+                     153     
+
+                     154     
+
+                     155     
+
+                     156     
+
+                     157     
+
+008D                 158     RESETA_TIMER_MEDICOES:
+
+008D 754300          159                     MOV             TIMER_MEDICOES_LOW,     #00h
+
+0090 754400          160                     MOV             TIMER_MEDICOES_LSB,     #00h
+
+0093 754500          161                     MOV             TIMER_MEDICOES_MSB,     #00h
 
                      162                     
 
-0092 22              163                     RET
+0096 754100          163                     MOV             VELOCIDADE_VEICULO,     #00h
 
                      164                     
 
-                     165     
+0099 22              165                     RET     
 
-                     166     
+                     166                     
 
                      167     
 
@@ -358,119 +358,119 @@ LOC  OBJ            LINE     SOURCE
 
                      171     
 
-0093                 172     RESETA_TIMER_MEDICOES:
+                     172     
 
-0093 754400          173                     MOV             TIMER_MEDICOES_LOW,     #00h
+                     173     
 
-0096 754500          174                     MOV             TIMER_MEDICOES_LSB,     #00h
+009A                 174     MEDIR_DISTANCIA:
 
-0099 754600          175                     MOV             TIMER_MEDICOES_MSB,     #00h
+009A C2AB            175                     CLR             ET1
 
-                     176                     
+                     176     
 
-009C 754200          177                     MOV             VELOCIDADE_VEICULO,     #00h
+009C 900030          177                     MOV     DPTR,#TAB7SEG           
 
                      178                     
 
-009F 22              179                     RET     
+009F 7590C0          179                     MOV     P1,#11000000b       
 
-                     180                     
+00A2 758000          180                     MOV     P0,#00h       
 
-                     181     
+                     181                     
 
-                     182     
+00A5 C2B0            182                     CLR     P3.0                
 
-                     183     
+00A7 D2B1            183                     SETB    P3.1               
 
                      184     
 
-                     185     
+00A9 758920          185                     MOV     TMOD,#00100000B     
 
-A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:08:53 PAGE     4
+A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:53:04 PAGE     4
 
-                     186     
+00AC 758B82          186                     MOV     TL1,#130D     
 
-                     187     
+00AF 758D82          187                     MOV     TH1,#130D     
 
-00A0                 188     MEDIR_DISTANCIA:
+                     188                     
 
-00A0 C2AB            189                     CLR             ET1
+00B2 7400            189                     MOV     A,#00h  
 
-                     190     
+                     190                     
 
-00A2 900030          191                     MOV     DPTR,#TAB7SEG           
+00B4 D2B0            191                     SETB    P3.0         
 
                      192                     
 
-00A5 759000          193                     MOV     P1,#00h       
+00B6 11CC            193                     ACALL   DELAY1      
 
-00A8 758000          194                     MOV     P0,#00h       
+                     194                     
 
-                     195                     
+00B8 C2B0            195                     CLR     P3.0          
 
-00AB C2B0            196                     CLR     P3.0                
+                     196     
 
-00AD D2B1            197                     SETB    P3.1               
+00BA                 197     HERE:   
 
-                     198     
+00BA 30B1FD          198                     JNB     P3.1,HERE     
 
-00AF 758920          199                     MOV     TMOD,#00100000B     
+00BD                 199     BACK:   
 
-00B2 758B82          200                     MOV     TL1,#130D     
+00BD D28E            200                     SETB    TR1          
 
-00B5 758D82          201                     MOV     TH1,#130D     
+00BF                 201     HERE1: 
 
-                     202                     
+00BF 308FFD          202                     JNB     TF1,HERE1    
 
-00B8 7400            203                     MOV     A,#00h  
+                     203           
 
-                     204                     
+00C2 C28E            204                     CLR     TR1           
 
-00BA D2B0            205                     SETB    P3.0         
+00C4 C28F            205                     CLR     TF1           
 
-                     206                     
+                     206           
 
-00BC 11D2            207                     ACALL   DELAY1      
+00C6 04              207                     INC     A             
 
-                     208                     
+                     208           
 
-00BE C2B0            209                     CLR     P3.0          
+00C7 20B1F3          209                     JB              P3.1,BACK      
 
-                     210     
+                     210           
 
-00C0                 211     HERE:   
+00CA F7              211                     MOV     @R1, A          
 
-00C0 30B1FD          212                     JNB     P3.1,HERE     
+                     212               
 
-00C3                 213     BACK:   
+00CB 22              213                     RET
 
-00C3 D28E            214                     SETB    TR1          
+                     214     
 
-00C5                 215     HERE1: 
+                     215     
 
-00C5 308FFD          216                     JNB     TF1,HERE1    
+                     216     
 
-                     217           
+00CC                 217     DELAY1: 
 
-00C8 C28E            218                     CLR     TR1           
+00CC 7E02            218                     MOV     R6,#2D      
 
-00CA C28F            219                     CLR     TF1           
+00CE                 219     LABEL1: 
 
-                     220           
+00CE DEFE            220                     DJNZ    R6,LABEL1
 
-00CC 04              221                     INC     A             
+                     221               
 
-                     222           
+00D0 7FFA            222     DELAY: MOV R7,#250D         
 
-00CD 20B1F3          223                     JB              P3.1,BACK      
+00D2 DFFE            223     LABEL2: DJNZ R7,LABEL2
 
-                     224           
+00D4 22              224             RET
 
-00D0 F7              225                     MOV     @R1, A          
+                     225     
 
-                     226               
+                     226     
 
-00D1 22              227                     RET
+                     227     
 
                      228     
 
@@ -478,187 +478,187 @@ LOC  OBJ            LINE     SOURCE
 
                      230     
 
-00D2                 231     DELAY1: 
+                     231     
 
-00D2 7E02            232                     MOV     R6,#2D      
+                     232     
 
-00D4                 233     LABEL1: 
+00D5                 233     CALCULA_VELOCIDADE:
 
-00D4 DEFE            234                     DJNZ    R6,LABEL1
+00D5 C3              234                     CLR             C  
 
-                     235               
+                     235                     
 
-00D6 7FFA            236     DELAY: MOV R7,#250D         
+00D6 E546            236                     MOV     A, DISTANCIA_ANTERIOR
 
-00D8 DFFE            237     LABEL2: DJNZ R7,LABEL2
+00D8 8547F0          237                     MOV             B, DISTANCIA_ATUAL
 
-00DA 22              238             RET
+                     238                     
 
-                     239     
+00DB 95F0            239                     SUBB    A, B
 
                      240     
 
-                     241     
+00DD 5008            241                     JNC             DISTANCIA_ANTERIOR_MAIOR_QUE_ATUAL      
 
-                     242     
+                     242                     
 
-                     243     
+00DF                 243     DISTANCIA_ATUAL_MAIOR_QUE_ANTERIOR:
 
-                     244     
+00DF E547            244                     MOV     A, DISTANCIA_ATUAL
 
-                     245     
+00E1 9546            245                     SUBB    A, DISTANCIA_ANTERIOR
 
-                     246     
+                     246                     
 
-00DB                 247     CALCULA_VELOCIDADE:
+00E3 F541            247                     MOV             VELOCIDADE_VEICULO, A
 
-00DB C3              248                     CLR             C  
+                     248                     
 
-                     249                     
+00E5 8006            249                     JMP             DLOOP
 
-00DC E547            250                     MOV     A, DISTANCIA_ANTERIOR
+                     250     
 
-00DE 8548F0          251                     MOV             B, DISTANCIA_ATUAL
+00E7                 251     DISTANCIA_ANTERIOR_MAIOR_QUE_ATUAL:
 
-A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:08:53 PAGE     5
+A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:53:04 PAGE     5
 
-                     252                     
+00E7 E546            252                     MOV     A, DISTANCIA_ANTERIOR
 
-00E1 95F0            253                     SUBB    A, B
+00E9 9547            253                     SUBB    A, DISTANCIA_ATUAL
 
-                     254     
+                     254                     
 
-00E3 5008            255                     JNC             DISTANCIA_ANTERIOR_MAIOR_QUE_ATUAL      
+00EB F541            255                     MOV             VELOCIDADE_VEICULO, A
 
                      256                     
 
-00E5                 257     DISTANCIA_ATUAL_MAIOR_QUE_ANTERIOR:
+00ED                 257     DLOOP: 
 
-00E5 E548            258                     MOV     A, DISTANCIA_ATUAL
+                     258                
 
-00E7 9547            259                     SUBB    A, DISTANCIA_ANTERIOR
+                     259                
 
-                     260                     
+                     260                
 
-00E9 F542            261                     MOV             VELOCIDADE_VEICULO, A
+00ED 74FF            261                MOV          A, #0FFh
 
-                     262                     
+00EF 9542            262                SUBB         A, VELOCIDADE_LIMITE
 
-00EB 8006            263                     JMP             DLOOP
+                     263                     
 
-                     264     
+00F1 3541            264                ADDC         A, VELOCIDADE_VEICULO
 
-00ED                 265     DISTANCIA_ANTERIOR_MAIOR_QUE_ATUAL:
+                     265                     
 
-00ED E547            266                     MOV     A, DISTANCIA_ANTERIOR
+00F3 402B            266                JC           ACIMA_DO_LIMITE
 
-00EF 9548            267                     SUBB    A, DISTANCIA_ATUAL
+                     267     
 
-                     268                     
+00F5                 268     CONTINUA_DLOOP:
 
-00F1 F542            269                     MOV             VELOCIDADE_VEICULO, A
+00F5 7D64            269                     MOV     R5,#100D     
 
-                     270                     
+00F7 7E0F            270                     MOV             R6,#15D
 
-00F3                 271     DLOOP: 
+00F9                 271     BACK1: 
 
-00F3 7D64            272                     MOV     R5,#100D     
+00F9 E541            272                     MOV     A,VELOCIDADE_VEICULO         
 
-00F5 7E0F            273                     MOV             R6,#15D
+00FB 75F00A          273                     MOV     B,#10D      
 
-00F7                 274     BACK1: 
+                     274            
 
-00F7 E542            275                     MOV     A,VELOCIDADE_VEICULO         
+00FE 84              275                     DIV     AB           
 
-00F9 75F00A          276                     MOV     B,#10D      
+                     276            
 
-                     277            
+00FF D291            277                     SETB    P1.1        
 
-00FC 84              278                     DIV     AB           
+0101 312B            278            ACALL MOSTRA_VELOCIDADE_DISPLAY    
 
-                     279            
+0103 11D0            279            ACALL DELAY      
 
-00FD D291            280                     SETB    P1.1        
+0105 11D0            280            ACALL DELAY
 
-00FF 3136            281            ACALL MOSTRA_VELOCIDADE_DISPLAY    
+                     281            
 
-0101 11D6            282            ACALL DELAY      
+0107 E5F0            282                MOV A,B          
 
-0103 11D6            283            ACALL DELAY
+0109 C291            283            CLR P1.1         
 
-                     284            
+010B D292            284            SETB P1.2        
 
-0105 E5F0            285                MOV A,B          
+010D 312B            285            ACALL MOSTRA_VELOCIDADE_DISPLAY
 
-0107 C291            286            CLR P1.1         
+010F 11D0            286            ACALL DELAY
 
-0109 D292            287            SETB P1.2        
+0111 11D0            287            ACALL DELAY
 
-010B 3136            288            ACALL MOSTRA_VELOCIDADE_DISPLAY
+                     288            
 
-010D 11D6            289            ACALL DELAY
+0113 C292            289                CLR P1.2        
 
-010F 11D6            290            ACALL DELAY
+                     290                
 
-                     291            
+0115 DEE2            291                DJNZ R6,BACK1
 
-0111 C292            292                CLR P1.2        
+0117 7E15            292                MOV  R6,#15h
 
-                     293                
+0119 DDDE            293            DJNZ R5,BACK1   
 
-0113 DEE2            294                DJNZ R6,BACK1
+                     294                
 
-0115 7E15            295                MOV  R6,#15h
+011B D296            295                SETB         PINO_LED_VERMELHO
 
-0117 DDDE            296            DJNZ R5,BACK1   
+011D D297            296                SETB         BUZZER
 
                      297                
 
-                     298                
+011F 22              298            RET
 
-                     299                
+                     299     
 
-                     300                
+0120                 300     ACIMA_DO_LIMITE:
 
-0119 74FF            301                MOV          A, #0FFh
+0120 120126          301                     LCALL   VELOCIDADE_ACIMA_DO_LIMITE
 
-011B 9543            302                SUBB         A, VELOCIDADE_LIMITE
+                     302                     
 
-                     303                     
+0123 80D0            303                     JMP             CONTINUA_DLOOP
 
-011D 3542            304                ADDC         A, VELOCIDADE_VEICULO
+                     304                     
 
-                     305                     
+0125 22              305                     RET     
 
-011F 4001            306                JC           ACIMA_DO_LIMITE
+                     306     
 
-                     307                
+                     307     
 
-0121 22              308            RET
+                     308     
 
                      309     
 
-0122                 310     ACIMA_DO_LIMITE:
+                     310     
 
-0122 120126          311                     LCALL   VELOCIDADE_ACIMA_DO_LIMITE
+                     311     
 
-                     312                     
+                     312     
 
-0125 22              313                     RET     
+                     313     
 
                      314     
 
-                     315     
+0126                 315     VELOCIDADE_ACIMA_DO_LIMITE:
 
-                     316     
+0126 C296            316                     CLR             PINO_LED_VERMELHO
 
-                     317     
+0128 C297            317                     CLR             BUZZER
 
-A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:08:53 PAGE     6
+A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:53:04 PAGE     6
 
                      318     
 
-                     319     
+                     319                     
 
                      320     
 
@@ -666,35 +666,35 @@ LOC  OBJ            LINE     SOURCE
 
                      322     
 
-0126                 323     VELOCIDADE_ACIMA_DO_LIMITE:
+                     323     
 
-0126 7802            324                     MOV             R0, #02h  
+                     324     
 
-0128 7980            325                     MOV             R1, #128d  
+                     325     
 
-                     326                     
+                     326     
 
-                     327                     
+                     327     
 
-                     328                     
+                     328     
 
-                     329                     
+                     329     
 
-012A 7A29            330                     MOV             R2, #029h
+                     330     
 
-012C 7BFF            331                     MOV             R3, #0FFh
+                     331                     
 
-012E 7CFF            332                     MOV             R4, #0FFh
+012A 22              332                     RET
 
-0130 7D05            333                     MOV             R5, #00000101b  
+                     333     
 
-                     334                     
+                     334     
 
-0132 12016F          335                     LCALL   PWM_SQUARE_WAVE_SETUP_AND_START
+                     335     
 
-                     336                     
+                     336     
 
-0135 22              337                     RET
+                     337     
 
                      338     
 
@@ -702,31 +702,31 @@ LOC  OBJ            LINE     SOURCE
 
                      340     
 
-                     341     
+012B                 341     MOSTRA_VELOCIDADE_DISPLAY:
 
-                     342     
+012B 900030          342                     MOV DPTR,#TAB7SEG           
 
-                     343     
+                     343                     
 
-                     344     
+012E 93              344                     MOVC    A,@A+DPTR    
 
-                     345     
+012F F4              345             CPL     A            
 
-0136                 346     MOSTRA_VELOCIDADE_DISPLAY:
+0130 F580            346                     MOV     P0,A         
 
-0136 900030          347                     MOV DPTR,#TAB7SEG           
+                     347                     
 
-                     348                     
+0132 22              348                     RET
 
-0139 93              349                     MOVC    A,@A+DPTR    
+                     349     
 
-013A F4              350             CPL     A            
+                     350     
 
-013B F580            351                     MOV     P0,A         
+                     351     
 
-                     352                     
+                     352     
 
-013D 22              353                     RET
+                     353     
 
                      354     
 
@@ -742,161 +742,161 @@ LOC  OBJ            LINE     SOURCE
 
                      360     
 
-                     361     
+0133                 361     TIMER_CONFIGURA_TIMER:
 
-                     362     
+0133 758922          362                     MOV     TMOD, #00100010b  
 
-                     363     
+                     363                     
 
-                     364     
+0136 313F            364                     ACALL   TIMER_SETA_VALORES_TIMER_PADRAO
 
-                     365     
+                     365                     
 
-013E                 366     TIMER_CONFIGURA_TIMER:
+                     366                     
 
-013E 758922          367                     MOV     TMOD, #00100010b  
+                     367                     
 
                      368                     
 
-0141 314A            369                     ACALL   TIMER_SETA_VALORES_TIMER_PADRAO
+                     369                     
 
                      370                     
 
                      371                     
 
-                     372                     
+0138 758DFF          372                     MOV     TH1, #0FFh
 
-                     373                     
+013B 758B7A          373                     MOV             TL1, #122d
 
-                     374                     
+                     374                                     
 
-                     375                     
+013E 22              375                     RET
 
                      376                     
 
-0143 758DFF          377                     MOV     TH1, #0FFh
+                     377     
 
-0146 758B7A          378                     MOV             TL1, #122d
+                     378     
 
-                     379                                     
+                     379     
 
-0149 22              380                     RET
+                     380     
 
-                     381                     
+                     381     
 
                      382     
 
                      383     
 
-A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:08:53 PAGE     7
+A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:53:04 PAGE     7
 
-                     384     
+013F                 384     TIMER_SETA_VALORES_TIMER_PADRAO:
 
-                     385     
+                     385                     
 
-                     386     
+                     386                     
 
-                     387     
+013F 758CCF          387                     MOV     TH0, #207d
 
-                     388     
+0142 758ACF          388                     MOV     TL0, #207d
 
-014A                 389     TIMER_SETA_VALORES_TIMER_PADRAO:
+                     389                                     
 
-                     390                     
+0145 22              390                     RET
 
                      391                     
 
-014A 758CCF          392                     MOV     TH0, #207d
+                     392     
 
-014D 758ACF          393                     MOV     TL0, #207d
+                     393     
 
-                     394                                     
+                     394     
 
-0150 22              395                     RET
+                     395     
 
-                     396                     
+                     396     
 
                      397     
 
                      398     
 
-                     399     
+0146                 399     TIMER_DELAY_20_MS:
 
-                     400     
+0146 758901          400                     MOV     TMOD, #00000001b  
 
-                     401     
+                     401                     
 
-                     402     
+                     402                     
 
-                     403     
+0149 758C56          403                     MOV     TH0, #HIGH(65535 - 43350)
 
-0151                 404     TIMER_DELAY_20_MS:
+014C 758AA9          404                     MOV     TL0, #LOW(65535 - 43350)
 
-0151 758901          405                     MOV     TMOD, #00000001b  
+                     405     
 
-                     406                     
+014F C28D            406                     CLR     TF0
 
-                     407                     
+0151 D28C            407                     SETB    TR0
 
-0154 758C56          408                     MOV     TH0, #HIGH(65535 - 43350)
+                     408             
 
-0157 758AA9          409                     MOV     TL0, #LOW(65535 - 43350)
+0153 308DFD          409                     JNB     TF0, $
 
-                     410     
+                     410                     
 
-015A C28D            411                     CLR     TF0
+0156 C28D            411                     CLR     TF0
 
-015C D28C            412                     SETB    TR0
+0158 C28C            412                     CLR     TR0
 
                      413             
 
-015E 308DFD          414                     JNB     TF0, $
+015A D8EA            414                     DJNZ R0, TIMER_DELAY_20_MS
 
-                     415                     
+                     415             
 
-0161 C28D            416                     CLR     TF0
+015C 22              416                     RET
 
-0163 C28C            417                     CLR     TR0
+                     417             
 
-                     418             
+                     418     
 
-0165 D8EA            419                     DJNZ R0, TIMER_DELAY_20_MS
+                     419     
 
-                     420             
+                     420     
 
-0167 22              421                     RET
+                     421     
 
-                     422             
+                     422     
 
                      423     
 
                      424     
 
-                     425     
+015D                 425     TIMER_DELAY_1_S:
 
-                     426     
+015D 7832            426                     MOV             R0, #50d
 
-                     427     
+015F 3146            427                     CALL    TIMER_DELAY_20_MS
 
-                     428     
+                     428                     
 
-                     429     
+0161 D9FA            429                     DJNZ    R1, TIMER_DELAY_1_S
 
-0168                 430     TIMER_DELAY_1_S:
+                     430             
 
-0168 7832            431                     MOV             R0, #50d
+0163 22              431                     RET
 
-016A 3151            432                     CALL    TIMER_DELAY_20_MS
+                     432                     
 
-                     433                     
+                     433     
 
-016C D9FA            434                     DJNZ    R1, TIMER_DELAY_1_S
+                     434     
 
-                     435             
+                     435     
 
-016E 22              436                     RET
+                     436     
 
-                     437                     
+                     437     
 
                      438     
 
@@ -922,7 +922,7 @@ LOC  OBJ            LINE     SOURCE
 
                      449     
 
-A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:08:53 PAGE     8
+A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:53:04 PAGE     8
 
                      450     
 
@@ -930,53 +930,53 @@ LOC  OBJ            LINE     SOURCE
 
                      452     
 
-                     453     
+0164                 453     PWM_SQUARE_WAVE_SETUP_AND_START:
 
-                     454     
+0164 8931            454                     MOV     PWM_DUTY_CYCLE, R1
 
-                     455     
+                     455             
 
-                     456     
+0166 12017A          456                     LCALL   PWM_SQUARE_WAVE_CONFIG_PERIOD
 
-                     457     
+                     457             
 
-016F                 458     PWM_SQUARE_WAVE_SETUP_AND_START:
+0169 D28C            458                     SETB    TR0
 
-016F 8931            459                     MOV     PWM_DUTY_CYCLE, R1
+                     459     
 
-                     460             
+016B                 460     CONTINUA_PWM:
 
-0171 120185          461                     LCALL   PWM_SQUARE_WAVE_CONFIG_PERIOD
+016B 120192          461                     LCALL   PWM_SQUARE_WAVE
 
-                     462             
+                     462                     
 
-0174 D28C            463                     SETB    TR0
+016E E532            463                     MOV     A, PWM_COUNTER
 
-                     464     
+0170 B536F8          464                     CJNE    A, PWM_QTDADE_PERIODOS, CONTINUA_PWM
 
-0176                 465     CONTINUA_PWM:
+                     465     
 
-0176 12019D          466                     LCALL   PWM_SQUARE_WAVE
+0173                 466     PWM_PARAR:
 
-                     467                     
+0173 12018F          467                     LCALL   PWM_STOP
 
-0179 E532            468                     MOV     A, PWM_COUNTER
+                     468                     
 
-017B B536F8          469                     CJNE    A, PWM_QTDADE_PERIODOS, CONTINUA_PWM
+0176 753200          469                     MOV             PWM_COUNTER, #00h
 
-                     470     
+                     470                     
 
-017E                 471     PWM_PARAR:
+0179 22              471                     RET
 
-017E 12019A          472                     LCALL   PWM_STOP
+                     472     
 
-                     473                     
+                     473     
 
-0181 753200          474                     MOV             PWM_COUNTER, #00h
+                     474     
 
-                     475                     
+                     475     
 
-0184 22              476                     RET
+                     476     
 
                      477     
 
@@ -990,51 +990,51 @@ LOC  OBJ            LINE     SOURCE
 
                      482     
 
-                     483     
+017A                 483     PWM_SQUARE_WAVE_CONFIG_PERIOD:
 
-                     484     
+017A 8A35            484                     MOV             PWM_PERIODO_MSB, R2
 
-                     485     
+017C 8B34            485                     MOV             PWM_PERIODO_MED, R3
 
-                     486     
+017E 8C33            486                     MOV             PWM_PERIODO_LSB, R4
 
-                     487     
+                     487                     
 
-0185                 488     PWM_SQUARE_WAVE_CONFIG_PERIOD:
+                     488                     
 
-0185 8A35            489                     MOV             PWM_PERIODO_MSB, R2
+                     489                     
 
-0187 8B34            490                     MOV             PWM_PERIODO_MED, R3
+0180 E8              490                     MOV             A, R0
 
-0189 8C33            491                     MOV             PWM_PERIODO_LSB, R4
+0181 28              491                     ADD             A, R0
 
-                     492                     
+0182 F536            492                     MOV             PWM_QTDADE_PERIODOS, A
 
                      493                     
 
-                     494                     
+0184 AE34            494                     MOV             R6, PWM_PERIODO_MED
 
-018B E8              495                     MOV             A, R0
+0186 AF35            495                     MOV             R7, PWM_PERIODO_MSB
 
-018C 28              496                     ADD             A, R0
+                     496                     
 
-018D F536            497                     MOV             PWM_QTDADE_PERIODOS, A
+0188 758CFF          497                     MOV     TH0, #0FFh
 
-                     498                     
+018B 85338A          498                     MOV             TL0, PWM_PERIODO_LSB
 
-018F AE34            499                     MOV             R6, PWM_PERIODO_MED
+                     499                     
 
-0191 AF35            500                     MOV             R7, PWM_PERIODO_MSB
+018E 22              500                     RET
 
-                     501                     
+                     501     
 
-0193 758CFF          502                     MOV     TH0, #0FFh
+                     502     
 
-0196 85338A          503                     MOV             TL0, PWM_PERIODO_LSB
+                     503     
 
-                     504                     
+                     504     
 
-0199 22              505                     RET
+                     505     
 
                      506     
 
@@ -1042,27 +1042,27 @@ LOC  OBJ            LINE     SOURCE
 
                      508     
 
-                     509     
+018F                 509     PWM_STOP:
 
-                     510     
+018F C28C            510                     CLR     TR0
 
-                     511     
+                     511                     
 
-                     512     
+0191 22              512                     RET
 
-                     513     
+                     513             
 
-019A                 514     PWM_STOP:
+                     514     
 
-019A C28C            515                     CLR     TR0
+                     515     
 
-A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:08:53 PAGE     9
+A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:53:04 PAGE     9
 
-                     516                     
+                     516     
 
-019C 22              517                     RET
+                     517     
 
-                     518             
+                     518     
 
                      519     
 
@@ -1078,145 +1078,145 @@ LOC  OBJ            LINE     SOURCE
 
                      525     
 
-                     526     
+0192                 526     PWM_SQUARE_WAVE:        
 
-                     527     
+0192 308DFD          527                     JNB     TF0, $
 
-                     528     
+                     528             
 
-                     529     
+0195 DE2B            529                     DJNZ    R6, CONTINUE_SQUARE
 
-                     530     
+0197 AE34            530                     MOV             R6, PWM_PERIODO_MED
 
-019D                 531     PWM_SQUARE_WAVE:        
+                     531                     
 
-019D 308DFD          532                     JNB     TF0, $
+0199 DF27            532                     DJNZ    R7, CONTINUE_SQUARE
 
-                     533             
+019B AF35            533                     MOV             R7, PWM_PERIODO_MSB     
 
-01A0 DE2B            534                     DJNZ    R6, CONTINUE_SQUARE
+                     534     
 
-01A2 AE34            535                     MOV             R6, PWM_PERIODO_MED
+                     535                     
 
-                     536                     
+019D 0532            536                     INC             PWM_COUNTER
 
-01A4 DF27            537                     DJNZ    R7, CONTINUE_SQUARE
+                     537     
 
-01A6 AF35            538                     MOV             R7, PWM_PERIODO_MSB     
+019F 20000E          538                     JB              PWM_FLAG, HIGH_DONE
 
-                     539     
+                     539             
 
-                     540                     
+01A2                 540     LOW_DONE:                       
 
-01A8 0532            541                     INC             PWM_COUNTER
+01A2 D200            541                     SETB    PWM_FLAG
 
-                     542     
+                     542                     
 
-01AA 20000E          543                     JB              PWM_FLAG, HIGH_DONE
+01A4 1201DB          543                     LCALL   DEFINE_PINOS_A_SEREM_ATIVADOS_DESATIVADOS
 
-                     544             
+                     544                     
 
-01AD                 545     LOW_DONE:                       
+01A7 758CFF          545                     MOV             TH0, #0FFh
 
-01AD D200            546                     SETB    PWM_FLAG
+01AA 85318A          546                     MOV     TL0, PWM_DUTY_CYCLE             
 
                      547                     
 
-01AF 1201E6          548                     LCALL   DEFINE_PINOS_A_SEREM_ATIVADOS_DESATIVADOS
+01AD C28D            548                     CLR     TF0
 
                      549                     
 
-01B2 758CFF          550                     MOV             TH0, #0FFh
+01AF 22              550                     RET
 
-01B5 85318A          551                     MOV     TL0, PWM_DUTY_CYCLE             
+                     551                                     
 
-                     552                     
+01B0                 552     HIGH_DONE:
 
-01B8 C28D            553                     CLR     TF0
+01B0 C200            553                     CLR     PWM_FLAG                         
 
-                     554                     
+                     554                             
 
-01BA 22              555                     RET
+01B2 1201DB          555                     LCALL   DEFINE_PINOS_A_SEREM_ATIVADOS_DESATIVADOS
 
-                     556                                     
+                     556                     
 
-01BB                 557     HIGH_DONE:
+01B5 74FF            557                     MOV     A, #0FFh                 
 
-01BB C200            558                     CLR     PWM_FLAG                         
+01B7 C3              558                     CLR             C
 
-                     559                             
+01B8 9531            559                     SUBB    A, PWM_DUTY_CYCLE
 
-01BD 1201E6          560                     LCALL   DEFINE_PINOS_A_SEREM_ATIVADOS_DESATIVADOS
+                     560                     
 
-                     561                     
+01BA 758CFF          561                     MOV     TH0, #0FFh                       
 
-01C0 74FF            562                     MOV     A, #0FFh                 
+01BD F58A            562                     MOV             TL0, A
 
-01C2 C3              563                     CLR             C
+                     563                     
 
-01C3 9531            564                     SUBB    A, PWM_DUTY_CYCLE
+01BF C28D            564                     CLR     TF0                                      
 
                      565                     
 
-01C5 758CFF          566                     MOV     TH0, #0FFh                       
+01C1 22              566                     RET
 
-01C8 F58A            567                     MOV             TL0, A
+                     567     
 
-                     568                     
+01C2                 568     CONTINUE_SQUARE:
 
-01CA C28D            569                     CLR     TF0                                      
+01C2 30000D          569                     JNB             PWM_FLAG, CONTINUE_SQUARE_LOW
 
-                     570                     
+                     570             
 
-01CC 22              571                     RET
+01C5                 571     CONTINUE_SQUARE_HIGH:
 
-                     572     
+01C5 74FF            572                     MOV     A, #0FFh                 
 
-01CD                 573     CONTINUE_SQUARE:
+01C7 C3              573                     CLR             C
 
-01CD 30000D          574                     JNB             PWM_FLAG, CONTINUE_SQUARE_LOW
+01C8 9531            574                     SUBB    A, PWM_DUTY_CYCLE
 
-                     575             
+                     575                     
 
-01D0                 576     CONTINUE_SQUARE_HIGH:
+01CA 758CFF          576                     MOV     TH0, #0FFh                       
 
-01D0 74FF            577                     MOV     A, #0FFh                 
+01CD F58A            577                     MOV             TL0, A
 
-01D2 C3              578                     CLR             C
+                     578                     
 
-01D3 9531            579                     SUBB    A, PWM_DUTY_CYCLE
+01CF C28D            579                     CLR     TF0
 
-                     580                     
+                     580     
 
-01D5 758CFF          581                     MOV     TH0, #0FFh                       
+01D1 22              581                     RET
 
-A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:08:53 PAGE    10
+A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:53:04 PAGE    10
 
-01D8 F58A            582                     MOV             TL0, A
+                     582                     
 
-                     583                     
+01D2                 583     CONTINUE_SQUARE_LOW:
 
-01DA C28D            584                     CLR     TF0
+01D2 758CFF          584                     MOV             TH0, #0FFh
 
-                     585     
+01D5 85318A          585                     MOV     TL0, PWM_DUTY_CYCLE
 
-01DC 22              586                     RET
+                     586                     
 
-                     587                     
+01D8 C28D            587                     CLR     TF0
 
-01DD                 588     CONTINUE_SQUARE_LOW:
+                     588                     
 
-01DD 758CFF          589                     MOV             TH0, #0FFh
+01DA 22              589                     RET
 
-01E0 85318A          590                     MOV     TL0, PWM_DUTY_CYCLE
+                     590     
 
-                     591                     
+                     591     
 
-01E3 C28D            592                     CLR     TF0
+                     592     
 
-                     593                     
+                     593     
 
-01E5 22              594                     RET
+                     594     
 
                      595     
 
@@ -1228,47 +1228,47 @@ LOC  OBJ            LINE     SOURCE
 
                      599     
 
-                     600     
+01DB                 600     DEFINE_PINOS_A_SEREM_ATIVADOS_DESATIVADOS:
 
-                     601     
+01DB 7401            601                     MOV             A, #01h
 
-                     602     
+01DD 5D              602                     ANL             A, R5
 
-                     603     
+01DE 6002            603                     JZ              NAO_ATIVA_BIT_0
 
-                     604     
+                     604                     
 
-01E6                 605     DEFINE_PINOS_A_SEREM_ATIVADOS_DESATIVADOS:
+01E0 B296            605                     CPL     PINO_LED_VERMELHO
 
-01E6 7401            606                     MOV             A, #01h
+                     606                     
 
-01E8 5D              607                     ANL             A, R5
+01E2                 607     NAO_ATIVA_BIT_0:
 
-01E9 6002            608                     JZ              NAO_ATIVA_BIT_0
+01E2 7402            608                     MOV             A, #02h
 
-                     609                     
+01E4 5D              609                     ANL             A, R5
 
-01EB B296            610                     CPL     PINO_LED_VERMELHO
+01E5 6002            610                     JZ              NAO_ATIVA_BIT_1
 
                      611                     
 
-01ED                 612     NAO_ATIVA_BIT_0:
+01E7 B297            612                     CPL     BUZZER
 
-01ED 7402            613                     MOV             A, #02h
+                     613     
 
-01EF 5D              614                     ANL             A, R5
+01E9                 614     NAO_ATIVA_BIT_1:
 
-01F0 6002            615                     JZ              NAO_ATIVA_BIT_1
+01E9 22              615                     RET
 
-                     616                     
+                     616     
 
-01F2 B297            617                     CPL     BUZZER
+                     617     
 
                      618     
 
-01F4                 619     NAO_ATIVA_BIT_1:
+                     619     
 
-01F4 22              620                     RET
+                     620     
 
                      621     
 
@@ -1286,53 +1286,53 @@ LOC  OBJ            LINE     SOURCE
 
                      628     
 
-                     629     
+01EA                 629     INT_CONFIGURA_INTERRUPCOES:
 
-                     630     
+                     630                     
 
-                     631     
+01EA D2AF            631                     SETB    EA
 
-                     632     
+01EC D2A8            632                     SETB    EX0
 
-                     633     
+                     633                     
 
-01F5                 634     INT_CONFIGURA_INTERRUPCOES:
+01EE D2AB            634                     SETB    ET1
 
                      635                     
 
-01F5 D2AF            636                     SETB    EA
+                     636                     
 
-01F7 D2A8            637                     SETB    EX0
+01F0 C2B8            637                     CLR             PX0              
 
                      638                     
 
-01F9 D2AB            639                     SETB    ET1
+01F2 D2BB            639                     SETB    PT1              
 
                      640                     
 
                      641                     
 
-01FB C2B8            642                     CLR             PX0              
+01F4 C289            642                     CLR             IE0              
 
                      643                     
 
-01FD D2BB            644                     SETB    PT1              
+01F6 C28A            644                     CLR             IT1              
 
                      645                     
 
-                     646                     
+01F8 22              646                     RET
 
-01FF C289            647                     CLR     IE0              
+                     647     
 
-A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:08:53 PAGE    11
+A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:53:04 PAGE    11
 
-                     648                     
+                     648     
 
-0201 C28A            649                     CLR             IT1              
+                     649     
 
-                     650                     
+                     650     
 
-0203 22              651                     RET
+                     651     
 
                      652     
 
@@ -1340,41 +1340,41 @@ LOC  OBJ            LINE     SOURCE
 
                      654     
 
-                     655     
+01F9                 655     INT_EXT0:
 
-                     656     
+01F9 C0E0            656                     PUSH    ACC
 
-                     657     
+01FB C0D0            657                     PUSH    PSW
 
-                     658     
+                     658                     
 
-                     659     
+01FD 753701          659                     MOV             FLAG_MEDIR_DISTANCIA_INIT, #01h
 
-0204                 660     INT_EXT0:
+                     660                     
 
-0204 C0E0            661                     PUSH    ACC
+0200 7805            661                     MOV     R0, #05h                 
 
-0206 C0D0            662                     PUSH    PSW
+0202 3146            662                     ACALL   TIMER_DELAY_20_MS
 
                      663                     
 
-0208 753801          664                     MOV             FLAG_MEDIR_DISTANCIA_INIT, #01h
+0204 D0D0            664                     POP             PSW
 
-                     665                     
+0206 D0E0            665                     POP             ACC
 
-020B 7805            666                     MOV     R0, #05h                 
+                     666                     
 
-020D 3151            667                     ACALL   TIMER_DELAY_20_MS
+0208 32              667                     RETI
 
-                     668                     
+                     668     
 
-020F D0D0            669                     POP             PSW
+                     669     
 
-0211 D0E0            670                     POP             ACC
+                     670     
 
-                     671                     
+                     671     
 
-0213 32              672                     RETI
+                     672     
 
                      673     
 
@@ -1382,29 +1382,29 @@ LOC  OBJ            LINE     SOURCE
 
                      675     
 
-                     676     
+0209                 676     INT_TIMER0:
 
-                     677     
+0209 32              677                     RETI
 
-                     678     
+                     678             
 
                      679     
 
                      680     
 
-0214                 681     INT_TIMER0:
+                     681     
 
-0214 32              682                     RETI
+                     682     
 
-                     683             
+                     683     
 
                      684     
 
                      685     
 
-                     686     
+020A                 686     INT_EXT1:
 
-                     687     
+                     687                     
 
                      688     
 
@@ -1412,9 +1412,9 @@ LOC  OBJ            LINE     SOURCE
 
                      690     
 
-0215                 691     INT_EXT1:
+                     691     
 
-                     692                     
+                     692     
 
                      693     
 
@@ -1436,9 +1436,9 @@ LOC  OBJ            LINE     SOURCE
 
                      702     
 
-                     703     
+                     703                     
 
-                     704     
+020A 32              704                     RETI
 
                      705     
 
@@ -1446,9 +1446,9 @@ LOC  OBJ            LINE     SOURCE
 
                      707     
 
-                     708                     
+                     708     
 
-0215 32              709                     RETI
+                     709     
 
                      710     
 
@@ -1458,125 +1458,115 @@ LOC  OBJ            LINE     SOURCE
 
                      713     
 
-A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:08:53 PAGE    12
+A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:53:04 PAGE    12
 
                      714     
 
                      715     
 
-                     716     
+020B                 716     INT_TIMER1:
 
-                     717     
+020B C0E0            717                     PUSH    ACC
 
-                     718     
+020D C0D0            718                     PUSH    PSW
 
-                     719     
+                     719                     
 
-                     720     
+020F 758B7A          720                     MOV             TL1, #122d
 
-0216                 721     INT_TIMER1:
+0212 C28F            721                     CLR             TF1
 
-0216 C0E0            722                     PUSH    ACC
+                     722                     
 
-0218 C0D0            723                     PUSH    PSW
+0214 E543            723                     MOV             A, TIMER_MEDICOES_LOW
 
-                     724                     
+0216 B41419          724                     CJNE    A, #020d, INCREMENTA_TIMER_MEDICOES_LOW       
 
-021A 758B7A          725                     MOV             TL1, #122d
+                     725             
 
-021D C28F            726                     CLR             TF1
+0219 E544            726                     MOV             A, TIMER_MEDICOES_LSB
 
-                     727                     
+021B B4FA18          727                     CJNE    A, #0250d, INCREMENTA_TIMER_MEDICOES_LSB         
 
-021F E544            728                     MOV             A, TIMER_MEDICOES_LOW
+                     728                     
 
-0221 B41419          729                     CJNE    A, #020d, INCREMENTA_TIMER_MEDICOES_LOW       
+021E 754300          729                     MOV             TIMER_MEDICOES_LOW, #00h
 
-                     730             
+0221 754400          730                     MOV             TIMER_MEDICOES_LSB, #00h
 
-0224 E545            731                     MOV             A, TIMER_MEDICOES_LSB
+0224 0545            731                     INC             TIMER_MEDICOES_MSB
 
-0226 B4FA18          732                     CJNE    A, #0250d, INCREMENTA_TIMER_MEDICOES_LSB         
+                     732                     
 
-                     733                     
+0226 E545            733                     MOV             A, TIMER_MEDICOES_MSB
 
-0229 754400          734                     MOV             TIMER_MEDICOES_LOW, #00h
+0228 B40210          734                     CJNE    A, #02d, FINALIZA_TIMER_1        
 
-022C 754500          735                     MOV             TIMER_MEDICOES_LSB, #00h
+                     735                     
 
-022F 0546            736                     INC             TIMER_MEDICOES_MSB
+022B C28E            736                     CLR             TR1
 
-                     737                     
+022D 753801          737                     MOV             FLAG_CALCULAR_VELOCIDADE, #01h
 
-0231 E546            738                     MOV             A, TIMER_MEDICOES_MSB
+0230 413B            738                     AJMP    FINALIZA_TIMER_1
 
-0233 B40210          739                     CJNE    A, #02d, FINALIZA_TIMER_1        
+                     739             
 
-                     740                     
+0232                 740     INCREMENTA_TIMER_MEDICOES_LOW:
 
-0236 C28E            741                     CLR             TR1
+0232 0543            741                     INC             TIMER_MEDICOES_LOW
 
-0238 753901          742                     MOV             FLAG_CALCULAR_VELOCIDADE, #01h
+0234 413B            742                     AJMP    FINALIZA_TIMER_1
 
-023B 4146            743                     AJMP    FINALIZA_TIMER_1
+                     743                     
 
-                     744             
+0236                 744     INCREMENTA_TIMER_MEDICOES_LSB:
 
-023D                 745     INCREMENTA_TIMER_MEDICOES_LOW:
+0236 754300          745                     MOV             TIMER_MEDICOES_LOW, #00h
 
-023D 0544            746                     INC             TIMER_MEDICOES_LOW
+0239 0544            746                     INC             TIMER_MEDICOES_LSB
 
-023F 4146            747                     AJMP    FINALIZA_TIMER_1
+                     747     
 
-                     748                     
+023B                 748     FINALIZA_TIMER_1:
 
-0241                 749     INCREMENTA_TIMER_MEDICOES_LSB:
+023B D0D0            749                     POP             PSW
 
-0241 754400          750                     MOV             TIMER_MEDICOES_LOW, #00h
+023D D0E0            750                     POP             ACC
 
-0244 0545            751                     INC             TIMER_MEDICOES_LSB
+                     751                     
 
-                     752     
+023F 32              752                     RETI
 
-0246                 753     FINALIZA_TIMER_1:
+                     753             
 
-0246 D0D0            754                     POP             PSW
+                     754     
 
-0248 D0E0            755                     POP             ACC
+                     755     
 
-                     756                     
+                     756     
 
-024A 32              757                     RETI
+                     757     
 
-                     758             
+                     758     
 
                      759     
 
                      760     
 
-                     761     
+0240                 761     INT_SERIAL:
 
-                     762     
+0240 32              762                     RETI
 
-                     763     
+                     763             
 
-                     764     
+0241                 764     FIM:
 
-                     765     
+0241 80FE            765                     JMP $
 
-024B                 766     INT_SERIAL:
+                     766                     END
 
-024B 32              767                     RETI
-
-                     768             
-
-024C                 769     FIM:
-
-024C 80FE            770                     JMP $
-
-                     771                     END
-
-A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:08:53 PAGE    13
+A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:53:04 PAGE    13
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -1585,56 +1575,56 @@ SYMBOL TABLE LISTING
 N A M E                                    T Y P E  V A L U E   ATTRIBUTES
 
 ACC . . . . . . . . . . . . . . . . . .    D ADDR   00E0H   A   
-ACIMA_DO_LIMITE . . . . . . . . . . . .    C ADDR   0122H   A   
+ACIMA_DO_LIMITE . . . . . . . . . . . .    C ADDR   0120H   A   
 B . . . . . . . . . . . . . . . . . . .    D ADDR   00F0H   A   
-BACK. . . . . . . . . . . . . . . . . .    C ADDR   00C3H   A   
-BACK1 . . . . . . . . . . . . . . . . .    C ADDR   00F7H   A   
+BACK. . . . . . . . . . . . . . . . . .    C ADDR   00BDH   A   
+BACK1 . . . . . . . . . . . . . . . . .    C ADDR   00F9H   A   
 BUZZER. . . . . . . . . . . . . . . . .    B ADDR   0090H.7 A   
-CALCULA_VELOCIDADE. . . . . . . . . . .    C ADDR   00DBH   A   
-CONTINUA_PWM. . . . . . . . . . . . . .    C ADDR   0176H   A   
-CONTINUE_SQUARE . . . . . . . . . . . .    C ADDR   01CDH   A   
-CONTINUE_SQUARE_HIGH. . . . . . . . . .    C ADDR   01D0H   A   
-CONTINUE_SQUARE_LOW . . . . . . . . . .    C ADDR   01DDH   A   
-DEFINE_PINOS_A_SEREM_ATIVADOS_DESATIVADOS  C ADDR   01E6H   A   
-DELAY . . . . . . . . . . . . . . . . .    C ADDR   00D6H   A   
-DELAY1. . . . . . . . . . . . . . . . .    C ADDR   00D2H   A   
-DISTANCIA_ANTERIOR. . . . . . . . . . .    N NUMB   0047H   A   
-DISTANCIA_ANTERIOR_MAIOR_QUE_ATUAL. . .    C ADDR   00EDH   A   
-DISTANCIA_ATUAL . . . . . . . . . . . .    N NUMB   0048H   A   
-DISTANCIA_ATUAL_MAIOR_QUE_ANTERIOR. . .    C ADDR   00E5H   A   
-DISTANCIA_SENSORES. . . . . . . . . . .    N NUMB   0037H   A   
-DLOOP . . . . . . . . . . . . . . . . .    C ADDR   00F3H   A   
+CALCULA_VELOCIDADE. . . . . . . . . . .    C ADDR   00D5H   A   
+CONTINUA_DLOOP. . . . . . . . . . . . .    C ADDR   00F5H   A   
+CONTINUA_PWM. . . . . . . . . . . . . .    C ADDR   016BH   A   
+CONTINUE_SQUARE . . . . . . . . . . . .    C ADDR   01C2H   A   
+CONTINUE_SQUARE_HIGH. . . . . . . . . .    C ADDR   01C5H   A   
+CONTINUE_SQUARE_LOW . . . . . . . . . .    C ADDR   01D2H   A   
+DEFINE_PINOS_A_SEREM_ATIVADOS_DESATIVADOS  C ADDR   01DBH   A   
+DELAY . . . . . . . . . . . . . . . . .    C ADDR   00D0H   A   
+DELAY1. . . . . . . . . . . . . . . . .    C ADDR   00CCH   A   
+DISTANCIA_ANTERIOR. . . . . . . . . . .    N NUMB   0046H   A   
+DISTANCIA_ANTERIOR_MAIOR_QUE_ATUAL. . .    C ADDR   00E7H   A   
+DISTANCIA_ATUAL . . . . . . . . . . . .    N NUMB   0047H   A   
+DISTANCIA_ATUAL_MAIOR_QUE_ANTERIOR. . .    C ADDR   00DFH   A   
+DLOOP . . . . . . . . . . . . . . . . .    C ADDR   00EDH   A   
 EA. . . . . . . . . . . . . . . . . . .    B ADDR   00A8H.7 A   
-ESPERA_FLAG_MEDIR_DISTANCIA_2 . . . . .    C ADDR   0061H   A   
-ESPERA_TRIGGER_CALCULAR_DISTANCIA_INIT.    C ADDR   004CH   A   
+ESPERA_FLAG_MEDIR_DISTANCIA_2 . . . . .    C ADDR   005BH   A   
+ESPERA_TRIGGER_CALCULAR_DISTANCIA_INIT.    C ADDR   0046H   A   
 ET1 . . . . . . . . . . . . . . . . . .    B ADDR   00A8H.3 A   
 EX0 . . . . . . . . . . . . . . . . . .    B ADDR   00A8H.0 A   
-FIM . . . . . . . . . . . . . . . . . .    C ADDR   024CH   A   
-FINALIZA_TIMER_1. . . . . . . . . . . .    C ADDR   0246H   A   
-FLAG_CALCULAR_VELOCIDADE. . . . . . . .    N NUMB   0039H   A   
-FLAG_MEDIR_DISTANCIA_INIT . . . . . . .    N NUMB   0038H   A   
-HERE. . . . . . . . . . . . . . . . . .    C ADDR   00C0H   A   
-HERE1 . . . . . . . . . . . . . . . . .    C ADDR   00C5H   A   
-HIGH_DONE . . . . . . . . . . . . . . .    C ADDR   01BBH   A   
+FIM . . . . . . . . . . . . . . . . . .    C ADDR   0241H   A   
+FINALIZA_TIMER_1. . . . . . . . . . . .    C ADDR   023BH   A   
+FLAG_CALCULAR_VELOCIDADE. . . . . . . .    N NUMB   0038H   A   
+FLAG_MEDIR_DISTANCIA_INIT . . . . . . .    N NUMB   0037H   A   
+HERE. . . . . . . . . . . . . . . . . .    C ADDR   00BAH   A   
+HERE1 . . . . . . . . . . . . . . . . .    C ADDR   00BFH   A   
+HIGH_DONE . . . . . . . . . . . . . . .    C ADDR   01B0H   A   
 IE0 . . . . . . . . . . . . . . . . . .    B ADDR   0088H.1 A   
-INCREMENTA_TIMER_MEDICOES_LOW . . . . .    C ADDR   023DH   A   
-INCREMENTA_TIMER_MEDICOES_LSB . . . . .    C ADDR   0241H   A   
-INT_CONFIGURA_INTERRUPCOES. . . . . . .    C ADDR   01F5H   A   
-INT_EXT0. . . . . . . . . . . . . . . .    C ADDR   0204H   A   
-INT_EXT1. . . . . . . . . . . . . . . .    C ADDR   0215H   A   
-INT_SERIAL. . . . . . . . . . . . . . .    C ADDR   024BH   A   
-INT_TIMER0. . . . . . . . . . . . . . .    C ADDR   0214H   A   
-INT_TIMER1. . . . . . . . . . . . . . .    C ADDR   0216H   A   
+INCREMENTA_TIMER_MEDICOES_LOW . . . . .    C ADDR   0232H   A   
+INCREMENTA_TIMER_MEDICOES_LSB . . . . .    C ADDR   0236H   A   
+INT_CONFIGURA_INTERRUPCOES. . . . . . .    C ADDR   01EAH   A   
+INT_EXT0. . . . . . . . . . . . . . . .    C ADDR   01F9H   A   
+INT_EXT1. . . . . . . . . . . . . . . .    C ADDR   020AH   A   
+INT_SERIAL. . . . . . . . . . . . . . .    C ADDR   0240H   A   
+INT_TIMER0. . . . . . . . . . . . . . .    C ADDR   0209H   A   
+INT_TIMER1. . . . . . . . . . . . . . .    C ADDR   020BH   A   
 IT1 . . . . . . . . . . . . . . . . . .    B ADDR   0088H.2 A   
-LABEL1. . . . . . . . . . . . . . . . .    C ADDR   00D4H   A   
-LABEL2. . . . . . . . . . . . . . . . .    C ADDR   00D8H   A   
+LABEL1. . . . . . . . . . . . . . . . .    C ADDR   00CEH   A   
+LABEL2. . . . . . . . . . . . . . . . .    C ADDR   00D2H   A   
 LED1. . . . . . . . . . . . . . . . . .    B ADDR   00B0H.7 A   
 LED_SEG . . . . . . . . . . . . . . . .    B ADDR   00B0H.6 A   
-LOW_DONE. . . . . . . . . . . . . . . .    C ADDR   01ADH   A   
-MEDIR_DISTANCIA . . . . . . . . . . . .    C ADDR   00A0H   A   
-MOSTRA_VELOCIDADE_DISPLAY . . . . . . .    C ADDR   0136H   A   
-NAO_ATIVA_BIT_0 . . . . . . . . . . . .    C ADDR   01EDH   A   
-NAO_ATIVA_BIT_1 . . . . . . . . . . . .    C ADDR   01F4H   A   
+LOW_DONE. . . . . . . . . . . . . . . .    C ADDR   01A2H   A   
+MEDIR_DISTANCIA . . . . . . . . . . . .    C ADDR   009AH   A   
+MOSTRA_VELOCIDADE_DISPLAY . . . . . . .    C ADDR   012BH   A   
+NAO_ATIVA_BIT_0 . . . . . . . . . . . .    C ADDR   01E2H   A   
+NAO_ATIVA_BIT_1 . . . . . . . . . . . .    C ADDR   01E9H   A   
 P0. . . . . . . . . . . . . . . . . . .    D ADDR   0080H   A   
 P1. . . . . . . . . . . . . . . . . . .    D ADDR   0090H   A   
 P3. . . . . . . . . . . . . . . . . . .    D ADDR   00B0H   A   
@@ -1644,42 +1634,42 @@ PT1 . . . . . . . . . . . . . . . . . .    B ADDR   00B8H.3 A
 PWM_COUNTER . . . . . . . . . . . . . .    N NUMB   0032H   A   
 PWM_DUTY_CYCLE. . . . . . . . . . . . .    N NUMB   0031H   A   
 PWM_FLAG. . . . . . . . . . . . . . . .    N NUMB   0000H   A   
-A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:08:53 PAGE    14
+A51 MACRO ASSEMBLER  PROJETO_02_LOMBADA_ELETRONICA                                        05/03/2017 18:53:04 PAGE    14
 
-PWM_PARAR . . . . . . . . . . . . . . .    C ADDR   017EH   A   
+PWM_PARAR . . . . . . . . . . . . . . .    C ADDR   0173H   A   
 PWM_PERIODO_LSB . . . . . . . . . . . .    N NUMB   0033H   A   
 PWM_PERIODO_MED . . . . . . . . . . . .    N NUMB   0034H   A   
 PWM_PERIODO_MSB . . . . . . . . . . . .    N NUMB   0035H   A   
 PWM_QTDADE_PERIODOS . . . . . . . . . .    N NUMB   0036H   A   
-PWM_SQUARE_WAVE . . . . . . . . . . . .    C ADDR   019DH   A   
-PWM_SQUARE_WAVE_CONFIG_PERIOD . . . . .    C ADDR   0185H   A   
-PWM_SQUARE_WAVE_SETUP_AND_START . . . .    C ADDR   016FH   A   
-PWM_STOP. . . . . . . . . . . . . . . .    C ADDR   019AH   A   
+PWM_SQUARE_WAVE . . . . . . . . . . . .    C ADDR   0192H   A   
+PWM_SQUARE_WAVE_CONFIG_PERIOD . . . . .    C ADDR   017AH   A   
+PWM_SQUARE_WAVE_SETUP_AND_START . . . .    C ADDR   0164H   A   
+PWM_STOP. . . . . . . . . . . . . . . .    C ADDR   018FH   A   
 PX0 . . . . . . . . . . . . . . . . . .    B ADDR   00B8H.0 A   
-RESETA_TIMER_MEDICOES . . . . . . . . .    C ADDR   0093H   A   
-SETA_VARIAVEIS_INICIAIS . . . . . . . .    C ADDR   0079H   A   
+RESETA_TIMER_MEDICOES . . . . . . . . .    C ADDR   008DH   A   
+SETA_VARIAVEIS_INICIAIS . . . . . . . .    C ADDR   0073H   A   
 TAB7SEG . . . . . . . . . . . . . . . .    C ADDR   0030H   A   
 TF0 . . . . . . . . . . . . . . . . . .    B ADDR   0088H.5 A   
 TF1 . . . . . . . . . . . . . . . . . .    B ADDR   0088H.7 A   
 TH0 . . . . . . . . . . . . . . . . . .    D ADDR   008CH   A   
 TH1 . . . . . . . . . . . . . . . . . .    D ADDR   008DH   A   
-TIMER_CONFIGURA_TIMER . . . . . . . . .    C ADDR   013EH   A   
-TIMER_DELAY_1_S . . . . . . . . . . . .    C ADDR   0168H   A   
-TIMER_DELAY_20_MS . . . . . . . . . . .    C ADDR   0151H   A   
-TIMER_MEDICOES_LOW. . . . . . . . . . .    N NUMB   0044H   A   
-TIMER_MEDICOES_LSB. . . . . . . . . . .    N NUMB   0045H   A   
-TIMER_MEDICOES_MSB. . . . . . . . . . .    N NUMB   0046H   A   
-TIMER_SETA_VALORES_TIMER_PADRAO . . . .    C ADDR   014AH   A   
+TIMER_CONFIGURA_TIMER . . . . . . . . .    C ADDR   0133H   A   
+TIMER_DELAY_1_S . . . . . . . . . . . .    C ADDR   015DH   A   
+TIMER_DELAY_20_MS . . . . . . . . . . .    C ADDR   0146H   A   
+TIMER_MEDICOES_LOW. . . . . . . . . . .    N NUMB   0043H   A   
+TIMER_MEDICOES_LSB. . . . . . . . . . .    N NUMB   0044H   A   
+TIMER_MEDICOES_MSB. . . . . . . . . . .    N NUMB   0045H   A   
+TIMER_SETA_VALORES_TIMER_PADRAO . . . .    C ADDR   013FH   A   
 TL0 . . . . . . . . . . . . . . . . . .    D ADDR   008AH   A   
 TL1 . . . . . . . . . . . . . . . . . .    D ADDR   008BH   A   
 TMOD. . . . . . . . . . . . . . . . . .    D ADDR   0089H   A   
 TR0 . . . . . . . . . . . . . . . . . .    B ADDR   0088H.4 A   
 TR1 . . . . . . . . . . . . . . . . . .    B ADDR   0088H.6 A   
 VELOCIDADE_ACIMA_DO_LIMITE. . . . . . .    C ADDR   0126H   A   
-VELOCIDADE_LIMITE . . . . . . . . . . .    N NUMB   0043H   A   
-VELOCIDADE_VEICULO. . . . . . . . . . .    N NUMB   0042H   A   
-VELOCIDADE_VEICULO_DEZENA . . . . . . .    N NUMB   0041H   A   
-VELOCIDADE_VEICULO_UNIDADE. . . . . . .    N NUMB   0040H   A   
+VELOCIDADE_LIMITE . . . . . . . . . . .    N NUMB   0042H   A   
+VELOCIDADE_VEICULO. . . . . . . . . . .    N NUMB   0041H   A   
+VELOCIDADE_VEICULO_DEZENA . . . . . . .    N NUMB   0040H   A   
+VELOCIDADE_VEICULO_UNIDADE. . . . . . .    N NUMB   0039H   A   
 __STARTUP__ . . . . . . . . . . . . . .    C ADDR   0040H   A   
 
 

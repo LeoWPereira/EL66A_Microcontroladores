@@ -4,21 +4,12 @@
 //																			//
 // Requisitos: 																//
 // - mostre a velocidade em dois displays de sete segmentos vermelhos		//
-// - A medida de velocidade e estruturada a partir de dois lacos			//
-// indutivos, em uma distancia previamente conhecida						//
-// - Cada laco indutivo consta de um conjunto de espiras, formando uma  	//
-// indutancia conhecida. Cada laco indutivo consta de um conjunto de		//
-// espiras, formando uma indutancia conhecida. Esta indutancia e a base 	//
-// de um circuito oscilador com frequencia padrao (normalmente Colpitts)	//
-// - Quando um veiculo passa, por ser metalico, ele perturba a indutancia,  //
-// que automaticamente varia esta indutancia, e que varia a frequencia de 	//
-// oscilacao.																//
-// - O circuito microcontrolado deve capturar estas variabilidades de 		//
-// frequencia e assim chavear o disparo da contagem de tempo referente a 	//
-// passagem pelo primeiro laco ate o segundo.								//
-// - Esta janela de tempo voce converte em velocidade e assim mostra.		//
+// - A medida de velocidade e estruturada a partir de um sensor 			//
+// ultrassonico sr04														//
+// - Esse sensor calcula a distancia entre ele e o obstaculo, permitindo	//
+// assim calcular a velocidade												//
 // - O sistema devera, ainda, ter um alarme em forma de led e buzzer quando	//
-// a velocidade ultrapassar os 40 km/h.										//
+// a velocidade ultrapassar os XX cm / s.									//
 // 																			//
 // CONSIDERE QUE 1 ESTADO = 0.375 us										//
 //																			//
@@ -51,7 +42,6 @@ ljmp INT_SERIAL
 
 PINO_LED_VERMELHO			EQU P1.6
 	
-// BUZZER
 BUZZER						EQU P1.7
 	
 // LEDS DA PLACA
@@ -71,27 +61,25 @@ PWM_PERIODO_MSB				EQU 35h
 	
 PWM_QTDADE_PERIODOS			EQU 36h
 	
-DISTANCIA_SENSORES			EQU 37h	 // Distancia entre os dois sensores (em cm)
-
-FLAG_MEDIR_DISTANCIA_INIT 	EQU 38h
-FLAG_CALCULAR_VELOCIDADE	EQU 39h  // Se essa flag esta em 1 -> calcula a velocidade e mostra no display de 7 segmentos
+FLAG_MEDIR_DISTANCIA_INIT 	EQU 37h
+FLAG_CALCULAR_VELOCIDADE	EQU 38h  // Se essa flag esta em 1 -> calcula a velocidade e mostra no display de 7 segmentos
 	
-// Velocidade em km/h
-VELOCIDADE_VEICULO_UNIDADE	EQU	40h
-VELOCIDADE_VEICULO_DEZENA	EQU	41h
-VELOCIDADE_VEICULO			EQU 42h	
+// Velocidade em cm/s
+VELOCIDADE_VEICULO_UNIDADE	EQU	39h
+VELOCIDADE_VEICULO_DEZENA	EQU	40h
+VELOCIDADE_VEICULO			EQU 41h	
 
-VELOCIDADE_LIMITE			EQU 43h	// em cm/ms (x36 = km / h)
+VELOCIDADE_LIMITE			EQU 42h	// em cm/s
 	
-TIMER_MEDICOES_LOW			EQU	44h
+TIMER_MEDICOES_LOW			EQU	43h
 
 // Registradores disponibilizados para medir tempo com variacao de 1 ms
 // Com esses 2 registradores (configurados na rotina INT_TIMER1) e possivel registrar um tempo de medicao de ate 65 s
-TIMER_MEDICOES_LSB			EQU	45h
-TIMER_MEDICOES_MSB			EQU	46h
+TIMER_MEDICOES_LSB			EQU	44h
+TIMER_MEDICOES_MSB			EQU	45h
 	
-DISTANCIA_ANTERIOR			EQU	47h
-DISTANCIA_ATUAL				EQU	48h
+DISTANCIA_ANTERIOR			EQU	46h
+DISTANCIA_ATUAL				EQU	47h
 	
 //////////////////////////////////////////////////
 // REGIAO DA MEMORIA DE PROGRAMA COM AS STRINGS //
@@ -107,9 +95,7 @@ TAB7SEG:
 
 __STARTUP__:
 		LCALL	SETA_VARIAVEIS_INICIAIS
-		LCALL	TIMER_CONFIGURA_TIMER
 		LCALL	INT_CONFIGURA_INTERRUPCOES
-		LCALL	RESETA_TIMER_MEDICOES
 		
 ESPERA_TRIGGER_CALCULAR_DISTANCIA_INIT:
 		MOV		A, FLAG_MEDIR_DISTANCIA_INIT
@@ -149,8 +135,8 @@ ESPERA_FLAG_MEDIR_DISTANCIA_2:
 // ALTERA:  										//
 //////////////////////////////////////////////////////
 SETA_VARIAVEIS_INICIAIS:
-		CLR		PINO_LED_VERMELHO
-		CLR		BUZZER
+		SETB	PINO_LED_VERMELHO
+		SETB	BUZZER
 		
 		MOV		VELOCIDADE_LIMITE,			#010d	// velocidade limite de 40 km/h
 		MOV		FLAG_MEDIR_DISTANCIA_INIT,	#00h 
@@ -190,7 +176,7 @@ MEDIR_DISTANCIA:
 
 		MOV 	DPTR,#TAB7SEG          // moves the address of LUT to DPTR
 		
-		MOV 	P1,#00h      // sets P1 as output port
+		MOV 	P1,#11000000b      // sets P1 as output port
 		MOV 	P0,#00h      // sets P0 as output port
 		
 		CLR 	P3.0               // sets P3.0 as output for sending trigger
@@ -269,6 +255,17 @@ DISTANCIA_ANTERIOR_MAIOR_QUE_ATUAL:
 		MOV		VELOCIDADE_VEICULO, A
 		
 DLOOP: 
+	   // Soma a velocidade medida do veiculo com 215d
+	   // Se essa soma setar o Carry, e porque a velocidade esta acima do limite
+	   // Caso contrario, velocidade abaixo do limite
+	   MOV		A, #0FFh
+	   SUBB		A, VELOCIDADE_LIMITE
+		
+	   ADDC		A, VELOCIDADE_VEICULO
+		
+	   JC		ACIMA_DO_LIMITE
+
+CONTINUA_DLOOP:
 		MOV 	R5,#100D    // loads R5 with 100D
 		MOV		R6,#15D
 BACK1: 
@@ -295,20 +292,15 @@ BACK1:
 	   MOV	R6,#15h
        DJNZ R5,BACK1  // repeats the display loop 100 times
 	   
-	   // Soma a velocidade medida do veiculo com 215d
-	   // Se essa soma setar o Carry, e porque a velocidade esta acima do limite
-	   // Caso contrario, velocidade abaixo do limite
-	   MOV		A, #0FFh
-	   SUBB		A, VELOCIDADE_LIMITE
-		
-	   ADDC		A, VELOCIDADE_VEICULO
-		
-	   JC		ACIMA_DO_LIMITE
+	   SETB		PINO_LED_VERMELHO
+	   SETB		BUZZER
 	   
        RET
 
 ACIMA_DO_LIMITE:
 		LCALL	VELOCIDADE_ACIMA_DO_LIMITE
+		
+		JMP		CONTINUA_DLOOP
 		
 		RET	
 
@@ -321,7 +313,10 @@ ACIMA_DO_LIMITE:
 // ALTERA:  										//
 //////////////////////////////////////////////////////
 VELOCIDADE_ACIMA_DO_LIMITE:
-		MOV		R0, #02h // quantidade de periodos
+		CLR		PINO_LED_VERMELHO
+		CLR		BUZZER
+
+		/*MOV		R0, #02h // quantidade de periodos
 		MOV		R1, #128d // duty cycle (50%)
 		
 		// Considerando 20 ciclos de maquina para a interrupcao (20 x 0.375 us = 7.5 us)
@@ -332,7 +327,7 @@ VELOCIDADE_ACIMA_DO_LIMITE:
 		MOV		R4, #0FFh
 		MOV		R5, #00000101b // ativa o led vermelho e o buzzer, sinalizando que o veiculo passou em velocidade acima do limite
 		
-		LCALL	PWM_SQUARE_WAVE_SETUP_AND_START
+		LCALL	PWM_SQUARE_WAVE_SETUP_AND_START*/
 		
 		RET
 
@@ -644,7 +639,7 @@ INT_CONFIGURA_INTERRUPCOES:
 		SETB	PT1		// Alta prioridade para o TIMER/COUNTER 1
 		
 		// Bits da palavra TCON - Timer Control
-		CLR	IE0		// Interrupcao por Borda
+		CLR		IE0		// Interrupcao por Borda
 		//SETB	IE1		// Interrupcao por Borda
 		CLR		IT1		// Interrupcao por Nivel
 		
