@@ -9,8 +9,8 @@
 
 $NOMOD51
 #include <at89c5131.h>
-//#include "lcd.a51"
-//#include "timers_and_counters.a51"
+#include "lcd16x2.a51"
+#include "timer.a51"
 
 org 0000h // Origem do codigo 
 ljmp main //

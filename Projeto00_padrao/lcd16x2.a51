@@ -11,10 +11,12 @@
 ORG		0E00h
 
 // PARA PLACA USB VERMELHA 1SEM2013
+DISPLAY EQU P0
+BUSYF	EQU	P0.7			// BUSY FLAG
+
 RS		EQU	P2.5			// COMANDO RS LCD
 E_LCD	EQU	P2.7			// COMANDO E (ENABLE) LCD
 RW		EQU	P2.6			// READ/WRITE
-BUSYF	EQU	P0.7			// BUSY FLAG
 
 //////////////////////////////////////////////////////
 // NOME: INIDISP								  	//
@@ -62,16 +64,16 @@ ESCINST:
 		CLR     RS              // RS  = 0 (SELECIONA REG. DE INSTRUCOES)
 		SETB    E_LCD           // E = 1 (HABILITA LCD)
 		
-		MOV     P0,R0           // INSTRUCAO A SER ESCRITA
+		MOV     DISPLAY, R0     // INSTRUCAO A SER ESCRITA
 		
 		CLR     E_LCD           // E = 0 (DESABILITA LCD)
 		
-		MOV		P0,#0xFF		// PORTA 0 COMO ENTRADA
+		MOV		DISPLAY,#0xFF	// PORTA 0 COMO ENTRADA
 		
 		SETB	RW				// MODO LEITURA NO LCD	
 		SETB    E_LCD           // E = 1 (HABILITA LCD)	
 
-ESCI1:	JB	BUSYF,ESCI1			// ESPERA BUSY FLAG = 0
+		JB		BUSYF, $		// ESPERA BUSY FLAG = 0
 		
 		CLR     E_LCD           // E = 0 (DESABILITA LCD)
         
@@ -100,6 +102,38 @@ GT1:    ORL     A,R1            // CALCULA O ENDERECO DA MEMORIA DD RAM
 		CALL    ESCINST         // ENVIA PARA O MODULO DISPLAY
         
 		POP     ACC
+        
+		RET
+	
+//////////////////////////////////////////////////////
+// NOME: CLR1L										//
+// DESCRICAO: ROTINA QUE APAGA PRIMEIRA LINHA DO	//
+// DISPLAY LCD E POSICIONA NO INICIO				//
+// ENTRADA: -										//
+// SAIDA: -											//
+// DESTROI: R0,R1									//
+//////////////////////////////////////////////////////
+CLR1L:    
+        PUSH   ACC
+        
+		MOV    R0,#00              // LINHA
+        MOV    R1,#00
+        
+		CALL   GOTOXY
+        
+		MOV    R1,#16              // CONTADOR
+
+CLR1L1: MOV    A,#' '              // ESPACO
+        
+		CALL   ESCDADO
+        
+		DJNZ   R1,CLR1L1
+        MOV    R0,#00              // LINHA
+        MOV    R1,#00
+        
+		CALL   GOTOXY
+        
+		POP    ACC
         
 		RET
 		
@@ -147,17 +181,17 @@ ESCDADO:
         SETB	RS              // RS  = 1 (SELECIONA REG. DE DADOS)
         SETB  	E_LCD           // LCD = 1 (HABILITA LCD)
 		
-        MOV   	P0,A            // ESCREVE NO BUS DE DADOS
+        MOV   	DISPLAY,A       // ESCREVE NO BUS DE DADOS
         
 		CLR   	E_LCD           // LCD = 0 (DESABILITA LCD)
 		
-		MOV		P0,#0xFF		// PORTA 0 COMO ENTRADA
+		MOV		DISPLAY,#0xFF	// PORTA 0 COMO ENTRADA
 		
 		SETB	RW				// MODO LEITURA NO LCD
 		CLR		RS				// RS = 0 (SELECIONA INSTRUÇÃO)	
 		SETB    E_LCD           // E = 1 (HABILITA LCD)
 
-ESCD1:	JB		BUSYF,ESCD1		// ESPERA BUSY FLAG = 0
+		JB		BUSYF,$			// ESPERA BUSY FLAG = 0
 
 		CLR     E_LCD          	// E = 0 (DESABILITA LCD)
 
