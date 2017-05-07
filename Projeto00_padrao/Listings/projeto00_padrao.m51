@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22                                                        05/07/2017  20:11:48  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22                                                        05/07/2017  20:31:13  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
@@ -59,7 +59,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   B:00D8H.3       SYMBOL        CCF3
   B:00D8H.4       SYMBOL        CCF4
   D:00D8H         SYMBOL        CCON
-BL51 BANKED LINKER/LOCATER V6.22                                                      05/07/2017  20:11:48  PAGE 2
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/07/2017  20:31:13  PAGE 2
 
 
   B:00D8H.7       SYMBOL        CF
@@ -76,7 +76,12 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   C:0E61H         SYMBOL        CLR2L
   C:0E6BH         SYMBOL        CLR2L1
   D:00D9H         SYMBOL        CMOD
+  B:0090H.0       SYMBOL        COL1
+  B:0090H.1       SYMBOL        COL2
+  B:0090H.2       SYMBOL        COL3
+  B:0090H.3       SYMBOL        COL4
   C:0D20H         SYMBOL        CONTINUA_BINARIO_BCD
+  C:0C08H         SYMBOL        CONTINUA_PROG
   C:0F14H         SYMBOL        CONTINUA_TIMER_1_MS
   B:00C8H.0       SYMBOL        CP_RL2
   B:00D8H.6       SYMBOL        CR
@@ -84,6 +89,16 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   C:0EBDH         SYMBOL        CUR_OFF
   C:0EB9H         SYMBOL        CUR_ON
   B:00C8H.1       SYMBOL        C_T2
+  C:0C61H         SYMBOL        DIGITO0
+  C:0C3DH         SYMBOL        DIGITO1
+  C:0C41H         SYMBOL        DIGITO2
+  C:0C45H         SYMBOL        DIGITO3
+  C:0C49H         SYMBOL        DIGITO4
+  C:0C4DH         SYMBOL        DIGITO5
+  C:0C51H         SYMBOL        DIGITO6
+  C:0C55H         SYMBOL        DIGITO7
+  C:0C59H         SYMBOL        DIGITO8
+  C:0C5DH         SYMBOL        DIGITO9
   D:0080H         SYMBOL        DISPLAY
   B:0090H.2       SYMBOL        DISPLAY_CENTENA
   B:0090H.1       SYMBOL        DISPLAY_DEZENA
@@ -103,9 +118,17 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   B:00A8H.4       SYMBOL        ES
   C:0E7AH         SYMBOL        ESCDADO
   C:0E1FH         SYMBOL        ESCINST
+  C:0EC4H         SYMBOL        ESCREVE_ASTERISCO
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/07/2017  20:31:13  PAGE 3
+
+
   C:0EB2H         SYMBOL        ESC_S
   C:0EA8H         SYMBOL        ESC_STR1
   C:0EAEH         SYMBOL        ESC_STR2
+  B:00B0H.2       SYMBOL        ESTADO_DOIS
+  B:00B0H.4       SYMBOL        ESTADO_QUATRO
+  B:00B0H.3       SYMBOL        ESTADO_TRES
+  B:00B0H.1       SYMBOL        ESTADO_UM
   B:00A8H.1       SYMBOL        ET0
   B:00A8H.3       SYMBOL        ET1
   B:00A8H.5       SYMBOL        ET2
@@ -118,14 +141,13 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   B:0098H.7       SYMBOL        FE_SM0
   C:0F56H         SYMBOL        FINALIZA_TIMER_DELAY
   C:0E36H         SYMBOL        GOTOXY
+  C:0C65H         SYMBOL        GRAVA_DIGITO
   C:0E3FH         SYMBOL        GT1
-BL51 BANKED LINKER/LOCATER V6.22                                                      05/07/2017  20:11:48  PAGE 3
-
-
   B:0088H.1       SYMBOL        IE0_
   B:0088H.3       SYMBOL        IE1_
   D:00A8H         SYMBOL        IEN0
   D:00B1H         SYMBOL        IEN1
+  C:0B00H         SYMBOL        INICIA_MOTOR_DE_PASSOS
   C:0E00H         SYMBOL        INIDISP
   C:0028H         SYMBOL        INT_INT0
   C:002AH         SYMBOL        INT_INT1
@@ -142,6 +164,10 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   D:009EH         SYMBOL        KBF
   D:009CH         SYMBOL        KBLS
   D:00F1H         SYMBOL        LEDCON
+  B:0090H.4       SYMBOL        LIN1
+  B:0090H.5       SYMBOL        LIN2
+  B:0090H.6       SYMBOL        LIN3
+  B:0090H.7       SYMBOL        LIN4
   C:0D10H         SYMBOL        MOSTRA_DIGITO_DISPLAY
   C:0E9DH         SYMBOL        MSTR1
   C:0EA7H         SYMBOL        MSTR21
@@ -153,6 +179,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   B:0080H.2       SYMBOL        P0_2
   B:0080H.3       SYMBOL        P0_3
   B:0080H.4       SYMBOL        P0_4
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/07/2017  20:31:13  PAGE 4
+
+
   B:0080H.5       SYMBOL        P0_5
   B:0080H.6       SYMBOL        P0_6
   B:0080H.7       SYMBOL        P0_7
@@ -179,9 +208,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   B:00B0H.1       SYMBOL        P3_1
   B:00B0H.2       SYMBOL        P3_2
   B:00B0H.3       SYMBOL        P3_3
-BL51 BANKED LINKER/LOCATER V6.22                                                      05/07/2017  20:11:48  PAGE 4
-
-
   B:00B0H.4       SYMBOL        P3_4
   B:00B0H.5       SYMBOL        P3_5
   B:00B0H.6       SYMBOL        P3_6
@@ -194,6 +220,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   D:00A4H         SYMBOL        PLLDIV
   D:0080H         SYMBOL        PORT_DISPLAY
   B:00B8H.6       SYMBOL        PPCL
+  C:0C00H         SYMBOL        PRESS_ENT
   B:00B8H.4       SYMBOL        PSL
   D:00D0H         SYMBOL        PSW
   B:00B8H.1       SYMBOL        PT0L
@@ -212,6 +239,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   B:00A0H.6       SYMBOL        RW
   D:00A9H         SYMBOL        SADDR
   D:00B9H         SYMBOL        SADEN
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/07/2017  20:31:13  PAGE 5
+
+
   D:0099H         SYMBOL        SBUF
   D:0098H         SYMBOL        SCON
   C:0F06H         SYMBOL        SETA_VALORES_TIMER_0_SEM_INT
@@ -231,6 +261,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   B:0098H.3       SYMBOL        TB8
   B:00C8H.4       SYMBOL        TCLK
   D:0088H         SYMBOL        TCON
+  D:0090H         SYMBOL        TECLADO
   B:0088H.5       SYMBOL        TF0
   B:0088H.7       SYMBOL        TF1
   B:00C8H.7       SYMBOL        TF2
@@ -239,9 +270,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   D:00CDH         SYMBOL        TH2
   B:0098H.1       SYMBOL        TI
   C:0F00H         SYMBOL        TIMER_CONFIGURA_TIMER_0_SEM_INT
-BL51 BANKED LINKER/LOCATER V6.22                                                      05/07/2017  20:11:48  PAGE 5
-
-
   C:0F32H         SYMBOL        TIMER_DELAY
   C:0F0DH         SYMBOL        TIMER_DELAY_10_US
   C:0F12H         SYMBOL        TIMER_DELAY_1_MS
@@ -254,6 +282,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   B:0088H.4       SYMBOL        TR0
   B:0088H.6       SYMBOL        TR1
   B:00C8H.2       SYMBOL        TR2
+  C:0B27H         SYMBOL        TRANCA_FECHADURA
   D:00E3H         SYMBOL        UBYCTHX
   D:00E2H         SYMBOL        UBYCTLX
   D:00D7H         SYMBOL        UDPADDH
@@ -270,28 +299,33 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   D:00C6H         SYMBOL        USBADDR
   D:00BCH         SYMBOL        USBCON
   D:00BEH         SYMBOL        USBIEN
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/07/2017  20:31:13  PAGE 6
+
+
   D:00BDH         SYMBOL        USBINT
+  C:0C09H         SYMBOL        VARREDURA_TECLADO
+  C:0C03H         SYMBOL        VARRE_ENT
   C:0F3CH         SYMBOL        VERIFICA_R0
   C:0F39H         SYMBOL        VERIFICA_R1
   D:00A7H         SYMBOL        WDTPRG
   D:00A6H         SYMBOL        WDTRST
   C:0026H         SYMBOL        __STARTUP__
-  C:0000H         LINE#         17
-  C:0003H         LINE#         20
-  C:000BH         LINE#         23
-  C:0013H         LINE#         26
-  C:001BH         LINE#         29
-  C:0023H         LINE#         32
-  C:0026H         LINE#         37
-  C:0028H         LINE#         47
-  C:0029H         LINE#         53
-  C:002AH         LINE#         59
-  C:002BH         LINE#         65
-  C:002CH         LINE#         71
+  C:0000H         LINE#         19
+  C:0003H         LINE#         22
+  C:000BH         LINE#         25
+  C:0013H         LINE#         28
+  C:001BH         LINE#         31
+  C:0023H         LINE#         34
+  C:0026H         LINE#         39
+  C:0028H         LINE#         49
+  C:0029H         LINE#         55
+  C:002AH         LINE#         61
+  C:002BH         LINE#         67
+  C:002CH         LINE#         73
   -------         ENDMOD        PROJETO00_PADRAO
 
 ******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 018DH BYTE (19%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0247H BYTE (28%) *
 ******************************************************************************
 
 Program Size: data=8.0 xdata=0 code=3931

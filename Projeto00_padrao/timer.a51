@@ -116,9 +116,9 @@ TIMER_DELAY_1_S:
 // VALORES EM R0, R1 E R2, ESSES VALORES DEVEM SER	//
 // NO RANGE [0, 255] E DEVEM SER PASSADOS ANTES DA	//
 // CHAMADA											//
-// P.ENTRADA: 08h => (R0 x 1) ms  					//
-//			  09h => (R1 x 200) ms					//
-//			  0Ah => (R2 x 1) s						//
+// P.ENTRADA: R0 => (R0 x 1) ms  					//
+//			  R1 => (R1 x 200) ms					//
+//			  R2 => (R2 x 1) s						//
 // P.SAIDA: -										//
 // ALTERA: R2, R1, R0								//
 //////////////////////////////////////////////////////

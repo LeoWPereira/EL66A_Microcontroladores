@@ -12,6 +12,8 @@ $NOMOD51
 #include "lcd16x2.a51"
 #include "timer.a51"
 #include "display_7_segmentos.a51"
+#include "teclado_matricial_4x4.a51"
+#include "motor_de_passos.a51"
 
 ORG 0000h // Origem do codigo 
 LJMP __STARTUP__

@@ -3,6 +3,8 @@
 //  CODIGOS RELACIONADOS AO DISPLAY DE CRISTAL LIQUIDO	//
 //						  16 X 2						//
 //														//
+// Datasheet do componente e esquematico:				//
+//														//
 // @author: Leonardo Winter Pereira 					//
 // @author: Rodrigo Yudi Endo							//
 //														//
@@ -302,3 +304,16 @@ CUR1:     MOV    R2,#01
 		  CALL   ESCINST              // ENVIA A INSTRUCAO
           
 		  RET
+		  
+//////////////////////////////////////////////////////
+// NOME: ESCREVE_ASTERISCO							//
+// DESCRICAO: ROTINA QUE ESCREVE UM * NO LCD		//
+// ENTRADA: -										//
+// SAIDA: -											//
+// DESTROI: A										//
+//////////////////////////////////////////////////////
+ESCREVE_ASTERISCO:		
+		MOV 	A, #2Ah // valor em hexa para '*'
+		CALL 	ESCDADO
+	
+		RET

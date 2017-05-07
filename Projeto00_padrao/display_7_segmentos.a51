@@ -5,6 +5,8 @@
 // @author: Leonardo Winter Pereira 					//
 // @author: Rodrigo Yudi Endo							//
 //														//
+// Datasheet do componente e esquematico:				//
+//														//
 // Necessario ter a biblioteca "timer.a51" como 		//
 // dependencia do projeto em questao para funcionar		//
 //////////////////////////////////////////////////////////
