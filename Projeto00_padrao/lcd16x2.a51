@@ -10,6 +10,10 @@
 
 ORG		0E00h
 
+//////////////////////////////////////////////////
+//       TABELA DE EQUATES DA BIBLIOTECA		//
+//////////////////////////////////////////////////
+
 // PARA PLACA USB VERMELHA 1SEM2013
 DISPLAY EQU P0
 BUSYF	EQU	P0.7			// BUSY FLAG

@@ -57,20 +57,7 @@ TRIGGER_ULTRASSOM_ENVIO		EQU P3.1
 // LEDS DA PLACA
 LED_SEG 					EQU	P3.6
 LED1   						EQU	P3.7
-	
-PWM_FLAG 					EQU 0	// Flag para indicar se o sinal esta em HIGH ou em LOW
 
-PWM_DUTY_CYCLE				EQU 31h // 00h = 0% duty cycle; FFh = 100% duty cycle
-
-PWM_COUNTER					EQU 32h
-
-// 3 bytes para o periodo do pwm: [0x000000, 0xFFFFFF] (16777215 us) Logo ... 1 Hz = 1000000 us = 0xF4240
-PWM_PERIODO_LSB				EQU 33h
-PWM_PERIODO_MED				EQU 34h	
-PWM_PERIODO_MSB				EQU 35h
-	
-PWM_QTDADE_PERIODOS			EQU 36h
-	
 FLAG_MEDIR_DISTANCIA_INIT 	EQU 37h
 FLAG_CALCULAR_VELOCIDADE	EQU 38h  // Se essa flag esta em 1 -> calcula a velocidade e mostra no display de 7 segmentos
 	
@@ -221,7 +208,7 @@ ECHO_AINDA_DISPONIVEL:
 // DESCRICAO: 										//
 // P.ENTRADA: 					 					//
 // P.SAIDA: 										//
-// ALTERA: C, B  					 				//
+// ALTERA: C, B, R6, R5  					 		//
 //////////////////////////////////////////////////////
 CALCULA_VELOCIDADE:
 		CLR		C // para poder fazer a comparacao para ver se a velocidade e maior ou menor do que o limite permitido
@@ -259,36 +246,38 @@ DLOOP:
 	   JC		ACIMA_DO_LIMITE
 
 CONTINUA_DLOOP:
-		MOV 	R5,#100D    // loads R5 with 100D
-		MOV		R6,#15D
+		MOV 	R5,#100d
+		MOV		R6,#15d
 BACK1: 
-		MOV 	A,VELOCIDADE_VEICULO        // loads the value in R4 to A
-		MOV 	B,#10D     // loads B with 100D
+		MOV 	A, VELOCIDADE_VEICULO        
+		MOV 	B, #10d		// para poder calcular a velocidade em dezena
        
-		DIV 	AB          // isolates the first digit
+		DIV 	AB          // armazena em A o valor da unidade
        
-		SETB 	DISPLAY_UNIDADE       // activates LED display unit D1
-       ACALL MOSTRA_VELOCIDADE_DISPLAY   // calls DISPLAY subroutine
+		SETB 	DISPLAY_UNIDADE       // ativa o display referente a unidade
+        ACALL 	MOSTRA_VELOCIDADE_DISPLAY   // mostra digito no display
 	   
-	   ACALL 	TIMER_DELAY_1_MS     
+		ACALL 	TIMER_DELAY_1_MS     
        
-	   MOV A,B         // moves the remainder of 2nd division to A
-       CLR DISPLAY_UNIDADE        // deactivates LED display unit D2
-       SETB DISPLAY_DEZENA       // activates LED display unit D3
-       ACALL MOSTRA_VELOCIDADE_DISPLAY
+		MOV 	A,B         // move para o acumulador o restante da divisao anterior
+		CLR 	DISPLAY_UNIDADE        // desativa o display referente a unidade
+		SETB 	DISPLAY_DEZENA         // ativa o display referente a dezena
+		ACALL 	MOSTRA_VELOCIDADE_DISPLAY // mostra digito no display
        
-	   ACALL 	TIMER_DELAY_1_MS 
+		ACALL 	TIMER_DELAY_1_MS 
        
-	   CLR DISPLAY_DEZENA       // deactivates LED display unit D3
+		CLR 	DISPLAY_DEZENA       // desativa o display da dezena
 	   
-	   DJNZ R6,BACK1
-	   MOV	R6,#15h
-       DJNZ R5,BACK1  // repeats the display loop 100 times
+		// De acordo com os valores configurados em R6 e R5, mostra por mais ou menos tempo a velocidade no display
+		DJNZ 	R6, BACK1
+		MOV		R6, #15h
+		DJNZ 	R5, BACK1  
 	   
-	   SETB		PINO_LED_VERMELHO
-	   SETB		BUZZER
+		// desativa (em baixa) o led vermelho e o buzzer 
+		SETB	PINO_LED_VERMELHO
+		SETB	BUZZER
 	   
-       RET
+		RET
 
 ACIMA_DO_LIMITE:
 		LCALL	VELOCIDADE_ACIMA_DO_LIMITE
@@ -299,8 +288,7 @@ ACIMA_DO_LIMITE:
 
 //////////////////////////////////////////////////////
 // NOME: VELOCIDADE_ACIMA_DO_LIMITE					//
-// DESCRICAO: CHAMA PWM PARA FAZER O LED VEMELHO	//
-// PISCAR DURANTE 2 S COM FREQUENCIA DE 1 HZ 		//
+// DESCRICAO: ATIVA O LED VEMELHO E O BUZZER		//
 // P.ENTRADA: 					 					//
 // P.SAIDA: 										//
 // ALTERA:  										//

@@ -11,6 +11,7 @@ $NOMOD51
 #include <at89c5131.h>
 #include "lcd16x2.a51"
 #include "timer.a51"
+#include "display_7_segmentos.a51"
 
 ORG 0000h // Origem do codigo 
 LJMP __STARTUP__
@@ -31,11 +32,7 @@ ORG 0023h // Inicio do codigo da interrupcao SERIAL
 LJMP INT_SERIAL
 
 __STARTUP__:
-		// Atrasa 1s para escrever outra string
-		MOV		R2, #003h // R2 * 1 s
-		MOV		R1, #004h // R1 * 200 ms
-		MOV		R0, #0C8h // R0 * 1 ms
-		CALL 	TIMER_DELAY
+		
 
 		JMP 	__STARTUP__
 
