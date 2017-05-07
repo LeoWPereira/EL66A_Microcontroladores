@@ -12,38 +12,32 @@ $NOMOD51
 #include "lcd16x2.a51"
 #include "timer.a51"
 
-org 0000h // Origem do codigo 
-ljmp main //
+ORG 0000h // Origem do codigo 
+LJMP __STARTUP__
 
-org 0003h // Inicio do codigo da interrupcao externa INT0
-ljmp INT_INT0
+ORG 0003h // Inicio do codigo da interrupcao externa INT0
+LJMP INT_INT0
 
-org 000Bh // Inicio do codigo da interrupcao interna gerada pelo TIMER/COUNTER 0
-ljmp INT_TIMER0 //
+ORG 000Bh // Inicio do codigo da interrupcao interna gerada pelo TIMER/COUNTER 0
+LJMP INT_TIMER0
 
-org 0013h // Inicio do codigo da interrupcao externa INT1
-ljmp INT_INT1 //
+ORG 0013h // Inicio do codigo da interrupcao externa INT1
+LJMP INT_INT1
 
-org 001Bh // Inicio do codigo da interrupcao interna gerada pelo TIMER/COUNTER 1
-ljmp INT_TIMER1 //
+ORG 001Bh // Inicio do codigo da interrupcao interna gerada pelo TIMER/COUNTER 1
+LJMP INT_TIMER1
 
-org 0023h // Inicio do codigo da interrupcao SERIAL
-ljmp INT_SERIAL //
+ORG 0023h // Inicio do codigo da interrupcao SERIAL
+LJMP INT_SERIAL
 
-org 0030h
-TEXTO_1:
-		db  	'  LEITOR  RFID 2', 00H
-
-main:
-	CALL	INIDISP  				// chama rotina de inicializacao do display 16x2
-		MOV     DPTR,#TEXTO_1			// seta o DPTR com o endereco da string TEXTO_1
-		CALL    ESC_STR1				// escreve na primeira linha do display
-		
+__STARTUP__:
 		// Atrasa 1s para escrever outra string
-		MOV		R1, #03h
-		CALL 	TIMER_DELAY_1_S
-		
-		jmp main
+		MOV		R2, #003h // R2 * 1 s
+		MOV		R1, #004h // R1 * 200 ms
+		MOV		R0, #0C8h // R0 * 1 ms
+		CALL 	TIMER_DELAY
+
+		JMP 	__STARTUP__
 
 ////////////////////////////////////////////////
 // INICIO DOS CODIGOS GERADOS POR INTERRUPCAO //
@@ -53,30 +47,30 @@ main:
 *
 */
 INT_INT0:
-	reti
+		RETI
 
 /*
 *
 */
 INT_TIMER0:
-	reti
+		RETI
 	
 /*
 *
 */
 INT_INT1:
-	reti
+		RETI
 
 /*
 *
 */
 INT_TIMER1:
-	reti
+		RETI
 	
 /*
 *
 */
 INT_SERIAL:
-	reti
+		RETI
 	
-	end
+		END

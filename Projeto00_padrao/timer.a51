@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////
 //														//
-//  CODIGOS RELACIONADOS A TEMPORIXADORES / CONTADORES 	//
+//  		CODIGOS RELACIONADOS A TEMPORIZADORES  		//
 //														//
 // @author: Leonardo Winter Pereira 					//
 // @author: Rodrigo Yudi Endo							//
@@ -9,67 +9,143 @@
 
 ORG	0F00h
 
-TIMER_CONFIGURA_TIMER:
-	mov TMOD, #01h // Seta o timer_0 para o modo 01 (16 bits)
-	
-TIMER_DELAY_1_S:
-	mov R0, #20d // 20 vezes
-	
 //////////////////////////////////////////////////////
-// NOME: TIMER_DELAY_50_MS							//
-// DESCRICAO: INTRODUZ UM ATRASO DE 50 MS			//
-// P.ENTRADA: R0 = y => (y x 50) ms  				//
+// NOME: TIMER_CONFIGURA_TIMER_0_SEM_INT			//
+// DESCRICAO: CONFIGURA O TIMER 0					//
+// P.ENTRADA: - 	 								//
+// P.SAIDA: -										//
+// ALTERA: 											//
+//////////////////////////////////////////////////////
+TIMER_CONFIGURA_TIMER_0_SEM_INT:
+		MOV 	TMOD, #00000001b // Seta o TIMER_0 para o modo 01 (16 bits)
+		
+		ACALL	SETA_VALORES_TIMER_0_SEM_INT
+		
+		RET
+		
+//////////////////////////////////////////////////////
+// NOME: TIMER_DELAY_1_S							//
+// DESCRICAO: CONFIGURA VALORES PARA CONTAR 1 MS	//
+// P.ENTRADA: - 				 					//
+// P.SAIDA: -										//
+// ALTERA: -										//
+//////////////////////////////////////////////////////
+SETA_VALORES_TIMER_0_SEM_INT:
+		// Para o TIMER_0, TH0 e TL0 representam o necessario para um delay de 1ms
+		MOV 	TH0, #HIGH(65535 - 1978)
+		MOV 	TL0, #LOW(65535 - 1978)
+		
+		RET
+
+//////////////////////////////////////////////////////
+// NOME: TIMER_DELAY_1_MS							//
+// DESCRICAO: INTRODUZ UM ATRASO DE 1 MS			//
+// P.ENTRADA: R0 => (R0 x 1) ms  					//
 // P.SAIDA: -										//
 // ALTERA: R0										//
 //////////////////////////////////////////////////////
-TIMER_DELAY_50_MS:
-	mov TH0, #HIGH(65535 - 49987) 	// 0x3Ch
-	mov TL0, #LOW(65535 - 49987)	// 0xBCh
+TIMER_DELAY_1_MS:
+		ACALL	TIMER_CONFIGURA_TIMER_0_SEM_INT
+
+CONTINUA_TIMER_1_MS:
+		CLR 	TF0
+		SETB 	TR0
 	
-	clr TF0
-	setb TR0
-	
-	jnb TF0, $
+		JNB 	TF0, $
+			
+		ACALL	SETA_VALORES_TIMER_0_SEM_INT
 		
-	clr TF0
-	clr TR0
+		CLR 	TF0
+		CLR 	TR0
 	
-	djnz R0, TIMER_DELAY_50_MS
+		DJNZ 	R0, CONTINUA_TIMER_1_MS
+	
+		RET
 
 //////////////////////////////////////////////////////
-// NOME: ATRASO										//
-// DESCRICAO: Introduz um atraso (delay) de			//
-// T = (60 x R0 + 48)/fosc							//
-// Para fosc =24MHz => R0=1 => T=4,5us a R0=0 =>	//
-// 0,642ms se R0= 199 => 0,5ms						//
-// ENTRADA: R0 = Valor que multiplica por 60 na		//
-// formula (OBS.: R0 = 0 => 256)					//
-// SAIDA: -											//
-// ALTERA: R0										//
+// NOME: TIMER_DELAY_200_MS							//
+// DESCRICAO: INTRODUZ UM ATRASO DE 200 MS			//
+// P.ENTRADA: R1 => (R1 x 200) ms  					//
+// P.SAIDA: -										//
+// ALTERA: R1, R0									//
 //////////////////////////////////////////////////////
-ATRASO:
-	NOP				// 12
-	NOP				// 12
-	NOP				// 12
-	
-	DJNZ R0,ATRASO	// 24
-	
-	RET				// 24
+TIMER_DELAY_200_MS:
+		MOV		R0, #0C8h 
 
+		ACALL 	TIMER_DELAY_1_MS
+		
+		DJNZ	R1, TIMER_DELAY_200_MS
+	
+		RET
+	
 //////////////////////////////////////////////////////
-// NOME: ATRASO_MS									//
-// DESCRICAO: INTRODUZ UM ATRASO DE 1ms A 256ms		//
-// ENTRADA: R2 = 1 => 1ms  A R2 = 0 => 256ms		//
-// SAIDA: -											//
-// ALTERA: R0,R2									//
+// NOME: TIMER_DELAY_1_S							//
+// DESCRICAO: INTRODUZ UM ATRASO DE 1 S				//
+// P.ENTRADA: R2 => (R2 x 1) s 	 					//
+// P.SAIDA: -										//
+// ALTERA: R2, R1, R0								//
 //////////////////////////////////////////////////////
-ATRASO_MS:
-	MOV		R0,#199		// VALOR PARA ATRASO DE 0,5ms
-	CALL	ATRASO
+TIMER_DELAY_1_S:
+		MOV		R1, #05h
+		ACALL 	TIMER_DELAY_200_MS
+		
+		DJNZ	R2, TIMER_DELAY_1_S
 	
-	MOV		R0,#199		// VALOR PARA ATRASO DE 0,5ms
-	CALL	ATRASO
-	
-	DJNZ	R2,ATRASO_MS
-	
-	RET	
+		RET
+		
+//////////////////////////////////////////////////////
+// NOME: TIMER_DELAY								//
+// DESCRICAO: INTRODUZ UM ATRASO DE ACORDO COM OS	//
+// VALORES EM R0, R1 E R2, ESSES VALORES DEVEM SER	//
+// NO RANGE [0, 255] E DEVEM SER PASSADOS ANTES DA	//
+// CHAMADA											//
+// P.ENTRADA: 08h => (R0 x 1) ms  					//
+//			  09h => (R1 x 200) ms					//
+//			  0Ah => (R2 x 1) s						//
+// P.SAIDA: -										//
+// ALTERA: R2, R1, R0								//
+//////////////////////////////////////////////////////
+TIMER_DELAY:
+		PUSH 	ACC
+		PUSH	B
+
+		CJNE	R2, #00h, CHAMA_TIMER_1_S
+
+VERIFICA_R1:
+		CJNE	R1, #00h, CHAMA_TIMER_200_MS
+		
+VERIFICA_R0:
+		CJNE	R0, #00h, CHAMA_TIMER_1_MS
+		
+		AJMP	FINALIZA_TIMER_DELAY
+		
+CHAMA_TIMER_1_MS:
+		ACALL	TIMER_DELAY_1_MS
+		AJMP	FINALIZA_TIMER_DELAY
+
+CHAMA_TIMER_200_MS:
+		MOV		A, R6
+		MOV	  	A, R0
+		
+		ACALL	TIMER_DELAY_200_MS
+		
+		MOV		R0, A
+		
+		AJMP	VERIFICA_R0
+		
+CHAMA_TIMER_1_S:
+		MOV	  	A, R0
+		MOV		B, R1
+
+		ACALL 	TIMER_DELAY_1_S
+		
+		MOV		R0, A
+		MOV		R1, B
+		
+		AJMP	VERIFICA_R1
+
+FINALIZA_TIMER_DELAY:
+		POP		B
+		POP 	ACC
+		
+		RET

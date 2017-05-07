@@ -27,7 +27,7 @@ RW		EQU	P2.6			// READ/WRITE
 // SAIDA: -											//
 // DESTROI: R0, R2									//
 //////////////////////////////////////////////////////
-INIDISP:                       
+INIDISP:
         MOV     R0,#38H         // UTILIZACAO: 8 BITS, 2 LINHAS, 5x7
         MOV     R2,#05          // ESPERA 5ms
         CALL    ESCINST         // ENVIA A INSTRUCAO
