@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/28/2017 15:43:46 PAGE     1
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 05/05/2017 14:27:16 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.5.0
@@ -122,7 +122,7 @@ LOC  OBJ            LINE     SOURCE
 
                       57     
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/28/2017 15:43:46 PAGE     2
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 05/05/2017 14:27:16 PAGE     2
 
   0094                58     LIN1                    EQU P1.4
 
@@ -136,7 +136,7 @@ LOC  OBJ            LINE     SOURCE
 
                       63     
 
-  0092                64     BUZZER                  EQU P1.2        
+  00B0                64     BUZZER                  EQU P3.0        
 
                       65     
 
@@ -242,7 +242,7 @@ LOC  OBJ            LINE     SOURCE
 2064 6F20456E                
 2068 646F2020                
 206C 00                      
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/28/2017 15:43:46 PAGE     3
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 05/05/2017 14:27:16 PAGE     3
 
 206D                 110     STR_SENHA:
 
@@ -347,7 +347,7 @@ LOC  OBJ            LINE     SOURCE
 
 2105 7945            146                     MOV     R1, #SENHA2_1                    
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/28/2017 15:43:46 PAGE     4
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 05/05/2017 14:27:16 PAGE     4
 
 2107 7A04            147                     MOV     R2, #04h                                 
 
@@ -481,7 +481,7 @@ LOC  OBJ            LINE     SOURCE
 
 2156 31A4            212                     ACALL   VARREDURA_TECLADO        
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/28/2017 15:43:46 PAGE     5
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 05/05/2017 14:27:16 PAGE     5
 
 2158 3178            213                     CALL    ESCREVE_ASTERISCO        
 
@@ -615,7 +615,7 @@ LOC  OBJ            LINE     SOURCE
 
                      278     
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/28/2017 15:43:46 PAGE     6
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 05/05/2017 14:27:16 PAGE     6
 
                      279     
 
@@ -749,7 +749,7 @@ LOC  OBJ            LINE     SOURCE
 
 21A0 D0E0            344                     POP             ACC
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/28/2017 15:43:46 PAGE     7
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 05/05/2017 14:27:16 PAGE     7
 
 21A2 8099            345                     JMP     LIMPA_LCD_E_PEDE_SENHA
 
@@ -883,7 +883,7 @@ LOC  OBJ            LINE     SOURCE
 
 21FC 7407            410     DIGITO7: MOV A, #7h
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/28/2017 15:43:46 PAGE     8
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 05/05/2017 14:27:16 PAGE     8
 
 21FE 410C            411                      AJMP GRAVA_DIGITO
 
@@ -1017,7 +1017,7 @@ LOC  OBJ            LINE     SOURCE
 
                      476                      
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/28/2017 15:43:46 PAGE     9
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 05/05/2017 14:27:16 PAGE     9
 
 2250                 477     LIMPA_LCD_E_MOSTRA_SENHA_INVALIDA:
 
@@ -1151,15 +1151,15 @@ LOC  OBJ            LINE     SOURCE
 
                      542     
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/28/2017 15:43:46 PAGE    10
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 05/05/2017 14:27:16 PAGE    10
 
 229B                 543     ACIONA_BUZZER:
 
-229B D292            544                     SETB    BUZZER
+229B D2B0            544                     SETB    BUZZER
 
 229D 71DC            545                     ACALL   TIMER_DELAY_20_MS
 
-229F C292            546                     CLR     BUZZER
+229F C2B0            546                     CLR     BUZZER
 
                      547                     
 
@@ -1285,7 +1285,7 @@ LOC  OBJ            LINE     SOURCE
 
 22E9 7801            608                     MOV     R0, #01h
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/28/2017 15:43:46 PAGE    11
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 05/05/2017 14:27:16 PAGE    11
 
 22EB 71DC            609                     ACALL   TIMER_DELAY_20_MS
 
@@ -1419,7 +1419,7 @@ LOC  OBJ            LINE     SOURCE
 
                      674     
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/28/2017 15:43:46 PAGE    12
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 05/05/2017 14:27:16 PAGE    12
 
                      675     
 
@@ -1553,7 +1553,7 @@ LOC  OBJ            LINE     SOURCE
 
                      740     
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/28/2017 15:43:46 PAGE    13
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 05/05/2017 14:27:16 PAGE    13
 
 2350 7420            741     CLR1L1: MOV    A,#' '               
 
@@ -1687,7 +1687,7 @@ LOC  OBJ            LINE     SOURCE
 
 2387 C2A5            806                     CLR             RS                               
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/28/2017 15:43:46 PAGE    14
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 05/05/2017 14:27:16 PAGE    14
 
 2389 D2A7            807                     SETB    E_LCD            
 
@@ -1821,7 +1821,7 @@ LOC  OBJ            LINE     SOURCE
 
 23A8 7900            872               MOV    R1,#00
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/28/2017 15:43:46 PAGE    15
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 05/05/2017 14:27:16 PAGE    15
 
                      873               
 
@@ -1955,7 +1955,7 @@ LOC  OBJ            LINE     SOURCE
 
 23D2                 938     CONFIGURA_VALORES_TIMER_1:
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/28/2017 15:43:46 PAGE    16
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 05/05/2017 14:27:16 PAGE    16
 
 23D2 7551FF          939                     MOV             TIMEOUT_LOW,    #0FFh
 
@@ -2089,7 +2089,7 @@ LOC  OBJ            LINE     SOURCE
 
                     1004     
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/28/2017 15:43:46 PAGE    17
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 05/05/2017 14:27:16 PAGE    17
 
 23FA                1005     INT_INT1:
 
@@ -2185,7 +2185,7 @@ LOC  OBJ            LINE     SOURCE
 
                     1051                     END
 
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/28/2017 15:43:46 PAGE    18
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 05/05/2017 14:27:16 PAGE    18
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -2197,7 +2197,7 @@ ABRE_FECHADURA. . . . . . . . . .  C ADDR   22A2H   A
 ACC . . . . . . . . . . . . . . .  D ADDR   00E0H   A   
 ACIONA_BUZZER . . . . . . . . . .  C ADDR   229BH   A   
 BUSYF . . . . . . . . . . . . . .  B ADDR   0080H.7 A   
-BUZZER. . . . . . . . . . . . . .  B ADDR   0090H.2 A   
+BUZZER. . . . . . . . . . . . . .  B ADDR   00B0H.0 A   
 CLEAR . . . . . . . . . . . . . .  C ADDR   2199H   A   
 CLR1L . . . . . . . . . . . . . .  C ADDR   2346H   A   
 CLR1L1. . . . . . . . . . . . . .  C ADDR   2350H   A   
@@ -2253,7 +2253,7 @@ INT_CONFIGURA_INTERRUPCOES. . . .  C ADDR   23F1H   A
 INT_INT0. . . . . . . . . . . . .  C ADDR   23F8H   A   
 INT_INT1. . . . . . . . . . . . .  C ADDR   23FAH   A   
 INT_SERIAL. . . . . . . . . . . .  C ADDR   241DH   A   
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/28/2017 15:43:46 PAGE    19
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 05/05/2017 14:27:16 PAGE    19
 
 INT_TIMER0. . . . . . . . . . . .  C ADDR   23F9H   A   
 INT_TIMER1. . . . . . . . . . . .  C ADDR   23FBH   A   
@@ -2321,7 +2321,7 @@ TF1 . . . . . . . . . . . . . . .  B ADDR   0088H.7 A
 TH0 . . . . . . . . . . . . . . .  D ADDR   008CH   A   
 TH1 . . . . . . . . . . . . . . .  D ADDR   008DH   A   
 TIMEOUT_HIGH. . . . . . . . . . .  N NUMB   0052H   A   
-A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 04/28/2017 15:43:46 PAGE    20
+A51 MACRO ASSEMBLER  PROJETO_01_FECHADURA                                                 05/05/2017 14:27:16 PAGE    20
 
 TIMEOUT_LOW . . . . . . . . . . .  N NUMB   0051H   A   
 TIMEOUT_X1S . . . . . . . . . . .  N NUMB   0053H   A   

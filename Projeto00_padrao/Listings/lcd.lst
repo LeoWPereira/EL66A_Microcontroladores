@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  LCD                                                                  03/22/2017 21:12:52 PAGE     1
+A51 MACRO ASSEMBLER  LCD                                                                  05/05/2017 18:38:50 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.5.0
@@ -28,19 +28,19 @@ LOC  OBJ            LINE     SOURCE
 
                       10     
 
-                      11     
+0100                  11     ORG             0100h
 
-  00A5                12     RS              EQU     P2.5                     
+                      12     
 
-  00A7                13     E_LCD   EQU     P2.7                     
+                      13     
 
-  00A6                14     RW              EQU     P2.6                     
+  00A5                14     RS              EQU     P2.5                     
 
-  0087                15     BUSYF   EQU     P0.7                     
+  00A7                15     E_LCD   EQU     P2.7                     
 
-                      16     
+  00A6                16     RW              EQU     P2.6                     
 
-                      17     
+  0087                17     BUSYF   EQU     P0.7                     
 
                       18     
 
@@ -58,55 +58,55 @@ LOC  OBJ            LINE     SOURCE
 
                       25     
 
-0000                  26     INIDISP:                       
+                      26     
 
-0000 7838             27             MOV     R0,#38H          
+                      27     
 
-0002 7A05             28             MOV     R2,#05           
+0100                  28     INIDISP:                       
 
-0004 111F             29             CALL    ESCINST          
+0100 7838             29             MOV     R0,#38H          
 
-                      30             
+0102 7A05             30             MOV     R2,#05           
 
-0006 7838             31                     MOV     R0,#38H          
+0104 311F             31             CALL    ESCINST          
 
-0008 7A01             32             MOV     R2,#01           
+                      32             
 
-000A 111F             33             CALL    ESCINST          
+0106 7838             33                     MOV     R0,#38H          
 
-                      34             
+0108 7A01             34             MOV     R2,#01           
 
-000C 7806             35                     MOV     R0,#06H          
+010A 311F             35             CALL    ESCINST          
 
-000E 7A01             36             MOV     R2,#01           
+                      36             
 
-0010 111F             37             CALL    ESCINST          
+010C 7806             37                     MOV     R0,#06H          
 
-                      38             
+010E 7A01             38             MOV     R2,#01           
 
-0012 780C             39                     MOV     R0,#0CH          
+0110 311F             39             CALL    ESCINST          
 
-0014 7A01             40             MOV     R2,#01           
+                      40             
 
-0016 111F             41             CALL    ESCINST          
+0112 780C             41                     MOV     R0,#0CH          
 
-                      42             
+0114 7A01             42             MOV     R2,#01           
 
-0018 7801             43                     MOV     R0,#01H          
+0116 311F             43             CALL    ESCINST          
 
-001A 7A02             44             MOV     R2,#02           
+                      44             
 
-001C 111F             45             CALL    ESCINST          
+0118 7801             45                     MOV     R0,#01H          
 
-                      46             
+011A 7A02             46             MOV     R2,#02           
 
-001E 22               47                     RET
+011C 311F             47             CALL    ESCINST          
 
-                      48                     
+                      48             
 
-                      49     
+011E 22               49                     RET
 
-                      50     
+                      50                     
 
                       51     
 
@@ -122,51 +122,51 @@ LOC  OBJ            LINE     SOURCE
 
                       57     
 
-A51 MACRO ASSEMBLER  LCD                                                                  03/22/2017 21:12:52 PAGE     2
+A51 MACRO ASSEMBLER  LCD                                                                  05/05/2017 18:38:50 PAGE     2
 
-001F                  58     ESCINST:  
+                      58     
 
-001F C2A6             59                     CLR             RW                               
+                      59     
 
-0021 C2A5             60                     CLR     RS               
+011F                  60     ESCINST:  
 
-0023 D2A7             61                     SETB    E_LCD            
+011F C2A6             61                     CLR             RW                               
 
-                      62                     
+0121 C2A5             62                     CLR     RS               
 
-0025 8880             63                     MOV     P0,R0            
+0123 D2A7             63                     SETB    E_LCD            
 
                       64                     
 
-0027 C2A7             65                     CLR     E_LCD            
+0125 8880             65                     MOV     P0,R0            
 
                       66                     
 
-0029 7580FF           67                     MOV             P0,#0xFF                 
+0127 C2A7             67                     CLR     E_LCD            
 
                       68                     
 
-002C D2A6             69                     SETB    RW                               
+0129 7580FF           69                     MOV             P0,#0xFF                 
 
-002E D2A7             70                     SETB    E_LCD            
+                      70                     
 
-                      71     
+012C D2A6             71                     SETB    RW                               
 
-0030 2087FD           72     ESCI1:  JB      BUSYF,ESCI1                      
+012E D2A7             72                     SETB    E_LCD            
 
-                      73                     
+                      73     
 
-0033 C2A7             74                     CLR     E_LCD            
+0130 2087FD           74     ESCI1:  JB      BUSYF,ESCI1                      
 
-                      75             
+                      75                     
 
-0035 22               76                     RET
+0133 C2A7             76                     CLR     E_LCD            
 
-                      77                     
+                      77             
 
-                      78     
+0135 22               78                     RET
 
-                      79     
+                      79                     
 
                       80     
 
@@ -180,45 +180,45 @@ LOC  OBJ            LINE     SOURCE
 
                       85     
 
-0036                  86     GOTOXY: 
+                      86     
 
-0036 C0E0             87                     PUSH    ACC
+                      87     
 
-                      88             
+0136                  88     GOTOXY: 
 
-0038 7480             89                     MOV     A,#80H
+0136 C0E0             89                     PUSH    ACC
 
-003A B80102           90             CJNE    R0,#01,GT1       
+                      90             
 
-                      91             
+0138 7480             91                     MOV     A,#80H
 
-003D 74C0             92                     MOV     A,#0C0H
+013A B80102           92             CJNE    R0,#01,GT1       
 
-                      93                     
+                      93             
 
-003F 49               94     GT1:    ORL     A,R1             
+013D 74C0             94                     MOV     A,#0C0H
 
-0040 F8               95             MOV     R0,A
+                      95                     
 
-0041 7A01             96             MOV     R2,#01           
+013F 49               96     GT1:    ORL     A,R1             
 
-                      97             
+0140 F8               97             MOV     R0,A
 
-0043 111F             98                     CALL    ESCINST          
+0141 7A01             98             MOV     R2,#01           
 
                       99             
 
-0045 D0E0            100                     POP     ACC
+0143 311F            100                     CALL    ESCINST          
 
                      101             
 
-0047 22              102                     RET
+0145 D0E0            102                     POP     ACC
 
-                     103                     
+                     103             
 
-                     104     
+0147 22              104                     RET
 
-                     105     
+                     105                     
 
                      106     
 
@@ -232,59 +232,59 @@ LOC  OBJ            LINE     SOURCE
 
                      111     
 
-0048                 112     CLR2L:    
+                     112     
 
-0048 C0E0            113             PUSH   ACC
+                     113     
 
-                     114             
+0148                 114     CLR2L:    
 
-004A 7801            115                     MOV    R0,#01               
+0148 C0E0            115             PUSH   ACC
 
-004C 7900            116             MOV    R1,#00
+                     116             
 
-                     117             
+014A 7801            117                     MOV    R0,#01               
 
-004E 1136            118                     CALL   GOTOXY
+014C 7900            118             MOV    R1,#00
 
                      119             
 
-0050 7910            120                     MOV    R1,#16               
+014E 3136            120                     CALL   GOTOXY
 
-                     121     
+                     121             
 
-0052 7420            122     CLR2L1: MOV    A,#' '               
+0150 7910            122                     MOV    R1,#16               
 
-                     123             
+                     123     
 
-A51 MACRO ASSEMBLER  LCD                                                                  03/22/2017 21:12:52 PAGE     3
+A51 MACRO ASSEMBLER  LCD                                                                  05/05/2017 18:38:50 PAGE     3
 
-0054 1161            124                     CALL   ESCDADO
+0152 7420            124     CLR2L1: MOV    A,#' '               
 
                      125             
 
-0056 D9FA            126                     DJNZ   R1,CLR2L1
+0154 3161            126                     CALL   ESCDADO
 
-0058 7801            127             MOV    R0,#01               
+                     127             
 
-005A 7900            128             MOV    R1,#00
+0156 D9FA            128                     DJNZ   R1,CLR2L1
 
-                     129             
+0158 7801            129             MOV    R0,#01               
 
-005C 1136            130                     CALL   GOTOXY
+015A 7900            130             MOV    R1,#00
 
                      131             
 
-005E D0E0            132                     POP    ACC
+015C 3136            132                     CALL   GOTOXY
 
                      133             
 
-0060 22              134                     RET
+015E D0E0            134                     POP    ACC
 
-                     135                
+                     135             
 
-                     136     
+0160 22              136                     RET
 
-                     137     
+                     137                
 
                      138     
 
@@ -296,51 +296,51 @@ LOC  OBJ            LINE     SOURCE
 
                      142     
 
-0061                 143     ESCDADO:  
+                     143     
 
-0061 C2A6            144                     CLR             RW                               
+                     144     
 
-0063 D2A5            145             SETB    RS               
+0161                 145     ESCDADO:  
 
-0065 D2A7            146             SETB    E_LCD            
+0161 C2A6            146                     CLR             RW                               
 
-                     147                     
+0163 D2A5            147             SETB    RS               
 
-0067 F580            148             MOV     P0,A             
+0165 D2A7            148             SETB    E_LCD            
 
-                     149             
+                     149                     
 
-0069 C2A7            150                     CLR     E_LCD            
+0167 F580            150             MOV     P0,A             
 
-                     151                     
+                     151             
 
-006B 7580FF          152                     MOV             P0,#0xFF                 
+0169 C2A7            152                     CLR     E_LCD            
 
                      153                     
 
-006E D2A6            154                     SETB    RW                               
+016B 7580FF          154                     MOV             P0,#0xFF                 
 
-0070 C2A5            155                     CLR             RS                               
+                     155                     
 
-0072 D2A7            156                     SETB    E_LCD            
+016E D2A6            156                     SETB    RW                               
 
-                     157     
+0170 C2A5            157                     CLR             RS                               
 
-0074 2087FD          158     ESCD1:  JB              BUSYF,ESCD1              
+0172 D2A7            158                     SETB    E_LCD            
 
                      159     
 
-0077 C2A7            160                     CLR     E_LCD            
+0174 2087FD          160     ESCD1:  JB              BUSYF,ESCD1              
 
                      161     
 
-0079 22              162             RET
+0177 C2A7            162                     CLR     E_LCD            
 
-                     163                     
+                     163     
 
-                     164     
+0179 22              164             RET
 
-                     165     
+                     165                     
 
                      166     
 
@@ -356,41 +356,41 @@ LOC  OBJ            LINE     SOURCE
 
                      172     
 
-007A                 173     MSTRING:  
+                     173     
 
-007A E4              174                       CLR    A
+                     174     
 
-007B 93              175               MOVC   A,@A+DPTR       
+017A                 175     MSTRING:  
 
-                     176               
+017A E4              176                       CLR    A
 
-007C 6006            177                       JZ     MSTR1
+017B 93              177               MOVC   A,@A+DPTR       
 
                      178               
 
-007E 120061          179                       LCALL  ESCDADO         
+017C 6006            179                       JZ     MSTR1
 
                      180               
 
-0081 A3              181                       INC    DPTR
+017E 120161          181                       LCALL  ESCDADO         
 
                      182               
 
-0082 80F6            183                       SJMP   MSTRING
+0181 A3              183                       INC    DPTR
 
-                     184                       
+                     184               
 
-0084 22              185     MSTR1:    RET
+0182 80F6            185                       SJMP   MSTRING
 
-                     186                
+                     186                       
 
-                     187     
+0184 22              187     MSTR1:    RET
 
-                     188     
+                     188                
 
                      189     
 
-A51 MACRO ASSEMBLER  LCD                                                                  03/22/2017 21:12:52 PAGE     4
+A51 MACRO ASSEMBLER  LCD                                                                  05/05/2017 18:38:50 PAGE     4
 
                      190     
 
@@ -404,33 +404,33 @@ LOC  OBJ            LINE     SOURCE
 
                      195     
 
-0085                 196     MSTRINGX: 
+                     196     
 
-0085 E0              197                       MOVX   A,@DPTR         
+                     197     
 
-                     198               
+0185                 198     MSTRINGX: 
 
-0086 6006            199                       JZ     MSTR21
+0185 E0              199                       MOVX   A,@DPTR         
 
                      200               
 
-0088 120061          201                       LCALL  ESCDADO         
+0186 6006            201                       JZ     MSTR21
 
                      202               
 
-008B A3              203                       INC    DPTR
+0188 120161          203                       LCALL  ESCDADO         
 
                      204               
 
-008C 80F7            205                       SJMP   MSTRINGX
+018B A3              205                       INC    DPTR
 
-                     206     
+                     206               
 
-008E 22              207     MSTR21:   RET
+018C 80F7            207                       SJMP   MSTRINGX
 
                      208     
 
-                     209     
+018E 22              209     MSTR21:   RET
 
                      210     
 
@@ -448,23 +448,23 @@ LOC  OBJ            LINE     SOURCE
 
                      217     
 
-008F                 218     ESC_STR1: 
+                     218     
 
-                     219                       
+                     219     
 
-008F 7800            220                       MOV    R0,#00         
+018F                 220     ESC_STR1: 
 
-0091 7900            221               MOV    R1,#00
+                     221                       
 
-                     222               
+018F 7800            222                       MOV    R0,#00         
 
-0093 8004            223                       JMP    ESC_S
+0191 7900            223               MOV    R1,#00
 
                      224               
 
-                     225     
+0193 8004            225                       JMP    ESC_S
 
-                     226     
+                     226               
 
                      227     
 
@@ -480,29 +480,29 @@ LOC  OBJ            LINE     SOURCE
 
                      233     
 
-0095                 234     ESC_STR2: 
+                     234     
 
-                     235                       
+                     235     
 
-0095 7801            236                       MOV    R0,#01         
+0195                 236     ESC_STR2: 
 
-0097 7900            237               MOV    R1,#00
+                     237                       
 
-                     238                       
+0195 7801            238                       MOV    R0,#01         
 
-0099 120036          239     ESC_S:    LCALL  GOTOXY          
+0197 7900            239               MOV    R1,#00
 
-                     240               
+                     240                       
 
-009C 12007A          241                       LCALL  MSTRING
+0199 120136          241     ESC_S:    LCALL  GOTOXY          
 
                      242               
 
-009F 22              243                       RET
+019C 12017A          243                       LCALL  MSTRING
 
-                     244     
+                     244               
 
-                     245     
+019F 22              245                       RET
 
                      246     
 
@@ -514,41 +514,42 @@ LOC  OBJ            LINE     SOURCE
 
                      250     
 
-                     251     ; DESTROI: R0,R2                                                                        //
+                     251     
 
                      252     
 
-00A0                 253     CUR_ON:   
+                     253     ; DESTROI: R0,R2                                                                        //
 
-00A0 780F            254                       MOV    R0,#0FH               
+                     254     
 
-00A2 8002            255               SJMP   CUR1
+01A0                 255     CUR_ON:   
 
-A51 MACRO ASSEMBLER  LCD                                                                  03/22/2017 21:12:52 PAGE     5
+A51 MACRO ASSEMBLER  LCD                                                                  05/05/2017 18:38:50 PAGE     5
 
-                     256                       
+01A0 780F            256                       MOV    R0,#0FH               
 
-00A4                 257     CUR_OFF:  
+01A2 8002            257               SJMP   CUR1
 
-00A4 780C            258                       MOV    R0,#0CH               
+                     258                       
 
-                     259                       
+01A4                 259     CUR_OFF:  
 
-00A6 7A01            260     CUR1:     MOV    R2,#01
+01A4 780C            260                       MOV    R0,#0CH               
 
-                     261               
+                     261                       
 
-00A8 111F            262                       CALL   ESCINST               
+01A6 7A01            262     CUR1:     MOV    R2,#01
 
                      263               
 
-00AA 22              264                       RET
+01A8 311F            264                       CALL   ESCINST               
 
-                     265     
+                     265               
 
-                     266     END
+01AA 22              266                       RET
 
-A51 MACRO ASSEMBLER  LCD                                                                  03/22/2017 21:12:52 PAGE     6
+*** WARNING #A41 IN 266 (lcd.a51, LINE 266): MISSING 'END' STATEMENT
+A51 MACRO ASSEMBLER  LCD                                                                  05/05/2017 18:38:50 PAGE     6
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -558,26 +559,26 @@ N A M E             T Y P E  V A L U E   ATTRIBUTES
 
 ACC. . . . . . . .  D ADDR   00E0H   A   
 BUSYF. . . . . . .  B ADDR   0080H.7 A   
-CLR2L. . . . . . .  C ADDR   0048H   A   
-CLR2L1 . . . . . .  C ADDR   0052H   A   
-CUR1 . . . . . . .  C ADDR   00A6H   A   
-CUR_OFF. . . . . .  C ADDR   00A4H   A   
-CUR_ON . . . . . .  C ADDR   00A0H   A   
-ESCD1. . . . . . .  C ADDR   0074H   A   
-ESCDADO. . . . . .  C ADDR   0061H   A   
-ESCI1. . . . . . .  C ADDR   0030H   A   
-ESCINST. . . . . .  C ADDR   001FH   A   
-ESC_S. . . . . . .  C ADDR   0099H   A   
-ESC_STR1 . . . . .  C ADDR   008FH   A   
-ESC_STR2 . . . . .  C ADDR   0095H   A   
+CLR2L. . . . . . .  C ADDR   0148H   A   
+CLR2L1 . . . . . .  C ADDR   0152H   A   
+CUR1 . . . . . . .  C ADDR   01A6H   A   
+CUR_OFF. . . . . .  C ADDR   01A4H   A   
+CUR_ON . . . . . .  C ADDR   01A0H   A   
+ESCD1. . . . . . .  C ADDR   0174H   A   
+ESCDADO. . . . . .  C ADDR   0161H   A   
+ESCI1. . . . . . .  C ADDR   0130H   A   
+ESCINST. . . . . .  C ADDR   011FH   A   
+ESC_S. . . . . . .  C ADDR   0199H   A   
+ESC_STR1 . . . . .  C ADDR   018FH   A   
+ESC_STR2 . . . . .  C ADDR   0195H   A   
 E_LCD. . . . . . .  B ADDR   00A0H.7 A   
-GOTOXY . . . . . .  C ADDR   0036H   A   
-GT1. . . . . . . .  C ADDR   003FH   A   
-INIDISP. . . . . .  C ADDR   0000H   A   
-MSTR1. . . . . . .  C ADDR   0084H   A   
-MSTR21 . . . . . .  C ADDR   008EH   A   
-MSTRING. . . . . .  C ADDR   007AH   A   
-MSTRINGX . . . . .  C ADDR   0085H   A   
+GOTOXY . . . . . .  C ADDR   0136H   A   
+GT1. . . . . . . .  C ADDR   013FH   A   
+INIDISP. . . . . .  C ADDR   0100H   A   
+MSTR1. . . . . . .  C ADDR   0184H   A   
+MSTR21 . . . . . .  C ADDR   018EH   A   
+MSTRING. . . . . .  C ADDR   017AH   A   
+MSTRINGX . . . . .  C ADDR   0185H   A   
 P0 . . . . . . . .  D ADDR   0080H   A   
 P2 . . . . . . . .  D ADDR   00A0H   A   
 RS . . . . . . . .  B ADDR   00A0H.5 A   
@@ -587,4 +588,4 @@ RW . . . . . . . .  B ADDR   00A0H.6 A
 REGISTER BANK(S) USED: 0 
 
 
-ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
+ASSEMBLY COMPLETE.  1 WARNING(S), 0 ERROR(S)

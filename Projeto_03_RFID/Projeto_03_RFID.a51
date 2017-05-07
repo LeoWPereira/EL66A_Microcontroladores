@@ -1,21 +1,170 @@
 //////////////////////////////////////////////////////////
 //														//
-//  CODIGOS RELACIONADOS AO DISPLAY DE CRISTAL LIQUIDO	//
-//						  16 X 2						//
+//           		PROJETO 03 - RFID 					//
 //														//
+// Requisitos: 											//
+// 														//
 // @author: Leonardo Winter Pereira 					//
 // @author: Rodrigo Yudi Endo							//
 //														//
+// http://www.circuitstoday.com/interfacing-rfid-module-to-8051
 //////////////////////////////////////////////////////////
 
-ORG		0E00h
+org 000h // Origem do codigo 
+ljmp __STARTUP__
 
-// PARA PLACA USB VERMELHA 1SEM2013
-RS		EQU	P2.5			// COMANDO RS LCD
-E_LCD	EQU	P2.7			// COMANDO E (ENABLE) LCD
-RW		EQU	P2.6			// READ/WRITE
-BUSYF	EQU	P0.7			// BUSY FLAG
+org 003h // Inicio do codigo da interrupcao externa INT0
+ljmp INT_INT0
 
+org 00Bh // Inicio do codigo da interrupcao interna gerada pelo TIMER/COUNTER 0
+ljmp INT_TIMER0
+
+org 013h // Inicio do codigo da interrupcao externa INT1
+ljmp INT_INT1
+
+org 01Bh // Inicio do codigo da interrupcao interna gerada pelo TIMER/COUNTER 1
+ljmp INT_TIMER1
+
+org 023h // Inicio do codigo da interrupcao SERIAL
+ljmp INT_SERIAL
+
+org 204Bh
+ljmp it_SPI
+
+////////////////////////////////////////////////
+//       TABELA DE EQUATES DO PROGRAMA		  //
+////////////////////////////////////////////////
+
+// PARA PLACA USB VERMELHA
+RS				EQU	P2.5			// COMANDO RS LCD
+RW				EQU	P2.6			// READ/WRITE
+E_LCD			EQU	P2.7			// COMANDO E (ENABLE) LCD
+	
+SPCON EQU 0C3h
+IEN1  EQU 0B1h
+SPDAT EQU 0C5h
+SPSTA EQu 0C4h
+	transmit_completed BIT 20H.1; software flag
+serial_data DATA 08H
+data_save DATA 09H
+data_example DATA 0AH;
+
+BUSYF			EQU	P0.7			// BUSY FLAG
+
+// LEDS DA PLACA
+LED_SEG 		EQU	P3.6
+LED1   			EQU	P3.7
+	
+// BUZZER
+BUZZER			EQU P3.0	
+		
+//////////////////////////////////////////////////
+// REGIAO DA MEMORIA DE PROGRAMA COM AS STRINGS //
+//////////////////////////////////////////////////
+
+org 030h
+TEXTO_1:
+		db  	'  LEITOR  RFID  ', 00H
+TEXTO_2:
+		db  	' PASSE O CARTAO ', 00H
+		
+////////////////////////////////////////////////
+// 				INICIO DO PROGRAMA			  //
+////////////////////////////////////////////////		
+
+__STARTUP__:
+		CALL 	TIMER_CONFIGURA_TIMER
+		CALL 	INT_CONFIGURA_INTERRUPCOES
+		
+		SETB 	TR1                     // starts Timer1
+		
+MAIN:
+		CALL	INIDISP  				// chama rotina de inicializacao do display 16x2
+		MOV     DPTR,#TEXTO_1			// seta o DPTR com o endereco da string TEXTO_1
+		CALL    ESC_STR1				// escreve na primeira linha do display
+		
+		// Atrasa 1s para escrever outra string
+		MOV		R1, #01h
+		CALL 	TIMER_DELAY_1_S
+		
+		MOV     DPTR,#TEXTO_2			// seta o DPTR com o endereco da string TEXTO_2
+		CALL    ESC_STR2				// escreve na primeira linha do display
+		
+		// Atrasa 1s para escrever outra string
+		MOV		R1, #01h
+		CALL 	TIMER_DELAY_1_S
+		
+		ACALL 	CLR2L
+	
+		;init
+MOV data_example,#55h;           /* data example */
+
+ORL SPCON,#10h                  /* Master mode */
+SETB P1.1;                       /* enable master */
+ORL SPCON,#82h;                  /* Fclk Periph/128 */
+ANL SPCON,#0F7h;                 /* CPOL=0; transmit mode example */
+ORL SPCON,#04h;                  /* CPHA=1; transmit mode example */
+ORL IEN1,#04h;                   /* enable spi interrupt */
+ORL SPCON,#40h;                  /* run spi */
+CLR transmit_completed;          /* clear software transfert flag */
+SETB EA;                         /* enable interrupts */
+jmp loop
+		
+		JMP	 	MAIN
+		
+loop:                            /* endless */
+
+   MOV SPDAT,data_example;       /* send an example data */
+   JNB transmit_completed,$;     /* wait end of transmition */
+   CLR transmit_completed;       /* clear software transfert flag */
+
+   MOV SPDAT,#00h;               /* data is send to generate SCK signal */
+   JNB transmit_completed,$;     /* wait end of transmition */
+   CLR transmit_completed;       /* clear software transfert flag */
+   MOV data_save,serial_data;    /* save receive data */  
+
+LJMP loop
+		
+READ:
+		MOV 	R0,#12d             //loads R0 with 12D
+		MOV 	R1,#160d            //loads R1 with 160D
+
+WAIT:
+		JNB 	RI, WAIT             //loops here until RI flag is set
+		MOV 	A,	SBUF              //moves SBUF to A         
+		MOV 	@R1, A               //moves A to location pointed by R1
+		CLR 	RI                  //clears RI flag
+		DJNZ 	R0, WAIT            //iterates the loop 12 times
+     
+		RET                     //return from subroutine
+
+WRITE:
+		MOV 	R2,#12d            //loads R2 with 12D
+		MOV 	R1,#160d           //loads R1 with 160D
+
+BACK1:
+		MOV 	A,@R1              //loads A with data pointed by R1
+		ACALL 	ESCDADO          //calls DISPLAY subroutine
+		INC 	R1                 //incremets R1
+		DJNZ 	R2,BACK1          //iterates the loop 160 times
+      
+		RET                    //return from subroutine
+	   
+///////////////////
+// ACIONA BUZZER //
+//  R0 x 20 MS 	 //
+///////////////////
+ACIONA_BUZZER:
+		SETB 	BUZZER
+		ACALL 	TIMER_DELAY_20_MS
+		CLR 	BUZZER
+		
+		RET
+		
+////////////////////////////////////////////////
+// 		  INICIO DOS CODIGOS PARA LCD		  //
+////////////////////////////////////////////////
+	
 //////////////////////////////////////////////////////
 // NOME: INIDISP								  	//
 // DESCRICAO: ROTINA DE INICIALIZACAO DO DISPLAY	//
@@ -100,6 +249,38 @@ GT1:    ORL     A,R1            // CALCULA O ENDERECO DA MEMORIA DD RAM
 		CALL    ESCINST         // ENVIA PARA O MODULO DISPLAY
         
 		POP     ACC
+        
+		RET
+	
+//////////////////////////////////////////////////////
+// NOME: CLR1L										//
+// DESCRICAO: ROTINA QUE APAGA PRIMEIRA LINHA DO	//
+// DISPLAY LCD E POSICIONA NO INICIO				//
+// ENTRADA: -										//
+// SAIDA: -											//
+// DESTROI: R0,R1									//
+//////////////////////////////////////////////////////
+CLR1L:    
+        PUSH   ACC
+        
+		MOV    R0,#00              // LINHA
+        MOV    R1,#00
+        
+		CALL   GOTOXY
+        
+		MOV    R1,#16              // CONTADOR
+
+CLR1L1: MOV    A,#' '              // ESPACO
+        
+		CALL   ESCDADO
+        
+		DJNZ   R1,CLR1L1
+        MOV    R0,#00              // LINHA
+        MOV    R1,#00
+        
+		CALL   GOTOXY
+        
+		POP    ACC
         
 		RET
 		
@@ -264,3 +445,127 @@ CUR1:     MOV    R2,#01
 		  CALL   ESCINST              // ENVIA A INSTRUCAO
           
 		  RET
+		  
+////////////////////////////////////////////////
+// 	     CODIGOS RELACIONADOS AO TIMER		  //
+////////////////////////////////////////////////
+		  
+TIMER_CONFIGURA_TIMER:
+		MOV 	TMOD, #00100001b // Seta o TIMER_0 para o modo 01 (16 bits) e o TIMER_1 para o modo 02 (8 bits com reset)
+		
+		// Para o TIMER_0, TH0 e TL0 representam o necessario para um delay de 20ms
+		MOV 	TH0, #HIGH(65535 - 43350)
+		MOV 	TL0, #LOW(65535 - 43350)
+		
+		MOV 	TH1, #249d
+		
+		RET
+	
+//////////////////////////////////////////////////////
+// NOME: TIMER_DELAY_20_MS							//
+// DESCRICAO: INTRODUZ UM ATRASO DE 20 MS			//
+// P.ENTRADA: R0 => (R0 x 20) ms  					//
+// P.SAIDA: -										//
+// ALTERA: R0										//
+//////////////////////////////////////////////////////
+TIMER_DELAY_20_MS:
+		CLR TF0
+		SETB TR0
+	
+		JNB TF0, $
+		
+		CLR TF0
+		CLR TR0
+	
+		DJNZ R0, TIMER_DELAY_20_MS
+	
+		RET
+	
+//////////////////////////////////////////////////////
+// NOME: TIMER_DELAY_1_S							//
+// DESCRICAO: INTRODUZ UM ATRASO DE 1 S				//
+// P.ENTRADA: R1 = y => (y x 1) s 	 				//
+// P.SAIDA: -										//
+// ALTERA: R1										//
+//////////////////////////////////////////////////////
+TIMER_DELAY_1_S:
+		MOV		R0, #50d
+		CALL 	TIMER_DELAY_20_MS
+		
+		DJNZ	R1, TIMER_DELAY_1_S
+	
+		RET
+
+////////////////////////////////////////////////
+// INICIO DOS CODIGOS GERADOS POR INTERRUPCAO //
+////////////////////////////////////////////////
+
+INT_CONFIGURA_INTERRUPCOES:
+		MOV		IE, 	#10001000b // Configura interrupcao apenas para o TIMER_1
+		MOV		IP,		#00001000b // da prioridade alta para o TIMER_1
+		
+		MOV 	SCON,	#01010000b       // sets serial port to Mode1 and receiver enabled
+		
+		RET
+
+/*
+*
+*/
+INT_INT0:
+		RETI
+
+/*
+*
+*/
+INT_TIMER0:
+		RETI
+	
+/*
+*
+*/
+INT_INT1:
+		RETI
+
+/*
+*
+*/
+INT_TIMER1:
+		RETI
+	
+/*
+*
+*/
+INT_SERIAL:
+		RETI
+	
+;/**
+; * FUNCTION_PURPOSE:interrupt
+; * FUNCTION_INPUTS: void
+; * FUNCTION_OUTPUTS: transmit_complete is software transfert flag
+; */
+it_SPI:;                         /* interrupt address is 0x004B */
+
+MOV R7,SPSTA;
+MOV ACC,R7
+JNB ACC.7,break1;case 0x80:
+    MOV serial_data,SPDAT;       /* read receive data */
+	
+	MOV A, serial_data
+		ACALL 	ESCDADO          //calls DISPLAY subroutine
+	
+    SETB transmit_completed;     /* set software flag */
+break1:
+
+JNB ACC.4,break2;case 0x10:
+;         /* put here for mode fault tasking */	
+break2:;
+	
+JNB ACC.6,break3;case 0x40:
+;         /* put here for overrun tasking */	
+break3:;
+
+RETI
+
+FIM:
+		JMP $
+		END

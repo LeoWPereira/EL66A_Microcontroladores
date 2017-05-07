@@ -1,0 +1,3 @@
+".\Objects\Projeto_03_RFID.obj" 
+TO ".\Objects\Projeto_03_RFID" 
+PRINT(".\Listings\Projeto_03_RFID.m51") RAMSIZE(256) 

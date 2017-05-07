@@ -7,6 +7,8 @@
 //														//
 //////////////////////////////////////////////////////////
 
+ORG	0F00h
+
 TIMER_CONFIGURA_TIMER:
 	mov TMOD, #01h // Seta o timer_0 para o modo 01 (16 bits)
 	
@@ -71,5 +73,3 @@ ATRASO_MS:
 	DJNZ	R2,ATRASO_MS
 	
 	RET	
-
-END

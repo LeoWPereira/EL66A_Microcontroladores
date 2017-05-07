@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     04/11/2017 21:45:33 PAGE     1
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/05/2017 18:56:21 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.5.0
@@ -26,144 +26,1644 @@ LOC  OBJ            LINE     SOURCE
 
                        9     
 
-0000                  10     org 0000h  
+                      10     $nomod51 
 
-0000 020026           11     ljmp main  
+                      11     ;#include <at89c5131.h>
 
-                      12     
+                +1    12     
 
-0003                  13     org 0003h  
+                +1    13     
 
-0003 020031           14     ljmp INT_INT0
+                +1    14     
 
-                      15     
+                +1    15     
 
-000B                  16     org 000Bh  
+                +1    16     
 
-000B 020032           17     ljmp INT_TIMER0  
+                +1    17     
 
-                      18     
+                +1    18     
 
-0013                  19     org 0013h  
+                +1    19     
 
-0013 020033           20     ljmp INT_INT1  
+                +1    20     
 
-                      21     
+                +1    21     
 
-001B                  22     org 001Bh  
+                +1    22     
 
-001B 020034           23     ljmp INT_TIMER1  
+                +1    23     
 
-                      24     
+                +1    24     
 
-0023                  25     org 0023h  
+                +1    25     
 
-0023 020035           26     ljmp INT_SERIAL  
+                +1    26     
 
-                      27     
+                +1    27     
 
-0026                  28     main:
+                +1    28     
 
-0026 7812             29             mov r0, #12h
+                +1    29     
 
-0028 E6               30             mov a, @r0
+                +1    30     
 
-0029 751115           31             mov 11h, #15h
+                +1    31     
 
-002C D3               32             setb c
+                +1    32     
 
-002D 9511             33             subb a, 11h
+                +1    33     
 
-002F F50F             34             mov 0fh, a
+                +1    34     
 
-                      35     
+                +1    35     
 
-                      36     
+                +1    36     
 
-                      37     
+                +1    37     
 
-                      38     
+                +1    38     
 
-                      39     
+                +1    39     
 
-                      40     
+                +1    40     
 
-                      41     
+  00E0          +1    41     sfr ACC = 0xE0 ;        /* Sfr ( ACC, bit addressable)*/
 
-                      42     
+  00F0          +1    42     sfr B = 0xF0 ;        /* Sfr ( B,   bit addressable)*/
 
-0031                  43     INT_INT0:
+  00D0          +1    43     sfr PSW = 0xD0 ;        /* Sfr ( PSW, bit addressable)*/
 
-0031 32               44             reti
+  0081          +1    44     sfr SP = 0x81 ;
 
-                      45     
+  0082          +1    45     sfr DPL = 0x82 ;
 
-                      46     
+  0083          +1    46     sfr DPH = 0x83 ;
 
-                      47     
+                +1    47     
 
-                      48     
+                +1    48     
 
-0032                  49     INT_TIMER0:
+                +1    49     
 
-0032 32               50             reti
+                +1    50     
 
-                      51             
+                +1    51     
 
-                      52     
+                +1    52     
 
-                      53     
+  0080          +1    53     sfr P0 = 0x80 ;        /* Sfr ( P0, bit addressable)*/
 
-                      54     
+                +1    54     
 
-0033                  55     INT_INT1:
+  0087          +1    55     sbit P0_7 = P0 ^ 7 ;
 
-0033 32               56             reti
+  0086          +1    56     sbit P0_6 = P0 ^ 6 ;
 
-                      57     
+  0085          +1    57     sbit P0_5 = P0 ^ 5 ;
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     04/11/2017 21:45:33 PAGE     2
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/05/2017 18:56:21 PAGE     2
 
-                      58     
+  0084          +1    58     sbit P0_4 = P0 ^ 4 ;
 
-                      59     
+  0083          +1    59     sbit P0_3 = P0 ^ 3 ;
 
-                      60     
+  0082          +1    60     sbit P0_2 = P0 ^ 2 ;
 
-0034                  61     INT_TIMER1:
+  0081          +1    61     sbit P0_1 = P0 ^ 1 ;
 
-0034 32               62             reti
+  0080          +1    62     sbit P0_0 = P0 ^ 0 ;
 
-                      63             
+                +1    63     
 
-                      64     
+  0090          +1    64     sfr P1 = 0x90 ;        /* Sfr ( P1, bit addressable)*/
 
-                      65     
+                +1    65     
 
-                      66     
+  0097          +1    66     sbit P1_7 = P1 ^ 7 ;
 
-0035                  67     INT_SERIAL:
+  0096          +1    67     sbit P1_6 = P1 ^ 6 ;
 
-0035 32               68             reti
+  0095          +1    68     sbit P1_5 = P1 ^ 5 ;
 
-                      69             
+  0094          +1    69     sbit P1_4 = P1 ^ 4 ;
 
-                      70             end
+  0093          +1    70     sbit P1_3 = P1 ^ 3 ;
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     04/11/2017 21:45:33 PAGE     3
+  0092          +1    71     sbit P1_2 = P1 ^ 2 ;
+
+  0091          +1    72     sbit P1_1 = P1 ^ 1 ;
+
+  0090          +1    73     sbit P1_0 = P1 ^ 0 ;
+
+                +1    74     
+
+  00A0          +1    75     sfr P2 = 0xA0 ;        /* Sfr ( P2, bit addressable)*/
+
+                +1    76     
+
+  00A7          +1    77     sbit P2_7 = P2 ^ 7 ;
+
+  00A6          +1    78     sbit P2_6 = P2 ^ 6 ;
+
+  00A5          +1    79     sbit P2_5 = P2 ^ 5 ;
+
+  00A4          +1    80     sbit P2_4 = P2 ^ 4 ;
+
+  00A3          +1    81     sbit P2_3 = P2 ^ 3 ;
+
+  00A2          +1    82     sbit P2_2 = P2 ^ 2 ;
+
+  00A1          +1    83     sbit P2_1 = P2 ^ 1 ;
+
+  00A0          +1    84     sbit P2_0 = P2 ^ 0 ;
+
+                +1    85     
+
+  00B0          +1    86     sfr P3 = 0xB0 ;        /* Sfr ( P3, bit addressable)*/
+
+                +1    87     
+
+  00B7          +1    88     sbit P3_7 = P3 ^ 7 ;
+
+  00B6          +1    89     sbit P3_6 = P3 ^ 6 ;
+
+  00B5          +1    90     sbit P3_5 = P3 ^ 5 ;
+
+  00B4          +1    91     sbit P3_4 = P3 ^ 4 ;
+
+  00B3          +1    92     sbit P3_3 = P3 ^ 3 ;
+
+  00B2          +1    93     sbit P3_2 = P3 ^ 2 ;
+
+  00B1          +1    94     sbit P3_1 = P3 ^ 1 ;
+
+  00B0          +1    95     sbit P3_0 = P3 ^ 0 ;
+
+                +1    96     
+
+  00C0          +1    97     sfr P4 = 0xC0 ;        /* Sfr ( P4, bit addressable)*/
+
+                +1    98     
+
+  00C1          +1    99     sbit P4_1 = P4 ^ 1 ;
+
+  00C0          +1   100     sbit P4_0 = P4 ^ 0 ;
+
+                +1   101     
+
+                +1   102     
+
+                +1   103     
+
+                +1   104     
+
+  008C          +1   105     sfr TH0 = 0x8C ; 
+
+  008A          +1   106     sfr TL0 = 0x8A ;
+
+  008D          +1   107     sfr TH1 = 0x8D ;
+
+  008B          +1   108     sfr TL1 = 0x8B ;
+
+  00CD          +1   109     sfr TH2 = 0xCD ;
+
+  00CC          +1   110     sfr TL2 = 0xCC ;
+
+  0088          +1   111     sfr TCON = 0x88 ;        /* Sfr ( TCON,  bit addressable)*/
+
+  0089          +1   112     sfr TMOD = 0x89 ;
+
+  00C8          +1   113     sfr T2CON = 0xC8 ;        /* Sfr ( T2CON, bit addressable)*/
+
+  00C9          +1   114     sfr T2MOD = 0xC9 ;
+
+  00CB          +1   115     sfr RCAP2H = 0xCB ;
+
+  00CA          +1   116     sfr RCAP2L = 0xCA ;
+
+  00A6          +1   117     sfr WDTRST = 0xA6 ;
+
+  00A7          +1   118     sfr WDTPRG = 0xA7 ;
+
+                +1   119     
+
+                +1   120                                 
+
+  008F          +1   121     sbit TF1 = TCON ^ 7 ;
+
+  008E          +1   122     sbit TR1 = TCON ^ 6 ;
+
+  008D          +1   123     sbit TF0 = TCON ^ 5 ;
+
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/05/2017 18:56:21 PAGE     3
+
+  008C          +1   124     sbit TR0 = TCON ^ 4 ;
+
+  008B          +1   125     sbit IE1_ = TCON ^ 3 ;
+
+  008A          +1   126     sbit IT1 = TCON ^ 2 ;
+
+  0089          +1   127     sbit IE0_ = TCON ^ 1 ;
+
+  0088          +1   128     sbit IT0 = TCON ^ 0 ;
+
+                +1   129                                 
+
+  00CF          +1   130     sbit TF2 = T2CON ^ 7 ;
+
+  00CE          +1   131     sbit EXF2 = T2CON ^ 6 ;
+
+  00CD          +1   132     sbit RCLK = T2CON ^ 5 ;
+
+  00CC          +1   133     sbit TCLK = T2CON ^ 4 ;
+
+  00CB          +1   134     sbit EXEN2 = T2CON ^ 3 ;
+
+  00CA          +1   135     sbit TR2 = T2CON ^ 2 ;
+
+  00C9          +1   136     sbit C_T2 = T2CON ^ 1 ;
+
+  00C8          +1   137     sbit CP_RL2 = T2CON ^ 0 ;
+
+                +1   138     
+
+                +1   139     
+
+                +1   140     
+
+                +1   141     
+
+  0098          +1   142     sfr SCON = 0x98 ;
+
+  0099          +1   143     sfr SBUF = 0x99 ;
+
+  00B9          +1   144     sfr SADEN = 0xB9 ;
+
+  00A9          +1   145     sfr SADDR = 0xA9 ;
+
+                +1   146     
+
+  009F          +1   147     sbit FE_SM0 = SCON ^ 7 ;
+
+  009E          +1   148     sbit SM1 = SCON ^ 6 ;
+
+  009D          +1   149     sbit SM2 = SCON ^ 5 ;
+
+  009C          +1   150     sbit REN = SCON ^ 4 ;
+
+  009B          +1   151     sbit TB8 = SCON ^ 3 ;
+
+  009A          +1   152     sbit RB8 = SCON ^ 2 ;
+
+  0099          +1   153     sbit TI = SCON ^ 1 ;
+
+  0098          +1   154     sbit RI = SCON ^ 0 ;
+
+                +1   155     
+
+                +1   156     
+
+                +1   157     
+
+  009A          +1   158     sfr BRL = 0x9A ;
+
+  009B          +1   159     sfr BDRCON = 0x9B ;
+
+                +1   160     
+
+                +1   161     
+
+                +1   162     
+
+  00D8          +1   163     sfr CCON = 0xD8 ;      /* Sfr ( CCON, bit addressable)*/
+
+  00D9          +1   164     sfr CMOD = 0xD9 ;
+
+  00E9          +1   165     sfr CL = 0xE9 ;
+
+  00F9          +1   166     sfr CH = 0xF9 ;
+
+  00DA          +1   167     sfr CCAPM0 = 0xDA ;
+
+  00DB          +1   168     sfr CCAPM1 = 0xDB ;
+
+  00DC          +1   169     sfr CCAPM2 = 0xDC ;
+
+  00DD          +1   170     sfr CCAPM3 = 0xDD ;
+
+  00DE          +1   171     sfr CCAPM4 = 0xDE ;
+
+  00FA          +1   172     sfr CCAP0H = 0xFA ;
+
+  00FB          +1   173     sfr CCAP1H = 0xFB ;
+
+  00FC          +1   174     sfr CCAP2H = 0xFC ;
+
+  00FD          +1   175     sfr CCAP3H = 0xFD ;
+
+  00FE          +1   176     sfr CCAP4H = 0xFE ;
+
+  00EA          +1   177     sfr CCAP0L = 0xEA ;
+
+  00EB          +1   178     sfr CCAP1L = 0xEB ;
+
+  00EC          +1   179     sfr CCAP2L = 0xEC ;
+
+  00ED          +1   180     sfr CCAP3L = 0xED ;
+
+  00EE          +1   181     sfr CCAP4L = 0xEE ;
+
+                +1   182     
+
+                +1   183                                  
+
+  00DF          +1   184     sbit CF = CCON ^ 7 ;
+
+  00DE          +1   185     sbit CR = CCON ^ 6 ;
+
+  00DC          +1   186     sbit CCF4 = CCON ^ 4 ;
+
+  00DB          +1   187     sbit CCF3 = CCON ^ 3 ;
+
+  00DA          +1   188     sbit CCF2 = CCON ^ 2 ;
+
+  00D9          +1   189     sbit CCF1 = CCON ^ 1 ;
+
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/05/2017 18:56:21 PAGE     4
+
+  00D8          +1   190     sbit CCF0 = CCON ^ 0 ;
+
+                +1   191     
+
+                +1   192     
+
+                +1   193     
+
+                +1   194     
+
+  00A8          +1   195     sfr IEN0 = 0xA8 ;       /* Sfr ( IEN0,  bit addressable                 */
+
+  00B1          +1   196     sfr IEN1 = 0xB1 ;
+
+  00B8          +1   197     sfr IPL0 = 0xB8 ;       /* Sfr ( IPL0, bit addressable          */
+
+  00B7          +1   198     sfr IPH0 = 0xB7 ;
+
+  00B2          +1   199     sfr IPL1 = 0xB2 ;
+
+  00B3          +1   200     sfr IPH1 = 0xB3 ;
+
+                +1   201     
+
+                +1   202                                  
+
+  00AF          +1   203     sbit EA = IEN0 ^ 7 ;
+
+  00AE          +1   204     sbit EC = IEN0 ^ 6 ;
+
+  00AD          +1   205     sbit ET2 = IEN0 ^ 5 ;
+
+  00AC          +1   206     sbit ES = IEN0 ^ 4 ;
+
+  00AB          +1   207     sbit ET1 = IEN0 ^ 3 ;
+
+  00AA          +1   208     sbit EX1 = IEN0 ^ 2 ;
+
+  00A9          +1   209     sbit ET0 = IEN0 ^ 1 ;
+
+  00A8          +1   210     sbit EX0 = IEN0 ^ 0 ;
+
+                +1   211                                  
+
+  00BE          +1   212     sbit PPCL = IPL0 ^ 6 ;
+
+  00BD          +1   213     sbit PT2L = IPL0 ^ 5 ;
+
+  00BC          +1   214     sbit PSL = IPL0 ^ 4 ;
+
+  00BB          +1   215     sbit PTIL = IPL0 ^ 3 ;
+
+  00BA          +1   216     sbit PXIL = IPL0 ^ 2 ;
+
+  00B9          +1   217     sbit PT0L = IPL0 ^ 1 ;
+
+  00B8          +1   218     sbit PX0L = IPL0 ^ 0 ;
+
+                +1   219     
+
+                +1   220     
+
+                +1   221     
+
+  00A3          +1   222     sfr PLLCON = 0xA3 ;
+
+  00A4          +1   223     sfr PLLDIV = 0xA4 ;
+
+                +1   224     
+
+                +1   225     
+
+                +1   226     
+
+  009E          +1   227     sfr KBF = 0x9E ;
+
+  009D          +1   228     sfr KBE = 0x9D ;
+
+  009C          +1   229     sfr KBLS = 0x9C ;
+
+                +1   230     
+
+                +1   231     
+
+                +1   232     
+
+  0093          +1   233     sfr SSCON = 0x93 ;
+
+  0094          +1   234     sfr SSCS = 0x94 ;
+
+  0095          +1   235     sfr SSDAT = 0x95 ;
+
+  0096          +1   236     sfr SSADR = 0x96 ;
+
+                +1   237     
+
+                +1   238     
+
+                +1   239     
+
+  00C3          +1   240     sfr SPCON = 0xC3 ;
+
+  00C4          +1   241     sfr SPSTA = 0xC4 ;
+
+  00C5          +1   242     sfr SPDAT = 0xC5 ;
+
+                +1   243     
+
+                +1   244     
+
+                +1   245     
+
+  00BC          +1   246     sfr USBCON = 0xBC ;
+
+  00C6          +1   247     sfr USBADDR = 0xC6 ;
+
+  00BD          +1   248     sfr USBINT = 0xBD ;
+
+  00BE          +1   249     sfr USBIEN = 0xBE ;
+
+  00C7          +1   250     sfr UEPNUM = 0xC7 ;
+
+  00D4          +1   251     sfr UEPCONX = 0xD4 ;
+
+  00CE          +1   252     sfr UEPSTAX = 0xCE ;
+
+  00D5          +1   253     sfr UEPRST = 0xD5 ;
+
+  00F8          +1   254     sfr UEPINT = 0xF8 ;         /* Sfr ( UEPINT, bit addressable) */
+
+  00C2          +1   255     sfr UEPIEN = 0xC2 ;
+
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/05/2017 18:56:21 PAGE     5
+
+  00CF          +1   256     sfr UEPDATX = 0xCF ;
+
+  00E2          +1   257     sfr UBYCTLX = 0xE2 ;
+
+  00E3          +1   258     sfr UBYCTHX = 0xE3 ;
+
+  00D6          +1   259     sfr UDPADDL = 0xD6 ;
+
+  00D7          +1   260     sfr UDPADDH = 0xD7 ;
+
+  00BA          +1   261     sfr UFNUML = 0xBA ;
+
+  00BB          +1   262     sfr UFNUMH = 0xBB ;
+
+                +1   263                                     
+
+  00FE          +1   264     sbit EP6INT = UEPINT ^ 6 ;
+
+  00FD          +1   265     sbit EP5INT = UEPINT ^ 5 ;
+
+  00FC          +1   266     sbit EP4INT = UEPINT ^ 4 ;
+
+  00FB          +1   267     sbit EP3INT = UEPINT ^ 3 ;
+
+  00FA          +1   268     sbit EP2INT = UEPINT ^ 2 ;
+
+  00F9          +1   269     sbit EP1INT = UEPINT ^ 1 ;
+
+  00F8          +1   270     sbit EP0INT = UEPINT ^ 0 ;
+
+                +1   271     
+
+                +1   272     
+
+                +1   273     
+
+  0087          +1   274     sfr PCON = 0x87 ;
+
+  008E          +1   275     sfr AUXR = 0x8E ;
+
+  00A2          +1   276     sfr AUXR1 = 0xA2 ;
+
+  008F          +1   277     sfr CKCON0 = 0x8F ;
+
+  00AF          +1   278     sfr CKCON1 = 0xAF ;
+
+  0085          +1   279     sfr CKSEL = 0x85 ;
+
+  00F1          +1   280     sfr LEDCON = 0xF1 ;
+
+  00D1          +1   281     sfr FCON = 0xD1 ;
+
+  00D2          +1   282     sfr EECON = 0xD2 ;
+
+                +1   283     
+
+                +1   284     
+
+                +1   285     
+
+                +1   286     
+
+                     287     
+
+                     288     ;#include "lcd.a51"
+
+                +1   289     
+
+                +1   290     
+
+                +1   291     
+
+                +1   292     
+
+                +1   293     
+
+                +1   294     
+
+                +1   295     
+
+                +1   296     
+
+                +1   297     
+
+                +1   298     
+
+0E00            +1   299     ORG             0E00h
+
+                +1   300     
+
+                +1   301     
+
+  00A5          +1   302     RS              EQU     P2.5                     
+
+  00A7          +1   303     E_LCD   EQU     P2.7                     
+
+  00A6          +1   304     RW              EQU     P2.6                     
+
+  0087          +1   305     BUSYF   EQU     P0.7                     
+
+                +1   306     
+
+                +1   307     
+
+                +1   308     
+
+                +1   309     
+
+                +1   310     
+
+                +1   311     
+
+                +1   312     
+
+                +1   313     
+
+                +1   314     
+
+                +1   315     
+
+0E00            +1   316     INIDISP:                       
+
+0E00 7838       +1   317             MOV     R0,#38H          
+
+0E02 7A05       +1   318             MOV     R2,#05           
+
+0E04 D11F       +1   319             CALL    ESCINST          
+
+                +1   320             
+
+0E06 7838       +1   321                     MOV     R0,#38H          
+
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/05/2017 18:56:21 PAGE     6
+
+0E08 7A01       +1   322             MOV     R2,#01           
+
+0E0A D11F       +1   323             CALL    ESCINST          
+
+                +1   324             
+
+0E0C 7806       +1   325                     MOV     R0,#06H          
+
+0E0E 7A01       +1   326             MOV     R2,#01           
+
+0E10 D11F       +1   327             CALL    ESCINST          
+
+                +1   328             
+
+0E12 780C       +1   329                     MOV     R0,#0CH          
+
+0E14 7A01       +1   330             MOV     R2,#01           
+
+0E16 D11F       +1   331             CALL    ESCINST          
+
+                +1   332             
+
+0E18 7801       +1   333                     MOV     R0,#01H          
+
+0E1A 7A02       +1   334             MOV     R2,#02           
+
+0E1C D11F       +1   335             CALL    ESCINST          
+
+                +1   336             
+
+0E1E 22         +1   337                     RET
+
+                +1   338                     
+
+                +1   339     
+
+                +1   340     
+
+                +1   341     
+
+                +1   342     
+
+                +1   343     
+
+                +1   344     
+
+                +1   345     
+
+                +1   346     
+
+                +1   347     
+
+0E1F            +1   348     ESCINST:  
+
+0E1F C2A6       +1   349                     CLR             RW                               
+
+0E21 C2A5       +1   350                     CLR     RS               
+
+0E23 D2A7       +1   351                     SETB    E_LCD            
+
+                +1   352                     
+
+0E25 8880       +1   353                     MOV     P0,R0            
+
+                +1   354                     
+
+0E27 C2A7       +1   355                     CLR     E_LCD            
+
+                +1   356                     
+
+0E29 7580FF     +1   357                     MOV             P0,#0xFF                 
+
+                +1   358                     
+
+0E2C D2A6       +1   359                     SETB    RW                               
+
+0E2E D2A7       +1   360                     SETB    E_LCD            
+
+                +1   361     
+
+0E30 2087FD     +1   362     ESCI1:  JB      BUSYF,ESCI1                      
+
+                +1   363                     
+
+0E33 C2A7       +1   364                     CLR     E_LCD            
+
+                +1   365             
+
+0E35 22         +1   366                     RET
+
+                +1   367                     
+
+                +1   368     
+
+                +1   369     
+
+                +1   370     
+
+                +1   371     
+
+                +1   372     
+
+                +1   373     
+
+                +1   374     
+
+                +1   375     
+
+0E36            +1   376     GOTOXY: 
+
+0E36 C0E0       +1   377                     PUSH    ACC
+
+                +1   378             
+
+0E38 7480       +1   379                     MOV     A,#80H
+
+0E3A B80102     +1   380             CJNE    R0,#01,GT1       
+
+                +1   381             
+
+0E3D 74C0       +1   382                     MOV     A,#0C0H
+
+                +1   383                     
+
+0E3F 49         +1   384     GT1:    ORL     A,R1             
+
+0E40 F8         +1   385             MOV     R0,A
+
+0E41 7A01       +1   386             MOV     R2,#01           
+
+                +1   387             
+
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/05/2017 18:56:21 PAGE     7
+
+0E43 D11F       +1   388                     CALL    ESCINST          
+
+                +1   389             
+
+0E45 D0E0       +1   390                     POP     ACC
+
+                +1   391             
+
+0E47 22         +1   392                     RET
+
+                +1   393                     
+
+                +1   394     
+
+                +1   395     
+
+                +1   396     
+
+                +1   397     
+
+                +1   398     
+
+                +1   399     
+
+                +1   400     
+
+                +1   401     
+
+0E48            +1   402     CLR2L:    
+
+0E48 C0E0       +1   403             PUSH   ACC
+
+                +1   404             
+
+0E4A 7801       +1   405                     MOV    R0,#01               
+
+0E4C 7900       +1   406             MOV    R1,#00
+
+                +1   407             
+
+0E4E D136       +1   408                     CALL   GOTOXY
+
+                +1   409             
+
+0E50 7910       +1   410                     MOV    R1,#16               
+
+                +1   411     
+
+0E52 7420       +1   412     CLR2L1: MOV    A,#' '               
+
+                +1   413             
+
+0E54 D161       +1   414                     CALL   ESCDADO
+
+                +1   415             
+
+0E56 D9FA       +1   416                     DJNZ   R1,CLR2L1
+
+0E58 7801       +1   417             MOV    R0,#01               
+
+0E5A 7900       +1   418             MOV    R1,#00
+
+                +1   419             
+
+0E5C D136       +1   420                     CALL   GOTOXY
+
+                +1   421             
+
+0E5E D0E0       +1   422                     POP    ACC
+
+                +1   423             
+
+0E60 22         +1   424                     RET
+
+                +1   425                
+
+                +1   426     
+
+                +1   427     
+
+                +1   428     
+
+                +1   429     
+
+                +1   430     
+
+                +1   431     
+
+                +1   432     
+
+0E61            +1   433     ESCDADO:  
+
+0E61 C2A6       +1   434                     CLR             RW                               
+
+0E63 D2A5       +1   435             SETB    RS               
+
+0E65 D2A7       +1   436             SETB    E_LCD            
+
+                +1   437                     
+
+0E67 F580       +1   438             MOV     P0,A             
+
+                +1   439             
+
+0E69 C2A7       +1   440                     CLR     E_LCD            
+
+                +1   441                     
+
+0E6B 7580FF     +1   442                     MOV             P0,#0xFF                 
+
+                +1   443                     
+
+0E6E D2A6       +1   444                     SETB    RW                               
+
+0E70 C2A5       +1   445                     CLR             RS                               
+
+0E72 D2A7       +1   446                     SETB    E_LCD            
+
+                +1   447     
+
+0E74 2087FD     +1   448     ESCD1:  JB              BUSYF,ESCD1              
+
+                +1   449     
+
+0E77 C2A7       +1   450                     CLR     E_LCD            
+
+                +1   451     
+
+0E79 22         +1   452             RET
+
+                +1   453                     
+
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/05/2017 18:56:21 PAGE     8
+
+                +1   454     
+
+                +1   455     
+
+                +1   456     
+
+                +1   457     
+
+                +1   458     
+
+                +1   459     
+
+                +1   460     
+
+                +1   461     
+
+                +1   462     
+
+0E7A            +1   463     MSTRING:  
+
+0E7A E4         +1   464                       CLR    A
+
+0E7B 93         +1   465               MOVC   A,@A+DPTR       
+
+                +1   466               
+
+0E7C 6006       +1   467                       JZ     MSTR1
+
+                +1   468               
+
+0E7E 120E61     +1   469                       LCALL  ESCDADO         
+
+                +1   470               
+
+0E81 A3         +1   471                       INC    DPTR
+
+                +1   472               
+
+0E82 80F6       +1   473                       SJMP   MSTRING
+
+                +1   474                       
+
+0E84 22         +1   475     MSTR1:    RET
+
+                +1   476                
+
+                +1   477     
+
+                +1   478     
+
+                +1   479     
+
+                +1   480     
+
+                +1   481     
+
+                +1   482     
+
+                +1   483     
+
+                +1   484     
+
+                +1   485     
+
+0E85            +1   486     MSTRINGX: 
+
+0E85 E0         +1   487                       MOVX   A,@DPTR         
+
+                +1   488               
+
+0E86 6006       +1   489                       JZ     MSTR21
+
+                +1   490               
+
+0E88 120E61     +1   491                       LCALL  ESCDADO         
+
+                +1   492               
+
+0E8B A3         +1   493                       INC    DPTR
+
+                +1   494               
+
+0E8C 80F7       +1   495                       SJMP   MSTRINGX
+
+                +1   496     
+
+0E8E 22         +1   497     MSTR21:   RET
+
+                +1   498     
+
+                +1   499     
+
+                +1   500     
+
+                +1   501     
+
+                +1   502     
+
+                +1   503     
+
+                +1   504     
+
+                +1   505     
+
+                +1   506     
+
+                +1   507     
+
+0E8F            +1   508     ESC_STR1: 
+
+                +1   509                       
+
+0E8F 7800       +1   510                       MOV    R0,#00         
+
+0E91 7900       +1   511               MOV    R1,#00
+
+                +1   512               
+
+0E93 8004       +1   513                       JMP    ESC_S
+
+                +1   514               
+
+                +1   515     
+
+                +1   516     
+
+                +1   517     
+
+                +1   518     
+
+                +1   519     
+
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/05/2017 18:56:21 PAGE     9
+
+                +1   520     
+
+                +1   521     
+
+                +1   522     
+
+                +1   523     
+
+0E95            +1   524     ESC_STR2: 
+
+                +1   525                       
+
+0E95 7801       +1   526                       MOV    R0,#01         
+
+0E97 7900       +1   527               MOV    R1,#00
+
+                +1   528                       
+
+0E99 120E36     +1   529     ESC_S:    LCALL  GOTOXY          
+
+                +1   530               
+
+0E9C 120E7A     +1   531                       LCALL  MSTRING
+
+                +1   532               
+
+0E9F 22         +1   533                       RET
+
+                +1   534     
+
+                +1   535     
+
+                +1   536     
+
+                +1   537     
+
+                +1   538     
+
+                +1   539     
+
+                +1   540     
+
+                +1   541     ; DESTROI: R0,R2                                                                        //
+
+                +1   542     
+
+0EA0            +1   543     CUR_ON:   
+
+0EA0 780F       +1   544                       MOV    R0,#0FH               
+
+0EA2 8002       +1   545               SJMP   CUR1
+
+                +1   546                       
+
+0EA4            +1   547     CUR_OFF:  
+
+0EA4 780C       +1   548                       MOV    R0,#0CH               
+
+                +1   549                       
+
+0EA6 7A01       +1   550     CUR1:     MOV    R2,#01
+
+                +1   551               
+
+0EA8 D11F       +1   552                       CALL   ESCINST               
+
+                +1   553               
+
+0EAA 22         +1   554                       RET
+
+                     555     
+
+                     556     ;#include "timers_and_counters.a51"
+
+                +1   557     
+
+                +1   558     
+
+                +1   559     
+
+                +1   560     
+
+                +1   561     
+
+                +1   562     
+
+                +1   563     
+
+                +1   564     
+
+                +1   565     
+
+0F00            +1   566     ORG     0F00h
+
+                +1   567     
+
+0F00            +1   568     TIMER_CONFIGURA_TIMER:
+
+0F00 758901     +1   569             mov TMOD, #01h  
+
+                +1   570             
+
+0F03            +1   571     TIMER_DELAY_1_S:
+
+0F03 7814       +1   572             mov R0, #20d  
+
+                +1   573             
+
+                +1   574     
+
+                +1   575     
+
+                +1   576     
+
+                +1   577     
+
+                +1   578     
+
+                +1   579     
+
+                +1   580     
+
+0F05            +1   581     TIMER_DELAY_50_MS:
+
+0F05 758C3C     +1   582             mov TH0, #HIGH(65535 - 49987)    
+
+0F08 758ABC     +1   583             mov TL0, #LOW(65535 - 49987)     
+
+                +1   584             
+
+0F0B C28D       +1   585             clr TF0
+
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/05/2017 18:56:21 PAGE    10
+
+0F0D D28C       +1   586             setb TR0
+
+                +1   587             
+
+0F0F 308DFD     +1   588             jnb TF0, $
+
+                +1   589                     
+
+0F12 C28D       +1   590             clr TF0
+
+0F14 C28C       +1   591             clr TR0
+
+                +1   592             
+
+0F16 D8ED       +1   593             djnz R0, TIMER_DELAY_50_MS
+
+                +1   594     
+
+                +1   595     
+
+                +1   596     
+
+                +1   597     
+
+                +1   598     
+
+                +1   599     
+
+                +1   600     
+
+                +1   601     
+
+                +1   602     
+
+                +1   603     
+
+                +1   604     
+
+                +1   605     
+
+0F18            +1   606     ATRASO:
+
+0F18 00         +1   607             NOP                              
+
+0F19 00         +1   608             NOP                              
+
+0F1A 00         +1   609             NOP                              
+
+                +1   610             
+
+0F1B D8FB       +1   611             DJNZ R0,ATRASO   
+
+                +1   612             
+
+0F1D 22         +1   613             RET                              
+
+                +1   614     
+
+                +1   615     
+
+                +1   616     
+
+                +1   617     
+
+                +1   618     
+
+                +1   619     
+
+                +1   620     
+
+                +1   621     
+
+0F1E            +1   622     ATRASO_MS:
+
+0F1E 78C7       +1   623             MOV             R0,#199          
+
+0F20 F118       +1   624             CALL    ATRASO
+
+                +1   625             
+
+0F22 78C7       +1   626             MOV             R0,#199          
+
+0F24 F118       +1   627             CALL    ATRASO
+
+                +1   628             
+
+0F26 DAF6       +1   629             DJNZ    R2,ATRASO_MS
+
+                +1   630             
+
+0F28 22         +1   631             RET     
+
+                     632     
+
+                     633     
+
+0000                 634     org 0000h  
+
+0000 020041          635     ljmp main  
+
+                     636     
+
+0003                 637     org 0003h  
+
+0003 020051          638     ljmp INT_INT0
+
+                     639     
+
+000B                 640     org 000Bh  
+
+000B 020052          641     ljmp INT_TIMER0  
+
+                     642     
+
+0013                 643     org 0013h  
+
+0013 020053          644     ljmp INT_INT1  
+
+                     645     
+
+001B                 646     org 001Bh  
+
+001B 020054          647     ljmp INT_TIMER1  
+
+                     648     
+
+0023                 649     org 0023h  
+
+0023 020055          650     ljmp INT_SERIAL  
+
+                     651     
+
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/05/2017 18:56:21 PAGE    11
+
+0030                 652     org 0030h
+
+0030                 653     TEXTO_1:
+
+0030 20204C45        654                     db      '  LEITOR  RFID 2', 00H
+
+0034 49544F52                
+0038 20205246                
+003C 49442032                
+0040 00                      
+                     655     
+
+0041                 656     main:
+
+0041 120E00          657             CALL    INIDISP                                  
+
+0044 900030          658                     MOV     DPTR,#TEXTO_1                    
+
+0047 120E8F          659                     CALL    ESC_STR1                                 
+
+                     660                     
+
+                     661                     
+
+004A 7903            662                     MOV             R1, #03h
+
+004C 120F03          663                     CALL    TIMER_DELAY_1_S
+
+                     664                     
+
+004F 80F0            665                     jmp main
+
+                     666     
+
+                     667     
+
+                     668     
+
+                     669     
+
+                     670     
+
+                     671     
+
+                     672     
+
+                     673     
+
+0051                 674     INT_INT0:
+
+0051 32              675             reti
+
+                     676     
+
+                     677     
+
+                     678     
+
+                     679     
+
+0052                 680     INT_TIMER0:
+
+0052 32              681             reti
+
+                     682             
+
+                     683     
+
+                     684     
+
+                     685     
+
+0053                 686     INT_INT1:
+
+0053 32              687             reti
+
+                     688     
+
+                     689     
+
+                     690     
+
+                     691     
+
+0054                 692     INT_TIMER1:
+
+0054 32              693             reti
+
+                     694             
+
+                     695     
+
+                     696     
+
+                     697     
+
+0055                 698     INT_SERIAL:
+
+0055 32              699             reti
+
+                     700             
+
+                     701             end
+
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/05/2017 18:56:21 PAGE    12
 
 SYMBOL TABLE LISTING
 ------ ----- -------
 
 
-N A M E             T Y P E  V A L U E   ATTRIBUTES
+N A M E                T Y P E  V A L U E   ATTRIBUTES
 
-INT_INT0 . . . . .  C ADDR   0031H   A   
-INT_INT1 . . . . .  C ADDR   0033H   A   
-INT_SERIAL . . . .  C ADDR   0035H   A   
-INT_TIMER0 . . . .  C ADDR   0032H   A   
-INT_TIMER1 . . . .  C ADDR   0034H   A   
-MAIN . . . . . . .  C ADDR   0026H   A   
+ACC . . . . . . . . .  D ADDR   00E0H   A   
+ATRASO. . . . . . . .  C ADDR   0F18H   A   
+ATRASO_MS . . . . . .  C ADDR   0F1EH   A   
+AUXR. . . . . . . . .  D ADDR   008EH   A   
+AUXR1 . . . . . . . .  D ADDR   00A2H   A   
+B . . . . . . . . . .  D ADDR   00F0H   A   
+BDRCON. . . . . . . .  D ADDR   009BH   A   
+BRL . . . . . . . . .  D ADDR   009AH   A   
+BUSYF . . . . . . . .  B ADDR   0080H.7 A   
+CCAP0H. . . . . . . .  D ADDR   00FAH   A   
+CCAP0L. . . . . . . .  D ADDR   00EAH   A   
+CCAP1H. . . . . . . .  D ADDR   00FBH   A   
+CCAP1L. . . . . . . .  D ADDR   00EBH   A   
+CCAP2H. . . . . . . .  D ADDR   00FCH   A   
+CCAP2L. . . . . . . .  D ADDR   00ECH   A   
+CCAP3H. . . . . . . .  D ADDR   00FDH   A   
+CCAP3L. . . . . . . .  D ADDR   00EDH   A   
+CCAP4H. . . . . . . .  D ADDR   00FEH   A   
+CCAP4L. . . . . . . .  D ADDR   00EEH   A   
+CCAPM0. . . . . . . .  D ADDR   00DAH   A   
+CCAPM1. . . . . . . .  D ADDR   00DBH   A   
+CCAPM2. . . . . . . .  D ADDR   00DCH   A   
+CCAPM3. . . . . . . .  D ADDR   00DDH   A   
+CCAPM4. . . . . . . .  D ADDR   00DEH   A   
+CCF0. . . . . . . . .  B ADDR   00D8H.0 A   
+CCF1. . . . . . . . .  B ADDR   00D8H.1 A   
+CCF2. . . . . . . . .  B ADDR   00D8H.2 A   
+CCF3. . . . . . . . .  B ADDR   00D8H.3 A   
+CCF4. . . . . . . . .  B ADDR   00D8H.4 A   
+CCON. . . . . . . . .  D ADDR   00D8H   A   
+CF. . . . . . . . . .  B ADDR   00D8H.7 A   
+CH. . . . . . . . . .  D ADDR   00F9H   A   
+CKCON0. . . . . . . .  D ADDR   008FH   A   
+CKCON1. . . . . . . .  D ADDR   00AFH   A   
+CKSEL . . . . . . . .  D ADDR   0085H   A   
+CL. . . . . . . . . .  D ADDR   00E9H   A   
+CLR2L . . . . . . . .  C ADDR   0E48H   A   
+CLR2L1. . . . . . . .  C ADDR   0E52H   A   
+CMOD. . . . . . . . .  D ADDR   00D9H   A   
+CP_RL2. . . . . . . .  B ADDR   00C8H.0 A   
+CR. . . . . . . . . .  B ADDR   00D8H.6 A   
+CUR1. . . . . . . . .  C ADDR   0EA6H   A   
+CUR_OFF . . . . . . .  C ADDR   0EA4H   A   
+CUR_ON. . . . . . . .  C ADDR   0EA0H   A   
+C_T2. . . . . . . . .  B ADDR   00C8H.1 A   
+DPH . . . . . . . . .  D ADDR   0083H   A   
+DPL . . . . . . . . .  D ADDR   0082H   A   
+EA. . . . . . . . . .  B ADDR   00A8H.7 A   
+EC. . . . . . . . . .  B ADDR   00A8H.6 A   
+EECON . . . . . . . .  D ADDR   00D2H   A   
+EP0INT. . . . . . . .  B ADDR   00F8H.0 A   
+EP1INT. . . . . . . .  B ADDR   00F8H.1 A   
+EP2INT. . . . . . . .  B ADDR   00F8H.2 A   
+EP3INT. . . . . . . .  B ADDR   00F8H.3 A   
+EP4INT. . . . . . . .  B ADDR   00F8H.4 A   
+EP5INT. . . . . . . .  B ADDR   00F8H.5 A   
+EP6INT. . . . . . . .  B ADDR   00F8H.6 A   
+ES. . . . . . . . . .  B ADDR   00A8H.4 A   
+ESCD1 . . . . . . . .  C ADDR   0E74H   A   
+ESCDADO . . . . . . .  C ADDR   0E61H   A   
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/05/2017 18:56:21 PAGE    13
+
+ESCI1 . . . . . . . .  C ADDR   0E30H   A   
+ESCINST . . . . . . .  C ADDR   0E1FH   A   
+ESC_S . . . . . . . .  C ADDR   0E99H   A   
+ESC_STR1. . . . . . .  C ADDR   0E8FH   A   
+ESC_STR2. . . . . . .  C ADDR   0E95H   A   
+ET0 . . . . . . . . .  B ADDR   00A8H.1 A   
+ET1 . . . . . . . . .  B ADDR   00A8H.3 A   
+ET2 . . . . . . . . .  B ADDR   00A8H.5 A   
+EX0 . . . . . . . . .  B ADDR   00A8H.0 A   
+EX1 . . . . . . . . .  B ADDR   00A8H.2 A   
+EXEN2 . . . . . . . .  B ADDR   00C8H.3 A   
+EXF2. . . . . . . . .  B ADDR   00C8H.6 A   
+E_LCD . . . . . . . .  B ADDR   00A0H.7 A   
+FCON. . . . . . . . .  D ADDR   00D1H   A   
+FE_SM0. . . . . . . .  B ADDR   0098H.7 A   
+GOTOXY. . . . . . . .  C ADDR   0E36H   A   
+GT1 . . . . . . . . .  C ADDR   0E3FH   A   
+IE0_. . . . . . . . .  B ADDR   0088H.1 A   
+IE1_. . . . . . . . .  B ADDR   0088H.3 A   
+IEN0. . . . . . . . .  D ADDR   00A8H   A   
+IEN1. . . . . . . . .  D ADDR   00B1H   A   
+INIDISP . . . . . . .  C ADDR   0E00H   A   
+INT_INT0. . . . . . .  C ADDR   0051H   A   
+INT_INT1. . . . . . .  C ADDR   0053H   A   
+INT_SERIAL. . . . . .  C ADDR   0055H   A   
+INT_TIMER0. . . . . .  C ADDR   0052H   A   
+INT_TIMER1. . . . . .  C ADDR   0054H   A   
+IPH0. . . . . . . . .  D ADDR   00B7H   A   
+IPH1. . . . . . . . .  D ADDR   00B3H   A   
+IPL0. . . . . . . . .  D ADDR   00B8H   A   
+IPL1. . . . . . . . .  D ADDR   00B2H   A   
+IT0 . . . . . . . . .  B ADDR   0088H.0 A   
+IT1 . . . . . . . . .  B ADDR   0088H.2 A   
+KBE . . . . . . . . .  D ADDR   009DH   A   
+KBF . . . . . . . . .  D ADDR   009EH   A   
+KBLS. . . . . . . . .  D ADDR   009CH   A   
+LEDCON. . . . . . . .  D ADDR   00F1H   A   
+MAIN. . . . . . . . .  C ADDR   0041H   A   
+MSTR1 . . . . . . . .  C ADDR   0E84H   A   
+MSTR21. . . . . . . .  C ADDR   0E8EH   A   
+MSTRING . . . . . . .  C ADDR   0E7AH   A   
+MSTRINGX. . . . . . .  C ADDR   0E85H   A   
+P0. . . . . . . . . .  D ADDR   0080H   A   
+P0_0. . . . . . . . .  B ADDR   0080H.0 A   
+P0_1. . . . . . . . .  B ADDR   0080H.1 A   
+P0_2. . . . . . . . .  B ADDR   0080H.2 A   
+P0_3. . . . . . . . .  B ADDR   0080H.3 A   
+P0_4. . . . . . . . .  B ADDR   0080H.4 A   
+P0_5. . . . . . . . .  B ADDR   0080H.5 A   
+P0_6. . . . . . . . .  B ADDR   0080H.6 A   
+P0_7. . . . . . . . .  B ADDR   0080H.7 A   
+P1. . . . . . . . . .  D ADDR   0090H   A   
+P1_0. . . . . . . . .  B ADDR   0090H.0 A   
+P1_1. . . . . . . . .  B ADDR   0090H.1 A   
+P1_2. . . . . . . . .  B ADDR   0090H.2 A   
+P1_3. . . . . . . . .  B ADDR   0090H.3 A   
+P1_4. . . . . . . . .  B ADDR   0090H.4 A   
+P1_5. . . . . . . . .  B ADDR   0090H.5 A   
+P1_6. . . . . . . . .  B ADDR   0090H.6 A   
+P1_7. . . . . . . . .  B ADDR   0090H.7 A   
+P2. . . . . . . . . .  D ADDR   00A0H   A   
+P2_0. . . . . . . . .  B ADDR   00A0H.0 A   
+P2_1. . . . . . . . .  B ADDR   00A0H.1 A   
+P2_2. . . . . . . . .  B ADDR   00A0H.2 A   
+P2_3. . . . . . . . .  B ADDR   00A0H.3 A   
+P2_4. . . . . . . . .  B ADDR   00A0H.4 A   
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/05/2017 18:56:21 PAGE    14
+
+P2_5. . . . . . . . .  B ADDR   00A0H.5 A   
+P2_6. . . . . . . . .  B ADDR   00A0H.6 A   
+P2_7. . . . . . . . .  B ADDR   00A0H.7 A   
+P3. . . . . . . . . .  D ADDR   00B0H   A   
+P3_0. . . . . . . . .  B ADDR   00B0H.0 A   
+P3_1. . . . . . . . .  B ADDR   00B0H.1 A   
+P3_2. . . . . . . . .  B ADDR   00B0H.2 A   
+P3_3. . . . . . . . .  B ADDR   00B0H.3 A   
+P3_4. . . . . . . . .  B ADDR   00B0H.4 A   
+P3_5. . . . . . . . .  B ADDR   00B0H.5 A   
+P3_6. . . . . . . . .  B ADDR   00B0H.6 A   
+P3_7. . . . . . . . .  B ADDR   00B0H.7 A   
+P4. . . . . . . . . .  D ADDR   00C0H   A   
+P4_0. . . . . . . . .  B ADDR   00C0H.0 A   
+P4_1. . . . . . . . .  B ADDR   00C0H.1 A   
+PCON. . . . . . . . .  D ADDR   0087H   A   
+PLLCON. . . . . . . .  D ADDR   00A3H   A   
+PLLDIV. . . . . . . .  D ADDR   00A4H   A   
+PPCL. . . . . . . . .  B ADDR   00B8H.6 A   
+PSL . . . . . . . . .  B ADDR   00B8H.4 A   
+PSW . . . . . . . . .  D ADDR   00D0H   A   
+PT0L. . . . . . . . .  B ADDR   00B8H.1 A   
+PT2L. . . . . . . . .  B ADDR   00B8H.5 A   
+PTIL. . . . . . . . .  B ADDR   00B8H.3 A   
+PX0L. . . . . . . . .  B ADDR   00B8H.0 A   
+PXIL. . . . . . . . .  B ADDR   00B8H.2 A   
+RB8 . . . . . . . . .  B ADDR   0098H.2 A   
+RCAP2H. . . . . . . .  D ADDR   00CBH   A   
+RCAP2L. . . . . . . .  D ADDR   00CAH   A   
+RCLK. . . . . . . . .  B ADDR   00C8H.5 A   
+REN . . . . . . . . .  B ADDR   0098H.4 A   
+RI. . . . . . . . . .  B ADDR   0098H.0 A   
+RS. . . . . . . . . .  B ADDR   00A0H.5 A   
+RW. . . . . . . . . .  B ADDR   00A0H.6 A   
+SADDR . . . . . . . .  D ADDR   00A9H   A   
+SADEN . . . . . . . .  D ADDR   00B9H   A   
+SBUF. . . . . . . . .  D ADDR   0099H   A   
+SCON. . . . . . . . .  D ADDR   0098H   A   
+SM1 . . . . . . . . .  B ADDR   0098H.6 A   
+SM2 . . . . . . . . .  B ADDR   0098H.5 A   
+SP. . . . . . . . . .  D ADDR   0081H   A   
+SPCON . . . . . . . .  D ADDR   00C3H   A   
+SPDAT . . . . . . . .  D ADDR   00C5H   A   
+SPSTA . . . . . . . .  D ADDR   00C4H   A   
+SSADR . . . . . . . .  D ADDR   0096H   A   
+SSCON . . . . . . . .  D ADDR   0093H   A   
+SSCS. . . . . . . . .  D ADDR   0094H   A   
+SSDAT . . . . . . . .  D ADDR   0095H   A   
+T2CON . . . . . . . .  D ADDR   00C8H   A   
+T2MOD . . . . . . . .  D ADDR   00C9H   A   
+TB8 . . . . . . . . .  B ADDR   0098H.3 A   
+TCLK. . . . . . . . .  B ADDR   00C8H.4 A   
+TCON. . . . . . . . .  D ADDR   0088H   A   
+TEXTO_1 . . . . . . .  C ADDR   0030H   A   
+TF0 . . . . . . . . .  B ADDR   0088H.5 A   
+TF1 . . . . . . . . .  B ADDR   0088H.7 A   
+TF2 . . . . . . . . .  B ADDR   00C8H.7 A   
+TH0 . . . . . . . . .  D ADDR   008CH   A   
+TH1 . . . . . . . . .  D ADDR   008DH   A   
+TH2 . . . . . . . . .  D ADDR   00CDH   A   
+TI. . . . . . . . . .  B ADDR   0098H.1 A   
+TIMER_CONFIGURA_TIMER  C ADDR   0F00H   A   
+TIMER_DELAY_1_S . . .  C ADDR   0F03H   A   
+TIMER_DELAY_50_MS . .  C ADDR   0F05H   A   
+TL0 . . . . . . . . .  D ADDR   008AH   A   
+TL1 . . . . . . . . .  D ADDR   008BH   A   
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/05/2017 18:56:21 PAGE    15
+
+TL2 . . . . . . . . .  D ADDR   00CCH   A   
+TMOD. . . . . . . . .  D ADDR   0089H   A   
+TR0 . . . . . . . . .  B ADDR   0088H.4 A   
+TR1 . . . . . . . . .  B ADDR   0088H.6 A   
+TR2 . . . . . . . . .  B ADDR   00C8H.2 A   
+UBYCTHX . . . . . . .  D ADDR   00E3H   A   
+UBYCTLX . . . . . . .  D ADDR   00E2H   A   
+UDPADDH . . . . . . .  D ADDR   00D7H   A   
+UDPADDL . . . . . . .  D ADDR   00D6H   A   
+UEPCONX . . . . . . .  D ADDR   00D4H   A   
+UEPDATX . . . . . . .  D ADDR   00CFH   A   
+UEPIEN. . . . . . . .  D ADDR   00C2H   A   
+UEPINT. . . . . . . .  D ADDR   00F8H   A   
+UEPNUM. . . . . . . .  D ADDR   00C7H   A   
+UEPRST. . . . . . . .  D ADDR   00D5H   A   
+UEPSTAX . . . . . . .  D ADDR   00CEH   A   
+UFNUMH. . . . . . . .  D ADDR   00BBH   A   
+UFNUML. . . . . . . .  D ADDR   00BAH   A   
+USBADDR . . . . . . .  D ADDR   00C6H   A   
+USBCON. . . . . . . .  D ADDR   00BCH   A   
+USBIEN. . . . . . . .  D ADDR   00BEH   A   
+USBINT. . . . . . . .  D ADDR   00BDH   A   
+WDTPRG. . . . . . . .  D ADDR   00A7H   A   
+WDTRST. . . . . . . .  D ADDR   00A6H   A   
 
 
 REGISTER BANK(S) USED: 0 

@@ -16,6 +16,8 @@
 // @author: Leonardo Winter Pereira 										//
 // @author: Rodrigo Yudi Endo												//
 //																			//
+//	http://www.circuitstoday.com/ultrasonic-range-finder-using-8051			//
+//  https://www.google.com.br/search?q=display+de+7+segmentos&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjp35vrotTTAhXHAsAKHRujBmEQ_AUICigB&biw=1920&bih=988#imgrc=5R8audCeFus40M:
 //////////////////////////////////////////////////////////////////////////////
 
 org 000h // Origem do codigo 

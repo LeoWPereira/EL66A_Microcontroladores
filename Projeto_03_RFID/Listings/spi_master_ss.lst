@@ -1,0 +1,199 @@
+A51 MACRO ASSEMBLER  SPI_MASTER_SS                                                        05/05/2017 17:19:58 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.5.0
+OBJECT MODULE PLACED IN .\Objects\spi_master_ss.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE spi_master_ss.a51 SET(SMALL) DEBUG PRINT(.\Listings\spi_master_ss.lst) 
+                      OBJECT(.\Objects\spi_master_ss.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+
+  00C3                 2     SPCON EQU 0C3h
+
+  00B1                 3     IEN1  EQU 0B1h
+
+  00C5                 4     SPDAT EQU 0C5h
+
+  00C4                 5     SPSTA EQu 0C4h
+
+                       6     
+
+  0001                 7     transmit_completed BIT 20H.1; software flag
+
+  0008                 8     serial_data DATA 08H
+
+  0009                 9     data_save DATA 09H
+
+  000A                10     data_example DATA 0AH;
+
+                      11     
+
+2000                  12     org 2000h
+
+2000 022100           13     ljmp begin
+
+                      14     
+
+204B                  15     org 204Bh
+
+204B 022131           16     ljmp it_SPI
+
+                      17     
+
+                      18     ;/**
+
+                      19     ; * FUNCTION_PURPOSE: This file set up spi in master mode with 
+
+                      20     ; * Fclk Periph/128 as baud rate and with slave select pin.
+
+                      21     ; * FUNCTION_INPUTS: P1.5(MISO) serial input
+
+                      22     ; * FUNCTION_OUTPUTS: P1.7(MOSI) serial output
+
+                      23     ; */
+
+2100                  24     org 2100h
+
+2100                  25     begin:
+
+                      26     
+
+                      27     ;init
+
+2100 750A55           28     MOV data_example,#55h;           /* data example */
+
+                      29     
+
+2103 43C310           30     ORL SPCON,#10h                   
+
+2106 D291             31     SETB P1.1;                       /* enable master */
+
+2108 43C382           32     ORL SPCON,#82h;                  /* Fclk Periph/128 */
+
+210B 53C3F7           33     ANL SPCON,#0F7h;                 /* CPOL=0; transmit mode example */
+
+210E 43C304           34     ORL SPCON,#04h;                  /* CPHA=1; transmit mode example */
+
+2111 43B104           35     ORL IEN1,#04h;                   /* enable spi interrupt */
+
+2114 43C340           36     ORL SPCON,#40h;                  /* run spi */
+
+2117 C201             37     CLR transmit_completed;          /* clear software transfert flag */
+
+2119 D2AF             38     SETB EA;                         /* enable interrupts */
+
+                      39     
+
+211B                  40     loop:                             
+
+                      41     
+
+211B 850AC5           42        MOV SPDAT,data_example;       /* send an example data */
+
+211E 3001FD           43        JNB transmit_completed,$;     /* wait end of transmition */
+
+2121 C201             44        CLR transmit_completed;       /* clear software transfert flag */
+
+                      45     
+
+2123 75C500           46        MOV SPDAT,#00h;               /* data is send to generate SCK signal */
+
+2126 3001FD           47        JNB transmit_completed,$;     /* wait end of transmition */
+
+2129 C201             48        CLR transmit_completed;       /* clear software transfert flag */
+
+212B 850809           49        MOV data_save,serial_data;    /* save receive data */  
+
+                      50     
+
+212E 02211B           51     LJMP loop
+
+                      52     
+
+                      53     
+
+                      54     ;/**
+
+                      55     ; * FUNCTION_PURPOSE:interrupt
+
+                      56     ; * FUNCTION_INPUTS: void
+
+                      57     ; * FUNCTION_OUTPUTS: transmit_complete is software transfert flag
+
+A51 MACRO ASSEMBLER  SPI_MASTER_SS                                                        05/05/2017 17:19:58 PAGE     2
+
+                      58     ; */
+
+2131                  59     it_SPI:;                         /* interrupt address is 0x004B */
+
+                      60     
+
+2131 AFC4             61     MOV R7,SPSTA;
+
+2133 8FE0             62     MOV ACC,R7
+
+2135 30E705           63     JNB ACC.7,break1;case 0x80:
+
+2138 85C508           64         MOV serial_data,SPDAT;       /* read receive data */
+
+213B D201             65         SETB transmit_completed;     /* set software flag */
+
+213D                  66     break1:
+
+                      67     
+
+213D 30E400           68     JNB ACC.4,break2;case 0x10:
+
+                      69     ;         /* put here for mode fault tasking */ 
+
+2140                  70     break2:;
+
+                      71             
+
+2140 30E600           72     JNB ACC.6,break3;case 0x40:
+
+                      73     ;         /* put here for overrun tasking */    
+
+2143                  74     break3:;
+
+                      75     
+
+2143 32               76     RETI
+
+                      77     
+
+                      78     end
+
+A51 MACRO ASSEMBLER  SPI_MASTER_SS                                                        05/05/2017 17:19:58 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . .  D ADDR   00E0H   A   
+BEGIN. . . . . . .  C ADDR   2100H   A   
+BREAK1 . . . . . .  C ADDR   213DH   A   
+BREAK2 . . . . . .  C ADDR   2140H   A   
+BREAK3 . . . . . .  C ADDR   2143H   A   
+DATA_EXAMPLE . . .  D ADDR   000AH   A   
+DATA_SAVE. . . . .  D ADDR   0009H   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+IEN1 . . . . . . .  N NUMB   00B1H   A   
+IT_SPI . . . . . .  C ADDR   2131H   A   
+LOOP . . . . . . .  C ADDR   211BH   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+SERIAL_DATA. . . .  D ADDR   0008H   A   
+SPCON. . . . . . .  N NUMB   00C3H   A   
+SPDAT. . . . . . .  N NUMB   00C5H   A   
+SPSTA. . . . . . .  N NUMB   00C4H   A   
+TRANSMIT_COMPLETED  B ADDR   0020H.1 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

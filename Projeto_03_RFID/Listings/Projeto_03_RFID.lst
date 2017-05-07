@@ -1,0 +1,1270 @@
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/05/2017 17:26:58 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.5.0
+OBJECT MODULE PLACED IN .\Objects\Projeto_03_RFID.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE Projeto_03_RFID.a51 SET(SMALL) DEBUG PRINT(.\Listings\Projeto_03_RFID.l
+                      st) OBJECT(.\Objects\Projeto_03_RFID.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+
+                       2     
+
+                       3     
+
+                       4     
+
+                       5     
+
+                       6     
+
+                       7     
+
+                       8     
+
+                       9     
+
+                      10     
+
+                      11     
+
+                      12     
+
+0000                  13     org 000h  
+
+0000 020052           14     ljmp __STARTUP__
+
+                      15     
+
+0003                  16     org 003h  
+
+0003 0201B4           17     ljmp INT_INT0
+
+                      18     
+
+000B                  19     org 00Bh  
+
+000B 0201B5           20     ljmp INT_TIMER0
+
+                      21     
+
+0013                  22     org 013h  
+
+0013 0201B6           23     ljmp INT_INT1
+
+                      24     
+
+001B                  25     org 01Bh  
+
+001B 0201B7           26     ljmp INT_TIMER1
+
+                      27     
+
+0023                  28     org 023h  
+
+0023 0201B8           29     ljmp INT_SERIAL
+
+                      30     
+
+204B                  31     org 204Bh
+
+204B 0201B9           32     ljmp it_SPI
+
+                      33     
+
+                      34     
+
+                      35     
+
+                      36     
+
+                      37     
+
+                      38     
+
+  00A5                39     RS                              EQU     P2.5                     
+
+  00A6                40     RW                              EQU     P2.6                     
+
+  00A7                41     E_LCD                   EQU     P2.7                     
+
+                      42             
+
+  00C3                43     SPCON EQU 0C3h
+
+  00B1                44     IEN1  EQU 0B1h
+
+  00C5                45     SPDAT EQU 0C5h
+
+  00C4                46     SPSTA EQu 0C4h
+
+  0001                47             transmit_completed BIT 20H.1; software flag
+
+  0008                48     serial_data DATA 08H
+
+  0009                49     data_save DATA 09H
+
+  000A                50     data_example DATA 0AH;
+
+                      51     
+
+  0087                52     BUSYF                   EQU     P0.7                     
+
+                      53     
+
+                      54     
+
+  00B6                55     LED_SEG                 EQU     P3.6
+
+  00B7                56     LED1                    EQU     P3.7
+
+                      57             
+
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/05/2017 17:26:58 PAGE     2
+
+                      58     
+
+  00B0                59     BUZZER                  EQU P3.0        
+
+                      60                     
+
+                      61     
+
+                      62     
+
+                      63     
+
+                      64     
+
+0030                  65     org 030h
+
+0030                  66     TEXTO_1:
+
+0030 20204C45         67                     db      '  LEITOR  RFID  ', 00H
+
+0034 49544F52                
+0038 20205246                
+003C 49442020                
+0040 00                      
+0041                  68     TEXTO_2:
+
+0041 20504153         69                     db      ' PASSE O CARTAO ', 00H
+
+0045 5345204F                
+0049 20434152                
+004D 54414F20                
+0051 00                      
+                      70                     
+
+                      71     
+
+                      72     
+
+                      73     
+
+                      74     
+
+0052                  75     __STARTUP__:
+
+0052 3188             76                     CALL    TIMER_CONFIGURA_TIMER
+
+0054 31AA             77                     CALL    INT_CONFIGURA_INTERRUPCOES
+
+                      78                     
+
+0056 D28E             79                     SETB    TR1                      
+
+                      80                     
+
+0058                  81     MAIN:
+
+0058 11C4             82                     CALL    INIDISP                                  
+
+005A 900030           83                     MOV     DPTR,#TEXTO_1                    
+
+005D 316C             84                     CALL    ESC_STR1                                 
+
+                      85                     
+
+                      86                     
+
+005F 7901             87                     MOV             R1, #01h
+
+0061 31A3             88                     CALL    TIMER_DELAY_1_S
+
+                      89                     
+
+0063 900041           90                     MOV     DPTR,#TEXTO_2                    
+
+0066 3172             91                     CALL    ESC_STR2                                 
+
+                      92                     
+
+                      93                     
+
+0068 7901             94                     MOV             R1, #01h
+
+006A 31A3             95                     CALL    TIMER_DELAY_1_S
+
+                      96                     
+
+006C 3125             97                     ACALL   CLR2L
+
+                      98             
+
+                      99                     ;init
+
+006E 750A55          100     MOV data_example,#55h;           /* data example */
+
+                     101     
+
+0071 43C310          102     ORL SPCON,#10h                   
+
+0074 D291            103     SETB P1.1;                       /* enable master */
+
+0076 43C382          104     ORL SPCON,#82h;                  /* Fclk Periph/128 */
+
+0079 53C3F7          105     ANL SPCON,#0F7h;                 /* CPOL=0; transmit mode example */
+
+007C 43C304          106     ORL SPCON,#04h;                  /* CPHA=1; transmit mode example */
+
+007F 43B104          107     ORL IEN1,#04h;                   /* enable spi interrupt */
+
+0082 43C340          108     ORL SPCON,#40h;                  /* run spi */
+
+0085 C201            109     CLR transmit_completed;          /* clear software transfert flag */
+
+0087 D2AF            110     SETB EA;                         /* enable interrupts */
+
+0089 8002            111     jmp loop
+
+                     112                     
+
+008B 80CB            113                     JMP             MAIN
+
+                     114                     
+
+008D                 115     loop:                             
+
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/05/2017 17:26:58 PAGE     3
+
+                     116     
+
+008D 850AC5          117        MOV SPDAT,data_example;       /* send an example data */
+
+0090 3001FD          118        JNB transmit_completed,$;     /* wait end of transmition */
+
+0093 C201            119        CLR transmit_completed;       /* clear software transfert flag */
+
+                     120     
+
+0095 75C500          121        MOV SPDAT,#00h;               /* data is send to generate SCK signal */
+
+0098 3001FD          122        JNB transmit_completed,$;     /* wait end of transmition */
+
+009B C201            123        CLR transmit_completed;       /* clear software transfert flag */
+
+009D 850809          124        MOV data_save,serial_data;    /* save receive data */  
+
+                     125     
+
+00A0 02008D          126     LJMP loop
+
+                     127                     
+
+00A3                 128     READ:
+
+00A3 780C            129                     MOV     R0,#12d              
+
+00A5 79A0            130                     MOV     R1,#160d             
+
+                     131     
+
+00A7                 132     WAIT:
+
+00A7 3098FD          133                     JNB     RI, WAIT              
+
+00AA E599            134                     MOV     A,      SBUF               
+
+00AC F7              135                     MOV     @R1, A                
+
+00AD C298            136                     CLR     RI                   
+
+00AF D8F6            137                     DJNZ    R0, WAIT             
+
+                     138          
+
+00B1 22              139                     RET                      
+
+                     140     
+
+00B2                 141     WRITE:
+
+00B2 7A0C            142                     MOV     R2,#12d             
+
+00B4 79A0            143                     MOV     R1,#160d            
+
+                     144     
+
+00B6                 145     BACK1:
+
+00B6 E7              146                     MOV     A,@R1               
+
+00B7 313E            147                     ACALL   ESCDADO           
+
+00B9 09              148                     INC     R1                  
+
+00BA DAFA            149                     DJNZ    R2,BACK1           
+
+                     150           
+
+00BC 22              151                     RET                     
+
+                     152                
+
+                     153     
+
+                     154     
+
+                     155     
+
+                     156     
+
+00BD                 157     ACIONA_BUZZER:
+
+00BD D2B0            158                     SETB    BUZZER
+
+00BF 3195            159                     ACALL   TIMER_DELAY_20_MS
+
+00C1 C2B0            160                     CLR     BUZZER
+
+                     161                     
+
+00C3 22              162                     RET
+
+                     163                     
+
+                     164     
+
+                     165     
+
+                     166     
+
+                     167             
+
+                     168     
+
+                     169     
+
+                     170     
+
+                     171     
+
+                     172     
+
+                     173     
+
+                     174     
+
+                     175     
+
+                     176     
+
+00C4                 177     INIDISP:                       
+
+00C4 7838            178             MOV     R0,#38H          
+
+00C6 7A05            179             MOV     R2,#05           
+
+00C8 11E3            180             CALL    ESCINST          
+
+                     181             
+
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/05/2017 17:26:58 PAGE     4
+
+00CA 7838            182                     MOV     R0,#38H          
+
+00CC 7A01            183             MOV     R2,#01           
+
+00CE 11E3            184             CALL    ESCINST          
+
+                     185             
+
+00D0 7806            186                     MOV     R0,#06H          
+
+00D2 7A01            187             MOV     R2,#01           
+
+00D4 11E3            188             CALL    ESCINST          
+
+                     189             
+
+00D6 780C            190                     MOV     R0,#0CH          
+
+00D8 7A01            191             MOV     R2,#01           
+
+00DA 11E3            192             CALL    ESCINST          
+
+                     193             
+
+00DC 7801            194                     MOV     R0,#01H          
+
+00DE 7A02            195             MOV     R2,#02           
+
+00E0 11E3            196             CALL    ESCINST          
+
+                     197             
+
+00E2 22              198                     RET
+
+                     199                     
+
+                     200     
+
+                     201     
+
+                     202     
+
+                     203     
+
+                     204     
+
+                     205     
+
+                     206     
+
+                     207     
+
+                     208     
+
+00E3                 209     ESCINST:  
+
+00E3 C2A6            210                     CLR             RW                               
+
+00E5 C2A5            211                     CLR     RS               
+
+00E7 D2A7            212                     SETB    E_LCD            
+
+                     213                     
+
+00E9 8880            214                     MOV     P0,R0            
+
+                     215                     
+
+00EB C2A7            216                     CLR     E_LCD            
+
+                     217                     
+
+00ED 7580FF          218                     MOV             P0,#0xFF                 
+
+                     219                     
+
+00F0 D2A6            220                     SETB    RW                               
+
+00F2 D2A7            221                     SETB    E_LCD            
+
+                     222     
+
+00F4 2087FD          223     ESCI1:  JB      BUSYF,ESCI1                      
+
+                     224                     
+
+00F7 C2A7            225                     CLR     E_LCD            
+
+                     226             
+
+00F9 22              227                     RET
+
+                     228                     
+
+                     229     
+
+                     230     
+
+                     231     
+
+                     232     
+
+                     233     
+
+                     234     
+
+                     235     
+
+                     236     
+
+00FA                 237     GOTOXY: 
+
+00FA C0E0            238                     PUSH    ACC
+
+                     239             
+
+00FC 7480            240                     MOV     A,#80H
+
+00FE B80102          241             CJNE    R0,#01,GT1       
+
+                     242             
+
+0101 74C0            243                     MOV     A,#0C0H
+
+                     244                     
+
+0103 49              245     GT1:    ORL     A,R1             
+
+0104 F8              246             MOV     R0,A
+
+0105 7A01            247             MOV     R2,#01           
+
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/05/2017 17:26:58 PAGE     5
+
+                     248             
+
+0107 11E3            249                     CALL    ESCINST          
+
+                     250             
+
+0109 D0E0            251                     POP     ACC
+
+                     252             
+
+010B 22              253                     RET
+
+                     254             
+
+                     255     
+
+                     256     
+
+                     257     
+
+                     258     
+
+                     259     
+
+                     260     
+
+                     261     
+
+                     262     
+
+010C                 263     CLR1L:    
+
+010C C0E0            264             PUSH   ACC
+
+                     265             
+
+010E 7800            266                     MOV    R0,#00               
+
+0110 7900            267             MOV    R1,#00
+
+                     268             
+
+0112 11FA            269                     CALL   GOTOXY
+
+                     270             
+
+0114 7910            271                     MOV    R1,#16               
+
+                     272     
+
+0116 7420            273     CLR1L1: MOV    A,#' '               
+
+                     274             
+
+0118 313E            275                     CALL   ESCDADO
+
+                     276             
+
+011A D9FA            277                     DJNZ   R1,CLR1L1
+
+011C 7800            278             MOV    R0,#00               
+
+011E 7900            279             MOV    R1,#00
+
+                     280             
+
+0120 11FA            281                     CALL   GOTOXY
+
+                     282             
+
+0122 D0E0            283                     POP    ACC
+
+                     284             
+
+0124 22              285                     RET
+
+                     286                     
+
+                     287     
+
+                     288     
+
+                     289     
+
+                     290     
+
+                     291     
+
+                     292     
+
+                     293     
+
+                     294     
+
+0125                 295     CLR2L:    
+
+0125 C0E0            296             PUSH   ACC
+
+                     297             
+
+0127 7801            298                     MOV    R0,#01               
+
+0129 7900            299             MOV    R1,#00
+
+                     300             
+
+012B 11FA            301                     CALL   GOTOXY
+
+                     302             
+
+012D 7910            303                     MOV    R1,#16               
+
+                     304     
+
+012F 7420            305     CLR2L1: MOV    A,#' '               
+
+                     306             
+
+0131 313E            307                     CALL   ESCDADO
+
+                     308             
+
+0133 D9FA            309                     DJNZ   R1,CLR2L1
+
+0135 7801            310             MOV    R0,#01               
+
+0137 7900            311             MOV    R1,#00
+
+                     312             
+
+0139 11FA            313                     CALL   GOTOXY
+
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/05/2017 17:26:58 PAGE     6
+
+                     314             
+
+013B D0E0            315                     POP    ACC
+
+                     316             
+
+013D 22              317                     RET
+
+                     318                
+
+                     319     
+
+                     320     
+
+                     321     
+
+                     322     
+
+                     323     
+
+                     324     
+
+                     325     
+
+013E                 326     ESCDADO:  
+
+013E C2A6            327                     CLR             RW                               
+
+0140 D2A5            328             SETB    RS               
+
+0142 D2A7            329             SETB    E_LCD            
+
+                     330                     
+
+0144 F580            331             MOV     P0,A             
+
+                     332             
+
+0146 C2A7            333                     CLR     E_LCD            
+
+                     334                     
+
+0148 7580FF          335                     MOV             P0,#0xFF                 
+
+                     336                     
+
+014B D2A6            337                     SETB    RW                               
+
+014D C2A5            338                     CLR             RS                               
+
+014F D2A7            339                     SETB    E_LCD            
+
+                     340     
+
+0151 2087FD          341     ESCD1:  JB              BUSYF,ESCD1              
+
+                     342     
+
+0154 C2A7            343                     CLR     E_LCD            
+
+                     344     
+
+0156 22              345             RET
+
+                     346                     
+
+                     347     
+
+                     348     
+
+                     349     
+
+                     350     
+
+                     351     
+
+                     352     
+
+                     353     
+
+                     354     
+
+                     355     
+
+0157                 356     MSTRING:  
+
+0157 E4              357                       CLR    A
+
+0158 93              358               MOVC   A,@A+DPTR       
+
+                     359               
+
+0159 6006            360                       JZ     MSTR1
+
+                     361               
+
+015B 12013E          362                       LCALL  ESCDADO         
+
+                     363               
+
+015E A3              364                       INC    DPTR
+
+                     365               
+
+015F 80F6            366                       SJMP   MSTRING
+
+                     367                       
+
+0161 22              368     MSTR1:    RET
+
+                     369                
+
+                     370     
+
+                     371     
+
+                     372     
+
+                     373     
+
+                     374     
+
+                     375     
+
+                     376     
+
+                     377     
+
+                     378     
+
+0162                 379     MSTRINGX: 
+
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/05/2017 17:26:58 PAGE     7
+
+0162 E0              380                       MOVX   A,@DPTR         
+
+                     381               
+
+0163 6006            382                       JZ     MSTR21
+
+                     383               
+
+0165 12013E          384                       LCALL  ESCDADO         
+
+                     385               
+
+0168 A3              386                       INC    DPTR
+
+                     387               
+
+0169 80F7            388                       SJMP   MSTRINGX
+
+                     389     
+
+016B 22              390     MSTR21:   RET
+
+                     391     
+
+                     392     
+
+                     393     
+
+                     394     
+
+                     395     
+
+                     396     
+
+                     397     
+
+                     398     
+
+                     399     
+
+                     400     
+
+016C                 401     ESC_STR1: 
+
+                     402                       
+
+016C 7800            403                       MOV    R0,#00         
+
+016E 7900            404               MOV    R1,#00
+
+                     405               
+
+0170 8004            406                       JMP    ESC_S
+
+                     407               
+
+                     408     
+
+                     409     
+
+                     410     
+
+                     411     
+
+                     412     
+
+                     413     
+
+                     414     
+
+                     415     
+
+                     416     
+
+0172                 417     ESC_STR2: 
+
+                     418                       
+
+0172 7801            419                       MOV    R0,#01         
+
+0174 7900            420               MOV    R1,#00
+
+                     421                       
+
+0176 1200FA          422     ESC_S:    LCALL  GOTOXY          
+
+                     423               
+
+0179 120157          424                       LCALL  MSTRING
+
+                     425               
+
+017C 22              426                       RET
+
+                     427     
+
+                     428     
+
+                     429     
+
+                     430     
+
+                     431     
+
+                     432     
+
+                     433     
+
+                     434     ; DESTROI: R0,R2                                                                        //
+
+                     435     
+
+017D                 436     CUR_ON:   
+
+017D 780F            437                       MOV    R0,#0FH               
+
+017F 8002            438               SJMP   CUR1
+
+                     439                       
+
+0181                 440     CUR_OFF:  
+
+0181 780C            441                       MOV    R0,#0CH               
+
+                     442                       
+
+0183 7A01            443     CUR1:     MOV    R2,#01
+
+                     444               
+
+0185 11E3            445                       CALL   ESCINST               
+
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/05/2017 17:26:58 PAGE     8
+
+                     446               
+
+0187 22              447                       RET
+
+                     448                       
+
+                     449     
+
+                     450     
+
+                     451     
+
+                     452                       
+
+0188                 453     TIMER_CONFIGURA_TIMER:
+
+0188 758921          454                     MOV     TMOD, #00100001b  
+
+                     455                     
+
+                     456                     
+
+018B 758C56          457                     MOV     TH0, #HIGH(65535 - 43350)
+
+018E 758AA9          458                     MOV     TL0, #LOW(65535 - 43350)
+
+                     459                     
+
+0191 758DF9          460                     MOV     TH1, #249d
+
+                     461                     
+
+0194 22              462                     RET
+
+                     463             
+
+                     464     
+
+                     465     
+
+                     466     
+
+                     467     
+
+                     468     
+
+                     469     
+
+                     470     
+
+0195                 471     TIMER_DELAY_20_MS:
+
+0195 C28D            472                     CLR TF0
+
+0197 D28C            473                     SETB TR0
+
+                     474             
+
+0199 308DFD          475                     JNB TF0, $
+
+                     476                     
+
+019C C28D            477                     CLR TF0
+
+019E C28C            478                     CLR TR0
+
+                     479             
+
+01A0 D8F3            480                     DJNZ R0, TIMER_DELAY_20_MS
+
+                     481             
+
+01A2 22              482                     RET
+
+                     483             
+
+                     484     
+
+                     485     
+
+                     486     
+
+                     487     
+
+                     488     
+
+                     489     
+
+                     490     
+
+01A3                 491     TIMER_DELAY_1_S:
+
+01A3 7832            492                     MOV             R0, #50d
+
+01A5 3195            493                     CALL    TIMER_DELAY_20_MS
+
+                     494                     
+
+01A7 D9FA            495                     DJNZ    R1, TIMER_DELAY_1_S
+
+                     496             
+
+01A9 22              497                     RET
+
+                     498     
+
+                     499     
+
+                     500     
+
+                     501     
+
+                     502     
+
+01AA                 503     INT_CONFIGURA_INTERRUPCOES:
+
+01AA 75A888          504                     MOV             IE,     #10001000b  
+
+01AD 75B808          505                     MOV             IP,             #00001000b  
+
+                     506                     
+
+01B0 759850          507                     MOV     SCON,   #01010000b        
+
+                     508                     
+
+01B3 22              509                     RET
+
+                     510     
+
+                     511     
+
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/05/2017 17:26:58 PAGE     9
+
+                     512     
+
+                     513     
+
+01B4                 514     INT_INT0:
+
+01B4 32              515                     RETI
+
+                     516     
+
+                     517     
+
+                     518     
+
+                     519     
+
+01B5                 520     INT_TIMER0:
+
+01B5 32              521                     RETI
+
+                     522             
+
+                     523     
+
+                     524     
+
+                     525     
+
+01B6                 526     INT_INT1:
+
+01B6 32              527                     RETI
+
+                     528     
+
+                     529     
+
+                     530     
+
+                     531     
+
+01B7                 532     INT_TIMER1:
+
+01B7 32              533                     RETI
+
+                     534             
+
+                     535     
+
+                     536     
+
+                     537     
+
+01B8                 538     INT_SERIAL:
+
+01B8 32              539                     RETI
+
+                     540             
+
+                     541     ;/**
+
+                     542     ; * FUNCTION_PURPOSE:interrupt
+
+                     543     ; * FUNCTION_INPUTS: void
+
+                     544     ; * FUNCTION_OUTPUTS: transmit_complete is software transfert flag
+
+                     545     ; */
+
+01B9                 546     it_SPI:;                         /* interrupt address is 0x004B */
+
+                     547     
+
+01B9 AFC4            548     MOV R7,SPSTA;
+
+01BB 8FE0            549     MOV ACC,R7
+
+01BD 30E709          550     JNB ACC.7,break1;case 0x80:
+
+01C0 85C508          551         MOV serial_data,SPDAT;       /* read receive data */
+
+                     552             
+
+01C3 E508            553             MOV A, serial_data
+
+01C5 313E            554                     ACALL   ESCDADO           
+
+                     555             
+
+01C7 D201            556         SETB transmit_completed;     /* set software flag */
+
+01C9                 557     break1:
+
+                     558     
+
+01C9 30E400          559     JNB ACC.4,break2;case 0x10:
+
+                     560     ;         /* put here for mode fault tasking */ 
+
+01CC                 561     break2:;
+
+                     562             
+
+01CC 30E600          563     JNB ACC.6,break3;case 0x40:
+
+                     564     ;         /* put here for overrun tasking */    
+
+01CF                 565     break3:;
+
+                     566     
+
+01CF 32              567     RETI
+
+                     568     
+
+01D0                 569     FIM:
+
+01D0 80FE            570                     JMP $
+
+                     571                     END
+
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/05/2017 17:26:58 PAGE    10
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E                     T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . . . . . .  D ADDR   00E0H   A   
+ACIONA_BUZZER. . . . . . .  C ADDR   00BDH   A   
+BACK1. . . . . . . . . . .  C ADDR   00B6H   A   
+BREAK1 . . . . . . . . . .  C ADDR   01C9H   A   
+BREAK2 . . . . . . . . . .  C ADDR   01CCH   A   
+BREAK3 . . . . . . . . . .  C ADDR   01CFH   A   
+BUSYF. . . . . . . . . . .  B ADDR   0080H.7 A   
+BUZZER . . . . . . . . . .  B ADDR   00B0H.0 A   
+CLR1L. . . . . . . . . . .  C ADDR   010CH   A   
+CLR1L1 . . . . . . . . . .  C ADDR   0116H   A   
+CLR2L. . . . . . . . . . .  C ADDR   0125H   A   
+CLR2L1 . . . . . . . . . .  C ADDR   012FH   A   
+CUR1 . . . . . . . . . . .  C ADDR   0183H   A   
+CUR_OFF. . . . . . . . . .  C ADDR   0181H   A   
+CUR_ON . . . . . . . . . .  C ADDR   017DH   A   
+DATA_EXAMPLE . . . . . . .  D ADDR   000AH   A   
+DATA_SAVE. . . . . . . . .  D ADDR   0009H   A   
+EA . . . . . . . . . . . .  B ADDR   00A8H.7 A   
+ESCD1. . . . . . . . . . .  C ADDR   0151H   A   
+ESCDADO. . . . . . . . . .  C ADDR   013EH   A   
+ESCI1. . . . . . . . . . .  C ADDR   00F4H   A   
+ESCINST. . . . . . . . . .  C ADDR   00E3H   A   
+ESC_S. . . . . . . . . . .  C ADDR   0176H   A   
+ESC_STR1 . . . . . . . . .  C ADDR   016CH   A   
+ESC_STR2 . . . . . . . . .  C ADDR   0172H   A   
+E_LCD. . . . . . . . . . .  B ADDR   00A0H.7 A   
+FIM. . . . . . . . . . . .  C ADDR   01D0H   A   
+GOTOXY . . . . . . . . . .  C ADDR   00FAH   A   
+GT1. . . . . . . . . . . .  C ADDR   0103H   A   
+IE . . . . . . . . . . . .  D ADDR   00A8H   A   
+IEN1 . . . . . . . . . . .  N NUMB   00B1H   A   
+INIDISP. . . . . . . . . .  C ADDR   00C4H   A   
+INT_CONFIGURA_INTERRUPCOES  C ADDR   01AAH   A   
+INT_INT0 . . . . . . . . .  C ADDR   01B4H   A   
+INT_INT1 . . . . . . . . .  C ADDR   01B6H   A   
+INT_SERIAL . . . . . . . .  C ADDR   01B8H   A   
+INT_TIMER0 . . . . . . . .  C ADDR   01B5H   A   
+INT_TIMER1 . . . . . . . .  C ADDR   01B7H   A   
+IP . . . . . . . . . . . .  D ADDR   00B8H   A   
+IT_SPI . . . . . . . . . .  C ADDR   01B9H   A   
+LED1 . . . . . . . . . . .  B ADDR   00B0H.7 A   
+LED_SEG. . . . . . . . . .  B ADDR   00B0H.6 A   
+LOOP . . . . . . . . . . .  C ADDR   008DH   A   
+MAIN . . . . . . . . . . .  C ADDR   0058H   A   
+MSTR1. . . . . . . . . . .  C ADDR   0161H   A   
+MSTR21 . . . . . . . . . .  C ADDR   016BH   A   
+MSTRING. . . . . . . . . .  C ADDR   0157H   A   
+MSTRINGX . . . . . . . . .  C ADDR   0162H   A   
+P0 . . . . . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . . . . . .  D ADDR   00A0H   A   
+P3 . . . . . . . . . . . .  D ADDR   00B0H   A   
+READ . . . . . . . . . . .  C ADDR   00A3H   A   
+RI . . . . . . . . . . . .  B ADDR   0098H.0 A   
+RS . . . . . . . . . . . .  B ADDR   00A0H.5 A   
+RW . . . . . . . . . . . .  B ADDR   00A0H.6 A   
+SBUF . . . . . . . . . . .  D ADDR   0099H   A   
+SCON . . . . . . . . . . .  D ADDR   0098H   A   
+SERIAL_DATA. . . . . . . .  D ADDR   0008H   A   
+SPCON. . . . . . . . . . .  N NUMB   00C3H   A   
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/05/2017 17:26:58 PAGE    11
+
+SPDAT. . . . . . . . . . .  N NUMB   00C5H   A   
+SPSTA. . . . . . . . . . .  N NUMB   00C4H   A   
+TEXTO_1. . . . . . . . . .  C ADDR   0030H   A   
+TEXTO_2. . . . . . . . . .  C ADDR   0041H   A   
+TF0. . . . . . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . . . . . .  D ADDR   008CH   A   
+TH1. . . . . . . . . . . .  D ADDR   008DH   A   
+TIMER_CONFIGURA_TIMER. . .  C ADDR   0188H   A   
+TIMER_DELAY_1_S. . . . . .  C ADDR   01A3H   A   
+TIMER_DELAY_20_MS. . . . .  C ADDR   0195H   A   
+TL0. . . . . . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . . . . . .  B ADDR   0088H.4 A   
+TR1. . . . . . . . . . . .  B ADDR   0088H.6 A   
+TRANSMIT_COMPLETED . . . .  B ADDR   0020H.1 A   
+WAIT . . . . . . . . . . .  C ADDR   00A7H   A   
+WRITE. . . . . . . . . . .  C ADDR   00B2H   A   
+__STARTUP__. . . . . . . .  C ADDR   0052H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
