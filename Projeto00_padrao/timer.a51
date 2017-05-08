@@ -16,28 +16,29 @@ ORG	0F00h
 //////////////////////////////////////////////////////
 // NOME: TIMER_CONFIGURA_TIMER_0_SEM_INT			//
 // DESCRICAO: CONFIGURA O TIMER 0					//
-// P.ENTRADA: - 	 								//
+// P.ENTRADA: R7 = > TMOD 	 						//
 // P.SAIDA: -										//
-// ALTERA: 											//
+// ALTERA: R7										//
 //////////////////////////////////////////////////////
-TIMER_CONFIGURA_TIMER_0_SEM_INT:
-		MOV 	TMOD, #00000001b // Seta o TIMER_0 para o modo 01 (16 bits)
+TIMER_CONFIGURA_TIMER_SEM_INT:
+		MOV 	TMOD, R7 // Seta o TIMER_0 para o modo 01 (16 bits)
 		
-		ACALL	SETA_VALORES_TIMER_0_SEM_INT
+		ACALL	SETA_VALORES_TIMER_SEM_INT
 		
 		RET
 		
 //////////////////////////////////////////////////////
-// NOME: TIMER_DELAY_1_S							//
+// NOME: SETA_VALORES_TIMER_0_SEM_INT				//
 // DESCRICAO: CONFIGURA VALORES PARA CONTAR 1 MS	//
-// P.ENTRADA: - 				 					//
+// P.ENTRADA: R6 => TH0								// 
+//			  R5 =>	TL0								//
 // P.SAIDA: -										//
 // ALTERA: -										//
 //////////////////////////////////////////////////////
-SETA_VALORES_TIMER_0_SEM_INT:
+SETA_VALORES_TIMER_SEM_INT:
 		// Para o TIMER_0, TH0 e TL0 representam o necessario para um delay de 1ms
-		MOV 	TH0, #HIGH(65535 - 1978)
-		MOV 	TL0, #LOW(65535 - 1978)
+		MOV 	TH0, R6
+		MOV 	TL0, R5
 		
 		RET
 
@@ -58,11 +59,18 @@ TIMER_DELAY_10_US:
 // NOME: TIMER_DELAY_1_MS							//
 // DESCRICAO: INTRODUZ UM ATRASO DE 1 MS			//
 // P.ENTRADA: R0 => (R0 x 1) ms  					//
+//			  R5 =>	TL0								//
+//			  R6 => TL0								//
+//			  R7 => TMOD							//
 // P.SAIDA: -										//
 // ALTERA: R0										//
 //////////////////////////////////////////////////////
 TIMER_DELAY_1_MS:
-		ACALL	TIMER_CONFIGURA_TIMER_0_SEM_INT
+		// Para o TIMER_0, TH0 e TL0 representam o necessario para um delay de 1ms
+		MOV		R7, #00000001b
+		MOV 	R6, #HIGH(65535 - 1978)
+		MOV 	R5, #LOW(65535 - 1978)
+		ACALL	TIMER_CONFIGURA_TIMER_SEM_INT
 
 CONTINUA_TIMER_1_MS:
 		CLR 	TF0
@@ -70,7 +78,7 @@ CONTINUA_TIMER_1_MS:
 	
 		JNB 	TF0, $
 			
-		ACALL	SETA_VALORES_TIMER_0_SEM_INT
+		ACALL	SETA_VALORES_TIMER_SEM_INT
 		
 		CLR 	TF0
 		CLR 	TR0
