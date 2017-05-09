@@ -12,13 +12,13 @@ $NOMOD51
 #include "lcd16x2.a51"
 #include "display_7_segmentos.a51"
 #include "timer.a51"
-//#include "teclado_matricial_4x4.a51"
-//#include "motor_de_passos.a51"
+#include "teclado_matricial_4x4.a51"
+#include "motor_de_passos.a51"
+#include "serial.a51"
 //#include "pwm_com_timer.a51"
 //#include "i2c_twi.a51"
 //#include "rtc.a51"
-//#include "serial.a51"
-//#include "hc_sr0x"
+#include "hc_sr0x.a51"
 
 //////////////////////////////////////////////////
 //       TABELA DE EQUATES DA BIBLIOTECA		//

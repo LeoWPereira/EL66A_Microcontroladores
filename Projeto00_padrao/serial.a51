@@ -6,19 +6,17 @@
 // @author: Rodrigo Yudi Endo							//
 //														//
 //////////////////////////////////////////////////////////
-
-ORG	0700h
 	
 //////////////////////////////////////////////////////
-// Nome:											//
-// Descrição:										//
-// Parâmetros: R0 -> PCON				 			//
+// Nome: CONFIGURA_SERIAL							//
+// Descricao:										//
+// Parametros: R0 -> PCON				 			//
 //			   #10000000b para serial no modo 1		//
 //			   R1 -> SCON							//
 //			   #01010000b para habilitar SM1 		//
 //			   (coloca o serial para seguir TIMER1)	//	
 // Retorna:											//
-// Destrói:											//
+// Destroi:	R0,	R1									//
 //////////////////////////////////////////////////////
 CONFIGURA_SERIAL:
 		MOV 	PCON, R0
@@ -30,14 +28,14 @@ CONFIGURA_SERIAL:
 		RET
 	
 //////////////////////////////////////////////////////
-// Nome:											//
-// Descrição:										//
-// Parâmetros: R0 -> TMOD							//
+// Nome: CONFIGURA_BAUD_RATE						//
+// Descricao:										//
+// Parametros: R0 -> TMOD							//
 //			   #00100000b para Timer 1 no modo 1	//
 //			   R1 -> Baud Rate				 		//
 //             para o AT89C5131A, 9600 = #243h		//
 // Retorna:											//
-// Destrói:											//
+// Destroi: R0, R1									//
 //////////////////////////////////////////////////////
 CONFIGURA_BAUD_RATE:
 		MOV 	TMOD, R0 // Timer 1 no modo 2
@@ -48,11 +46,11 @@ CONFIGURA_BAUD_RATE:
 		RET
 		
 //////////////////////////////////////////////////////
-// Nome:											//
-// Descrição: 										//
-// Parâmetros: 				 						//
-// Retorna:											//
-// Destrói: 										//
+// Nome: RECEBE_DADO								//
+// Descricao: 										//
+// Parametros: 				 						//
+// Retorna:	A -> dado recebido						//
+// Destroi: A										//
 //////////////////////////////////////////////////////
 RECEBE_DADO:
 		JNB		RI, $
@@ -62,7 +60,14 @@ RECEBE_DADO:
 		MOV		A, SBUF
 
 		RET
-	
+
+//////////////////////////////////////////////////////
+// Nome: ENVIA_DADO									//
+// Descricao: 										//
+// Parametros: A -> dado a ser enviado				//
+// Retorna:											//
+// Destroi: A 										//
+//////////////////////////////////////////////////////
 ENVIA_DADO:
 		MOV		SBUF, A
 		
@@ -72,7 +77,16 @@ ENVIA_DADO:
 		
 		RET
 
+//////////////////////////////////////////////////////
+// Nome: ENVIA_OK									//
+// Descricao: 										//
+// Parametros: 				 						//
+// Retorna:											//
+// Destroi: 										//
+//////////////////////////////////////////////////////
 ENVIA_OK:
+		PUSH	ACC
+
 		CLR 	TI
 		
 		MOV 	A, #'O'
@@ -88,5 +102,7 @@ ENVIA_OK:
 		JNB 	TI, $
 		
 		CLR		TI
+		
+		POP		ACC
 		
 		RET

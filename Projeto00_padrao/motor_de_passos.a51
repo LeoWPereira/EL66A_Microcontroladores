@@ -10,8 +10,6 @@
 //														//
 //////////////////////////////////////////////////////////
 
-ORG	0B00h
-	
 // ESTADOS DO MOTOR DE PASSO
 ESTADO_UM 		EQU P3.1
 ESTADO_DOIS 	EQU P3.2

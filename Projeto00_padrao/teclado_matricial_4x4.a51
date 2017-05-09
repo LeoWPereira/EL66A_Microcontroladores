@@ -9,8 +9,6 @@
 //														//
 //////////////////////////////////////////////////////////
 
-ORG	0C00h
-	
 TECLADO		EQU	P1
 	
 // LINHAS E COLUNAS DO TECLADO MATRICIAL
@@ -32,8 +30,7 @@ LIN4 		EQU P1.7
 // DESTROI: A										//
 //////////////////////////////////////////////////////
 PRESS_ENT:
-		// Apenas LIN4 esta em 0
-		MOV		TECLADO, #01111111b
+		MOV		TECLADO, #01111111b		// Apenas LIN4 esta em 0
 		
 VARRE_ENT:
 		JNB  	COL4, CONTINUA_PROG 	// se apertou ENTER, testa senha
