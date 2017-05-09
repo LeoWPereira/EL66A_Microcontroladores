@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE     1
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.5.0
@@ -122,7 +122,7 @@ LOC  OBJ            LINE     SOURCE
 
   0085          +1    57     sbit P0_5 = P0 ^ 5 ;
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE     2
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE     2
 
   0084          +1    58     sbit P0_4 = P0 ^ 4 ;
 
@@ -256,7 +256,7 @@ LOC  OBJ            LINE     SOURCE
 
   008D          +1   123     sbit TF0 = TCON ^ 5 ;
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE     3
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE     3
 
   008C          +1   124     sbit TR0 = TCON ^ 4 ;
 
@@ -390,7 +390,7 @@ LOC  OBJ            LINE     SOURCE
 
   00D9          +1   189     sbit CCF1 = CCON ^ 1 ;
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE     4
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE     4
 
   00D8          +1   190     sbit CCF0 = CCON ^ 0 ;
 
@@ -524,7 +524,7 @@ LOC  OBJ            LINE     SOURCE
 
   00C2          +1   255     sfr UEPIEN = 0xC2 ;
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE     5
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE     5
 
   00CF          +1   256     sfr UEPDATX = 0xCF ;
 
@@ -658,7 +658,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   321     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE     6
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE     6
 
                 +1   322     
 
@@ -792,7 +792,7 @@ LOC  OBJ            LINE     SOURCE
 
 0E38 7480       +1   387                     MOV     A,#80H
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE     7
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE     7
 
 0E3A B80102     +1   388             CJNE    R0,#01,GT1       
 
@@ -926,7 +926,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   453             
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE     8
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE     8
 
 0E6D D17A       +1   454                     CALL   ESCDADO
 
@@ -1060,7 +1060,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   519     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE     9
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE     9
 
                 +1   520     
 
@@ -1194,7 +1194,7 @@ LOC  OBJ            LINE     SOURCE
 
 0EBB 8002       +1   585               SJMP   CUR1
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE    10
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE    10
 
                 +1   586                       
 
@@ -1328,7 +1328,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   651                     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE    11
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE    11
 
 0F09 22         +1   652                     RET
 
@@ -1462,7 +1462,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   717     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE    12
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE    12
 
                 +1   718     
 
@@ -1596,7 +1596,7 @@ LOC  OBJ            LINE     SOURCE
 
 0F5B D0E0       +1   783                     POP     ACC
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE    13
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE    13
 
                 +1   784                     
 
@@ -1727,7 +1727,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   846     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE    14
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE    14
 
                 +1   847     
 
@@ -1861,7 +1861,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   912     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE    15
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE    15
 
                 +1   913     
 
@@ -1995,7 +1995,7 @@ LOC  OBJ            LINE     SOURCE
 
 0C2E 309228     +1   978                     JNB     COL3, DIGITO8
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE    16
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE    16
 
 0C31 309329     +1   979                     JNB     COL4, DIGITO9
 
@@ -2129,7 +2129,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1  1044     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE    17
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE    17
 
                 +1  1045     
 
@@ -2263,7 +2263,7 @@ LOC  OBJ            LINE     SOURCE
 
 0B27 F135       +1  1110                     ACALL   TIMER_DELAY
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE    18
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE    18
 
                 +1  1111                     
 
@@ -2396,7 +2396,7 @@ LOC  OBJ            LINE     SOURCE
 0A50            +1  1175     SINE_WAVE_25_SAMPLES:
 
 0A50 7FA0BFD9   +1  1176             DB 127, 160, 191, 217, 237, 250, 255, 250, 237, 217, 191, 160, 127, 94, 63, 37, 17,
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE    19
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE    19
 
                               4, 0, 4, 17, 37, 63, 94, 127
 
@@ -2494,7 +2494,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1  1205     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE    20
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE    20
 
                 +1  1206     
 
@@ -2628,7 +2628,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1  1271     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE    21
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE    21
 
 0B0A            +1  1272     PWM_STOP:
 
@@ -2762,7 +2762,7 @@ LOC  OBJ            LINE     SOURCE
 
 0B43 9532       +1  1337                     SUBB    A, PWM_DUTY_CYCLE
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE    22
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE    22
 
                 +1  1338                     
 
@@ -2896,7 +2896,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1  1403     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE    23
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE    23
 
                 +1  1404     
 
@@ -3030,7 +3030,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1  1469     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE    24
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE    24
 
                 +1  1470     
 
@@ -3164,7 +3164,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1  1535     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE    25
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE    25
 
                 +1  1536     
 
@@ -3194,133 +3194,133 @@ LOC  OBJ            LINE     SOURCE
 
                     1549     
 
-                    1550     
+                    1550     ;#include "i2c_twi.a51"
 
-0000                1551     ORG 0000h  
+                +1  1551     
 
-0000 020026         1552     LJMP __STARTUP__
+                +1  1552     
 
-                    1553     
+                +1  1553     
 
-0003                1554     ORG 0003h  
+                +1  1554     
 
-0003 020037         1555     LJMP INT_INT0
+                +1  1555     
 
-                    1556     
+                +1  1556     
 
-000B                1557     ORG 000Bh  
+                +1  1557     
 
-000B 020038         1558     LJMP INT_TIMER0
+                +1  1558     
 
-                    1559     
+                +1  1559     
 
-0013                1560     ORG 0013h  
+0900            +1  1560     ORG     0900h
 
-0013 020039         1561     LJMP INT_INT1
+                +1  1561     
 
-                    1562     
+                +1  1562     
 
-001B                1563     ORG 001Bh  
+  0040          +1  1563     SSIE    EQU 0x40
 
-001B 02003A         1564     LJMP INT_TIMER1
+  0020          +1  1564     STA             EQU 0x20
 
-                    1565     
+  0010          +1  1565     STO             EQU 0x10        
 
-0023                1566     ORG 0023h  
+  0008          +1  1566     SI              EQU 0x08
 
-0023 02003B         1567     LJMP INT_SERIAL
+  0004          +1  1567     AA              EQU 0x04
 
-                    1568     
+                +1  1568             
 
-0026                1569     __STARTUP__:
+                    1569     
 
-0026 7801           1570                     MOV             R0, #001h  
+                    1570     ;#include "rtc.a51"
 
-0028 7980           1571                     MOV             R1, #128d  
+                +1  1571     
 
-                    1572                     
+                +1  1572     
 
-                    1573                     
+                +1  1573     
 
-                    1574                     
+                +1  1574     
 
-                    1575                     
+                +1  1575     
 
-002A 7A29           1576                     MOV             R2, #029h
+                +1  1576     
 
-002C 7BFF           1577                     MOV             R3, #0FFh
+                +1  1577     
 
-002E 7CFF           1578                     MOV             R4, #0FFh
+                +1  1578     
 
-0030 7D05           1579                     MOV             R5, #00000101b  
+                +1  1579     
 
-                    1580                     
+0800            +1  1580     ORG     0800h
 
-0032 120AD5         1581                     LCALL   PWM_SQUARE_WAVE_SETUP_AND_START
+                +1  1581     
 
                     1582     
 
-0035 80EF           1583                     JMP     __STARTUP__
+                    1583     
 
-                    1584     
+0000                1584     ORG 0000h  
 
-                    1585     
+0000 020046         1585                     LJMP __STARTUP__
 
                     1586     
 
-                    1587     
+0003                1587     ORG 0003h  
 
-                    1588     
+0003 020048         1588                     LJMP INT_INT0
 
                     1589     
 
-                    1590     
+000B                1590     ORG 000Bh  
 
-                    1591     
+000B 020049         1591                     LJMP INT_TIMER0
 
-0037                1592     INT_INT0:
+                    1592     
 
-0037 32             1593                     RETI
+0013                1593     ORG 0013h  
 
-                    1594     
+0013 02004A         1594                     LJMP INT_INT1
 
                     1595     
 
-                    1596     
+001B                1596     ORG 001Bh  
 
-                    1597     
+001B 02004B         1597                     LJMP INT_TIMER1
 
-0038                1598     INT_TIMER0:
+                    1598     
 
-0038 32             1599                     RETI
+0023                1599     ORG 0023h  
 
-                    1600             
+0023 02004C         1600                     LJMP INT_SERIAL
 
                     1601     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE    26
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE    26
 
-                    1602     
+0043                1602     ORG     0043h
 
-                    1603     
+0043 02004D         1603                     LJMP INT_I2C_TWI
 
-0039                1604     INT_INT1:
+                    1604             
 
-0039 32             1605                     RETI
+0046                1605     __STARTUP__:
 
-                    1606     
+                    1606                     
 
                     1607     
 
-                    1608     
+0046 80FE           1608                     JMP     __STARTUP__
 
                     1609     
 
-003A                1610     INT_TIMER1:
+                    1610     
 
-003A 32             1611                     RETI
+                    1611     
 
-                    1612             
+                    1612     
 
                     1613     
 
@@ -3328,15 +3328,127 @@ LOC  OBJ            LINE     SOURCE
 
                     1615     
 
-003B                1616     INT_SERIAL:
+                    1616     
 
-003B 32             1617                     RETI
+                    1617     
 
-                    1618             
+                    1618     
 
-                    1619                     END
+                    1619     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE    27
+                    1620     
+
+0048                1621     INT_INT0:
+
+0048 32             1622                     RETI
+
+                    1623     
+
+                    1624     
+
+                    1625     
+
+                    1626     
+
+                    1627     
+
+                    1628     
+
+                    1629     
+
+                    1630     
+
+0049                1631     INT_TIMER0:
+
+0049 32             1632                     RETI
+
+                    1633             
+
+                    1634     
+
+                    1635     
+
+                    1636     
+
+                    1637     
+
+                    1638     
+
+                    1639     
+
+                    1640     
+
+004A                1641     INT_INT1:
+
+004A 32             1642                     RETI
+
+                    1643     
+
+                    1644     
+
+                    1645     
+
+                    1646     
+
+                    1647     
+
+                    1648     
+
+                    1649     
+
+                    1650     
+
+004B                1651     INT_TIMER1:
+
+004B 32             1652                     RETI
+
+                    1653             
+
+                    1654     
+
+                    1655     
+
+                    1656     
+
+                    1657     
+
+                    1658     
+
+                    1659     
+
+                    1660     
+
+004C                1661     INT_SERIAL:
+
+004C 32             1662                     RETI
+
+                    1663             
+
+                    1664     
+
+                    1665     
+
+                    1666     
+
+                    1667     
+
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE    27
+
+                    1668     
+
+                    1669     
+
+                    1670     
+
+004D                1671     INT_I2C_TWI:
+
+004D 32             1672                     RETI
+
+                    1673     
+
+                    1674                     END
+
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE    28
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -3344,6 +3456,7 @@ SYMBOL TABLE LISTING
 
 N A M E                                    T Y P E  V A L U E   ATTRIBUTES
 
+AA. . . . . . . . . . . . . . . . . . .    N NUMB   0004H   A   
 ACC . . . . . . . . . . . . . . . . . .    D ADDR   00E0H   A   
 AUXR. . . . . . . . . . . . . . . . . .    D ADDR   008EH   A   
 AUXR1 . . . . . . . . . . . . . . . . .    D ADDR   00A2H   A   
@@ -3403,9 +3516,9 @@ CR. . . . . . . . . . . . . . . . . . .    B ADDR   00D8H.6 A
 CUR1. . . . . . . . . . . . . . . . . .    C ADDR   0EBFH   A   
 CUR_OFF . . . . . . . . . . . . . . . .    C ADDR   0EBDH   A   
 CUR_ON. . . . . . . . . . . . . . . . .    C ADDR   0EB9H   A   
-C_T2. . . . . . . . . . . . . . . . . .    B ADDR   00C8H.1 A   
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE    28
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE    29
 
+C_T2. . . . . . . . . . . . . . . . . .    B ADDR   00C8H.1 A   
 DEFINE_PINOS_A_SEREM_ATIVADOS_DESATIVADOS  C ADDR   0B56H   A   
 DIGITO0 . . . . . . . . . . . . . . . .    C ADDR   0C61H   A   
 DIGITO1 . . . . . . . . . . . . . . . .    C ADDR   0C3DH   A   
@@ -3465,15 +3578,16 @@ IEN0. . . . . . . . . . . . . . . . . .    D ADDR   00A8H   A
 IEN1. . . . . . . . . . . . . . . . . .    D ADDR   00B1H   A   
 INICIA_MOTOR_DE_PASSOS. . . . . . . . .    C ADDR   0B00H   A   
 INIDISP . . . . . . . . . . . . . . . .    C ADDR   0E00H   A   
-INT_INT0. . . . . . . . . . . . . . . .    C ADDR   0037H   A   
-INT_INT1. . . . . . . . . . . . . . . .    C ADDR   0039H   A   
-INT_SERIAL. . . . . . . . . . . . . . .    C ADDR   003BH   A   
-INT_TIMER0. . . . . . . . . . . . . . .    C ADDR   0038H   A   
-INT_TIMER1. . . . . . . . . . . . . . .    C ADDR   003AH   A   
+INT_I2C_TWI . . . . . . . . . . . . . .    C ADDR   004DH   A   
+INT_INT0. . . . . . . . . . . . . . . .    C ADDR   0048H   A   
+INT_INT1. . . . . . . . . . . . . . . .    C ADDR   004AH   A   
+INT_SERIAL. . . . . . . . . . . . . . .    C ADDR   004CH   A   
+INT_TIMER0. . . . . . . . . . . . . . .    C ADDR   0049H   A   
+INT_TIMER1. . . . . . . . . . . . . . .    C ADDR   004BH   A   
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE    30
+
 IPH0. . . . . . . . . . . . . . . . . .    D ADDR   00B7H   A   
 IPH1. . . . . . . . . . . . . . . . . .    D ADDR   00B3H   A   
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE    29
-
 IPL0. . . . . . . . . . . . . . . . . .    D ADDR   00B8H   A   
 IPL1. . . . . . . . . . . . . . . . . .    D ADDR   00B2H   A   
 IT0 . . . . . . . . . . . . . . . . . .    B ADDR   0088H.0 A   
@@ -3538,10 +3652,10 @@ PCON. . . . . . . . . . . . . . . . . .    D ADDR   0087H   A
 PLLCON. . . . . . . . . . . . . . . . .    D ADDR   00A3H   A   
 PLLDIV. . . . . . . . . . . . . . . . .    D ADDR   00A4H   A   
 PORT_DISPLAY. . . . . . . . . . . . . .    D ADDR   0080H   A   
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE    31
+
 PPCL. . . . . . . . . . . . . . . . . .    B ADDR   00B8H.6 A   
 PRESS_ENT . . . . . . . . . . . . . . .    C ADDR   0C00H   A   
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE    30
-
 PSL . . . . . . . . . . . . . . . . . .    B ADDR   00B8H.4 A   
 PSW . . . . . . . . . . . . . . . . . .    D ADDR   00D0H   A   
 PT0L. . . . . . . . . . . . . . . . . .    B ADDR   00B8H.1 A   
@@ -3580,6 +3694,7 @@ SADEN . . . . . . . . . . . . . . . . .    D ADDR   00B9H   A
 SBUF. . . . . . . . . . . . . . . . . .    D ADDR   0099H   A   
 SCON. . . . . . . . . . . . . . . . . .    D ADDR   0098H   A   
 SETA_VALORES_TIMER_SEM_INT. . . . . . .    C ADDR   0F05H   A   
+SI. . . . . . . . . . . . . . . . . . .    N NUMB   0008H   A   
 SINE_WAVE_25_SAMPLES. . . . . . . . . .    C ADDR   0A50H   A   
 SINE_WAVE_37_SAMPLES. . . . . . . . . .    C ADDR   0A69H   A   
 SINE_WAVE_71_SAMPLES. . . . . . . . . .    C ADDR   0A8EH   A   
@@ -3593,6 +3708,9 @@ SSADR . . . . . . . . . . . . . . . . .    D ADDR   0096H   A
 SSCON . . . . . . . . . . . . . . . . .    D ADDR   0093H   A   
 SSCS. . . . . . . . . . . . . . . . . .    D ADDR   0094H   A   
 SSDAT . . . . . . . . . . . . . . . . .    D ADDR   0095H   A   
+SSIE. . . . . . . . . . . . . . . . . .    N NUMB   0040H   A   
+STA . . . . . . . . . . . . . . . . . .    N NUMB   0020H   A   
+STO . . . . . . . . . . . . . . . . . .    N NUMB   0010H   A   
 T2CON . . . . . . . . . . . . . . . . .    D ADDR   00C8H   A   
 T2MOD . . . . . . . . . . . . . . . . .    D ADDR   00C9H   A   
 TAB7SEG . . . . . . . . . . . . . . . .    C ADDR   0D00H   A   
@@ -3602,14 +3720,14 @@ TCON. . . . . . . . . . . . . . . . . .    D ADDR   0088H   A
 TECLADO . . . . . . . . . . . . . . . .    D ADDR   0090H   A   
 TF0 . . . . . . . . . . . . . . . . . .    B ADDR   0088H.5 A   
 TF1 . . . . . . . . . . . . . . . . . .    B ADDR   0088H.7 A   
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/08/2017 21:06:40 PAGE    32
+
 TF2 . . . . . . . . . . . . . . . . . .    B ADDR   00C8H.7 A   
 TH0 . . . . . . . . . . . . . . . . . .    D ADDR   008CH   A   
 TH1 . . . . . . . . . . . . . . . . . .    D ADDR   008DH   A   
 TH2 . . . . . . . . . . . . . . . . . .    D ADDR   00CDH   A   
 TI. . . . . . . . . . . . . . . . . . .    B ADDR   0098H.1 A   
 TIMER_CONFIGURA_TIMER_SEM_INT . . . . .    C ADDR   0F00H   A   
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/07/2017 21:13:06 PAGE    31
-
 TIMER_DELAY . . . . . . . . . . . . . .    C ADDR   0F35H   A   
 TIMER_DELAY_10_US . . . . . . . . . . .    C ADDR   0F0AH   A   
 TIMER_DELAY_1_MS. . . . . . . . . . . .    C ADDR   0F0FH   A   
@@ -3648,7 +3766,7 @@ WAVE_FORM_SINE. . . . . . . . . . . . .    N NUMB   0000H   A
 WAVE_FORM_SQUARE. . . . . . . . . . . .    N NUMB   0001H   A   
 WDTPRG. . . . . . . . . . . . . . . . .    D ADDR   00A7H   A   
 WDTRST. . . . . . . . . . . . . . . . .    D ADDR   00A6H   A   
-__STARTUP__ . . . . . . . . . . . . . .    C ADDR   0026H   A   
+__STARTUP__ . . . . . . . . . . . . . .    C ADDR   0046H   A   
 
 
 REGISTER BANK(S) USED: 0 
