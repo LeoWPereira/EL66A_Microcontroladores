@@ -1,8 +1,8 @@
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:03 PAGE     1
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:48 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.5.0
-NO OBJECT MODULE REQUESTED
+OBJECT MODULE PLACED IN .\Objects\projeto00_padrao.obj
 ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE projeto00_padrao.a51 SET(SMALL) DEBUG PRINT(.\Listings\projeto00_padrao
                       .lst) OBJECT(.\Objects\projeto00_padrao.obj) EP
 
@@ -122,7 +122,7 @@ LOC  OBJ            LINE     SOURCE
 
   0085          +1    57     sbit P0_5 = P0 ^ 5 ;
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:03 PAGE     2
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:48 PAGE     2
 
   0084          +1    58     sbit P0_4 = P0 ^ 4 ;
 
@@ -256,7 +256,7 @@ LOC  OBJ            LINE     SOURCE
 
   008D          +1   123     sbit TF0 = TCON ^ 5 ;
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:03 PAGE     3
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:48 PAGE     3
 
   008C          +1   124     sbit TR0 = TCON ^ 4 ;
 
@@ -390,7 +390,7 @@ LOC  OBJ            LINE     SOURCE
 
   00D9          +1   189     sbit CCF1 = CCON ^ 1 ;
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:03 PAGE     4
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:48 PAGE     4
 
   00D8          +1   190     sbit CCF0 = CCON ^ 0 ;
 
@@ -524,7 +524,7 @@ LOC  OBJ            LINE     SOURCE
 
   00C2          +1   255     sfr UEPIEN = 0xC2 ;
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:03 PAGE     5
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:48 PAGE     5
 
   00CF          +1   256     sfr UEPDATX = 0xCF ;
 
@@ -658,7 +658,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   321     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:03 PAGE     6
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:48 PAGE     6
 
 0000            +1   322     INIDISP:
 
@@ -792,7 +792,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   387             
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:03 PAGE     7
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:48 PAGE     7
 
 003D 74C0       +1   388                     MOV     A, #0C0h
 
@@ -926,7 +926,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   453             
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:03 PAGE     8
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:48 PAGE     8
 
 006F D9FA       +1   454                     DJNZ   R1,CLR2L1
 
@@ -1060,7 +1060,7 @@ LOC  OBJ            LINE     SOURCE
 
 00A1 22         +1   519                     RET
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:03 PAGE     9
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:48 PAGE     9
 
                 +1   520                
 
@@ -1194,7 +1194,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   585     ; DESTROI: R0,R2                                                                        //
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:03 PAGE    10
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:48 PAGE    10
 
                 +1   586     
 
@@ -1328,7 +1328,7 @@ LOC  OBJ            LINE     SOURCE
 
 00D1 3F065B4F   +1   651             DB 3Fh, 06h, 5Bh, 4Fh, 66h, 6Dh, 7Dh, 07h, 7Fh, 6Fh, 77h, 7Ch, 39h, 5Eh, 79h, 71h
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:03 PAGE    11
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:48 PAGE    11
 
 00D5 666D7D07                
 00D9 7F6F777C                
@@ -1459,7 +1459,7 @@ LOC  OBJ            LINE     SOURCE
 
 010D 75F00A     +1   714                     MOV     B, #10d
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:03 PAGE    12
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:48 PAGE    12
 
                 +1   715                     
 
@@ -1593,7 +1593,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   780     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:03 PAGE    13
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:48 PAGE    13
 
                 +1   781     
 
@@ -1727,7 +1727,7 @@ LOC  OBJ            LINE     SOURCE
 
 015F 3145       +1   846                     ACALL   TIMER_DELAY_1_MS
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:03 PAGE    14
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:48 PAGE    14
 
                 +1   847                     
 
@@ -1861,7 +1861,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   912                     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:03 PAGE    15
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:48 PAGE    15
 
 018A F8         +1   913                     MOV             R0, A
 
@@ -1995,7 +1995,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   978                     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:03 PAGE    16
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:48 PAGE    16
 
 01A5 309129     +1   979                     JNB     COL2, DIGITO1
 
@@ -2129,7 +2129,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1  1044                      
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:03 PAGE    17
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:48 PAGE    17
 
 01F9            +1  1045     GRAVA_DIGITO:
 
@@ -2263,7 +2263,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1  1110     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:03 PAGE    18
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:48 PAGE    18
 
                 +1  1111     
 
@@ -2397,7 +2397,7 @@ LOC  OBJ            LINE     SOURCE
 
 023B 8998       +1  1176                     MOV     SCON, R1
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:03 PAGE    19
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:48 PAGE    19
 
                 +1  1177                     
 
@@ -2531,7 +2531,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1  1242     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:03 PAGE    20
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:48 PAGE    20
 
 025B C299       +1  1243                     CLR     TI
 
@@ -2583,7 +2583,6 @@ LOC  OBJ            LINE     SOURCE
 
                     1267     
 
-*** ERROR #A318 IN 1268 (projeto00_padrao.a51, LINE 21): can't open file 'hc_sr0x.a51'
                     1268     
 
                     1269     
@@ -2664,9 +2663,9 @@ LOC  OBJ            LINE     SOURCE
 
                     1307     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:03 PAGE    21
-
                     1308     
+
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:48 PAGE    21
 
                     1309     
 
@@ -2788,7 +2787,7 @@ LOC  OBJ            LINE     SOURCE
 
                     1368                     END
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:03 PAGE    22
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:48 PAGE    22
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -2856,7 +2855,7 @@ CUR_ON. . . . . . . . . . . .  C ADDR   00BDH   A
 C_T2. . . . . . . . . . . . .  B ADDR   00C8H.1 A   
 DIGITO0 . . . . . . . . . . .  C ADDR   01F5H   A   
 DIGITO1 . . . . . . . . . . .  C ADDR   01D1H   A   
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:03 PAGE    23
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:48 PAGE    23
 
 DIGITO2 . . . . . . . . . . .  C ADDR   01D5H   A   
 DIGITO3 . . . . . . . . . . .  C ADDR   01D9H   A   
@@ -2924,7 +2923,7 @@ INT_TIMER1. . . . . . . . . .  C ADDR   0054H   A
 IPH0. . . . . . . . . . . . .  D ADDR   00B7H   A   
 IPH1. . . . . . . . . . . . .  D ADDR   00B3H   A   
 IPL0. . . . . . . . . . . . .  D ADDR   00B8H   A   
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:03 PAGE    24
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:48 PAGE    24
 
 IPL1. . . . . . . . . . . . .  D ADDR   00B2H   A   
 IT0 . . . . . . . . . . . . .  B ADDR   0088H.0 A   
@@ -2992,7 +2991,7 @@ PSW . . . . . . . . . . . . .  D ADDR   00D0H   A
 PT0L. . . . . . . . . . . . .  B ADDR   00B8H.1 A   
 PT2L. . . . . . . . . . . . .  B ADDR   00B8H.5 A   
 PTIL. . . . . . . . . . . . .  B ADDR   00B8H.3 A   
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:03 PAGE    25
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:48 PAGE    25
 
 PX0L. . . . . . . . . . . . .  B ADDR   00B8H.0 A   
 PXIL. . . . . . . . . . . . .  B ADDR   00B8H.2 A   
@@ -3060,7 +3059,7 @@ UEPINT. . . . . . . . . . . .  D ADDR   00F8H   A
 UEPNUM. . . . . . . . . . . .  D ADDR   00C7H   A   
 UEPRST. . . . . . . . . . . .  D ADDR   00D5H   A   
 UEPSTAX . . . . . . . . . . .  D ADDR   00CEH   A   
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:03 PAGE    26
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:15:48 PAGE    26
 
 UFNUMH. . . . . . . . . . . .  D ADDR   00BBH   A   
 UFNUML. . . . . . . . . . . .  D ADDR   00BAH   A   
@@ -3080,4 +3079,4 @@ __STARTUP__ . . . . . . . . .  C ADDR   0046H   A
 REGISTER BANK(S) USED: 0 
 
 
-ASSEMBLY COMPLETE.  0 WARNING(S), 1 ERROR(S)
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

@@ -91,11 +91,3 @@ RETORNA_MOTOR_DE_PASSOS:
 		DJNZ 	R3, RETORNA_MOTOR_DE_PASSOS
 
 		RET
-
-//////////////////////////////////////////////////////
-// NOME: PRESS_ENT									//
-// DESCRICAO: ESPERA PRESSIONAR ENTER				//
-// ENTRADA: -										//
-// SAIDA: -											//
-// DESTROI: A										//
-//////////////////////////////////////////////////////
