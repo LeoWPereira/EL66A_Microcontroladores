@@ -1,0 +1,699 @@
+A51 MACRO ASSEMBLER  LCD16X2                                                              05/09/2017 16:39:36 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.5.0
+OBJECT MODULE PLACED IN .\Objects\lcd16x2.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE lcd16x2.a51 SET(SMALL) DEBUG PRINT(.\Listings\lcd16x2.lst) OBJECT(.\Obj
+                      ects\lcd16x2.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+
+                       2     
+
+                       3     
+
+                       4     
+
+                       5     
+
+                       6     
+
+                       7     
+
+                       8     
+
+                       9     
+
+                      10     
+
+                      11     
+
+                      12     
+
+                      13     
+
+                      14     
+
+                      15     
+
+                      16     
+
+                      17     
+
+                      18     
+
+                      19     
+
+  0080                20     DISPLAY EQU P0
+
+  0087                21     BUSYF   EQU     P0.7                     
+
+                      22     
+
+  00A5                23     RS              EQU     P2.5                     
+
+  00A7                24     E_LCD   EQU     P2.7                     
+
+  00A6                25     RW              EQU     P2.6                     
+
+                      26     
+
+                      27     
+
+                      28     
+
+                      29     
+
+                      30     
+
+                      31     
+
+                      32     
+
+                      33     
+
+                      34     
+
+                      35     
+
+0000                  36     INIDISP:
+
+0000 7838             37             MOV     R0,#38H          
+
+0002 7A05             38             MOV     R2,#05           
+
+0004 111F             39             CALL    ESCINST          
+
+                      40             
+
+0006 7838             41                     MOV     R0,#38H          
+
+0008 7A01             42             MOV     R2,#01           
+
+000A 111F             43             CALL    ESCINST          
+
+                      44             
+
+000C 7806             45                     MOV     R0,#06H          
+
+000E 7A01             46             MOV     R2,#01           
+
+0010 111F             47             CALL    ESCINST          
+
+                      48             
+
+0012 780C             49                     MOV     R0,#0CH          
+
+0014 7A01             50             MOV     R2,#01           
+
+0016 111F             51             CALL    ESCINST          
+
+                      52             
+
+0018 7801             53                     MOV     R0,#01H          
+
+001A 7A02             54             MOV     R2,#02           
+
+001C 111F             55             CALL    ESCINST          
+
+                      56             
+
+001E 22               57                     RET
+
+A51 MACRO ASSEMBLER  LCD16X2                                                              05/09/2017 16:39:36 PAGE     2
+
+                      58                     
+
+                      59     
+
+                      60     
+
+                      61     
+
+                      62     
+
+                      63     
+
+                      64     
+
+                      65     
+
+                      66     
+
+                      67     
+
+001F                  68     ESCINST:  
+
+001F C2A6             69                     CLR             RW                               
+
+0021 C2A5             70                     CLR     RS               
+
+0023 D2A7             71                     SETB    E_LCD            
+
+                      72                     
+
+0025 8880             73                     MOV     DISPLAY, R0      
+
+                      74                     
+
+0027 C2A7             75                     CLR     E_LCD            
+
+                      76                     
+
+0029 7580FF           77                     MOV             DISPLAY,#0xFF    
+
+                      78                     
+
+002C D2A6             79                     SETB    RW                               
+
+002E D2A7             80                     SETB    E_LCD            
+
+                      81     
+
+0030 2087FD           82                     JB              BUSYF, $                 
+
+                      83                     
+
+0033 C2A7             84                     CLR     E_LCD            
+
+                      85             
+
+0035 22               86                     RET
+
+                      87                     
+
+                      88     
+
+                      89     
+
+                      90     
+
+                      91     
+
+                      92     
+
+                      93     
+
+                      94     
+
+                      95     
+
+0036                  96     GOTOXY: 
+
+0036 C0E0             97                     PUSH    ACC
+
+                      98             
+
+0038 7480             99                     MOV     A,#80H
+
+003A B80102          100             CJNE    R0,#01,GT1       
+
+                     101             
+
+003D 74C0            102                     MOV     A,#0C0H
+
+                     103                     
+
+003F 49              104     GT1:    ORL     A,R1             
+
+0040 F8              105             MOV     R0,A
+
+0041 7A01            106             MOV     R2,#01           
+
+                     107             
+
+0043 111F            108                     CALL    ESCINST          
+
+                     109             
+
+0045 D0E0            110                     POP     ACC
+
+                     111             
+
+0047 22              112                     RET
+
+                     113             
+
+                     114     
+
+                     115     
+
+                     116     
+
+                     117     
+
+                     118     
+
+                     119     
+
+                     120     
+
+                     121     
+
+0048                 122     CLR1L:    
+
+0048 C0E0            123             PUSH   ACC
+
+A51 MACRO ASSEMBLER  LCD16X2                                                              05/09/2017 16:39:36 PAGE     3
+
+                     124             
+
+004A 7800            125                     MOV    R0,#00               
+
+004C 7900            126             MOV    R1,#00
+
+                     127             
+
+004E 1136            128                     CALL   GOTOXY
+
+                     129             
+
+0050 7910            130                     MOV    R1,#16               
+
+                     131     
+
+0052 7420            132     CLR1L1: MOV    A,#' '               
+
+                     133             
+
+0054 117A            134                     CALL   ESCDADO
+
+                     135             
+
+0056 D9FA            136                     DJNZ   R1,CLR1L1
+
+0058 7800            137             MOV    R0,#00               
+
+005A 7900            138             MOV    R1,#00
+
+                     139             
+
+005C 1136            140                     CALL   GOTOXY
+
+                     141             
+
+005E D0E0            142                     POP    ACC
+
+                     143             
+
+0060 22              144                     RET
+
+                     145                     
+
+                     146     
+
+                     147     
+
+                     148     
+
+                     149     
+
+                     150     
+
+                     151     
+
+                     152     
+
+                     153     
+
+0061                 154     CLR2L:    
+
+0061 C0E0            155             PUSH   ACC
+
+                     156             
+
+0063 7801            157                     MOV    R0,#01               
+
+0065 7900            158             MOV    R1,#00
+
+                     159             
+
+0067 1136            160                     CALL   GOTOXY
+
+                     161             
+
+0069 7910            162                     MOV    R1,#16               
+
+                     163     
+
+006B 7420            164     CLR2L1: MOV    A,#' '               
+
+                     165             
+
+006D 117A            166                     CALL   ESCDADO
+
+                     167             
+
+006F D9FA            168                     DJNZ   R1,CLR2L1
+
+0071 7801            169             MOV    R0,#01               
+
+0073 7900            170             MOV    R1,#00
+
+                     171             
+
+0075 1136            172                     CALL   GOTOXY
+
+                     173             
+
+0077 D0E0            174                     POP    ACC
+
+                     175             
+
+0079 22              176                     RET
+
+                     177                
+
+                     178     
+
+                     179     
+
+                     180     
+
+                     181     
+
+                     182     
+
+                     183     
+
+                     184     
+
+007A                 185     ESCDADO:  
+
+007A C2A6            186                     CLR             RW                               
+
+007C D2A5            187             SETB    RS               
+
+007E D2A7            188             SETB    E_LCD            
+
+                     189                     
+
+A51 MACRO ASSEMBLER  LCD16X2                                                              05/09/2017 16:39:36 PAGE     4
+
+0080 F580            190             MOV     DISPLAY,A        
+
+                     191             
+
+0082 C2A7            192                     CLR     E_LCD            
+
+                     193                     
+
+0084 7580FF          194                     MOV             DISPLAY,#0xFF    
+
+                     195                     
+
+0087 D2A6            196                     SETB    RW                               
+
+0089 C2A5            197                     CLR             RS                               
+
+008B D2A7            198                     SETB    E_LCD            
+
+                     199     
+
+008D 2087FD          200                     JB              BUSYF,$                  
+
+                     201     
+
+0090 C2A7            202                     CLR     E_LCD            
+
+                     203     
+
+0092 22              204             RET
+
+                     205                     
+
+                     206     
+
+                     207     
+
+                     208     
+
+                     209     
+
+                     210     
+
+                     211     
+
+                     212     
+
+                     213     
+
+                     214     
+
+0093                 215     MSTRING:  
+
+0093 E4              216                       CLR    A
+
+0094 93              217               MOVC   A,@A+DPTR       
+
+                     218               
+
+0095 6006            219                       JZ     MSTR1
+
+                     220               
+
+0097 12007A          221                       LCALL  ESCDADO         
+
+                     222               
+
+009A A3              223                       INC    DPTR
+
+                     224               
+
+009B 80F6            225                       SJMP   MSTRING
+
+                     226                       
+
+009D 22              227     MSTR1:    RET
+
+                     228                
+
+                     229     
+
+                     230     
+
+                     231     
+
+                     232     
+
+                     233     
+
+                     234     
+
+                     235     
+
+                     236     
+
+                     237     
+
+009E                 238     MSTRINGX: 
+
+009E E0              239                       MOVX   A,@DPTR         
+
+                     240               
+
+009F 6006            241                       JZ     MSTR21
+
+                     242               
+
+00A1 12007A          243                       LCALL  ESCDADO         
+
+                     244               
+
+00A4 A3              245                       INC    DPTR
+
+                     246               
+
+00A5 80F7            247                       SJMP   MSTRINGX
+
+                     248     
+
+00A7 22              249     MSTR21:   RET
+
+                     250     
+
+                     251     
+
+                     252     
+
+                     253     
+
+                     254     
+
+                     255     
+
+A51 MACRO ASSEMBLER  LCD16X2                                                              05/09/2017 16:39:36 PAGE     5
+
+                     256     
+
+                     257     
+
+                     258     
+
+                     259     
+
+00A8                 260     ESC_STR1: 
+
+                     261                       
+
+00A8 7800            262                       MOV    R0,#00         
+
+00AA 7900            263               MOV    R1,#00
+
+                     264               
+
+00AC 8004            265                       JMP    ESC_S
+
+                     266               
+
+                     267     
+
+                     268     
+
+                     269     
+
+                     270     
+
+                     271     
+
+                     272     
+
+                     273     
+
+                     274     
+
+                     275     
+
+00AE                 276     ESC_STR2: 
+
+                     277                       
+
+00AE 7801            278                       MOV    R0,#01         
+
+00B0 7900            279               MOV    R1,#00
+
+                     280                       
+
+00B2 120036          281     ESC_S:    LCALL  GOTOXY          
+
+                     282               
+
+00B5 120093          283                       LCALL  MSTRING
+
+                     284               
+
+00B8 22              285                       RET
+
+                     286     
+
+                     287     
+
+                     288     
+
+                     289     
+
+                     290     
+
+                     291     
+
+                     292     
+
+                     293     ; DESTROI: R0,R2                                                                        //
+
+                     294     
+
+00B9                 295     CUR_ON:   
+
+00B9 780F            296                       MOV    R0,#0FH               
+
+00BB 8002            297               SJMP   CUR1
+
+                     298                       
+
+00BD                 299     CUR_OFF:  
+
+00BD 780C            300                       MOV    R0,#0CH               
+
+                     301                       
+
+00BF 7A01            302     CUR1:     MOV    R2,#01
+
+                     303               
+
+00C1 111F            304                       CALL   ESCINST               
+
+                     305               
+
+00C3 22              306                       RET
+
+                     307                       
+
+                     308     
+
+                     309     
+
+                     310     
+
+                     311     
+
+                     312     
+
+                     313     
+
+                     314     
+
+00C4                 315     ESCREVE_ASTERISCO:              
+
+00C4 742A            316                     MOV     A, #2Ah  
+
+00C6 117A            317                     CALL    ESCDADO
+
+                     318             
+
+00C8 22              319                     RET
+
+*** WARNING #A41 IN 319 (lcd16x2.a51, LINE 319): MISSING 'END' STATEMENT
+A51 MACRO ASSEMBLER  LCD16X2                                                              05/09/2017 16:39:36 PAGE     6
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . .  D ADDR   00E0H   A   
+BUSYF. . . . . . .  B ADDR   0080H.7 A   
+CLR1L. . . . . . .  C ADDR   0048H   A   
+CLR1L1 . . . . . .  C ADDR   0052H   A   
+CLR2L. . . . . . .  C ADDR   0061H   A   
+CLR2L1 . . . . . .  C ADDR   006BH   A   
+CUR1 . . . . . . .  C ADDR   00BFH   A   
+CUR_OFF. . . . . .  C ADDR   00BDH   A   
+CUR_ON . . . . . .  C ADDR   00B9H   A   
+DISPLAY. . . . . .  D ADDR   0080H   A   
+ESCDADO. . . . . .  C ADDR   007AH   A   
+ESCINST. . . . . .  C ADDR   001FH   A   
+ESCREVE_ASTERISCO.  C ADDR   00C4H   A   
+ESC_S. . . . . . .  C ADDR   00B2H   A   
+ESC_STR1 . . . . .  C ADDR   00A8H   A   
+ESC_STR2 . . . . .  C ADDR   00AEH   A   
+E_LCD. . . . . . .  B ADDR   00A0H.7 A   
+GOTOXY . . . . . .  C ADDR   0036H   A   
+GT1. . . . . . . .  C ADDR   003FH   A   
+INIDISP. . . . . .  C ADDR   0000H   A   
+MSTR1. . . . . . .  C ADDR   009DH   A   
+MSTR21 . . . . . .  C ADDR   00A7H   A   
+MSTRING. . . . . .  C ADDR   0093H   A   
+MSTRINGX . . . . .  C ADDR   009EH   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+RS . . . . . . . .  B ADDR   00A0H.5 A   
+RW . . . . . . . .  B ADDR   00A0H.6 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  1 WARNING(S), 0 ERROR(S)

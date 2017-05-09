@@ -10,7 +10,7 @@
 //														//
 //////////////////////////////////////////////////////////
 
-ORG		0E00h
+//ORG		0E00h
 
 //////////////////////////////////////////////////
 //       TABELA DE EQUATES DA BIBLIOTECA		//
@@ -34,25 +34,25 @@ RW		EQU	P2.6			// READ/WRITE
 // DESTROI: R0, R2									//
 //////////////////////////////////////////////////////
 INIDISP:
-        MOV     R0,#38H         // UTILIZACAO: 8 BITS, 2 LINHAS, 5x7
-        MOV     R2,#05          // ESPERA 5ms
-        CALL    ESCINST         // ENVIA A INSTRUCAO
+        MOV     R0,#38h          // UTILIZACAO: 8 BITS, 2 LINHAS, 5x7
+        MOV     R2,#05h          // ESPERA 5ms
+        CALL    ESCINST          // ENVIA A INSTRUCAO
         
-		MOV     R0,#38H         // UTILIZACAO: 8 BITS, 2 LINHAS, 5x7
-        MOV     R2,#01          // ESPERA 1ms
-        CALL    ESCINST         // ENVIA A INSTRUCAO
+		MOV     R0,#38h          // UTILIZACAO: 8 BITS, 2 LINHAS, 5x7
+        MOV     R2,#01h          // ESPERA 1ms
+        CALL    ESCINST          // ENVIA A INSTRUCAO
         
-		MOV     R0,#06H         // INSTRUCAO DE MODO DE OPERACAO
-        MOV     R2,#01          // ESPERA 1ms
-        CALL    ESCINST         // ENVIA A INSTRUCAO
+		MOV     R0,#06h          // INSTRUCAO DE MODO DE OPERACAO
+        MOV     R2,#01h          // ESPERA 1ms
+        CALL    ESCINST          // ENVIA A INSTRUCAO
         
-		MOV     R0,#0CH         // INSTRUCAO DE CONTROLE ATIVO/INATIVO
-        MOV     R2,#01          // ESPERA 1ms
-        CALL    ESCINST         // ENVIA A INSTRUCAO
+		MOV     R0,#0Ch          // INSTRUCAO DE CONTROLE ATIVO/INATIVO
+        MOV     R2,#01h          // ESPERA 1ms
+        CALL    ESCINST          // ENVIA A INSTRUCAO
         
-		MOV     R0,#01H         // INSTRUCAO DE LIMPEZA DO DISPLAY
-        MOV     R2,#02          // ESPERA 2ms
-        CALL    ESCINST         // ENVIA A INSTRUCAO
+		MOV     R0,#01h          // INSTRUCAO DE LIMPEZA DO DISPLAY
+        MOV     R2,#02h          // ESPERA 2ms
+        CALL    ESCINST          // ENVIA A INSTRUCAO
         
 		RET
 		
@@ -96,16 +96,16 @@ ESCINST:
 GOTOXY: 
 		PUSH    ACC
         
-		MOV     A,#80H
-        CJNE    R0,#01,GT1      // SALTA SE COLUNA 0
+		MOV     A,#80h
+        CJNE    R0, #01h, GT1      // SALTA SE COLUNA 0
         
-		MOV     A,#0C0H
+		MOV     A,#0C0h
 		
-GT1:    ORL     A,R1            // CALCULA O ENDERECO DA MEMORIA DD RAM
-        MOV     R0,A
-        MOV     R2,#01          // ESPERA 1ms               
+GT1:    ORL     A, R1             // CALCULA O ENDERECO DA MEMORIA DD RAM
+        MOV     R0, A
+        MOV     R2, #01h          // ESPERA 1ms               
         
-		CALL    ESCINST         // ENVIA PARA O MODULO DISPLAY
+		CALL    ESCINST           // ENVIA PARA O MODULO DISPLAY
         
 		POP     ACC
         
@@ -122,18 +122,18 @@ GT1:    ORL     A,R1            // CALCULA O ENDERECO DA MEMORIA DD RAM
 CLR1L:    
         PUSH   ACC
         
-		MOV    R0,#00              // LINHA
-        MOV    R1,#00
+		MOV    R0,#00h              // LINHA
+        MOV    R1,#00h
         
 		CALL   GOTOXY
         
-		MOV    R1,#16              // CONTADOR
+		MOV    R1, #16             // CONTADOR
 
 CLR1L1: MOV    A,#' '              // ESPACO
         
 		CALL   ESCDADO
         
-		DJNZ   R1,CLR1L1
+		DJNZ   R1, CLR1L1
         MOV    R0,#00              // LINHA
         MOV    R1,#00
         
@@ -293,11 +293,11 @@ ESC_S:    LCALL  GOTOXY         // POSICIONA O CURSOR
 ; DESTROI: R0,R2									//
 //////////////////////////////////////////////////////
 CUR_ON:   
-		  MOV    R0,#0FH              // INST.CONTROLE ATIVO (CUR ON)
+		  MOV    R0,#0Fh              // INST.CONTROLE ATIVO (CUR ON)
           SJMP   CUR1
 		  
 CUR_OFF:  
-		  MOV    R0,#0CH              // INST. CONTROLE INATIVO (CUR OFF)
+		  MOV    R0,#0Ch              // INST. CONTROLE INATIVO (CUR OFF)
 		  
 CUR1:     MOV    R2,#01
 	  

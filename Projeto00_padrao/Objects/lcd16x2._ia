@@ -1,0 +1,1 @@
+"lcd16x2.a51" SET (SMALL) DEBUG PRINT(.\Listings\lcd16x2.lst) OBJECT(.\Objects\lcd16x2.obj) EP
