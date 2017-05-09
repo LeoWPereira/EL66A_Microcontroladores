@@ -15,6 +15,10 @@
 // NOME: TIMER_CONFIGURA_TIMER_0_SEM_INT			//
 // DESCRICAO: CONFIGURA O TIMER 0					//
 // P.ENTRADA: R7 = > TMOD 	 						//
+//			  R6 => TH1								// 
+//			  R5 =>	TL1								//
+//			  R4 =>	TH0								//
+//			  R3 =>	TL0								//
 // P.SAIDA: -										//
 // ALTERA: R7										//
 //////////////////////////////////////////////////////
@@ -27,16 +31,19 @@ TIMER_CONFIGURA_TIMER_SEM_INT:
 		
 //////////////////////////////////////////////////////
 // NOME: SETA_VALORES_TIMER_0_SEM_INT				//
-// DESCRICAO: CONFIGURA VALORES PARA CONTAR 1 MS	//
+// DESCRICAO: CONFIGURA VALORES DO TIMER			//
 // P.ENTRADA: R6 => TH0								// 
 //			  R5 =>	TL0								//
+//			  R4 =>	TH0								//
+//			  R3 =>	TL0								//
 // P.SAIDA: -										//
 // ALTERA: -										//
 //////////////////////////////////////////////////////
 SETA_VALORES_TIMER_SEM_INT:
-		// Para o TIMER_0, TH0 e TL0 representam o necessario para um delay de 1ms
-		MOV 	TH0, R6
-		MOV 	TL0, R5
+		MOV 	TH1, R6
+		MOV 	TL1, R5
+		MOV 	TH0, R4
+		MOV 	TL0, R3
 		
 		RET
 
@@ -66,8 +73,10 @@ TIMER_DELAY_10_US:
 TIMER_DELAY_1_MS:
 		// Para o TIMER_0, TH0 e TL0 representam o necessario para um delay de 1ms
 		MOV		R7, #00000001b
-		MOV 	R6, #HIGH(65535 - 1978)
-		MOV 	R5, #LOW(65535 - 1978)
+		MOV		R6, #00h
+		MOV		R5, #00h
+		MOV 	R4, #HIGH(65535 - 1984)
+		MOV 	R3, #LOW(65535 - 1984)
 		ACALL	TIMER_CONFIGURA_TIMER_SEM_INT
 
 CONTINUA_TIMER_1_MS:
