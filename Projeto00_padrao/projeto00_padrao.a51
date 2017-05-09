@@ -15,7 +15,7 @@ $NOMOD51
 #include "teclado_matricial_4x4.a51"
 #include "motor_de_passos.a51"
 #include "serial.a51"
-//#include "pwm_com_timer.a51"
+#include "pwm_com_timer.a51"
 //#include "i2c_twi.a51"
 //#include "rtc.a51"
 #include "hc_sr0x.a51"
@@ -23,7 +23,8 @@ $NOMOD51
 //////////////////////////////////////////////////
 //       TABELA DE EQUATES DA BIBLIOTECA		//
 ////										  ////
-////// 		A comecar no endereco 0x101 	//////
+////// 		A finalizar no endereco 0xF5 	//////
+////////			(OBRIGATORIO)		  ////////
 //////////////////////////////////////////////////
 
 ORG 0000h // Origem do codigo 
@@ -48,9 +49,6 @@ ORG	0043h
 		LJMP INT_I2C_TWI
 	
 __STARTUP__:
-		LCALL	MEDIR_DISTANCIA
-		
-		
 		
 		JMP 	__STARTUP__
 

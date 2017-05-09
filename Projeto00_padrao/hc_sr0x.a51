@@ -42,7 +42,7 @@ MEDIR_DISTANCIA:
 		
 		SETB 	TRIGGER_ULTRASSOM_RECEPTOR	// inicia o pulso para o trigger
 		
-		ACALL 	TIMER_DELAY_10_US     // o trigger precisa de um pulso de 10 us para funcionar corretamente
+		LCALL 	TIMER_DELAY_10_US     // o trigger precisa de um pulso de 10 us para funcionar corretamente
 		
 		CLR 	TRIGGER_ULTRASSOM_RECEPTOR
 

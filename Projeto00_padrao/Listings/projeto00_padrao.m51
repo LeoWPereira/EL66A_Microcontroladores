@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22                                                        05/09/2017  17:38:03  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22                                                        05/09/2017  17:52:19  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
@@ -20,7 +20,7 @@ LINK MAP OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
-            CODE    0000H     02A9H     ABSOLUTE     
+            CODE    0000H     0B9DH     ABSOLUTE     
 
 
 
@@ -59,7 +59,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   B:00D8H.3       SYMBOL        CCF3
   B:00D8H.4       SYMBOL        CCF4
   D:00D8H         SYMBOL        CCON
-BL51 BANKED LINKER/LOCATER V6.22                                                      05/09/2017  17:38:03  PAGE 2
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/09/2017  17:52:19  PAGE 2
 
 
   B:00D8H.7       SYMBOL        CF
@@ -84,13 +84,18 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   C:0241H         SYMBOL        CONFIGURA_SERIAL
   C:00FDH         SYMBOL        CONTINUA_BINARIO_BCD
   C:01A4H         SYMBOL        CONTINUA_PROG
+  C:0AE7H         SYMBOL        CONTINUA_PWM
   C:0155H         SYMBOL        CONTINUA_TIMER_1_MS
+  C:0B3EH         SYMBOL        CONTINUE_SQUARE
+  C:0B41H         SYMBOL        CONTINUE_SQUARE_HIGH
+  C:0B4EH         SYMBOL        CONTINUE_SQUARE_LOW
   B:00C8H.0       SYMBOL        CP_RL2
   B:00D8H.6       SYMBOL        CR
   C:00C3H         SYMBOL        CUR1
   C:00C1H         SYMBOL        CUR_OFF
   C:00BDH         SYMBOL        CUR_ON
   B:00C8H.1       SYMBOL        C_T2
+  C:0B57H         SYMBOL        DEFINE_PINOS_A_SEREM_ATIVADOS_DESATIVADOS
   C:01FDH         SYMBOL        DIGITO0
   C:01D9H         SYMBOL        DIGITO1
   C:01DDH         SYMBOL        DIGITO2
@@ -109,19 +114,19 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   D:0082H         SYMBOL        DPL
   B:00A8H.7       SYMBOL        EA
   B:00A8H.6       SYMBOL        EC
-  C:0298H         SYMBOL        ECHO_AINDA_DISPONIVEL
+  C:0B8CH         SYMBOL        ECHO_AINDA_DISPONIVEL
   D:00D2H         SYMBOL        EECON
   C:0259H         SYMBOL        ENVIA_DADO
   C:0261H         SYMBOL        ENVIA_OK
   B:00F8H.0       SYMBOL        EP0INT
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/09/2017  17:52:19  PAGE 3
+
+
   B:00F8H.1       SYMBOL        EP1INT
   B:00F8H.2       SYMBOL        EP2INT
   B:00F8H.3       SYMBOL        EP3INT
   B:00F8H.4       SYMBOL        EP4INT
   B:00F8H.5       SYMBOL        EP5INT
-BL51 BANKED LINKER/LOCATER V6.22                                                      05/09/2017  17:38:03  PAGE 3
-
-
   B:00F8H.6       SYMBOL        EP6INT
   B:00A8H.4       SYMBOL        ES
   C:007AH         SYMBOL        ESCDADO
@@ -130,7 +135,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   C:00B6H         SYMBOL        ESC_S
   C:00ACH         SYMBOL        ESC_STR1
   C:00B2H         SYMBOL        ESC_STR2
-  C:0295H         SYMBOL        ESPERANDO_RESPOSTA_ECHO
+  C:0B89H         SYMBOL        ESPERANDO_RESPOSTA_ECHO
   B:00B0H.2       SYMBOL        ESTADO_DOIS
   B:00B0H.4       SYMBOL        ESTADO_QUATRO
   B:00B0H.3       SYMBOL        ESTADO_TRES
@@ -149,6 +154,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   C:0036H         SYMBOL        GOTOXY
   C:0201H         SYMBOL        GRAVA_DIGITO
   C:003FH         SYMBOL        GT1
+  C:0B2CH         SYMBOL        HIGH_DONE
   B:0088H.1       SYMBOL        IE0_
   B:0088H.3       SYMBOL        IE1_
   D:00A8H         SYMBOL        IEN0
@@ -173,17 +179,21 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   D:00F1H         SYMBOL        LEDCON
   B:0090H.4       SYMBOL        LIN1
   B:0090H.5       SYMBOL        LIN2
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/09/2017  17:52:19  PAGE 4
+
+
   B:0090H.6       SYMBOL        LIN3
   B:0090H.7       SYMBOL        LIN4
-  C:027AH         SYMBOL        MEDIR_DISTANCIA
+  C:0B1EH         SYMBOL        LOW_DONE
+  C:0B6DH         SYMBOL        MEDIR_DISTANCIA
   C:00E1H         SYMBOL        MOSTRA_DIGITO_DISPLAY
   C:009FH         SYMBOL        MSTR1
   C:00ABH         SYMBOL        MSTR21
-BL51 BANKED LINKER/LOCATER V6.22                                                      05/09/2017  17:38:03  PAGE 4
-
-
   C:0093H         SYMBOL        MSTRING
   C:00A2H         SYMBOL        MSTRINGX
+  C:0B5EH         SYMBOL        NAO_ATIVA_BIT_0
+  C:0B65H         SYMBOL        NAO_ATIVA_BIT_1
+  C:0B6CH         SYMBOL        NAO_ATIVA_BIT_2
   D:0080H         SYMBOL        P0
   B:0080H.0       SYMBOL        P0_0
   B:0080H.1       SYMBOL        P0_1
@@ -229,19 +239,35 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   D:0080H         SYMBOL        PORT_DISPLAY
   B:00B8H.6       SYMBOL        PPCL
   C:019CH         SYMBOL        PRESS_ENT
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/09/2017  17:52:19  PAGE 5
+
+
   B:00B8H.4       SYMBOL        PSL
   D:00D0H         SYMBOL        PSW
   B:00B8H.1       SYMBOL        PT0L
   B:00B8H.5       SYMBOL        PT2L
   B:00B8H.3       SYMBOL        PTIL
+  N:00FAH         SYMBOL        PWM_COUNTER
+  N:00FBH         SYMBOL        PWM_DUTY_CYCLE
+  N:0000H         SYMBOL        PWM_FLAG
+  C:0AEFH         SYMBOL        PWM_PARAR
+  N:00F9H         SYMBOL        PWM_PERIODO_LSB
+  N:00F8H         SYMBOL        PWM_PERIODO_MED
+  N:00F7H         SYMBOL        PWM_PERIODO_MSB
+  B:0090H.0       SYMBOL        PWM_PIN_0
+  B:0090H.1       SYMBOL        PWM_PIN_1
+  B:0090H.2       SYMBOL        PWM_PIN_2
+  D:0090H         SYMBOL        PWM_PORT
+  N:00F6H         SYMBOL        PWM_QTDADE_PERIODOS
+  C:0B0EH         SYMBOL        PWM_SQUARE_WAVE
+  C:0AF6H         SYMBOL        PWM_SQUARE_WAVE_CONFIG_PERIOD
+  C:0AD5H         SYMBOL        PWM_SQUARE_WAVE_SETUP_AND_START
+  C:0B0BH         SYMBOL        PWM_STOP
   B:00B8H.0       SYMBOL        PX0L
   B:00B8H.2       SYMBOL        PXIL
-  N:0100H         SYMBOL        QTD_DIGITOS
+  N:00FFH         SYMBOL        QTD_DIGITOS
   B:0098H.2       SYMBOL        RB8
   D:00CBH         SYMBOL        RCAP2H
-BL51 BANKED LINKER/LOCATER V6.22                                                      05/09/2017  17:38:03  PAGE 5
-
-
   D:00CAH         SYMBOL        RCAP2L
   B:00C8H.5       SYMBOL        RCLK
   C:0251H         SYMBOL        RECEBE_DADO
@@ -255,6 +281,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   D:0099H         SYMBOL        SBUF
   D:0098H         SYMBOL        SCON
   C:013BH         SYMBOL        SETA_VALORES_TIMER_SEM_INT
+  C:0A50H         SYMBOL        SINE_WAVE_25_SAMPLES
+  C:0A69H         SYMBOL        SINE_WAVE_37_SAMPLES
+  C:0A8EH         SYMBOL        SINE_WAVE_71_SAMPLES
   B:0098H.6       SYMBOL        SM1
   B:0098H.5       SYMBOL        SM2
   D:0081H         SYMBOL        SP
@@ -270,6 +299,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   C:00D1H         SYMBOL        TAB7SEG
   B:0098H.3       SYMBOL        TB8
   B:00C8H.4       SYMBOL        TCLK
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/09/2017  17:52:19  PAGE 6
+
+
   D:0088H         SYMBOL        TCON
   D:0090H         SYMBOL        TECLADO
   B:0088H.5       SYMBOL        TF0
@@ -299,9 +331,6 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   D:00D7H         SYMBOL        UDPADDH
   D:00D6H         SYMBOL        UDPADDL
   D:00D4H         SYMBOL        UEPCONX
-BL51 BANKED LINKER/LOCATER V6.22                                                      05/09/2017  17:38:03  PAGE 6
-
-
   D:00CFH         SYMBOL        UEPDATX
   D:00C2H         SYMBOL        UEPIEN
   D:00F8H         SYMBOL        UEPINT
@@ -318,6 +347,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   C:019FH         SYMBOL        VARRE_ENT
   C:017DH         SYMBOL        VERIFICA_R0
   C:017AH         SYMBOL        VERIFICA_R1
+  N:00FCH         SYMBOL        WAVE_FORM
+  N:00FEH         SYMBOL        WAVE_FORM_SINE
+  N:00FDH         SYMBOL        WAVE_FORM_SQUARE
   D:00A7H         SYMBOL        WDTPRG
   D:00A6H         SYMBOL        WDTRST
   C:0046H         SYMBOL        __STARTUP__
@@ -327,6 +359,9 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   C:0013H         LINE#         39
   C:001BH         LINE#         42
   C:0023H         LINE#         45
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/09/2017  17:52:19  PAGE 7
+
+
   C:0043H         LINE#         48
   C:0046H         LINE#         52
   C:0048H         LINE#         66
@@ -338,8 +373,8 @@ SYMBOL TABLE OF MODULE:  .\Objects\projeto00_padrao (PROJETO00_PADRAO)
   -------         ENDMOD        PROJETO00_PADRAO
 
 ******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 02C6H BYTE (34%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 03E4H BYTE (48%) *
 ******************************************************************************
 
-Program Size: data=8.0 xdata=0 code=681
+Program Size: data=8.0 xdata=0 code=2973
 LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

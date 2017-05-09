@@ -6,8 +6,6 @@
 // @author: Rodrigo Yudi Endo							//
 //														//
 //////////////////////////////////////////////////////////
-
-ORG	0A00h
 	
 PWM_PORT			EQU	P1
 PWM_PIN_0			EQU P1.0
@@ -16,18 +14,18 @@ PWM_PIN_2			EQU P1.2
 	
 PWM_FLAG 			EQU 0	// Flag to indicate high/low pwm signal
 
-WAVE_FORM_SINE		EQU 00h
-WAVE_FORM_SQUARE	EQU 01h
+WAVE_FORM_SINE		EQU 0FEh
+WAVE_FORM_SQUARE	EQU 0FDh
 
-WAVE_FORM 			EQU 31h	// 00h = sine wave; 01h = square wave
-PWM_DUTY_CYCLE		EQU 32h // 00h = 0% duty cycle; FFh = 100% duty cycle
-PWM_COUNTER			EQU 33h
+WAVE_FORM 			EQU 0FCh	// 00h = sine wave; 01h = square wave
+PWM_DUTY_CYCLE		EQU 0FBh // 00h = 0% duty cycle; FFh = 100% duty cycle
+PWM_COUNTER			EQU 0FAh
 
 // 3 bytes para o periodo do pwm: [0x000000, 0xFFFFFF] (16777215 us) Logo ... 1 Hz = 1000000 us = 0xF4240
-PWM_PERIODO_LSB		EQU 33h
-PWM_PERIODO_MED		EQU 34h	
-PWM_PERIODO_MSB		EQU 35h
-PWM_QTDADE_PERIODOS	EQU 36h
+PWM_PERIODO_LSB		EQU 0F9h
+PWM_PERIODO_MED		EQU 0F8h	
+PWM_PERIODO_MSB		EQU 0F7h
+PWM_QTDADE_PERIODOS	EQU 0F6h
 
 ////////////////////////////////////////////////
 // REGIAO DA MEMORIA COM AS AMOSTRAS DE ONDAS //
@@ -71,7 +69,7 @@ PWM_SQUARE_WAVE_SETUP_AND_START:
 		MOV		R7, #00000001b
 		MOV 	R6, #HIGH(65535 - 53330)
 		MOV 	R5, #LOW(65535 - 53330)
-		ACALL	TIMER_CONFIGURA_TIMER_SEM_INT
+		LCALL	TIMER_CONFIGURA_TIMER_SEM_INT
 		
 		MOV		R5, A
 		
