@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 16:59:24 PAGE     1
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:04:04 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.5.0
@@ -122,7 +122,7 @@ LOC  OBJ            LINE     SOURCE
 
   0085          +1    57     sbit P0_5 = P0 ^ 5 ;
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 16:59:24 PAGE     2
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:04:04 PAGE     2
 
   0084          +1    58     sbit P0_4 = P0 ^ 4 ;
 
@@ -256,7 +256,7 @@ LOC  OBJ            LINE     SOURCE
 
   008D          +1   123     sbit TF0 = TCON ^ 5 ;
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 16:59:24 PAGE     3
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:04:04 PAGE     3
 
   008C          +1   124     sbit TR0 = TCON ^ 4 ;
 
@@ -390,7 +390,7 @@ LOC  OBJ            LINE     SOURCE
 
   00D9          +1   189     sbit CCF1 = CCON ^ 1 ;
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 16:59:24 PAGE     4
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:04:04 PAGE     4
 
   00D8          +1   190     sbit CCF0 = CCON ^ 0 ;
 
@@ -524,7 +524,7 @@ LOC  OBJ            LINE     SOURCE
 
   00C2          +1   255     sfr UEPIEN = 0xC2 ;
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 16:59:24 PAGE     5
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:04:04 PAGE     5
 
   00CF          +1   256     sfr UEPDATX = 0xCF ;
 
@@ -658,7 +658,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   321     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 16:59:24 PAGE     6
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:04:04 PAGE     6
 
 0000            +1   322     INIDISP:
 
@@ -786,15 +786,15 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   384             
 
-0038 7480       +1   385                     MOV     A,#80h
+0038 7480       +1   385                     MOV     A, #80h
 
 003A B80102     +1   386             CJNE    R0, #01h, GT1       
 
                 +1   387             
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 16:59:24 PAGE     7
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:04:04 PAGE     7
 
-003D 74C0       +1   388                     MOV     A,#0C0h
+003D 74C0       +1   388                     MOV     A, #0C0h
 
                 +1   389                     
 
@@ -840,9 +840,9 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   410             
 
-004A 7800       +1   411                     MOV    R0,#00h               
+004A 7800       +1   411                     MOV    R0, #00h               
 
-004C 7900       +1   412             MOV    R1,#00h
+004C 7900       +1   412             MOV    R1, #00h
 
                 +1   413             
 
@@ -864,9 +864,9 @@ LOC  OBJ            LINE     SOURCE
 
 0056 D9FA       +1   422                     DJNZ   R1, CLR1L1
 
-0058 7800       +1   423             MOV    R0,#00               
+0058 7800       +1   423             MOV    R0, #00               
 
-005A 7900       +1   424             MOV    R1,#00
+005A 7900       +1   424             MOV    R1, #00
 
                 +1   425             
 
@@ -926,7 +926,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   453             
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 16:59:24 PAGE     8
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:04:04 PAGE     8
 
 006F D9FA       +1   454                     DJNZ   R1,CLR2L1
 
@@ -972,7 +972,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   475                     
 
-0080 F580       +1   476             MOV     DISPLAY,A        
+0080 F580       +1   476             MOV     DISPLAY, A       
 
                 +1   477             
 
@@ -992,7 +992,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   485     
 
-008D 2087FD     +1   486                     JB              BUSYF,$                  
+008D 2087FD     +1   486                     JB              BUSYF, $                 
 
                 +1   487     
 
@@ -1024,45 +1024,45 @@ LOC  OBJ            LINE     SOURCE
 
 0093            +1   501     MSTRING:  
 
-0093 E4         +1   502                       CLR    A
+0093 C0E0       +1   502                     PUSH    ACC
 
-0094 93         +1   503               MOVC   A,@A+DPTR       
+                +1   503                     
 
-                +1   504               
+0095 E4         +1   504                     CLR     A
 
-0095 6006       +1   505                       JZ     MSTR1
+                +1   505                       
 
-                +1   506               
+0096 93         +1   506             MOVC    A, @A+DPTR       
 
-0097 12007A     +1   507                       LCALL  ESCDADO         
+                +1   507               
 
-                +1   508               
+0097 6006       +1   508                     JZ      MSTR1
 
-009A A3         +1   509                       INC    DPTR
+                +1   509               
 
-                +1   510               
+0099 12007A     +1   510                     LCALL   ESCDADO         
 
-009B 80F6       +1   511                       SJMP   MSTRING
+                +1   511               
 
-                +1   512                       
+009C A3         +1   512                     INC     DPTR
 
-009D 22         +1   513     MSTR1:    RET
+                +1   513               
 
-                +1   514                
+009D 80F4       +1   514                     SJMP    MSTRING
 
-                +1   515     
+                +1   515                       
 
-                +1   516     
+009F            +1   516     MSTR1:  
 
-                +1   517     
+009F D0E0       +1   517                     POP             ACC
 
-                +1   518     
+                +1   518                     
 
-                +1   519     
+00A1 22         +1   519                     RET
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 16:59:24 PAGE     9
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:04:04 PAGE     9
 
-                +1   520     
+                +1   520                
 
                 +1   521     
 
@@ -1070,43 +1070,43 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   523     
 
-009E            +1   524     MSTRINGX: 
+                +1   524     
 
-009E E0         +1   525                       MOVX   A,@DPTR         
+                +1   525     
 
-                +1   526               
+                +1   526     
 
-009F 6006       +1   527                       JZ     MSTR21
+                +1   527     
 
-                +1   528               
+                +1   528     
 
-00A1 12007A     +1   529                       LCALL  ESCDADO         
+                +1   529     
 
-                +1   530               
+00A2            +1   530     MSTRINGX: 
 
-00A4 A3         +1   531                       INC    DPTR
+00A2 E0         +1   531                     MOVX    A, @DPTR         
 
                 +1   532               
 
-00A5 80F7       +1   533                       SJMP   MSTRINGX
+00A3 6006       +1   533                     JZ      MSTR21
 
-                +1   534     
+                +1   534               
 
-00A7 22         +1   535     MSTR21:   RET
+00A5 12007A     +1   535                     LCALL   ESCDADO         
 
-                +1   536     
+                +1   536               
 
-                +1   537     
+00A8 A3         +1   537                     INC     DPTR
 
-                +1   538     
+                +1   538               
 
-                +1   539     
+00A9 80F7       +1   539                     SJMP    MSTRINGX
 
                 +1   540     
 
-                +1   541     
+00AB            +1   541     MSTR21:   
 
-                +1   542     
+00AB 22         +1   542                     RET
 
                 +1   543     
 
@@ -1114,31 +1114,31 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   545     
 
-00A8            +1   546     ESC_STR1: 
+                +1   546     
 
-                +1   547                       
+                +1   547     
 
-00A8 7800       +1   548                       MOV    R0,#00         
+                +1   548     
 
-00AA 7900       +1   549               MOV    R1,#00
+                +1   549     
 
-                +1   550               
+                +1   550     
 
-00AC 8004       +1   551                       JMP    ESC_S
+                +1   551     
 
-                +1   552               
+                +1   552     
 
-                +1   553     
+00AC            +1   553     ESC_STR1: 
 
-                +1   554     
+                +1   554                       
 
-                +1   555     
+00AC 7800       +1   555                       MOV    R0, #00         
 
-                +1   556     
+00AE 7900       +1   556               MOV    R1, #00
 
-                +1   557     
+00B0 8004       +1   557                       JMP    ESC_S
 
-                +1   558     
+                +1   558               
 
                 +1   559     
 
@@ -1146,119 +1146,119 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   561     
 
-00AE            +1   562     ESC_STR2: 
+                +1   562     
 
-                +1   563                       
+                +1   563     
 
-00AE 7801       +1   564                       MOV    R0,#01         
+                +1   564     
 
-00B0 7900       +1   565               MOV    R1,#00
+                +1   565     
 
-                +1   566                       
+                +1   566     
 
-00B2 120036     +1   567     ESC_S:    LCALL  GOTOXY          
+                +1   567     
 
-                +1   568               
+00B2            +1   568     ESC_STR2: 
 
-00B5 120093     +1   569                       LCALL  MSTRING
+                +1   569                       
 
-                +1   570               
+00B2 7801       +1   570                       MOV    R0,#01         
 
-00B8 22         +1   571                       RET
+00B4 7900       +1   571               MOV    R1,#00
 
-                +1   572     
+                +1   572                       
 
-                +1   573     
+00B6 120036     +1   573     ESC_S:    LCALL  GOTOXY          
 
-                +1   574     
+                +1   574               
 
-                +1   575     
+00B9 120093     +1   575                       LCALL  MSTRING
 
-                +1   576     
+                +1   576               
 
-                +1   577     
+00BC 22         +1   577                       RET
 
                 +1   578     
 
-                +1   579     ; DESTROI: R0,R2                                                                        //
+                +1   579     
 
                 +1   580     
 
-00B9            +1   581     CUR_ON:   
+                +1   581     
 
-00B9 780F       +1   582                       MOV    R0,#0Fh               
+                +1   582     
 
-00BB 8002       +1   583               SJMP   CUR1
+                +1   583     
 
-                +1   584                       
+                +1   584     
 
-00BD            +1   585     CUR_OFF:  
+                +1   585     ; DESTROI: R0,R2                                                                        //
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 16:59:24 PAGE    10
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:04:04 PAGE    10
 
-00BD 780C       +1   586                       MOV    R0,#0Ch               
+                +1   586     
 
-                +1   587                       
+00BD            +1   587     CUR_ON:   
 
-00BF 7A01       +1   588     CUR1:     MOV    R2,#01
+00BD 780F       +1   588                       MOV    R0,#0Fh               
 
-                +1   589               
+00BF 8002       +1   589               SJMP   CUR1
 
-00C1 111F       +1   590                       CALL   ESCINST               
+                +1   590                       
 
-                +1   591               
+00C1            +1   591     CUR_OFF:  
 
-00C3 22         +1   592                       RET
+00C1 780C       +1   592                       MOV    R0,#0Ch               
 
                 +1   593                       
 
-                +1   594     
+00C3 7A01       +1   594     CUR1:     MOV    R2,#01
 
-                +1   595     
+                +1   595               
 
-                +1   596     
+00C5 111F       +1   596                       CALL   ESCINST               
 
-                +1   597     
+                +1   597               
 
-                +1   598     
+00C7 22         +1   598                       RET
 
-                +1   599     
+                +1   599                       
 
                 +1   600     
 
-00C4            +1   601     ESCREVE_ASTERISCO:              
+                +1   601     
 
-00C4 742A       +1   602                     MOV     A, #2Ah  
+                +1   602     
 
-00C6 117A       +1   603                     CALL    ESCDADO
+                +1   603     
 
-                +1   604             
+                +1   604     
 
-00C8 22         +1   605                     RET
+                +1   605     
 
-                     606     
+                +1   606     
 
-                     607     ;#include "display_7_segmentos.a51"
+00C8            +1   607     ESCREVE_ASTERISCO:
 
-                +1   608     
+00C8 C0E0       +1   608                     PUSH    ACC
 
-                +1   609     
+                +1   609                     
 
-                +1   610     
+00CA 742A       +1   610                     MOV     A, #2Ah  
 
-                +1   611     
+00CC 117A       +1   611                     CALL    ESCDADO
 
-                +1   612     
+                +1   612             
 
-                +1   613     
+00CE D0E0       +1   613                     POP             ACC
 
-                +1   614     
+                +1   614             
 
-                +1   615     
+00D0 22         +1   615                     RET
 
-                +1   616     
+                     616     
 
-                +1   617     
+                     617     ;#include "display_7_segmentos.a51"
 
                 +1   618     
 
@@ -1282,19 +1282,19 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   628     
 
-  0080          +1   629     PORT_DISPLAY                            EQU     P0
+                +1   629     
 
-  0090          +1   630     DISPLAY_UNIDADE                         EQU P1.0
+                +1   630     
 
-  0091          +1   631     DISPLAY_DEZENA                          EQU P1.1
+                +1   631     
 
-  0092          +1   632     DISPLAY_CENTENA                         EQU     P1.2
+                +1   632     
 
-                +1   633             
+                +1   633     
 
-  0100          +1   634     QTD_DIGITOS                                     EQU 0100h
+                +1   634     
 
-                +1   635             
+                +1   635     
 
                 +1   636     
 
@@ -1302,22 +1302,19 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   638     
 
-                +1   639     
+  0080          +1   639     PORT_DISPLAY                            EQU     P0
 
-00C9            +1   640     TAB7SEG:
+  0090          +1   640     DISPLAY_UNIDADE                         EQU P1.0
 
-00C9 3F065B4F   +1   641             DB 3Fh, 06h, 5Bh, 4Fh, 66h, 6Dh, 7Dh, 07h, 7Fh, 6Fh, 77h, 7Ch, 39h, 5Eh, 79h, 71h
+  0091          +1   641     DISPLAY_DEZENA                          EQU P1.1
 
-00CD 666D7D07                
-00D1 7F6F777C                
-00D5 395E7971                
-                +1   642                     
+  0092          +1   642     DISPLAY_CENTENA                         EQU     P1.2
 
-                +1   643     
+                +1   643             
 
-                +1   644     
+  0100          +1   644     QTD_DIGITOS                                     EQU 0100h
 
-                +1   645     
+                +1   645             
 
                 +1   646     
 
@@ -1325,59 +1322,62 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   648     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 16:59:24 PAGE    11
-
                 +1   649     
 
-00D9            +1   650     MOSTRA_DIGITO_DISPLAY:
+00D1            +1   650     TAB7SEG:
 
-00D9 C083       +1   651                     PUSH    DPH
+00D1 3F065B4F   +1   651             DB 3Fh, 06h, 5Bh, 4Fh, 66h, 6Dh, 7Dh, 07h, 7Fh, 6Fh, 77h, 7Ch, 39h, 5Eh, 79h, 71h
 
-00DB C082       +1   652                     PUSH    DPL
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:04:04 PAGE    11
+
+00D5 666D7D07                
+00D9 7F6F777C                
+00DD 395E7971                
+                +1   652                     
 
                 +1   653     
 
-00DD 9000C9     +1   654                     MOV     DPTR, #TAB7SEG   
+                +1   654     
 
-                +1   655                     
+                +1   655     
 
-00E0 93         +1   656                     MOVC    A, @A + DPTR     
+                +1   656     
 
-00E1 F4         +1   657             CPL     A                
+                +1   657     
 
-00E2 F580       +1   658                     MOV     PORT_DISPLAY, A  
+                +1   658     
 
-                +1   659                     
+                +1   659     
 
-00E4 D082       +1   660                     POP     DPL
+00E1            +1   660     MOSTRA_DIGITO_DISPLAY:
 
-00E6 D083       +1   661                     POP     DPH
+00E1 C083       +1   661                     PUSH    DPH
 
-                +1   662                     
+00E3 C082       +1   662                     PUSH    DPL
 
-00E8 22         +1   663                     RET
+                +1   663     
 
-                +1   664                     
+00E5 9000D1     +1   664                     MOV     DPTR, #TAB7SEG   
 
-                +1   665     
+                +1   665                     
 
-                +1   666     
+00E8 93         +1   666                     MOVC    A, @A + DPTR     
 
-                +1   667     
+00E9 F4         +1   667             CPL     A                
 
-                +1   668     
+00EA F580       +1   668                     MOV     PORT_DISPLAY, A  
 
-                +1   669     
+                +1   669                     
 
-                +1   670     
+00EC D082       +1   670                     POP     DPL
 
-                +1   671     
+00EE D083       +1   671                     POP     DPH
 
-                +1   672     
+                +1   672                     
 
-                +1   673     
+00F0 22         +1   673                     RET
 
-                +1   674     
+                +1   674                     
 
                 +1   675     
 
@@ -1389,145 +1389,145 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   679     
 
-00E9            +1   680     BINARIO_BCD:
+                +1   680     
 
-00E9 C0E0       +1   681                     PUSH    ACC
+                +1   681     
 
-00EB C0F0       +1   682                     PUSH    B
+                +1   682     
 
                 +1   683     
 
-00ED C290       +1   684                     CLR             DISPLAY_UNIDADE
+                +1   684     
 
-00EF C291       +1   685                     CLR             DISPLAY_DEZENA
+                +1   685     
 
-00F1 C292       +1   686                     CLR             DISPLAY_CENTENA
+                +1   686     
 
-                +1   687                     
+                +1   687     
 
-                +1   688                     
+                +1   688     
 
-00F3 E9         +1   689                     MOV             A, R1
+                +1   689     
 
-00F4 FB         +1   690                     MOV             R3, A
+00F1            +1   690     BINARIO_BCD:
 
-                +1   691     
+00F1 C0E0       +1   691                     PUSH    ACC
 
-00F5            +1   692     CONTINUA_BINARIO_BCD:
+00F3 C0F0       +1   692                     PUSH    B
 
-00F5 E8         +1   693                     MOV     A, R0
+                +1   693     
 
-00F6 75F064     +1   694                     MOV     B, #100d  
+00F5 C290       +1   694                     CLR             DISPLAY_UNIDADE
 
-                +1   695                     
+00F7 C291       +1   695                     CLR             DISPLAY_DEZENA
 
-00F9 84         +1   696                     DIV     AB
+00F9 C292       +1   696                     CLR             DISPLAY_CENTENA
 
-00FA D290       +1   697                     SETB    DISPLAY_UNIDADE
+                +1   697                     
 
-00FC 11D9       +1   698                     ACALL   MOSTRA_DIGITO_DISPLAY
+                +1   698                     
 
-                +1   699                     
+00FB E9         +1   699                     MOV             A, R1
 
-00FE 7801       +1   700                     MOV             R0,     #01h
+00FC FB         +1   700                     MOV             R3, A
 
-0100 12013D     +1   701                     LCALL   TIMER_DELAY_1_MS
+                +1   701     
 
-                +1   702                     
+00FD            +1   702     CONTINUA_BINARIO_BCD:
 
-0103 E5F0       +1   703                     MOV     A, B
+00FD E8         +1   703                     MOV     A, R0
 
-0105 75F00A     +1   704                     MOV     B, #10d
+00FE 75F064     +1   704                     MOV     B, #100d  
 
                 +1   705                     
 
-0108 84         +1   706                     DIV     AB
+0101 84         +1   706                     DIV     AB
 
-0109 C290       +1   707                     CLR     DISPLAY_UNIDADE
+0102 D290       +1   707                     SETB    DISPLAY_UNIDADE
 
-010B D291       +1   708                     SETB    DISPLAY_DEZENA
+0104 11E1       +1   708                     ACALL   MOSTRA_DIGITO_DISPLAY
 
-010D 11D9       +1   709                     ACALL   MOSTRA_DIGITO_DISPLAY
+                +1   709                     
 
-                +1   710                     
+0106 7801       +1   710                     MOV             R0,     #01h
 
-010F 7801       +1   711                     MOV             R0,     #01h
+0108 120145     +1   711                     LCALL   TIMER_DELAY_1_MS
 
-0111 12013D     +1   712                     LCALL   TIMER_DELAY_1_MS
+                +1   712                     
 
-                +1   713                     
+010B E5F0       +1   713                     MOV     A, B
 
-0114 E5F0       +1   714                     MOV     A, B
+010D 75F00A     +1   714                     MOV     B, #10d
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 16:59:24 PAGE    12
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:04:04 PAGE    12
 
                 +1   715                     
 
-0116 C291       +1   716                     CLR     DISPLAY_DEZENA
+0110 84         +1   716                     DIV     AB
 
-0118 D292       +1   717                     SETB    DISPLAY_CENTENA
+0111 C290       +1   717                     CLR     DISPLAY_UNIDADE
 
-011A 11D9       +1   718                     ACALL   MOSTRA_DIGITO_DISPLAY
+0113 D291       +1   718                     SETB    DISPLAY_DEZENA
 
-                +1   719                     
+0115 11E1       +1   719                     ACALL   MOSTRA_DIGITO_DISPLAY
 
-011C 7801       +1   720                     MOV             R0,     #01h
+                +1   720                     
 
-011E 12013D     +1   721                     LCALL   TIMER_DELAY_1_MS
+0117 7801       +1   721                     MOV             R0,     #01h
 
-                +1   722                     
+0119 120145     +1   722                     LCALL   TIMER_DELAY_1_MS
 
-0121 C292       +1   723                     CLR             DISPLAY_CENTENA
+                +1   723                     
 
-                +1   724                     
+011C E5F0       +1   724                     MOV     A, B
 
                 +1   725                     
 
-0123 D9D0       +1   726                     DJNZ    R1, CONTINUA_BINARIO_BCD
+011E C291       +1   726                     CLR     DISPLAY_DEZENA
 
-                +1   727                     
+0120 D292       +1   727                     SETB    DISPLAY_CENTENA
 
-0125 EB         +1   728                     MOV             A, R3
+0122 11E1       +1   728                     ACALL   MOSTRA_DIGITO_DISPLAY
 
-0126 F9         +1   729                     MOV             R1, A
+                +1   729                     
 
-                +1   730                     
+0124 7801       +1   730                     MOV             R0,     #01h
 
-0127 DACC       +1   731                     DJNZ    R2, CONTINUA_BINARIO_BCD  
+0126 120145     +1   731                     LCALL   TIMER_DELAY_1_MS
 
                 +1   732                     
 
-0129 D0F0       +1   733                     POP     B
+0129 C292       +1   733                     CLR             DISPLAY_CENTENA
 
-012B D0E0       +1   734                     POP             ACC
+                +1   734                     
 
                 +1   735                     
 
-012D 22         +1   736                     RET
+012B D9D0       +1   736                     DJNZ    R1, CONTINUA_BINARIO_BCD
 
-                     737     
+                +1   737                     
 
-                     738     ;#include "timer.a51"
+012D EB         +1   738                     MOV             A, R3
 
-                +1   739     
+012E F9         +1   739                     MOV             R1, A
 
-                +1   740     
+                +1   740                     
 
-                +1   741     
+012F DACC       +1   741                     DJNZ    R2, CONTINUA_BINARIO_BCD  
 
-                +1   742     
+                +1   742                     
 
-                +1   743     
+0131 D0F0       +1   743                     POP     B
 
-                +1   744     
+0133 D0E0       +1   744                     POP             ACC
 
-                +1   745     
+                +1   745                     
 
-                +1   746     
+0135 22         +1   746                     RET
 
-                +1   747     
+                     747     
 
-                +1   748     
+                     748     ;#include "timer.a51"
 
                 +1   749     
 
@@ -1549,19 +1549,19 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   758     
 
-012E            +1   759     TIMER_CONFIGURA_TIMER_SEM_INT:
+                +1   759     
 
-012E 8F89       +1   760                     MOV     TMOD, R7  
+                +1   760     
 
-                +1   761                     
+                +1   761     
 
-0130 3133       +1   762                     ACALL   SETA_VALORES_TIMER_SEM_INT
+                +1   762     
 
-                +1   763                     
+                +1   763     
 
-0132 22         +1   764                     RET
+                +1   764     
 
-                +1   765                     
+                +1   765     
 
                 +1   766     
 
@@ -1569,31 +1569,31 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   768     
 
-                +1   769     
+0136            +1   769     TIMER_CONFIGURA_TIMER_SEM_INT:
 
-                +1   770     
+0136 8F89       +1   770                     MOV     TMOD, R7  
 
-                +1   771     
+                +1   771                     
 
-                +1   772     
+0138 313B       +1   772                     ACALL   SETA_VALORES_TIMER_SEM_INT
 
-                +1   773     
+                +1   773                     
 
-0133            +1   774     SETA_VALORES_TIMER_SEM_INT:
+013A 22         +1   774                     RET
 
                 +1   775                     
 
-0133 8E8C       +1   776                     MOV     TH0, R6
+                +1   776     
 
-0135 8D8A       +1   777                     MOV     TL0, R5
+                +1   777     
 
-                +1   778                     
+                +1   778     
 
-0137 22         +1   779                     RET
+                +1   779     
 
                 +1   780     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 16:59:24 PAGE    13
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:04:04 PAGE    13
 
                 +1   781     
 
@@ -1601,25 +1601,25 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   783     
 
-                +1   784     
+013B            +1   784     SETA_VALORES_TIMER_SEM_INT:
 
-                +1   785     
+                +1   785                     
 
-                +1   786     
+013B 8E8C       +1   786                     MOV     TH0, R6
 
-                +1   787     
+013D 8D8A       +1   787                     MOV     TL0, R5
 
-0138            +1   788     TIMER_DELAY_10_US: 
+                +1   788                     
 
-0138 7E02       +1   789                     MOV     R6, #02d     
+013F 22         +1   789                     RET
 
-013A DEFE       +1   790                     DJNZ    R6, $
+                +1   790     
 
-                +1   791                     
+                +1   791     
 
-013C 22         +1   792                     RET
+                +1   792     
 
-                +1   793                     
+                +1   793     
 
                 +1   794     
 
@@ -1629,259 +1629,259 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   797     
 
-                +1   798     
+0140            +1   798     TIMER_DELAY_10_US: 
 
-                +1   799     
+0140 7E02       +1   799                     MOV     R6, #02d     
 
-                +1   800     
+0142 DEFE       +1   800                     DJNZ    R6, $
 
-                +1   801     
+                +1   801                     
 
-                +1   802     
+0144 22         +1   802                     RET
 
-                +1   803     
+                +1   803                     
 
-013D            +1   804     TIMER_DELAY_1_MS:
+                +1   804     
 
-                +1   805                     
+                +1   805     
 
-013D 7F01       +1   806                     MOV             R7, #00000001b
+                +1   806     
 
-013F 7EF8       +1   807                     MOV     R6, #HIGH(65535 - 1978)
+                +1   807     
 
-0141 7D45       +1   808                     MOV     R5, #LOW(65535 - 1978)
+                +1   808     
 
-0143 312E       +1   809                     ACALL   TIMER_CONFIGURA_TIMER_SEM_INT
+                +1   809     
 
                 +1   810     
 
-0145            +1   811     CONTINUA_TIMER_1_MS:
+                +1   811     
 
-0145 C28D       +1   812                     CLR     TF0
+                +1   812     
 
-0147 D28C       +1   813                     SETB    TR0
+                +1   813     
 
-                +1   814             
+0145            +1   814     TIMER_DELAY_1_MS:
 
-0149 308DFD     +1   815                     JNB     TF0, $
+                +1   815                     
 
-                +1   816                             
+0145 7F01       +1   816                     MOV             R7, #00000001b
 
-014C 3133       +1   817                     ACALL   SETA_VALORES_TIMER_SEM_INT
+0147 7EF8       +1   817                     MOV     R6, #HIGH(65535 - 1978)
 
-                +1   818                     
+0149 7D45       +1   818                     MOV     R5, #LOW(65535 - 1978)
 
-014E C28D       +1   819                     CLR     TF0
+014B 3136       +1   819                     ACALL   TIMER_CONFIGURA_TIMER_SEM_INT
 
-0150 C28C       +1   820                     CLR     TR0
+                +1   820     
 
-                +1   821             
+014D            +1   821     CONTINUA_TIMER_1_MS:
 
-0152 D8F1       +1   822                     DJNZ    R0, CONTINUA_TIMER_1_MS
+014D C28D       +1   822                     CLR     TF0
 
-                +1   823             
+014F D28C       +1   823                     SETB    TR0
 
-0154 22         +1   824                     RET
+                +1   824             
 
-                +1   825     
+0151 308DFD     +1   825                     JNB     TF0, $
 
-                +1   826     
+                +1   826                             
 
-                +1   827     
+0154 313B       +1   827                     ACALL   SETA_VALORES_TIMER_SEM_INT
 
-                +1   828     
+                +1   828                     
 
-                +1   829     
+0156 C28D       +1   829                     CLR     TF0
 
-                +1   830     
+0158 C28C       +1   830                     CLR     TR0
 
-                +1   831     
+                +1   831             
 
-                +1   832     
+015A D8F1       +1   832                     DJNZ    R0, CONTINUA_TIMER_1_MS
 
-0155            +1   833     TIMER_DELAY_200_MS:
+                +1   833             
 
-0155 78C8       +1   834                     MOV             R0, #0C8h 
+015C 22         +1   834                     RET
 
                 +1   835     
 
-0157 313D       +1   836                     ACALL   TIMER_DELAY_1_MS
+                +1   836     
 
-                +1   837                     
+                +1   837     
 
-0159 D9FA       +1   838                     DJNZ    R1, TIMER_DELAY_200_MS
+                +1   838     
 
-                +1   839             
+                +1   839     
 
-015B 22         +1   840                     RET
+                +1   840     
 
-                +1   841             
+                +1   841     
 
                 +1   842     
 
-                +1   843     
+015D            +1   843     TIMER_DELAY_200_MS:
 
-                +1   844     
+015D 78C8       +1   844                     MOV             R0, #0C8h 
 
                 +1   845     
 
-                +1   846     
+015F 3145       +1   846                     ACALL   TIMER_DELAY_1_MS
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 16:59:24 PAGE    14
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:04:04 PAGE    14
 
-                +1   847     
+                +1   847                     
 
-                +1   848     
+0161 D9FA       +1   848                     DJNZ    R1, TIMER_DELAY_200_MS
 
-015C            +1   849     TIMER_DELAY_1_S:
+                +1   849             
 
-015C 7905       +1   850                     MOV             R1, #05h
+0163 22         +1   850                     RET
 
-015E 3155       +1   851                     ACALL   TIMER_DELAY_200_MS
+                +1   851             
 
-                +1   852                     
+                +1   852     
 
-0160 DAFA       +1   853                     DJNZ    R2, TIMER_DELAY_1_S
+                +1   853     
 
-                +1   854             
+                +1   854     
 
-0162 22         +1   855                     RET
+                +1   855     
 
-                +1   856                     
+                +1   856     
 
                 +1   857     
 
                 +1   858     
 
-                +1   859     
+0164            +1   859     TIMER_DELAY_1_S:
 
-                +1   860     
+0164 7905       +1   860                     MOV             R1, #05h
 
-                +1   861     
+0166 315D       +1   861                     ACALL   TIMER_DELAY_200_MS
 
-                +1   862     
+                +1   862                     
 
-                +1   863     
+0168 DAFA       +1   863                     DJNZ    R2, TIMER_DELAY_1_S
 
-                +1   864     
+                +1   864             
 
-                +1   865     
+016A 22         +1   865                     RET
 
-                +1   866     
+                +1   866                     
 
                 +1   867     
 
                 +1   868     
 
-0163            +1   869     TIMER_DELAY:
+                +1   869     
 
-0163 C0E0       +1   870                     PUSH    ACC
+                +1   870     
 
-0165 C0F0       +1   871                     PUSH    B
+                +1   871     
 
                 +1   872     
 
-0167 BA0013     +1   873                     CJNE    R2, #00h, CHAMA_TIMER_1_S
+                +1   873     
 
                 +1   874     
 
-016A            +1   875     VERIFICA_R1:
+                +1   875     
 
-016A B90009     +1   876                     CJNE    R1, #00h, CHAMA_TIMER_200_MS
+                +1   876     
 
-                +1   877                     
+                +1   877     
 
-016D            +1   878     VERIFICA_R0:
+                +1   878     
 
-016D B80002     +1   879                     CJNE    R0, #00h, CHAMA_TIMER_1_MS
+016B            +1   879     TIMER_DELAY:
 
-                +1   880                     
+016B C0E0       +1   880                     PUSH    ACC
 
-0170 2187       +1   881                     AJMP    FINALIZA_TIMER_DELAY
+016D C0F0       +1   881                     PUSH    B
 
-                +1   882                     
+                +1   882     
 
-0172            +1   883     CHAMA_TIMER_1_MS:
+016F BA0013     +1   883                     CJNE    R2, #00h, CHAMA_TIMER_1_S
 
-0172 313D       +1   884                     ACALL   TIMER_DELAY_1_MS
+                +1   884     
 
-0174 2187       +1   885                     AJMP    FINALIZA_TIMER_DELAY
+0172            +1   885     VERIFICA_R1:
 
-                +1   886     
+0172 B90009     +1   886                     CJNE    R1, #00h, CHAMA_TIMER_200_MS
 
-0176            +1   887     CHAMA_TIMER_200_MS:
+                +1   887                     
 
-0176 EE         +1   888                     MOV             A, R6
+0175            +1   888     VERIFICA_R0:
 
-0177 E8         +1   889                     MOV             A, R0
+0175 B80002     +1   889                     CJNE    R0, #00h, CHAMA_TIMER_1_MS
 
                 +1   890                     
 
-0178 3155       +1   891                     ACALL   TIMER_DELAY_200_MS
+0178 218F       +1   891                     AJMP    FINALIZA_TIMER_DELAY
 
                 +1   892                     
 
-017A F8         +1   893                     MOV             R0, A
+017A            +1   893     CHAMA_TIMER_1_MS:
 
-                +1   894                     
+017A 3145       +1   894                     ACALL   TIMER_DELAY_1_MS
 
-017B 216D       +1   895                     AJMP    VERIFICA_R0
+017C 218F       +1   895                     AJMP    FINALIZA_TIMER_DELAY
 
-                +1   896                     
+                +1   896     
 
-017D            +1   897     CHAMA_TIMER_1_S:
+017E            +1   897     CHAMA_TIMER_200_MS:
 
-017D E8         +1   898                     MOV             A, R0
+017E EE         +1   898                     MOV             A, R6
 
-017E 89F0       +1   899                     MOV             B, R1
+017F E8         +1   899                     MOV             A, R0
 
-                +1   900     
+                +1   900                     
 
-0180 315C       +1   901                     ACALL   TIMER_DELAY_1_S
+0180 315D       +1   901                     ACALL   TIMER_DELAY_200_MS
 
                 +1   902                     
 
 0182 F8         +1   903                     MOV             R0, A
 
-0183 A9F0       +1   904                     MOV             R1, B
+                +1   904                     
 
-                +1   905                     
+0183 2175       +1   905                     AJMP    VERIFICA_R0
 
-0185 216A       +1   906                     AJMP    VERIFICA_R1
+                +1   906                     
 
-                +1   907     
+0185            +1   907     CHAMA_TIMER_1_S:
 
-0187            +1   908     FINALIZA_TIMER_DELAY:
+0185 E8         +1   908                     MOV             A, R0
 
-0187 D0F0       +1   909                     POP             B
+0186 89F0       +1   909                     MOV             B, R1
 
-0189 D0E0       +1   910                     POP     ACC
+                +1   910     
 
-                +1   911                     
+0188 3164       +1   911                     ACALL   TIMER_DELAY_1_S
 
-018B 22         +1   912                     RET
+                +1   912                     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 16:59:24 PAGE    15
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:04:04 PAGE    15
 
-                     913     
+018A F8         +1   913                     MOV             R0, A
 
-                     914     
+018B A9F0       +1   914                     MOV             R1, B
 
-                     915     
+                +1   915                     
 
-                     916     
+018D 2172       +1   916                     AJMP    VERIFICA_R1
 
-                     917     
+                +1   917     
 
-                     918     
+018F            +1   918     FINALIZA_TIMER_DELAY:
 
-                     919     
+018F D0F0       +1   919                     POP             B
 
-                     920     
+0191 D0E0       +1   920                     POP     ACC
 
-                     921     
+                +1   921                     
 
-                     922     
+0193 22         +1   922                     RET
 
                      923     
 
@@ -1893,89 +1893,89 @@ LOC  OBJ            LINE     SOURCE
 
                      927     
 
-0000                 928     ORG 0000h  
+                     928     
 
-0000 020046          929                     LJMP __STARTUP__
+                     929     
 
                      930     
 
-0003                 931     ORG 0003h  
+                     931     
 
-0003 020051          932                     LJMP INT_INT0
+                     932     
 
                      933     
 
-000B                 934     ORG 000Bh  
+                     934     
 
-000B 020052          935                     LJMP INT_TIMER0
+                     935     
 
                      936     
 
-0013                 937     ORG 0013h  
+                     937     
 
-0013 020053          938                     LJMP INT_INT1
+0000                 938     ORG 0000h  
 
-                     939     
+0000 020046          939                     LJMP __STARTUP__
 
-001B                 940     ORG 001Bh  
+                     940     
 
-001B 020054          941                     LJMP INT_TIMER1
+0003                 941     ORG 0003h  
 
-                     942     
+0003 020051          942                     LJMP INT_INT0
 
-0023                 943     ORG 0023h  
+                     943     
 
-0023 020055          944                     LJMP INT_SERIAL
+000B                 944     ORG 000Bh  
 
-                     945     
+000B 020052          945                     LJMP INT_TIMER0
 
-0043                 946     ORG     0043h
+                     946     
 
-0043 020056          947                     LJMP INT_I2C_TWI
+0013                 947     ORG 0013h  
 
-                     948             
+0013 020053          948                     LJMP INT_INT1
 
-0046                 949     __STARTUP__:
+                     949     
 
-0046 7832            950                     MOV             R0, #050d
+001B                 950     ORG 001Bh  
 
-0048 7905            951                     MOV             R1, #005d
+001B 020054          951                     LJMP INT_TIMER1
 
-004A 7A02            952                     MOV             R2, #002d
+                     952     
 
-004C 120163          953                     LCALL   TIMER_DELAY
+0023                 953     ORG 0023h  
 
-                     954                     
+0023 020055          954                     LJMP INT_SERIAL
 
-004F 80F5            955                     JMP     __STARTUP__
+                     955     
 
-                     956     
+0043                 956     ORG     0043h
 
-                     957     
+0043 020056          957                     LJMP INT_I2C_TWI
 
-                     958     
+                     958             
 
-                     959     
+0046                 959     __STARTUP__:
 
-                     960     
+0046 7832            960                     MOV             R0, #050d
 
-                     961     
+0048 7905            961                     MOV             R1, #005d
 
-                     962     
+004A 7A02            962                     MOV             R2, #002d
 
-                     963     
+004C 12016B          963                     LCALL   TIMER_DELAY
 
-                     964     
+                     964                     
 
-                     965     
+004F 80F5            965                     JMP     __STARTUP__
 
                      966     
 
                      967     
 
-0051                 968     INT_INT0:
+                     968     
 
-0051 32              969                     RETI
+                     969     
 
                      970     
 
@@ -1993,13 +1993,13 @@ LOC  OBJ            LINE     SOURCE
 
                      977     
 
-0052                 978     INT_TIMER0:
+0051                 978     INT_INT0:
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 16:59:24 PAGE    16
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:04:04 PAGE    16
 
-0052 32              979                     RETI
+0051 32              979                     RETI
 
-                     980             
+                     980     
 
                      981     
 
@@ -2015,11 +2015,11 @@ LOC  OBJ            LINE     SOURCE
 
                      987     
 
-0053                 988     INT_INT1:
+0052                 988     INT_TIMER0:
 
-0053 32              989                     RETI
+0052 32              989                     RETI
 
-                     990     
+                     990             
 
                      991     
 
@@ -2035,11 +2035,11 @@ LOC  OBJ            LINE     SOURCE
 
                      997     
 
-0054                 998     INT_TIMER1:
+0053                 998     INT_INT1:
 
-0054 32              999                     RETI
+0053 32              999                     RETI
 
-                    1000             
+                    1000     
 
                     1001     
 
@@ -2055,9 +2055,9 @@ LOC  OBJ            LINE     SOURCE
 
                     1007     
 
-0055                1008     INT_SERIAL:
+0054                1008     INT_TIMER1:
 
-0055 32             1009                     RETI
+0054 32             1009                     RETI
 
                     1010             
 
@@ -2075,15 +2075,35 @@ LOC  OBJ            LINE     SOURCE
 
                     1017     
 
-0056                1018     INT_I2C_TWI:
+0055                1018     INT_SERIAL:
 
-0056 32             1019                     RETI
+0055 32             1019                     RETI
 
-                    1020     
+                    1020             
 
-                    1021                     END
+                    1021     
 
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 16:59:24 PAGE    17
+                    1022     
+
+                    1023     
+
+                    1024     
+
+                    1025     
+
+                    1026     
+
+                    1027     
+
+0056                1028     INT_I2C_TWI:
+
+0056 32             1029                     RETI
+
+                    1030     
+
+                    1031                     END
+
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:04:04 PAGE    17
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -2096,7 +2116,7 @@ AUXR. . . . . . . . . . . . .  D ADDR   008EH   A
 AUXR1 . . . . . . . . . . . .  D ADDR   00A2H   A   
 B . . . . . . . . . . . . . .  D ADDR   00F0H   A   
 BDRCON. . . . . . . . . . . .  D ADDR   009BH   A   
-BINARIO_BCD . . . . . . . . .  C ADDR   00E9H   A   
+BINARIO_BCD . . . . . . . . .  C ADDR   00F1H   A   
 BRL . . . . . . . . . . . . .  D ADDR   009AH   A   
 BUSYF . . . . . . . . . . . .  B ADDR   0080H.7 A   
 CCAP0H. . . . . . . . . . . .  D ADDR   00FAH   A   
@@ -2122,9 +2142,9 @@ CCF4. . . . . . . . . . . . .  B ADDR   00D8H.4 A
 CCON. . . . . . . . . . . . .  D ADDR   00D8H   A   
 CF. . . . . . . . . . . . . .  B ADDR   00D8H.7 A   
 CH. . . . . . . . . . . . . .  D ADDR   00F9H   A   
-CHAMA_TIMER_1_MS. . . . . . .  C ADDR   0172H   A   
-CHAMA_TIMER_1_S . . . . . . .  C ADDR   017DH   A   
-CHAMA_TIMER_200_MS. . . . . .  C ADDR   0176H   A   
+CHAMA_TIMER_1_MS. . . . . . .  C ADDR   017AH   A   
+CHAMA_TIMER_1_S . . . . . . .  C ADDR   0185H   A   
+CHAMA_TIMER_200_MS. . . . . .  C ADDR   017EH   A   
 CKCON0. . . . . . . . . . . .  D ADDR   008FH   A   
 CKCON1. . . . . . . . . . . .  D ADDR   00AFH   A   
 CKSEL . . . . . . . . . . . .  D ADDR   0085H   A   
@@ -2134,13 +2154,13 @@ CLR1L1. . . . . . . . . . . .  C ADDR   0052H   A
 CLR2L . . . . . . . . . . . .  C ADDR   0061H   A   
 CLR2L1. . . . . . . . . . . .  C ADDR   006BH   A   
 CMOD. . . . . . . . . . . . .  D ADDR   00D9H   A   
-CONTINUA_BINARIO_BCD. . . . .  C ADDR   00F5H   A   
-CONTINUA_TIMER_1_MS . . . . .  C ADDR   0145H   A   
+CONTINUA_BINARIO_BCD. . . . .  C ADDR   00FDH   A   
+CONTINUA_TIMER_1_MS . . . . .  C ADDR   014DH   A   
 CP_RL2. . . . . . . . . . . .  B ADDR   00C8H.0 A   
 CR. . . . . . . . . . . . . .  B ADDR   00D8H.6 A   
-CUR1. . . . . . . . . . . . .  C ADDR   00BFH   A   
-CUR_OFF . . . . . . . . . . .  C ADDR   00BDH   A   
-CUR_ON. . . . . . . . . . . .  C ADDR   00B9H   A   
+CUR1. . . . . . . . . . . . .  C ADDR   00C3H   A   
+CUR_OFF . . . . . . . . . . .  C ADDR   00C1H   A   
+CUR_ON. . . . . . . . . . . .  C ADDR   00BDH   A   
 C_T2. . . . . . . . . . . . .  B ADDR   00C8H.1 A   
 DISPLAY . . . . . . . . . . .  D ADDR   0080H   A   
 DISPLAY_CENTENA . . . . . . .  B ADDR   0090H.2 A   
@@ -2151,7 +2171,7 @@ DPL . . . . . . . . . . . . .  D ADDR   0082H   A
 EA. . . . . . . . . . . . . .  B ADDR   00A8H.7 A   
 EC. . . . . . . . . . . . . .  B ADDR   00A8H.6 A   
 EECON . . . . . . . . . . . .  D ADDR   00D2H   A   
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 16:59:24 PAGE    18
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:04:04 PAGE    18
 
 EP0INT. . . . . . . . . . . .  B ADDR   00F8H.0 A   
 EP1INT. . . . . . . . . . . .  B ADDR   00F8H.1 A   
@@ -2163,10 +2183,10 @@ EP6INT. . . . . . . . . . . .  B ADDR   00F8H.6 A
 ES. . . . . . . . . . . . . .  B ADDR   00A8H.4 A   
 ESCDADO . . . . . . . . . . .  C ADDR   007AH   A   
 ESCINST . . . . . . . . . . .  C ADDR   001FH   A   
-ESCREVE_ASTERISCO . . . . . .  C ADDR   00C4H   A   
-ESC_S . . . . . . . . . . . .  C ADDR   00B2H   A   
-ESC_STR1. . . . . . . . . . .  C ADDR   00A8H   A   
-ESC_STR2. . . . . . . . . . .  C ADDR   00AEH   A   
+ESCREVE_ASTERISCO . . . . . .  C ADDR   00C8H   A   
+ESC_S . . . . . . . . . . . .  C ADDR   00B6H   A   
+ESC_STR1. . . . . . . . . . .  C ADDR   00ACH   A   
+ESC_STR2. . . . . . . . . . .  C ADDR   00B2H   A   
 ET0 . . . . . . . . . . . . .  B ADDR   00A8H.1 A   
 ET1 . . . . . . . . . . . . .  B ADDR   00A8H.3 A   
 ET2 . . . . . . . . . . . . .  B ADDR   00A8H.5 A   
@@ -2177,7 +2197,7 @@ EXF2. . . . . . . . . . . . .  B ADDR   00C8H.6 A
 E_LCD . . . . . . . . . . . .  B ADDR   00A0H.7 A   
 FCON. . . . . . . . . . . . .  D ADDR   00D1H   A   
 FE_SM0. . . . . . . . . . . .  B ADDR   0098H.7 A   
-FINALIZA_TIMER_DELAY. . . . .  C ADDR   0187H   A   
+FINALIZA_TIMER_DELAY. . . . .  C ADDR   018FH   A   
 GOTOXY. . . . . . . . . . . .  C ADDR   0036H   A   
 GT1 . . . . . . . . . . . . .  C ADDR   003FH   A   
 IE0_. . . . . . . . . . . . .  B ADDR   0088H.1 A   
@@ -2201,11 +2221,11 @@ KBE . . . . . . . . . . . . .  D ADDR   009DH   A
 KBF . . . . . . . . . . . . .  D ADDR   009EH   A   
 KBLS. . . . . . . . . . . . .  D ADDR   009CH   A   
 LEDCON. . . . . . . . . . . .  D ADDR   00F1H   A   
-MOSTRA_DIGITO_DISPLAY . . . .  C ADDR   00D9H   A   
-MSTR1 . . . . . . . . . . . .  C ADDR   009DH   A   
-MSTR21. . . . . . . . . . . .  C ADDR   00A7H   A   
+MOSTRA_DIGITO_DISPLAY . . . .  C ADDR   00E1H   A   
+MSTR1 . . . . . . . . . . . .  C ADDR   009FH   A   
+MSTR21. . . . . . . . . . . .  C ADDR   00ABH   A   
 MSTRING . . . . . . . . . . .  C ADDR   0093H   A   
-MSTRINGX. . . . . . . . . . .  C ADDR   009EH   A   
+MSTRINGX. . . . . . . . . . .  C ADDR   00A2H   A   
 P0. . . . . . . . . . . . . .  D ADDR   0080H   A   
 P0_0. . . . . . . . . . . . .  B ADDR   0080H.0 A   
 P0_1. . . . . . . . . . . . .  B ADDR   0080H.1 A   
@@ -2219,7 +2239,7 @@ P1. . . . . . . . . . . . . .  D ADDR   0090H   A
 P1_0. . . . . . . . . . . . .  B ADDR   0090H.0 A   
 P1_1. . . . . . . . . . . . .  B ADDR   0090H.1 A   
 P1_2. . . . . . . . . . . . .  B ADDR   0090H.2 A   
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 16:59:24 PAGE    19
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:04:04 PAGE    19
 
 P1_3. . . . . . . . . . . . .  B ADDR   0090H.3 A   
 P1_4. . . . . . . . . . . . .  B ADDR   0090H.4 A   
@@ -2272,7 +2292,7 @@ SADDR . . . . . . . . . . . .  D ADDR   00A9H   A
 SADEN . . . . . . . . . . . .  D ADDR   00B9H   A   
 SBUF. . . . . . . . . . . . .  D ADDR   0099H   A   
 SCON. . . . . . . . . . . . .  D ADDR   0098H   A   
-SETA_VALORES_TIMER_SEM_INT. .  C ADDR   0133H   A   
+SETA_VALORES_TIMER_SEM_INT. .  C ADDR   013BH   A   
 SM1 . . . . . . . . . . . . .  B ADDR   0098H.6 A   
 SM2 . . . . . . . . . . . . .  B ADDR   0098H.5 A   
 SP. . . . . . . . . . . . . .  D ADDR   0081H   A   
@@ -2285,9 +2305,9 @@ SSCS. . . . . . . . . . . . .  D ADDR   0094H   A
 SSDAT . . . . . . . . . . . .  D ADDR   0095H   A   
 T2CON . . . . . . . . . . . .  D ADDR   00C8H   A   
 T2MOD . . . . . . . . . . . .  D ADDR   00C9H   A   
-TAB7SEG . . . . . . . . . . .  C ADDR   00C9H   A   
+TAB7SEG . . . . . . . . . . .  C ADDR   00D1H   A   
 TB8 . . . . . . . . . . . . .  B ADDR   0098H.3 A   
-A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 16:59:24 PAGE    20
+A51 MACRO ASSEMBLER  PROJETO00_PADRAO                                                     05/09/2017 17:04:04 PAGE    20
 
 TCLK. . . . . . . . . . . . .  B ADDR   00C8H.4 A   
 TCON. . . . . . . . . . . . .  D ADDR   0088H   A   
@@ -2298,12 +2318,12 @@ TH0 . . . . . . . . . . . . .  D ADDR   008CH   A
 TH1 . . . . . . . . . . . . .  D ADDR   008DH   A   
 TH2 . . . . . . . . . . . . .  D ADDR   00CDH   A   
 TI. . . . . . . . . . . . . .  B ADDR   0098H.1 A   
-TIMER_CONFIGURA_TIMER_SEM_INT  C ADDR   012EH   A   
-TIMER_DELAY . . . . . . . . .  C ADDR   0163H   A   
-TIMER_DELAY_10_US . . . . . .  C ADDR   0138H   A   
-TIMER_DELAY_1_MS. . . . . . .  C ADDR   013DH   A   
-TIMER_DELAY_1_S . . . . . . .  C ADDR   015CH   A   
-TIMER_DELAY_200_MS. . . . . .  C ADDR   0155H   A   
+TIMER_CONFIGURA_TIMER_SEM_INT  C ADDR   0136H   A   
+TIMER_DELAY . . . . . . . . .  C ADDR   016BH   A   
+TIMER_DELAY_10_US . . . . . .  C ADDR   0140H   A   
+TIMER_DELAY_1_MS. . . . . . .  C ADDR   0145H   A   
+TIMER_DELAY_1_S . . . . . . .  C ADDR   0164H   A   
+TIMER_DELAY_200_MS. . . . . .  C ADDR   015DH   A   
 TL0 . . . . . . . . . . . . .  D ADDR   008AH   A   
 TL1 . . . . . . . . . . . . .  D ADDR   008BH   A   
 TL2 . . . . . . . . . . . . .  D ADDR   00CCH   A   
@@ -2328,8 +2348,8 @@ USBADDR . . . . . . . . . . .  D ADDR   00C6H   A
 USBCON. . . . . . . . . . . .  D ADDR   00BCH   A   
 USBIEN. . . . . . . . . . . .  D ADDR   00BEH   A   
 USBINT. . . . . . . . . . . .  D ADDR   00BDH   A   
-VERIFICA_R0 . . . . . . . . .  C ADDR   016DH   A   
-VERIFICA_R1 . . . . . . . . .  C ADDR   016AH   A   
+VERIFICA_R0 . . . . . . . . .  C ADDR   0175H   A   
+VERIFICA_R1 . . . . . . . . .  C ADDR   0172H   A   
 WDTPRG. . . . . . . . . . . .  D ADDR   00A7H   A   
 WDTRST. . . . . . . . . . . .  D ADDR   00A6H   A   
 __STARTUP__ . . . . . . . . .  C ADDR   0046H   A   

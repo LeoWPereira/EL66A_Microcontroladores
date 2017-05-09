@@ -94,10 +94,10 @@ ESCINST:
 GOTOXY: 
 		PUSH    ACC
         
-		MOV     A,#80h
+		MOV     A, #80h
         CJNE    R0, #01h, GT1      // SALTA SE COLUNA 0
         
-		MOV     A,#0C0h
+		MOV     A, #0C0h
 		
 GT1:    ORL     A, R1             // CALCULA O ENDERECO DA MEMORIA DD RAM
         MOV     R0, A
@@ -120,8 +120,8 @@ GT1:    ORL     A, R1             // CALCULA O ENDERECO DA MEMORIA DD RAM
 CLR1L:    
         PUSH   ACC
         
-		MOV    R0,#00h              // LINHA
-        MOV    R1,#00h
+		MOV    R0, #00h              // LINHA
+        MOV    R1, #00h
         
 		CALL   GOTOXY
         
@@ -132,8 +132,8 @@ CLR1L1: MOV    A,#' '              // ESPACO
 		CALL   ESCDADO
         
 		DJNZ   R1, CLR1L1
-        MOV    R0,#00              // LINHA
-        MOV    R1,#00
+        MOV    R0, #00              // LINHA
+        MOV    R1, #00
         
 		CALL   GOTOXY
         
@@ -185,7 +185,7 @@ ESCDADO:
         SETB	RS              // RS  = 1 (SELECIONA REG. DE DADOS)
         SETB  	E_LCD           // LCD = 1 (HABILITA LCD)
 		
-        MOV   	DISPLAY,A       // ESCREVE NO BUS DE DADOS
+        MOV   	DISPLAY, A      // ESCREVE NO BUS DE DADOS
         
 		CLR   	E_LCD           // LCD = 0 (DESABILITA LCD)
 		
@@ -195,7 +195,7 @@ ESCDADO:
 		CLR		RS				// RS = 0 (SELECIONA INSTRUÇÃO)	
 		SETB    E_LCD           // E = 1 (HABILITA LCD)
 
-		JB		BUSYF,$			// ESPERA BUSY FLAG = 0
+		JB		BUSYF, $		// ESPERA BUSY FLAG = 0
 
 		CLR     E_LCD          	// E = 0 (DESABILITA LCD)
 
@@ -211,18 +211,24 @@ ESCDADO:
 // DESTROI: A,DPTR,R0								//
 //////////////////////////////////////////////////////
 MSTRING:  
-		  CLR    A
-          MOVC   A,@A+DPTR      // CARACTER DA MENSAGEM EM A
-          
-		  JZ     MSTR1
-          
-		  LCALL  ESCDADO        // ESCREVE O DADO NO DISPLAY
-          
-		  INC    DPTR
-          
-		  SJMP   MSTRING
+		PUSH	ACC
+		
+		CLR    	A
 		  
-MSTR1:    RET
+        MOVC   	A, @A+DPTR      // CARACTER DA MENSAGEM EM A
+          
+		JZ     	MSTR1
+          
+		LCALL  	ESCDADO        // ESCREVE O DADO NO DISPLAY
+          
+		INC    	DPTR
+          
+		SJMP   	MSTRING
+		  
+MSTR1:  
+		POP		ACC
+		
+		RET
            
 //////////////////////////////////////////////////////
 // NOME: MSTRINGX									//
@@ -234,17 +240,18 @@ MSTR1:    RET
 // DESTROI: A,DPTR,R0								//
 //////////////////////////////////////////////////////
 MSTRINGX: 
-		  MOVX   A,@DPTR        // CARACTER DA MENSAGEM EM A
+		MOVX   	A, @DPTR        // CARACTER DA MENSAGEM EM A
           
-		  JZ     MSTR21
+		JZ     	MSTR21
           
-		  LCALL  ESCDADO        //ESCREVE O DADO NO DISPLAY
+		LCALL  	ESCDADO        //ESCREVE O DADO NO DISPLAY
           
-		  INC    DPTR
+		INC    	DPTR
           
-		  SJMP   MSTRINGX
+		SJMP   	MSTRINGX
 
-MSTR21:   RET
+MSTR21:   
+		RET
 
 //////////////////////////////////////////////////////
 // NOME: ESC_STR1									//
@@ -257,9 +264,8 @@ MSTR21:   RET
 //////////////////////////////////////////////////////
 ESC_STR1: 
 		  // PRIMEIRA LINHA E PRIMEIRA COLUNA
-		  MOV    R0,#00         
-          MOV    R1,#00
-          
+		  MOV    R0, #00         
+          MOV    R1, #00
 		  JMP    ESC_S
           
 //////////////////////////////////////////////////////
@@ -308,10 +314,14 @@ CUR1:     MOV    R2,#01
 // DESCRICAO: ROTINA QUE ESCREVE UM * NO LCD		//
 // ENTRADA: -										//
 // SAIDA: -											//
-// DESTROI: A										//
+// DESTROI: -										//
 //////////////////////////////////////////////////////
-ESCREVE_ASTERISCO:		
+ESCREVE_ASTERISCO:
+		PUSH	ACC
+		
 		MOV 	A, #2Ah // valor em hexa para '*'
 		CALL 	ESCDADO
+	
+		POP		ACC
 	
 		RET
