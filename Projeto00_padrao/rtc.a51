@@ -28,3 +28,142 @@ CTR 	EQU 0857h
 LSB		EQU	0858h
 MSB		EQU 0859h
 	
+MULT 	EQU 0860h // multiplicador de base de tempo utilizado em runT0
+T_OUT   EQU 0861h ; time-out de espera do fim da comunicação
+T_OUTS  EQU 0862h ; contador do numero de time_outs para estatística
+	
+//////////////////////////////////////////////////////
+// Nome:	INIT_RTC								//
+// Descrição: Inicializa a comunicação e o RTC		//
+// Parâmetros: SEC, MIN, HOU, 						//
+// Retorna:											//
+// Destrói: A										//
+//////////////////////////////////////////////////////
+INIT_RTC:
+	//	1.0 - Desabilita as interrupções
+	MOV IEN0, #0x00
+	MOV IEN1, #0x00
+
+	// 	1.1 - Configurar o Timer 0
+	MOV TMOD, #0x01 ; T0 no modo timer 16bits
+
+	//	1.2 - Configurar o I2C (TWI)
+	SETB I2C_SCL
+	SETB I2C_SDA ; Coloca os latches em high-Z
+
+	// CR2 = 0, CR1 = 0, CR0 = 1, divisor XX, clock 24MHz, I2C = XXXk
+	MOV SSCON, #01000001b
+			  //||||||||_ CR0
+		 	  //|||||||__ CR1
+			  //||||||___ AA (vai ser usado apenas na recepção)
+			  //|||||____ SI  flag de int
+			  //||||_____ STO to send a stop
+			  //|||______ STA to send a start
+			  //||_______ SSIE Enable TWI
+			  //|________ CR2
+
+	//	1-3 Habilita as interrupções
+	MOV IPL1, #0x02
+	MOV IPH1, #0x02
+	MOV IEN1, #0x02	// habilita a int do i2c com prioridade alta.
+
+	;SETB ES ; habilita a int da serial (para o flashmon!)
+	SETB EA	// liga as ints habilitadas
+	
+	//------------------------------------------------------------------------------
+	// Configurar o RTC com data e hora definidos
+	//------------------------------------------------------------------------------
+	// 	2.1 - TER, 09/05/2017 - 13:50:00
+	MOV SEC, #000h  // BCD segundos, deve ser iniciado com valor PAR para o relogio funcionar.
+	MOV MIN, #050d // BCD minutos
+	MOV HOU, #010d // BCD hora, se o bit mais alto for 1, o relógio é 12h, senão BCD 24h
+	MOV DAY, #002d // Dia da semana
+	MOV DAT, #009d // Dia
+	MOV MON, #005d // Mês
+	MOV YEA, #017d // Ano
+	MOV CTR, #00010010b ; freq 8192khz
+
+	LCALL RTC_SET_TIME
+	
+	RET
+	
+;------------------------------------------------------------------------------
+; Nome:	RTC_SET_TIME
+; Descrição: escreve data e hora no RTC
+; Parâmetros: SEC, MIN, HOU
+; Retorna:
+; Destrói: A
+;------------------------------------------------------------------------------
+RTC_SET_TIME:
+	MOV ADDR, #0x00		; endereço do reg interno
+	MOV B2W, #(8+1) 	; a quantidade de bytes que deverão ser enviados + 1.
+	MOV B2R, #(0+1)		; a quantidade de bytes que serão lidos + 1.
+	MOV DBASE, #SEC		; endereço base dos dados
+
+	; gera o start, daqui pra frente é tudo na interrupção.
+	MOV A, SSCON
+	ORL A, #STA
+	MOV SSCON, A
+
+	// devemos aguardar um tempo "suficiente" para ser gerada a interrupção de START
+	MOV		R0, #005h
+	MOV		R1, #000h
+	MOV		R2, #000h
+	LCALL	TIMER_DELAY
+
+	; Polling até certo limite! 500 ms
+	MOV T_OUT, #100
+set_wait:
+	JNB I2C_BUSY, end_set
+	
+	// Aguardamos 16 ms
+	MOV		R0, #016d
+	MOV		R1, #000h
+	MOV		R2, #000h
+	LCALL	TIMER_DELAY
+	
+	DJNZ T_OUT,set_wait
+	INC T_OUTS
+end_set:
+	RET
+	
+;------------------------------------------------------------------------------
+; Nome:	RTC_GET_TIME
+; Descrição: lê data e hora do RTC
+; Parâmetros:
+; Retorna: SEC, MIN, HOU
+; Destrói: A
+;------------------------------------------------------------------------------
+RTC_GET_TIME:
+	MOV ADDR, #0x00		; endereço do reg interno
+	MOV B2W, #(0+1) 	; a quantidade de bytes que deverão ser enviados + 1.
+	MOV B2R, #(8+1)		; a quantidade de bytes que serão lidos + 1.
+	MOV DBASE, #SEC		; endereço base dos dados (buffer)
+
+	; gera o start, daqui pra frente é tudo na interrupção.
+	MOV A, SSCON
+	ORL A, #STA
+	MOV SSCON, A
+
+	// devemos aguardar um tempo "suficiente" para ser gerada a interrupção de START
+	MOV		R0, #00Ah
+	MOV		R1, #000h
+	MOV		R2, #000h
+	LCALL	TIMER_DELAY
+
+	; Polling até certo limite. rev2 RdG
+	MOV T_OUT, #100
+get_wait:
+	JNB I2C_BUSY, end_get
+	
+	// Aguardamos 16 ms
+	MOV		R0, #016d
+	MOV		R1, #000h
+	MOV		R2, #000h
+	LCALL	TIMER_DELAY
+	
+	DJNZ 	T_OUT,get_wait
+	INC 	T_OUTS
+
+end_get:
+		RET

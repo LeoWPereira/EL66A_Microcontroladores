@@ -17,6 +17,7 @@ $NOMOD51
 #include "pwm_com_timer.a51"
 #include "i2c_twi.a51"
 #include "rtc.a51"
+#include "serial.a51"
 
 ORG 0000h // Origem do codigo 
 		LJMP __STARTUP__
@@ -40,8 +41,6 @@ ORG	0043h
 		LJMP INT_I2C_TWI
 	
 __STARTUP__:
-		
-
 		JMP 	__STARTUP__
 
 ////////////////////////////////////////////////
