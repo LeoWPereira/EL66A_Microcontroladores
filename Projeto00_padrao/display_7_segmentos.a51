@@ -1,6 +1,7 @@
 //////////////////////////////////////////////////////////
 //														//
-//  		CODIGOS RELACIONADOS A TEMPORIZADORES  		//
+//  		CODIGOS RELACIONADOS AO DISPLAY DE   		//
+//			  SETE SEGMENTOS - ANODO & CATODO			//
 //														//
 // @author: Leonardo Winter Pereira 					//
 // @author: Rodrigo Yudi Endo							//
@@ -9,10 +10,11 @@
 //														//
 // Necessario ter a biblioteca "timer.a51" como 		//
 // dependencia do projeto em questao para funcionar		//
+//														//
+// 														//
+//														//
 //////////////////////////////////////////////////////////
 
-ORG	0D00h
-	
 //////////////////////////////////////////////////
 //       TABELA DE EQUATES DA BIBLIOTECA		//
 //////////////////////////////////////////////////
@@ -22,28 +24,34 @@ DISPLAY_UNIDADE				EQU P1.0
 DISPLAY_DEZENA				EQU P1.1
 DISPLAY_CENTENA				EQU	P1.2
 	
-QTD_DIGITOS					EQU 0DFFh
+QTD_DIGITOS					EQU 0100h
 	
 //////////////////////////////////////////////////
 // REGIAO DA MEMORIA DE PROGRAMA COM AS STRINGS //
 //////////////////////////////////////////////////
 
 TAB7SEG:
-	DB 3FH, 06H, 5BH, 4FH, 66H, 6DH, 7DH, 07H, 7FH, 6FH, 77H, 7CH, 39H, 5EH, 79H, 71H
+	DB 3Fh, 06h, 5Bh, 4Fh, 66h, 6Dh, 7Dh, 07h, 7Fh, 6Fh, 77h, 7Ch, 39h, 5Eh, 79h, 71h
 		
 //////////////////////////////////////////////////////
 // NOME: MOSTRA_DIGITO_DISPLAY						//
 // DESCRICAO: 										//
-// P.ENTRADA: A 					 				//
-// P.SAIDA: 										//
+// P.ENTRADA: A -> Valor do digito [0, F] 			//
+// P.SAIDA: -										//
 // ALTERA: A  										//
 //////////////////////////////////////////////////////
 MOSTRA_DIGITO_DISPLAY:
+		PUSH 	DPH
+		PUSH	DPL
+
 		MOV 	DPTR, #TAB7SEG	// Move para o DPTR o endereco dos valores para o display de 7 segmentos
 		
 		MOVC 	A, @A + DPTR	// busca pelo valor referente ao digito a ser impresso
         CPL 	A           	// complementa o digito a ser impresso (necessario para que o display seja usado corretamente)
 		MOV 	PORT_DISPLAY, A // Envia para o port do display
+		
+		POP 	DPL
+		POP 	DPH
 		
 		RET
 		
@@ -63,7 +71,9 @@ MOSTRA_DIGITO_DISPLAY:
 // ALTERA: R0, R1, R2 E R3  						//
 //////////////////////////////////////////////////////
 BINARIO_BCD:
-		
+		PUSH 	ACC
+		PUSH	B
+
 		CLR		DISPLAY_UNIDADE
 		CLR		DISPLAY_DEZENA
 		CLR		DISPLAY_CENTENA
@@ -112,5 +122,8 @@ CONTINUA_BINARIO_BCD:
 		MOV		R1, A
 		
 		DJNZ 	R2, CONTINUA_BINARIO_BCD  
+		
+		POP 	B
+		POP		ACC
 		
 		RET

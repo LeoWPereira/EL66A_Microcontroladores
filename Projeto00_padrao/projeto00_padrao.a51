@@ -10,8 +10,8 @@
 $NOMOD51
 #include <at89c5131.h>
 #include "lcd16x2.a51"
-//#include "timer.a51"
-//#include "display_7_segmentos.a51"
+#include "display_7_segmentos.a51"
+#include "timer.a51"
 //#include "teclado_matricial_4x4.a51"
 //#include "motor_de_passos.a51"
 //#include "pwm_com_timer.a51"
@@ -19,6 +19,12 @@ $NOMOD51
 //#include "rtc.a51"
 //#include "serial.a51"
 //#include "hc_sr0x"
+
+//////////////////////////////////////////////////
+//       TABELA DE EQUATES DA BIBLIOTECA		//
+////										  ////
+////// 		A comecar no endereco 0x101 	//////
+//////////////////////////////////////////////////
 
 ORG 0000h // Origem do codigo 
 		LJMP __STARTUP__
@@ -42,7 +48,10 @@ ORG	0043h
 		LJMP INT_I2C_TWI
 	
 __STARTUP__:
-		
+		MOV		R0, #050d
+		MOV		R1, #005d
+		MOV		R2, #002d
+		LCALL	TIMER_DELAY
 		
 		JMP 	__STARTUP__
 
