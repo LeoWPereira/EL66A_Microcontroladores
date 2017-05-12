@@ -7,8 +7,6 @@
 //														//
 //////////////////////////////////////////////////////////
 
-ORG	0800h
-
 // Endereços de leitura e escrita do RTC
 RADDR 	EQU 0xD1
 WADDR 	EQU 0xD0

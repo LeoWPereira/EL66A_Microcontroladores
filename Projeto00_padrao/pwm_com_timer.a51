@@ -6,7 +6,9 @@
 // @author: Rodrigo Yudi Endo							//
 //														//
 //////////////////////////////////////////////////////////
-	
+
+ORG		0A00h
+
 PWM_PORT			EQU	P1
 PWM_PIN_0			EQU P1.0
 PWM_PIN_1			EQU P1.1

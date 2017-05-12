@@ -16,7 +16,7 @@ $NOMOD51
 #include "motor_de_passos.a51"
 #include "serial.a51"
 #include "pwm_com_timer.a51"
-//#include "i2c_twi.a51"
+#include "i2c_twi.a51"
 //#include "rtc.a51"
 #include "hc_sr0x.a51"
 
@@ -48,9 +48,50 @@ ORG 0023h // Inicio do codigo da interrupcao SERIAL
 ORG	0043h
 		LJMP INT_I2C_TWI
 	
+org 0100h
+TEXTO_1:
+		db  	'  LEITOR  RFID  ', 00H
+TEXTO_2:
+		db  	' PASSE O CARTAO ', 00H
+	
 __STARTUP__:
+		LCALL	INIDISP  				// chama rotina de inicializacao do display 16x2
+		MOV     DPTR,#TEXTO_1			// seta o DPTR com o endereco da string TEXTO_1
+		LCALL   ESC_STR1				// escreve na primeira linha do display
 		
-		JMP 	__STARTUP__
+		MOV		R2, #01h
+		MOV		R1, #00h
+		MOV		R0, #00h
+		LCALL	TIMER_DELAY
+		
+		MOV     DPTR,#TEXTO_2			// seta o DPTR com o endereco da string TEXTO_2
+		CALL    ESC_STR2				// escreve na primeira linha do display
+		
+		MOV		R2, #01h
+		MOV		R1, #00h
+		MOV		R0, #00h
+		LCALL	TIMER_DELAY
+		
+		LCALL 	CLR2L
+		
+		MOV		R0, #10000000b
+		MOV		R1, #01010000b
+		LCALL	CONFIGURA_SERIAL
+		
+		MOV		R0, #00100001b
+		MOV 	R1, #243
+		LCALL	CONFIGURA_BAUD_RATE
+		
+LOOP:
+		LCALL	RECEBE_DADO
+		LCALL 	ESCDADO
+		
+		MOV		R2, #00h
+		MOV		R1, #01h
+		MOV		R0, #00h
+		LCALL	TIMER_DELAY
+		
+		JMP 	LOOP
 
 ////////////////////////////////////////////////
 // INICIO DOS CODIGOS GERADOS POR INTERRUPCAO //
@@ -114,6 +155,9 @@ INT_SERIAL:
 // ALTERA: 											//
 //////////////////////////////////////////////////////
 INT_I2C_TWI:
+		CPL		P1.4
+		LJMP 	i2c_int
+	
 		RETI
 
 		END

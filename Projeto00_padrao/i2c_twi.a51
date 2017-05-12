@@ -7,7 +7,7 @@
 //														//
 //////////////////////////////////////////////////////////
 
-ORG	0900h
+ORG		0D00h
 
 // Bits do SSCON 
 SSIE	EQU 0x40
@@ -21,12 +21,12 @@ I2C_SDA EQU P4.1
 I2C_SCL EQU P4.0
 	
 // Serao utilizados para chamar as funcoes do i2c
-B2W		EQU 0966h 	// bytes to write
-B2R 	EQU 0967h 	// bytes to read
-ADDR 	EQU 0968h 	// internal register address
-DBASE 	EQU 0969h 	// endereco base dos dados a serem escritos
+B2W		EQU 0F1h 	// bytes to write
+B2R 	EQU 0F2h 	// bytes to read
+ADDR 	EQU 0F3h 	// internal register address
+DBASE 	EQU 0F4h 	// endereco base dos dados a serem escritos
 	
-NACKS   EQU 0970h 	// contador de nacks recebidos
+NACKS   EQU 0F5h 	// contador de nacks recebidos
 	
 ///////////////////////
 // Bits enderecaveis //
@@ -218,7 +218,7 @@ START:
 ; SSDAT = SLA + W
 ; STO = 0 e SI = 0
 	SETB I2C_BUSY		; seta o flag de ocupado
-	MOV SSDAT, #WADDR
+	//MOV SSDAT, #WADDR
 	MOV A, SSCON
 	ANL A, #~(STO | SI)	; zera os bits STO e SI
 	MOV SSCON, A
@@ -229,7 +229,7 @@ RESTART:
 ; onde há a necessidade de fazer um start->escrita->restart->leitura->stop
 ; SSDAT = SLA + R
 ; STO = 0 e SI = 0
-	MOV SSDAT, #RADDR
+	//MOV SSDAT, #RADDR
 	MOV A, SSCON
 	ANL A, #~(STO | SI)	; zera os bits STO e SI
 	MOV SSCON, A

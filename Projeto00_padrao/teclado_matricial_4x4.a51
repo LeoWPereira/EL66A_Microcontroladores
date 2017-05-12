@@ -9,6 +9,8 @@
 //														//
 //////////////////////////////////////////////////////////
 
+ORG		0800h
+
 TECLADO		EQU	P1
 	
 // LINHAS E COLUNAS DO TECLADO MATRICIAL
