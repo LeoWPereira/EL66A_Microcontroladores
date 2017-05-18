@@ -9,10 +9,10 @@ serial_data DATA 08H
 data_save DATA 09H
 data_example DATA 0AH;
 
-org 2000h
+org 000h
 ljmp begin
 
-org 204Bh
+org 04Bh
 ljmp it_SPI
 
 ;/**

@@ -7,6 +7,8 @@
 //														//
 //////////////////////////////////////////////////////////
 
+ORG 	0700h
+
 // Endereços de leitura e escrita do RTC
 RADDR 	EQU 0xD1
 WADDR 	EQU 0xD0
@@ -15,20 +17,20 @@ WADDR 	EQU 0xD0
 RTC_SQW	EQU P2.1
 	
 // Serao utilizados para setar e pegar a data/hora do RTC
-SEC 	EQU 0850h
-MIN 	EQU 0851h
-HOU 	EQU 0852h
-DAY 	EQU 0853h
-DAT 	EQU 0854h
-MON 	EQU 0855h
-YEA 	EQU 0856h
-CTR 	EQU 0857h
-LSB		EQU	0858h
-MSB		EQU 0859h
+SEC 	EQU 00F4h
+MIN 	EQU 00F3h
+HOU 	EQU 00F2h
+DAY 	EQU 00F1h
+DAT 	EQU 00F0h
+MON 	EQU 00EFh
+YEA 	EQU 00EEh
+CTR 	EQU 00EDh
+LSB		EQU	00ECh
+MSB		EQU 00EBh
 	
-MULT 	EQU 0860h // multiplicador de base de tempo utilizado em runT0
-T_OUT   EQU 0861h ; time-out de espera do fim da comunicação
-T_OUTS  EQU 0862h ; contador do numero de time_outs para estatística
+MULT 	EQU 00EAh // multiplicador de base de tempo utilizado em runT0
+T_OUT   EQU 00E9h ; time-out de espera do fim da comunicação
+T_OUTS  EQU 00E8h ; contador do numero de time_outs para estatística
 	
 //////////////////////////////////////////////////////
 // Nome:	INIT_RTC								//

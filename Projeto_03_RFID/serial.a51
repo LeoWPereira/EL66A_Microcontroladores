@@ -21,8 +21,8 @@ ORG		0A00h
 // Destroi:	R0,	R1									//
 //////////////////////////////////////////////////////
 CONFIGURA_SERIAL:
-		MOV 	PCON, R0
 		MOV 	SCON, R1
+		MOV 	PCON, R0
 		
 		CLR		RI
 		CLR		TI
@@ -32,16 +32,16 @@ CONFIGURA_SERIAL:
 //////////////////////////////////////////////////////
 // Nome: CONFIGURA_BAUD_RATE						//
 // Descricao:										//
-// Parametros: R0 -> TMOD							//
+// Parametros: R1 -> TMOD							//
 //			   #00100000b para Timer 1 no modo 1	//
-//			   R1 -> Baud Rate				 		//
+//			   R0 -> Baud Rate				 		//
 //             para o AT89C5131A, 9600 = #243		//
 // Retorna:											//
 // Destroi: R0, R1									//
 //////////////////////////////////////////////////////
 CONFIGURA_BAUD_RATE:
-		MOV 	TMOD, R0 // Timer 1 no modo 2
-		MOV 	TH1, R0  // seta timer1 para baud rate desejado 
+		MOV 	TMOD, R1
+		MOV 	TH1,  R0 
 		
 		SETB 	TR1
 
@@ -59,7 +59,7 @@ RECEBE_DADO:
 		
 		CLR		RI
 		
-		MOV		A, SBUF
+		MOV		A,  SBUF
 
 		RET
 
@@ -73,7 +73,7 @@ RECEBE_DADO:
 ENVIA_DADO:
 		MOV		SBUF, A
 		
-		JNB		TI, $
+		JNB		TI,   $
 		
 		CLR		TI
 		
@@ -84,27 +84,23 @@ ENVIA_DADO:
 // Descricao: 										//
 // Parametros: 				 						//
 // Retorna:											//
-// Destroi: 										//
+// Destroi: A										//
 //////////////////////////////////////////////////////
 ENVIA_OK:
-		PUSH	ACC
-
 		CLR 	TI
 		
-		MOV 	A, #'O'
+		MOV 	A,    #'O'
 		MOV		SBUF, A
 		
-		JNB		TI, $
+		JNB		TI,   $
 		
 		CLR		TI	
 		
-		MOV 	A, #'K'
+		MOV 	A,    #'K'
 		MOV 	SBUF, A
 		
-		JNB 	TI, $
+		JNB 	TI,   $
 		
 		CLR		TI
-		
-		POP		ACC
 		
 		RET

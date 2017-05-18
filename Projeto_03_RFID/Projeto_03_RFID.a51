@@ -10,562 +10,532 @@
 // http://www.circuitstoday.com/interfacing-rfid-module-to-8051
 //////////////////////////////////////////////////////////
 
-org 000h // Origem do codigo 
-ljmp __STARTUP__
 
-org 003h // Inicio do codigo da interrupcao externa INT0
-ljmp INT_INT0
+$NOMOD51
+#include <at89c5131.h>
+#include "lcd16x2.a51"
+#include "timer.a51"
+#include "serial.a51"
+#include "i2c_twi.a51"
+#include "rtc.a51"
 
-org 00Bh // Inicio do codigo da interrupcao interna gerada pelo TIMER/COUNTER 0
-ljmp INT_TIMER0
+BOTAO_SW EQU 20h ;Representa qual interrupcao SW foi pressionado (SW1 = 1 e SW2=0)
 
-org 013h // Inicio do codigo da interrupcao externa INT1
-ljmp INT_INT1
-
-org 01Bh // Inicio do codigo da interrupcao interna gerada pelo TIMER/COUNTER 1
-ljmp INT_TIMER1
-
-org 023h // Inicio do codigo da interrupcao SERIAL
-ljmp INT_SERIAL
-
-org 204Bh
-ljmp it_SPI
-
-////////////////////////////////////////////////
-//       TABELA DE EQUATES DO PROGRAMA		  //
-////////////////////////////////////////////////
-
-// PARA PLACA USB VERMELHA
-RS				EQU	P2.5			// COMANDO RS LCD
-RW				EQU	P2.6			// READ/WRITE
-E_LCD			EQU	P2.7			// COMANDO E (ENABLE) LCD
+SW1 EQU P3.2
+SW2 EQU P3.4
 	
-SPCON EQU 0C3h
-IEN1  EQU 0B1h
-SPDAT EQU 0C5h
-SPSTA EQu 0C4h
-	transmit_completed BIT 20H.1; software flag
-serial_data DATA 08H
-data_save DATA 09H
-data_example DATA 0AH;
+DOMINGO:
+		DB		'DOM', 00H
+SEGUNDA:
+		DB		'SEG', 00H
+TERCA:
+		DB		'TER', 00H
+QUARTA:
+		DB		'QUA', 00H
+QUINTA:
+		DB		'QUI', 00H
+SEXTA:
+		DB		'SEX', 00H
+SABADO:
+		DB		'SAB', 00H
 
-BUSYF			EQU	P0.7			// BUSY FLAG
-
-// LEDS DA PLACA
-LED_SEG 		EQU	P3.6
-LED1   			EQU	P3.7
-	
-// BUZZER
-BUZZER			EQU P3.0	
-		
 //////////////////////////////////////////////////
-// REGIAO DA MEMORIA DE PROGRAMA COM AS STRINGS //
+//       TABELA DE EQUATES DA BIBLIOTECA		//
+////										  ////
+////// 		A finalizar no endereco 0xE7 	//////
+////////			(OBRIGATORIO)		  ////////
 //////////////////////////////////////////////////
 
-org 030h
-TEXTO_1:
-		db  	'  LEITOR  RFID  ', 00H
-TEXTO_2:
-		db  	' PASSE O CARTAO ', 00H
-		
-////////////////////////////////////////////////
-// 				INICIO DO PROGRAMA			  //
-////////////////////////////////////////////////		
+ORG 0000h // Origem do codigo 
+		LJMP __STARTUP__
 
+ORG 0003h // Inicio do codigo da interrupcao externa INT0
+		LJMP INT_INT0
+
+ORG 000Bh // Inicio do codigo da interrupcao interna gerada pelo TIMER/COUNTER 0
+		LJMP INT_TIMER0
+
+ORG 0013h // Inicio do codigo da interrupcao externa INT1
+		LJMP INT_INT1
+
+ORG 001Bh // Inicio do codigo da interrupcao interna gerada pelo TIMER/COUNTER 1
+		LJMP INT_TIMER1
+
+ORG 0023h // Inicio do codigo da interrupcao SERIAL
+		LJMP INT_SERIAL
+
+ORG	0043h
+		LJMP INT_I2C_TWI
+	
 __STARTUP__:
-		CALL 	TIMER_CONFIGURA_TIMER
-		CALL 	INT_CONFIGURA_INTERRUPCOES
+		LCALL 	INIT_RTC
+		LCALL 	INIDISP
 		
-		SETB 	TR1                     // starts Timer1
+		MOV 	CTR, #00010010b
+		CLR 	BOTAO_SW	
 		
-MAIN:
-		CALL	INIDISP  				// chama rotina de inicializacao do display 16x2
-		MOV     DPTR,#TEXTO_1			// seta o DPTR com o endereco da string TEXTO_1
-		CALL    ESC_STR1				// escreve na primeira linha do display
+		MOV 	R1, #00100001b	// Timer 1 no modo 2
+		MOV 	R0, #0F3h		// seta timer1 para baud rate 9600 
+		LCALL	CONFIGURA_BAUD_RATE
 		
-		// Atrasa 1s para escrever outra string
-		MOV		R1, #01h
-		CALL 	TIMER_DELAY_1_S
+		MOV 	R1, #01010000b
+		MOV 	R0, #10000000b
+		LCALL	CONFIGURA_SERIAL
 		
-		MOV     DPTR,#TEXTO_2			// seta o DPTR com o endereco da string TEXTO_2
-		CALL    ESC_STR2				// escreve na primeira linha do display
-		
-		// Atrasa 1s para escrever outra string
-		MOV		R1, #01h
-		CALL 	TIMER_DELAY_1_S
-		
-		ACALL 	CLR2L
+main:
+		LJMP 	LOOP
 	
-		;init
-MOV data_example,#55h;           /* data example */
-
-ORL SPCON,#10h                  /* Master mode */
-SETB P1.1;                       /* enable master */
-ORL SPCON,#82h;                  /* Fclk Periph/128 */
-ANL SPCON,#0F7h;                 /* CPOL=0; transmit mode example */
-ORL SPCON,#04h;                  /* CPHA=1; transmit mode example */
-ORL IEN1,#04h;                   /* enable spi interrupt */
-ORL SPCON,#40h;                  /* run spi */
-CLR transmit_completed;          /* clear software transfert flag */
-SETB EA;                         /* enable interrupts */
-jmp loop
+ESPERA_DADOS:
+	LCALL 	RECEBE_DADO
+	CJNE 	A, #01h, main
+	LCALL 	RECEBE_DADO
+	MOV 	SEC, A ; BCD segundos, deve ser iniciado com valor PAR para o relogio funcionar.
+	LCALL 	RECEBE_DADO
+	MOV 	MIN, A ; BCD minutos
+	LCALL 	RECEBE_DADO
+	MOV 	HOU, A; BCD hora, se o bit mais alto for 1, o relógio é 12h, senão BCD 24h
+	LCALL 	RECEBE_DADO
+	MOV 	DAY, A ; Dia da semana
+	LCALL 	RECEBE_DADO
+	MOV 	DAT, A ; Dia
+	LCALL 	RECEBE_DADO
+	MOV 	MON, A ; Mês
+	LCALL 	RECEBE_DADO
+	MOV 	YEA, A ; Ano
+	LCALL 	RECEBE_DADO
+	MOV 	CTR, A ; CONTROLE
+	LCALL	ENVIA_OK
+	LCALL 	RTC_SET_TIME
+	MOV 	CTR, #10010010b
+	JMP 	LOOP
 		
-		JMP	 	MAIN
-		
-loop:                            /* endless */
+/*BOTAOSW1: 
+	JNB 	BOTAO_SW, EHOSW2
+	MOV 	A, #'S'
+	LCALL 	ENVIA_DADO
+	MOV 	R2, #50
+	LCALL 	ATRASO_MS
+	MOV 	A, #'W'
+	LCALL 	ENVIA_DADO
+	MOV 	R2, #50
+	LCALL 	ATRASO_MS
+	MOV 	A, #31h
+	LCALL 	ENVIA_DADO
+	MOV 	R2, #50
+	LCALL 	ATRASO_MS
+	LJMP 	CONTINUA_ENVIAR*/
 
-   MOV SPDAT,data_example;       /* send an example data */
-   JNB transmit_completed,$;     /* wait end of transmition */
-   CLR transmit_completed;       /* clear software transfert flag */
+EHOSW2:	
+	MOV 	A, #'S'
+	LCALL 	ENVIA_DADO
+	MOV 	R2, #50
+	LCALL 	ATRASO_MS
+	MOV 	A, #'W'
+	LCALL 	ENVIA_DADO
+	MOV 	R2, #50
+	LCALL 	ATRASO_MS
+	MOV 	A, #32h
+	LCALL 	ENVIA_DADO
+	MOV 	R2, #50
+	LCALL 	ATRASO_MS
+CONTINUA_ENVIAR:
+	MOV 	A, #20h ;Manda (espaço)
+	LCALL 	ENVIA_DADO
+	MOV 	R2, #50
+	LCALL	ATRASO_MS
+	MOV 	A, #2Dh ;Manda (-)
+	LCALL 	ENVIA_DADO
+	MOV 	R2, #50
+	LCALL 	ATRASO_MS
+	MOV 	A, #20h ;Manda (espaço)
+	LCALL 	ENVIA_DADO
+	MOV 	R2, #50
+	LCALL 	ATRASO_MS
+	MOV 	A, #'A'
+	LCALL 	ENVIA_DADO
+	MOV 	R2, #50
+	LCALL 	ATRASO_MS
+	MOV 	A, #'c'
+	LCALL 	ENVIA_DADO
+	MOV 	R2, #50
+	LCALL 	ATRASO_MS
+	MOV 	A, #'i'
+	LCALL 	ENVIA_DADO
+	MOV 	R2, #50
+	LCALL 	ATRASO_MS
+	MOV 	A, #'o'
+	LCALL 	ENVIA_DADO
+	MOV 	R2, #50
+	LCALL 	ATRASO_MS
+	MOV 	A, #'n'
+	LCALL 	ENVIA_DADO
+	MOV 	R2, #50
+	LCALL 	ATRASO_MS
+	MOV 	A, #'a'
+	LCALL 	ENVIA_DADO
+	MOV 	R2, #50
+	LCALL 	ATRASO_MS
+	MOV 	A, #'d'
+	LCALL 	ENVIA_DADO
+	MOV 	R2, #50
+	LCALL 	ATRASO_MS
+	MOV 	A, #'o'
+	LCALL 	ENVIA_DADO
+	MOV 	R2, #50
+	LCALL 	ATRASO_MS
+	MOV 	A, #20h
+	LCALL 	ENVIA_DADO
+	MOV 	R2, #50
+	LCALL 	ATRASO_MS
+	MOV 	A, #'a'
+	LCALL 	ENVIA_DADO
+	MOV 	R2, #50
+	LCALL 	ATRASO_MS
+	MOV 	A, #'s'
+	LCALL 	ENVIA_DADO
+	MOV 	R2, #50
+	LCALL 	ATRASO_MS
+	MOV 	A, #20h
+	LCALL 	ENVIA_DADO
+	MOV 	R2, #50
+	LCALL 	ATRASO_MS
+	MOV 	A, HOU ;Manda horas
+	LCALL 	CONVERTE_BCD
+	MOV		A, MSB
+	ADD		A, #30h
+	LCALL 	ENVIA_DADO
+	MOV 	R2, #50
+	LCALL 	ATRASO_MS
+	MOV		A,	LSB
+	ADD		A, #30h
+	LCALL 	ENVIA_DADO
+	MOV 	A, #03Ah ;Manda (:)
+	LCALL 	ENVIA_DADO
+	MOV 	A, MIN ;Manda minutos
+	LCALL 	CONVERTE_BCD
+	MOV		A, MSB
+	ADD		A, #30h
+	LCALL 	ENVIA_DADO
+	MOV		A,	LSB
+	ADD		A, #30h
+	LCALL 	ENVIA_DADO
+	MOV 	A, #03Ah ;Manda (:)
+	LCALL 	ENVIA_DADO
+	MOV 	A, SEC ;Manda segundos
+	LCALL 	CONVERTE_BCD
+	MOV		A, MSB
+	ADD		A, #30h
+	LCALL 	ENVIA_DADO
+	MOV		A,	LSB
+	ADD		A, #30h
+	LCALL 	ENVIA_DADO
+	MOV 	A, #20h ;Manda (espaço)
+	LCALL 	ENVIA_DADO
+	MOV 	A, #2Dh ;Manda (-)
+	LCALL 	ENVIA_DADO
+	MOV 	A, #20h ;Manda (espaço)
+	LCALL 	ENVIA_DADO
+	MOV 	A, DAT ;Manda dia
+	LCALL 	CONVERTE_BCD
+	MOV		A, MSB
+	ADD		A, #30h
+	LCALL 	ENVIA_DADO
+	MOV		A,	LSB
+	ADD		A, #30h
+	LCALL 	ENVIA_DADO
+	MOV 	A, #2Fh ;Manda (/)
+	LCALL 	ENVIA_DADO
+	MOV 	A, MON ;Manda mes
+	LCALL 	CONVERTE_BCD
+	MOV		A, MSB
+	ADD		A, #30h
+	LCALL 	ENVIA_DADO
+	MOV		A,	LSB
+	ADD		A, #30h
+	LCALL 	ENVIA_DADO
+	MOV 	A, #2Fh ;Manda (/)
+	LCALL 	ENVIA_DADO
+	MOV 	A, YEA ; Manda ano
+	LCALL 	CONVERTE_BCD
+	MOV		A, MSB
+	ADD		A, #30h
+	LCALL 	ENVIA_DADO
+	MOV		A,	LSB
+	ADD		A, #30h
+	LCALL 	ENVIA_DADO
+	MOV 	A, #20h ;Manda (espaço)
+	LCALL 	ENVIA_DADO
+	MOV 	A, #0Dh ;Retorno ao inicio da linha
+	LCALL 	ENVIA_DADO
+	MOV 	A, #0Ah ; Nova linha
+	LCALL 	ENVIA_DADO
 
-   MOV SPDAT,#00h;               /* data is send to generate SCK signal */
-   JNB transmit_completed,$;     /* wait end of transmition */
-   CLR transmit_completed;       /* clear software transfert flag */
-   MOV data_save,serial_data;    /* save receive data */  
+;------------------------------------------------------------------------------
+;Ler o RTC periodicamente
+;------------------------------------------------------------------------------
+LOOP:
+;	MOV 	R7, #0x01
+	MOV 	R2, #50
+	LCALL 	ATRASO_MS
+	/*JNB 	SW1, BOTAUMSW1
+	JNB 	SW2, BOTAUMSW2*/
+	JNB 	RI, tanormal
+	CLR		RI
+	MOV		A, SBUF
+	CJNE 	A, #0AAh, tanormal
+	LJMP 	ESPERA_DADOS
+tanormal:
+	JMP 	reload
+/*BOTAUMSW1: 
+	SETB 	BOTAO_SW
+	LJMP 	BOTAOSW1
+BOTAUMSW2:
+	CLR 	BOTAO_SW
+	LJMP 	BOTAOSW1*/
+reload:
+	MOV 	R6, #0x01		; 1x
+again:
+	MOV 	MULT, #0xA0	; 250x
+	LCALL 	runT0			; 0.5ms
+	DJNZ 	R6, again		; = 125 ms
+;	DJNZ 	R7, reload		; 125 ms x 4 = 0,5s
+	LCALL	RTC_GET_TIME
+	CPL 	P3.6			; toggle no led
+	LCALL	ATUALIZA_DISPLAY
+	JMP 	LOOP;
 
-LJMP loop
-		
-READ:
-		MOV 	R0,#12d             //loads R0 with 12D
-		MOV 	R1,#160d            //loads R1 with 160D
-
-WAIT:
-		JNB 	RI, WAIT             //loops here until RI flag is set
-		MOV 	A,	SBUF              //moves SBUF to A         
-		MOV 	@R1, A               //moves A to location pointed by R1
-		CLR 	RI                  //clears RI flag
-		DJNZ 	R0, WAIT            //iterates the loop 12 times
-     
-		RET                     //return from subroutine
-
-WRITE:
-		MOV 	R2,#12d            //loads R2 with 12D
-		MOV 	R1,#160d           //loads R1 with 160D
-
-BACK1:
-		MOV 	A,@R1              //loads A with data pointed by R1
-		ACALL 	ESCDADO          //calls DISPLAY subroutine
-		INC 	R1                 //incremets R1
-		DJNZ 	R2,BACK1          //iterates the loop 160 times
-      
-		RET                    //return from subroutine
-	   
-///////////////////
-// ACIONA BUZZER //
-//  R0 x 20 MS 	 //
-///////////////////
-ACIONA_BUZZER:
-		SETB 	BUZZER
-		ACALL 	TIMER_DELAY_20_MS
-		CLR 	BUZZER
-		
-		RET
-		
-////////////////////////////////////////////////
-// 		  INICIO DOS CODIGOS PARA LCD		  //
-////////////////////////////////////////////////
+;entra: A
+;sai:	LSB, MSB
+CONVERTE_BCD:
+	PUSH	ACC
+	ANL		A, #0Fh
+	MOV 	LSB, A
+	POP		ACC
+	SWAP	A
+	ANL		A, #0Fh
+	MOV		MSB, A
+	RET
 	
-//////////////////////////////////////////////////////
-// NOME: INIDISP								  	//
-// DESCRICAO: ROTINA DE INICIALIZACAO DO DISPLAY	//
-// LCD 16x2 --- PROGRAMA CARACTER 5x7, LIMPA		//
-// DISPLAY E POSICIONA (0,0)						//
-// ENTRADA: -										//
-// SAIDA: -											//
-// DESTROI: R0, R2									//
-//////////////////////////////////////////////////////
-INIDISP:                       
-        MOV     R0,#38H         // UTILIZACAO: 8 BITS, 2 LINHAS, 5x7
-        MOV     R2,#05          // ESPERA 5ms
-        CALL    ESCINST         // ENVIA A INSTRUCAO
-        
-		MOV     R0,#38H         // UTILIZACAO: 8 BITS, 2 LINHAS, 5x7
-        MOV     R2,#01          // ESPERA 1ms
-        CALL    ESCINST         // ENVIA A INSTRUCAO
-        
-		MOV     R0,#06H         // INSTRUCAO DE MODO DE OPERACAO
-        MOV     R2,#01          // ESPERA 1ms
-        CALL    ESCINST         // ENVIA A INSTRUCAO
-        
-		MOV     R0,#0CH         // INSTRUCAO DE CONTROLE ATIVO/INATIVO
-        MOV     R2,#01          // ESPERA 1ms
-        CALL    ESCINST         // ENVIA A INSTRUCAO
-        
-		MOV     R0,#01H         // INSTRUCAO DE LIMPEZA DO DISPLAY
-        MOV     R2,#02          // ESPERA 2ms
-        CALL    ESCINST         // ENVIA A INSTRUCAO
-        
-		RET
-		
-//////////////////////////////////////////////////////
-// NOME: ESCINST									//
-// DESCRICAO: ROTINA QUE ESCREVE INSTRUCAO PARA O	//
-// DISPLAY E ESPERA DESOCUPAR						//
-// ENTRADA: R0 = INSTRUCAO A SER ESCRITA NO MODULO	//
-//          R2 = TEMPO DE ESPERA EM ms				//
-// SAIDA: -											//
-// DESTROI: R0, R2									//	
-//////////////////////////////////////////////////////
-ESCINST:  
-		CLR		RW				// MODO ESCRITA NO LCD
-		CLR     RS              // RS  = 0 (SELECIONA REG. DE INSTRUCOES)
-		SETB    E_LCD           // E = 1 (HABILITA LCD)
-		
-		MOV     P0,R0           // INSTRUCAO A SER ESCRITA
-		
-		CLR     E_LCD           // E = 0 (DESABILITA LCD)
-		
-		MOV		P0,#0xFF		// PORTA 0 COMO ENTRADA
-		
-		SETB	RW				// MODO LEITURA NO LCD	
-		SETB    E_LCD           // E = 1 (HABILITA LCD)	
-
-ESCI1:	JB	BUSYF,ESCI1			// ESPERA BUSY FLAG = 0
-		
-		CLR     E_LCD           // E = 0 (DESABILITA LCD)
-        
-		RET
-		
-//////////////////////////////////////////////////////
-// NOME: GOTOXY										//
-// DESCRICAO: ROTINA QUE POSICIONA O CURSOR			//
-// ENTRADA: R0 = LINHA (0 A 1)						//
-//          R1 = COLUNA (0 A 15)					//
-// SAIDA: -											//
-// DESTROI: R0,R2									//
-//////////////////////////////////////////////////////
-GOTOXY: 
-		PUSH    ACC
-        
-		MOV     A,#80H
-        CJNE    R0,#01,GT1      // SALTA SE COLUNA 0
-        
-		MOV     A,#0C0H
-		
-GT1:    ORL     A,R1            // CALCULA O ENDERECO DA MEMORIA DD RAM
-        MOV     R0,A
-        MOV     R2,#01          // ESPERA 1ms               
-        
-		CALL    ESCINST         // ENVIA PARA O MODULO DISPLAY
-        
-		POP     ACC
-        
-		RET
+ATUALIZA_DISPLAY:
+	LCALL	CLR1L ;Clear na linha 1
+	MOV		A, HOU ;Atualiza hora
+	LCALL	CONVERTE_BCD
+	MOV		A, MSB
+	ADD		A, #30h
+	LCALL	ESCDADO
+	MOV		A,	LSB
+	ADD		A, #30h
+	LCALL	ESCDADO
+	MOV		A, #3Ah ;Manda (:)
+	LCALL	ESCDADO
+	MOV		A, MIN ;Atualiza minutos
+	LCALL	CONVERTE_BCD
+	MOV		A, MSB
+	ADD		A, #30h
+	LCALL	ESCDADO
+	MOV		A,	LSB
+	ADD		A, #30h
+	LCALL	ESCDADO
+	MOV		A, #3Ah ;Manda (:)
+	LCALL	ESCDADO
+	MOV		A, SEC ;Atualiza segundos
+	LCALL	CONVERTE_BCD
+	MOV		A, MSB
+	ADD		A, #30h
+	LCALL	ESCDADO
+	MOV		A,	LSB
+	ADD		A, #30h
+	LCALL	ESCDADO
+	LCALL 	CLR2L ;Clear na linha 2
+	MOV		A, DAT ;Atualiza dia
+	LCALL	CONVERTE_BCD
+	MOV		A, MSB
+	ADD		A, #30h
+	LCALL	ESCDADO
+	MOV		A,	LSB
+	ADD		A, #30h
+	LCALL	ESCDADO
+	MOV		A, #2Fh ;Manda(/)
+	LCALL	ESCDADO
+	MOV		A, MON ;Atualiza mes
+	LCALL	CONVERTE_BCD
+	MOV		A, MSB
+	ADD		A, #30h
+	LCALL	ESCDADO
+	MOV		A,	LSB
+	ADD		A, #30h
+	LCALL	ESCDADO
+	MOV		A, #2Fh ;Manda(/)
+	LCALL	ESCDADO
+	MOV		A, YEA ;Atualiza ano
+	LCALL	CONVERTE_BCD
+	MOV		A, MSB
+	ADD		A, #30h
+	LCALL	ESCDADO
+	MOV		A,	LSB
+	ADD		A, #30h
+	LCALL	ESCDADO
+	MOV		A, #20h ;Manda (espaço)
+	LCALL	ESCDADO
+	MOV		A, #2Dh ;Manda(-)
+	LCALL	ESCDADO
+	MOV		A, #20h ;Manda (espaço)
+	LCALL	ESCDADO
+	MOV		A, DAY ;Atualiza dia da semana
+	CJNE A, #01, SEGU
+	MOV      DPTR,#DOMINGO		;STRING 
+	LCALL    MSTRING 
+	RET
 	
-//////////////////////////////////////////////////////
-// NOME: CLR1L										//
-// DESCRICAO: ROTINA QUE APAGA PRIMEIRA LINHA DO	//
-// DISPLAY LCD E POSICIONA NO INICIO				//
-// ENTRADA: -										//
-// SAIDA: -											//
-// DESTROI: R0,R1									//
-//////////////////////////////////////////////////////
-CLR1L:    
-        PUSH   ACC
-        
-		MOV    R0,#00              // LINHA
-        MOV    R1,#00
-        
-		CALL   GOTOXY
-        
-		MOV    R1,#16              // CONTADOR
-
-CLR1L1: MOV    A,#' '              // ESPACO
-        
-		CALL   ESCDADO
-        
-		DJNZ   R1,CLR1L1
-        MOV    R0,#00              // LINHA
-        MOV    R1,#00
-        
-		CALL   GOTOXY
-        
-		POP    ACC
-        
-		RET
-		
-//////////////////////////////////////////////////////
-// NOME: CLR2L										//
-// DESCRICAO: ROTINA QUE APAGA SEGUNDA LINHA DO		//
-// DISPLAY LCD E POSICIONA NO INICIO				//
-// ENTRADA: -										//
-// SAIDA: -											//
-// DESTROI: R0,R1									//
-//////////////////////////////////////////////////////
-CLR2L:    
-        PUSH   ACC
-        
-		MOV    R0,#01              // LINHA
-        MOV    R1,#00
-        
-		CALL   GOTOXY
-        
-		MOV    R1,#16              // CONTADOR
-
-CLR2L1: MOV    A,#' '              // ESPACO
-        
-		CALL   ESCDADO
-        
-		DJNZ   R1,CLR2L1
-        MOV    R0,#01              // LINHA
-        MOV    R1,#00
-        
-		CALL   GOTOXY
-        
-		POP    ACC
-        
-		RET
-           
-//////////////////////////////////////////////////////
-// NOME: ESCDADO									//
-// DESCRICAO: ROTINA QUE ESCREVE DADO NO DISPLAY	//
-// ENTRADA: A = DADO A SER ESCRITO NO DISPLAY		//
-// SAIDA: -											//
-// DESTROI: R0 										//
-//////////////////////////////////////////////////////
-ESCDADO:  
-		CLR		RW				// MODO ESCRITA NO LCD
-        SETB	RS              // RS  = 1 (SELECIONA REG. DE DADOS)
-        SETB  	E_LCD           // LCD = 1 (HABILITA LCD)
-		
-        MOV   	P0,A            // ESCREVE NO BUS DE DADOS
-        
-		CLR   	E_LCD           // LCD = 0 (DESABILITA LCD)
-		
-		MOV		P0,#0xFF		// PORTA 0 COMO ENTRADA
-		
-		SETB	RW				// MODO LEITURA NO LCD
-		CLR		RS				// RS = 0 (SELECIONA INSTRUÇÃO)	
-		SETB    E_LCD           // E = 1 (HABILITA LCD)
-
-ESCD1:	JB		BUSYF,ESCD1		// ESPERA BUSY FLAG = 0
-
-		CLR     E_LCD          	// E = 0 (DESABILITA LCD)
-
-        RET
-		
-//////////////////////////////////////////////////////
-// NOME: MSTRING									//
-// DESCRICAO: ROTINA QUE ESCREVE UMA STRING DA ROM	//
-// NO DISPLAY A PARTIR DA POSICAO DO CURSOR			//
-// ENTRADA: DPTR = ENDERECO INICIAL DA STRING NA	//
-// MEMORIA ROM FINALIZADA POR 00H					//
-// SAIDA: -											//
-// DESTROI: A,DPTR,R0								//
-//////////////////////////////////////////////////////
-MSTRING:  
-		  CLR    A
-          MOVC   A,@A+DPTR      // CARACTER DA MENSAGEM EM A
-          
-		  JZ     MSTR1
-          
-		  LCALL  ESCDADO        // ESCREVE O DADO NO DISPLAY
-          
-		  INC    DPTR
-          
-		  SJMP   MSTRING
-		  
-MSTR1:    RET
-           
-//////////////////////////////////////////////////////
-// NOME: MSTRINGX									//
-// DESCRICAO: ROTINA QUE ESCREVE UMA STRING DA RAM	//
-// NO DISPLAY A PARTIR DA POSICAO DO CURSOR			//
-// ENTRADA: DPTR = ENDERECO INICIAL DA STRING NA	//
-// MEMORIA RAM FINALIZADA POR 00H					//
-// SAIDA: -											//
-// DESTROI: A,DPTR,R0								//
-//////////////////////////////////////////////////////
-MSTRINGX: 
-		  MOVX   A,@DPTR        // CARACTER DA MENSAGEM EM A
-          
-		  JZ     MSTR21
-          
-		  LCALL  ESCDADO        //ESCREVE O DADO NO DISPLAY
-          
-		  INC    DPTR
-          
-		  SJMP   MSTRINGX
-
-MSTR21:   RET
-
-//////////////////////////////////////////////////////
-// NOME: ESC_STR1									//
-// DESCRICAO: ROTINA QUE ESCREVE UMA STRING NO		//
-// DISPLAY A PARTIR DO INICIO DA PRIMEIRA LINHA		//
-// ENTRADA: DPTR = ENDERECO INICIAL DA STRING NA	//
-// MEMORIA ROM FINALIZADA POR 00H					//
-// SAIDA: -											//
-// DESTROI: R0,A,DPTR								//
-//////////////////////////////////////////////////////
-ESC_STR1: 
-		  // PRIMEIRA LINHA E PRIMEIRA COLUNA
-		  MOV    R0,#00         
-          MOV    R1,#00
-          
-		  JMP    ESC_S
-          
-//////////////////////////////////////////////////////
-// NOME: ESC_STR2									//
-// DESCRICAO: ROTINA QUE ESCREVE UMA STRING NO		//
-// DISPLAY A PARTIR DO INICIO DA SEGUNDA LINHA		//
-// ENTRADA: DPTR = ENDERECO INICIAL DA STRING NA	//
-// MEMORIA ROM FINALIZADA POR 00H					//
-// SAIDA: -											//
-// DESTROI: R0,A,DPTR								//
-//////////////////////////////////////////////////////
-ESC_STR2: 
-		  // SEGUNDA LINHA E PRIMEIRA COLUNA
-		  MOV    R0,#01         
-          MOV    R1,#00
-		  
-ESC_S:    LCALL  GOTOXY         // POSICIONA O CURSOR
-          
-		  LCALL  MSTRING
-          
-		  RET
-
-//////////////////////////////////////////////////////
-// NOME: CUR_ON E CUR_OFF							//
-// DESCRICAO: ROTINA CUR_ON => LIGA CURSOR DO LCD	//
-//        ROTINA CUR_OFF => DESLIGA CURSOR DO LCD	//
-// ENTRADA: -										//
-// SAIDA: -											//
-; DESTROI: R0,R2									//
-//////////////////////////////////////////////////////
-CUR_ON:   
-		  MOV    R0,#0FH              // INST.CONTROLE ATIVO (CUR ON)
-          SJMP   CUR1
-		  
-CUR_OFF:  
-		  MOV    R0,#0CH              // INST. CONTROLE INATIVO (CUR OFF)
-		  
-CUR1:     MOV    R2,#01
-	  
-		  CALL   ESCINST              // ENVIA A INSTRUCAO
-          
-		  RET
-		  
-////////////////////////////////////////////////
-// 	     CODIGOS RELACIONADOS AO TIMER		  //
-////////////////////////////////////////////////
-		  
-TIMER_CONFIGURA_TIMER:
-		MOV 	TMOD, #00100001b // Seta o TIMER_0 para o modo 01 (16 bits) e o TIMER_1 para o modo 02 (8 bits com reset)
-		
-		// Para o TIMER_0, TH0 e TL0 representam o necessario para um delay de 20ms
-		MOV 	TH0, #HIGH(65535 - 43350)
-		MOV 	TL0, #LOW(65535 - 43350)
-		
-		MOV 	TH1, #249d
-		
-		RET
+SEGU:
+	CJNE 	A, #02, TER
+	MOV     DPTR,#SEGUNDA		;STRING 
+	LCALL   MSTRING
+	RET
+TER:
+	CJNE 	A, #03, QUA
+	MOV     DPTR,#TERCA		;STRING 
+	LCALL   MSTRING
+	RET
+QUA:
+	CJNE 	A, #04, QUI
+	MOV     DPTR,#QUARTA		;STRING 
+	LCALL   MSTRING
+	RET
+QUI:
+	CJNE 	A, #05, SEX
+	MOV     DPTR,#QUINTA		;STRING 
+	LCALL   MSTRING
+	RET
+SEX:
+	CJNE 	A, #06, SAB
+	MOV     DPTR,#SEXTA		;STRING 
+	LCALL   MSTRING
+	RET
+SAB:
+	CJNE 	A, #07, RETORNA
+	MOV     DPTR,#SABADO		;STRING 
+	LCALL   MSTRING
+RETORNA:
+	RET
 	
-//////////////////////////////////////////////////////
-// NOME: TIMER_DELAY_20_MS							//
-// DESCRICAO: INTRODUZ UM ATRASO DE 20 MS			//
-// P.ENTRADA: R0 => (R0 x 20) ms  					//
-// P.SAIDA: -										//
-// ALTERA: R0										//
-//////////////////////////////////////////////////////
-TIMER_DELAY_20_MS:
-		CLR TF0
-		SETB TR0
-	
-		JNB TF0, $
-		
-		CLR TF0
-		CLR TR0
-	
-		DJNZ R0, TIMER_DELAY_20_MS
-	
-		RET
-	
-//////////////////////////////////////////////////////
-// NOME: TIMER_DELAY_1_S							//
-// DESCRICAO: INTRODUZ UM ATRASO DE 1 S				//
-// P.ENTRADA: R1 = y => (y x 1) s 	 				//
-// P.SAIDA: -										//
-// ALTERA: R1										//
-//////////////////////////////////////////////////////
-TIMER_DELAY_1_S:
-		MOV		R0, #50d
-		CALL 	TIMER_DELAY_20_MS
-		
-		DJNZ	R1, TIMER_DELAY_1_S
-	
-		RET
-
 ////////////////////////////////////////////////
 // INICIO DOS CODIGOS GERADOS POR INTERRUPCAO //
 ////////////////////////////////////////////////
 
-INT_CONFIGURA_INTERRUPCOES:
-		MOV		IE, 	#10001000b // Configura interrupcao apenas para o TIMER_1
-		MOV		IP,		#00001000b // da prioridade alta para o TIMER_1
-		
-		MOV 	SCON,	#01010000b       // sets serial port to Mode1 and receiver enabled
-		
-		RET
-
-/*
-*
-*/
+//////////////////////////////////////////////////////
+// NOME: INT_INT0									//
+// DESCRICAO: 										//
+// P.ENTRADA:					 	 				//
+// P.SAIDA: 										//
+// ALTERA: 											//
+//////////////////////////////////////////////////////
 INT_INT0:
 		RETI
 
-/*
-*
-*/
+//////////////////////////////////////////////////////
+// NOME: INT_TIMER0									//
+// DESCRICAO: 										//
+// P.ENTRADA:					 	 				//
+// P.SAIDA: 										//
+// ALTERA: 											//
+//////////////////////////////////////////////////////
 INT_TIMER0:
 		RETI
 	
-/*
-*
-*/
+//////////////////////////////////////////////////////
+// NOME: INT_INT1									//
+// DESCRICAO: 										//
+// P.ENTRADA:					 	 				//
+// P.SAIDA: 										//
+// ALTERA: 											//
+//////////////////////////////////////////////////////
 INT_INT1:
 		RETI
 
-/*
-*
-*/
+//////////////////////////////////////////////////////
+// NOME: INT_TIMER1									//
+// DESCRICAO: 										//
+// P.ENTRADA:					 	 				//
+// P.SAIDA: 										//
+// ALTERA: 											//
+//////////////////////////////////////////////////////
 INT_TIMER1:
 		RETI
 	
-/*
-*
-*/
+//////////////////////////////////////////////////////
+// NOME: INT_SERIAL									//
+// DESCRICAO: 										//
+// P.ENTRADA:					 	 				//
+// P.SAIDA: 										//
+// ALTERA: 											//
+//////////////////////////////////////////////////////
 INT_SERIAL:
 		RETI
 	
-;/**
-; * FUNCTION_PURPOSE:interrupt
-; * FUNCTION_INPUTS: void
-; * FUNCTION_OUTPUTS: transmit_complete is software transfert flag
-; */
-it_SPI:;                         /* interrupt address is 0x004B */
+//////////////////////////////////////////////////////
+// NOME: INT_I2C_TWI								//
+// DESCRICAO: 										//
+// P.ENTRADA:					 	 				//
+// P.SAIDA: 										//
+// ALTERA: 											//
+//////////////////////////////////////////////////////
+INT_I2C_TWI:
+		CPL		P1.4
+		LJMP 	i2c_int
 
-MOV R7,SPSTA;
-MOV ACC,R7
-JNB ACC.7,break1;case 0x80:
-    MOV serial_data,SPDAT;       /* read receive data */
+		RETI
+
+;===============================================================================
+; Funções do Timer0
+;===============================================================================
+;------------------------------------------------------------------------------
+; Nome: runT0
+; Descrição: Gera atraso de tempo utilizando Timer0
+; Parâmetros: MULT
+; Retorna:
+; Destrói: MULT
+;------------------------------------------------------------------------------
+runT0:
+    MOV TH0,#0FCh 	;fclk CPU = 24MHz
+    MOV TL0,#17h 	; ... base de tempo de 0,5ms
+    SETB TR0 		;dispara timer
+
+    JNB TF0,$ 		;preso CLR TR0 ;stop timer
+    CLR TR0 		;para o timer 0
+    CLR TF0 		;zera flag overflow
+    DJNZ MULT,runT0
+    RET   
+
+;***************************************************************************
+;NOME: Atraso
+;DESCRIÇÃO: Introduz um atraso (delay) de T = (60 x R0 + 48)/fosc
+;	Para fosc = 11,059MHz => R0 = 1 => T = 9,8us  a  R0 = 0 => 1,4ms
+;P. ENTRADA: R0 = Valor que multiplica por 60 na fórmula (OBS.: R0 = 0 => 256)
+;P. SAIDA: -
+;Altera: R0
+;***************************************************************************
+Atraso:
+	NOP				;12
+	NOP				;12
+	NOP				;12
+	DJNZ R0,Atraso	;24
+	RET				;24
+
+
+;***************************************************************************
+;NOME: ATRASO_MS
+;DESCRICAO: INTRODUZ UM ATRASO DE 1ms A 256ms
+;P.ENTRADA: R2 = 1 => 1ms  A R2 = 0 => 256ms
+;P.SAIDA: -
+;ALTERA: R0,R2
+ATRASO_MS:
+	MOV	R0,#183		;VALOR PARA ATRASO DE 1ms
+	CALL	Atraso
+	MOV	R0,#183		;VALOR PARA ATRASO DE 1ms
+	CALL	Atraso
+	DJNZ R2,ATRASO_MS
+	RET		
 	
-	MOV A, serial_data
-		ACALL 	ESCDADO          //calls DISPLAY subroutine
-	
-    SETB transmit_completed;     /* set software flag */
-break1:
 
-JNB ACC.4,break2;case 0x10:
-;         /* put here for mode fault tasking */	
-break2:;
-	
-JNB ACC.6,break3;case 0x40:
-;         /* put here for overrun tasking */	
-break3:;
-
-RETI
-
-FIM:
-		JMP $
-		END
+END

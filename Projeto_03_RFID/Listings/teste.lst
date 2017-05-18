@@ -1,0 +1,278 @@
+A51 MACRO ASSEMBLER  TESTE                                                                05/12/2017 15:59:49 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.5.0
+OBJECT MODULE PLACED IN .\Objects\teste.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE teste.a51 SET(SMALL) DEBUG PRINT(.\Listings\teste.lst) OBJECT(.\Objects
+                      \teste.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+
+0000                   2     ORG 00h
+
+                       3             
+
+                       4     ;*****************************************
+
+                       5     ; Read from slave device with
+
+                       6     ; slave address e.g. say 0x20
+
+                       7     ;*****************************************
+
+                       8             ; Init i2c ports first
+
+0000 120014            9             lcall i2cinit
+
+                      10             ; Send start condition
+
+0003 120022           11             lcall startc
+
+                      12             ; Send slave address with Read bit set
+
+                      13             ; So address is 0x20 | 1 = 0x21
+
+0006 7421             14             mov a,#21H
+
+0008 1132             15             acall send
+
+                      16             ; Read one byte
+
+000A 115A             17             acall recv
+
+                      18             ; Send ack
+
+000C 1148             19             acall ack
+
+                      20             ; Read last byte
+
+000E 115A             21             acall recv
+
+                      22             ; Send nak for last byte to indicate
+
+                      23             ; End of transmission
+
+0010 1151             24             acall nak
+
+                      25             ; Send stop condition
+
+0012 1129             26             acall stop
+
+                      27     
+
+                      28     ;***************************************
+
+                      29     ;Ports Used for I2C Communication
+
+                      30     ;***************************************
+
+  0080                31     sda equ P0.0
+
+  0081                32     scl equ P0.1
+
+                      33      
+
+                      34     ;***************************************
+
+                      35     ;Initializing I2C Bus Communication
+
+                      36     ;***************************************
+
+0014                  37     i2cinit:
+
+0014 D280             38             setb sda
+
+0016 D281             39             setb scl
+
+0018 22               40             ret
+
+                      41      
+
+                      42     ;****************************************
+
+                      43     ;ReStart Condition for I2C Communication
+
+                      44     ;****************************************
+
+0019                  45     rstart:
+
+0019 C281             46             clr scl
+
+001B D280             47             setb sda
+
+001D D281             48             setb scl
+
+001F C280             49             clr sda
+
+0021 22               50             ret
+
+                      51      
+
+                      52     ;****************************************
+
+                      53     ;Start Condition for I2C Communication
+
+                      54     ;****************************************
+
+0022                  55     startc:
+
+0022 D281             56             setb scl
+
+0024 C280             57             clr sda
+
+A51 MACRO ASSEMBLER  TESTE                                                                05/12/2017 15:59:49 PAGE     2
+
+0026 C281             58             clr scl
+
+0028 22               59             ret
+
+                      60      
+
+                      61     ;*****************************************
+
+                      62     ;Stop Condition For I2C Bus
+
+                      63     ;*****************************************
+
+0029                  64     stop:
+
+0029 C281             65             clr scl
+
+002B C280             66             clr sda
+
+002D D281             67             setb scl
+
+002F D280             68             setb sda
+
+0031 22               69             ret
+
+                      70      
+
+                      71     ;*****************************************
+
+                      72     ;Sending Data to slave on I2C bus
+
+                      73     ;*****************************************
+
+0032                  74     send:
+
+0032 7F08             75             mov r7,#08
+
+0034                  76     back:
+
+0034 C281             77             clr scl
+
+0036 33               78             rlc a
+
+0037 9280             79             mov sda,c
+
+0039 D281             80             setb scl
+
+003B DFF7             81             djnz r7,back
+
+003D C281             82             clr scl
+
+003F D280             83             setb sda
+
+0041 D281             84             setb scl
+
+0043 A280             85             mov c, sda
+
+0045 C281             86             clr scl
+
+0047 22               87             ret
+
+                      88      
+
+                      89     ;*****************************************
+
+                      90     ;ACK and NAK for I2C Bus
+
+                      91     ;*****************************************
+
+0048                  92     ack:
+
+0048 C280             93             clr sda
+
+004A D281             94             setb scl
+
+004C C281             95             clr scl
+
+004E D280             96             setb sda
+
+0050 22               97             ret
+
+                      98      
+
+0051                  99     nak:
+
+0051 D280            100             setb sda
+
+0053 D281            101             setb scl
+
+0055 C281            102             clr scl
+
+0057 D281            103             setb scl
+
+0059 22              104             ret
+
+                     105      
+
+                     106     ;*****************************************
+
+                     107     ;Receiving Data from slave on I2C bus
+
+                     108     ;*****************************************
+
+005A                 109     recv:
+
+005A 7F08            110             mov r7,#08
+
+005C                 111     back2:
+
+005C C281            112             clr scl
+
+005E D281            113             setb scl
+
+0060 A280            114             mov c,sda
+
+0062 33              115             rlc a
+
+0063 DFF7            116             djnz r7,back2
+
+0065 C281            117             clr scl
+
+0067 D280            118             setb sda
+
+0069 22              119             ret
+
+*** WARNING #A41 IN 119 (teste.a51, LINE 119): MISSING 'END' STATEMENT
+A51 MACRO ASSEMBLER  TESTE                                                                05/12/2017 15:59:49 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACK. . . . . . . .  C ADDR   0048H   A   
+BACK . . . . . . .  C ADDR   0034H   A   
+BACK2. . . . . . .  C ADDR   005CH   A   
+I2CINIT. . . . . .  C ADDR   0014H   A   
+NAK. . . . . . . .  C ADDR   0051H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+RECV . . . . . . .  C ADDR   005AH   A   
+RSTART . . . . . .  C ADDR   0019H   A   
+SCL. . . . . . . .  B ADDR   0080H.1 A   
+SDA. . . . . . . .  B ADDR   0080H.0 A   
+SEND . . . . . . .  C ADDR   0032H   A   
+STARTC . . . . . .  C ADDR   0022H   A   
+STOP . . . . . . .  C ADDR   0029H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  1 WARNING(S), 0 ERROR(S)

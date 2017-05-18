@@ -21,12 +21,12 @@ I2C_SDA EQU P4.1
 I2C_SCL EQU P4.0
 	
 // Serao utilizados para chamar as funcoes do i2c
-B2W		EQU 00F1h 	// bytes to write
-B2R 	EQU 00F2h 	// bytes to read
-ADDR 	EQU 00F3h 	// internal register address
-DBASE 	EQU 00F4h 	// endereco base dos dados a serem escritos
+B2W		EQU 005Dh 	// bytes to write
+B2R 	EQU 005Eh 	// bytes to read
+ADDR 	EQU 005Fh 	// internal register address
+DBASE 	EQU 0060h 	// endereco base dos dados a serem escritos
 	
-NACKS   EQU 00F5h 	// contador de nacks recebidos
+NACKS   EQU 0061h 	// contador de nacks recebidos
 	
 ///////////////////////
 // Bits enderecaveis //
@@ -34,7 +34,7 @@ NACKS   EQU 00F5h 	// contador de nacks recebidos
 
 // Uma vez que o HW I2C executa "paralelo" ao 51 e o SW é totalmente composto de interrupcoes
 // devemos evitar que uma comunicacao se inicie antes de outra terminar
-I2C_BUSY EQU 00h // 0 - I2C livre, 1 - I2C ocupada
+I2C_BUSY EQU 00h // 0 - I2C livre, 1 - I2C ocupada*/
 	
 //////////////////////////////////////////////////////
 // Nome:	i2c_int									//
@@ -193,7 +193,7 @@ decode:
 		ADD A, DPH		; se tiver carry, aumenta a parte alta.
 		MOV DPH, A
 termina:
-		PUSH DPL		; põem o novo pc na pilha 
+		PUSH DPL		; poe o novo pc na pilha 
 		PUSH DPH		; e ...
 
 		RET				; pula pra ele!
@@ -297,7 +297,7 @@ W_DATA_NACK:
 	ORL A, #STO			; gera um STOP
 	MOV SSCON, A
 	CLR	I2C_BUSY ; zera o flag de ocupado
-	LJMP end_i2c_int	
+	LJMP end_i2c_int
 ;------------------------------------------------------------------------------
 ARB_LOST:
 ; após um arb-lost podemos acabar sendo endereçados como slave
@@ -332,7 +332,7 @@ R_ADDR_NACK:
 	MOV SSCON, A
 	CLR	I2C_BUSY ; zera o flag de ocupado
 	INC NACKS
-	LJMP end_i2c_int	
+	LJMP end_i2c_int
 ;------------------------------------------------------------------------------
 R_DATA_ACK:
 ; se tiver mais bytes pra ler, de um ack, senão de um nack
