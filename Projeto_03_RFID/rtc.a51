@@ -7,7 +7,7 @@
 //														//
 //////////////////////////////////////////////////////////
 
-ORG 	0700h
+ORG 	0600h
 
 // Endereços de leitura e escrita do RTC
 RADDR 	EQU 0xD1
@@ -31,6 +31,27 @@ MSB		EQU 0059h
 MULT 	EQU 005Ah // multiplicador de base de tempo utilizado em runT0
 T_OUT   EQU 005Bh ; time-out de espera do fim da comunicacao
 T_OUTS  EQU 005Ch ; contador do numero de time_outs para estatística
+
+STRING_HORA_MINUTO_SEGUNDO		EQU 005Dh
+COMPRIMENTO_STRING_HMS			EQU 08h
+	
+STRING_DATA_PT_BR				EQU 0066h
+COMPRIMENTO_STRING_DATA_PT_BR	EQU 08h
+	
+DOMINGO:
+		DB		'DOM', 00H
+SEGUNDA:
+		DB		'SEG', 00H
+TERCA:
+		DB		'TER', 00H
+QUARTA:
+		DB		'QUA', 00H
+QUINTA:
+		DB		'QUI', 00H
+SEXTA:
+		DB		'SEX', 00H
+SABADO:
+		DB		'SAB', 00H
 	
 //////////////////////////////////////////////////////
 // Nome:	INIT_RTC								//
@@ -175,4 +196,232 @@ get_wait:
 		INC 	T_OUTS
 
 end_get:
+		RET
+		
+//////////////////////////////////////////////////////
+// Nome: RECEBE_DATA_COMPLETA						//
+// Descricao: le data e hora do RTC					//
+// Parametros: 										//
+// Retorna:											//
+// Destroi: A										//
+//////////////////////////////////////////////////////
+RECEBE_DATA_COMPLETA:
+		LCALL 	RECEBE_DADO
+		MOV 	SEC, A // BCD segundos, deve ser iniciado com valor PAR para o relogio funcionar.
+		
+		LCALL 	RECEBE_DADO
+		MOV 	MIN, A // BCD minutos
+		
+		LCALL 	RECEBE_DADO
+		MOV 	HOU, A // BCD hora, se o bit mais alto for 1, o relógio é 12h, senão BCD 24h
+		
+		LCALL 	RECEBE_DADO
+		MOV 	DAY, A // Dia da semana
+		
+		LCALL 	RECEBE_DADO
+		MOV 	DAT, A // Dia
+		
+		LCALL 	RECEBE_DADO
+		MOV 	MON, A // Mês
+		
+		LCALL 	RECEBE_DADO
+		MOV 	YEA, A // Ano
+		
+		LCALL 	RECEBE_DADO
+		MOV 	CTR, A // CONTROLE
+		
+		RET
+		
+//////////////////////////////////////////////////////
+// Nome: CONVERTE_BCD								//
+// Descricao: Converte o dado de entrada do RTC p/	//
+// BCD												//
+// Parametros: A 									//
+// Retorna: LSB, MSB								//
+// Destroi: A										//
+//////////////////////////////////////////////////////
+CONVERTE_BCD:
+		PUSH	ACC
+		
+		ANL		A, #0Fh
+		MOV 	LSB, A
+		
+		POP		ACC
+		
+		SWAP	A
+		ANL		A, #0Fh
+		MOV		MSB, A
+		
+		RET
+		
+//////////////////////////////////////////////////////
+// Nome: STRINGS_DIAS_DA_SEMANA						//
+// Descricao: Move para o DPTR o dia da semana em	//
+// questao											//
+// Parametros: A 									//
+// Retorna: LSB, MSB								//
+// Destroi: A										//
+//////////////////////////////////////////////////////	
+STRINGS_DIAS_DA_SEMANA:
+		MOV		A, DAY
+		
+		CJNE 	A, #01, SEGU
+		MOV     DPTR,#DOMINGO	
+	 
+		LJMP	FIM_STRINGS_DIAS_DA_SEMANA
+	
+SEGU:
+		CJNE 	A, #02, TER
+		MOV     DPTR,#SEGUNDA		
+	
+		LJMP	FIM_STRINGS_DIAS_DA_SEMANA
+
+TER:
+		CJNE 	A, #03, QUA
+		MOV     DPTR,#TERCA		
+	
+		LJMP	FIM_STRINGS_DIAS_DA_SEMANA
+
+QUA:
+		CJNE 	A, #04, QUI
+		MOV     DPTR,#QUARTA		
+	
+		LJMP	FIM_STRINGS_DIAS_DA_SEMANA
+		
+QUI:
+		CJNE 	A, #05, SEX
+		MOV     DPTR,#QUINTA		
+	
+		LJMP	FIM_STRINGS_DIAS_DA_SEMANA
+
+SEX:
+		CJNE 	A, #06, SAB
+		MOV     DPTR,#SEXTA	
+	
+		LJMP	FIM_STRINGS_DIAS_DA_SEMANA
+
+SAB:
+		CJNE 	A, #07, FIM_STRINGS_DIAS_DA_SEMANA
+		MOV     DPTR,#SABADO		
+	
+FIM_STRINGS_DIAS_DA_SEMANA:
+		RET
+		
+//////////////////////////////////////////////////////
+// Nome: MONTA_STRING_HORA_MINUTO_SEGUNDO			//
+// Descricao: 										//
+// questao											//
+// Parametros: A 									//
+// Retorna: LSB, MSB								//
+// Destroi: A, R1									//
+//////////////////////////////////////////////////////	
+MONTA_STRING_HORA_MINUTO_SEGUNDO:
+		MOV 	R1, #STRING_HORA_MINUTO_SEGUNDO
+		
+		MOV		A, HOU 
+		LCALL	CONVERTE_BCD
+		
+		MOV		A, 	 MSB
+		ADD		A, 	 #30h
+		MOV		@R1, A
+		INC 	R1
+		
+		MOV		A,	LSB
+		ADD		A, #30h
+		MOV		@R1, A
+		INC 	R1
+		
+		MOV		A, #3Ah // Manda (:)
+		MOV		@R1, A
+		INC 	R1
+		
+		MOV		A, MIN 
+		LCALL	CONVERTE_BCD
+		
+		MOV		A, MSB
+		ADD		A, #30h
+		MOV		@R1, A
+		INC 	R1
+		
+		MOV		A,	LSB
+		ADD		A, #30h
+		MOV		@R1, A
+		INC 	R1
+		
+		MOV		A, #3Ah // Manda (:)
+		MOV		@R1, A
+		INC 	R1
+		
+		MOV		A, SEC 
+		LCALL	CONVERTE_BCD
+		
+		MOV		A, MSB
+		ADD		A, #30h
+		MOV		@R1, A
+		INC 	R1
+		
+		MOV		A,	LSB
+		ADD		A, #30h
+		MOV		@R1, A
+		
+		RET
+		
+//////////////////////////////////////////////////////
+// Nome: MONTA_STRING_DATA_PT_BR					//
+// Descricao: 										//
+// questao											//
+// Parametros: A 									//
+// Retorna: LSB, MSB								//
+// Destroi: A										//
+//////////////////////////////////////////////////////	
+MONTA_STRING_DATA_PT_BR:
+		MOV 	R1, #STRING_DATA_PT_BR
+		
+		MOV		A, DAT
+		LCALL	CONVERTE_BCD
+		
+		MOV		A, MSB
+		ADD		A, #30h
+		MOV		@R1, A
+		INC 	R1
+		
+		MOV		A,	LSB
+		ADD		A, #30h
+		MOV		@R1, A
+		INC 	R1
+		
+		MOV		A, #2Fh // Manda(/)
+		MOV		@R1, A
+		INC 	R1
+		
+		MOV		A, MON 
+		LCALL	CONVERTE_BCD
+		
+		MOV		A, MSB
+		ADD		A, #30h
+		MOV		@R1, A
+		INC 	R1
+		
+		MOV		A,	LSB
+		ADD		A, #30h
+		MOV		@R1, A
+		INC 	R1
+		
+		MOV		A, #2Fh // Manda(/)
+		MOV		@R1, A
+		INC 	R1
+		
+		MOV		A, YEA 
+		LCALL	CONVERTE_BCD
+		
+		MOV		A, MSB
+		ADD		A, #30h
+		MOV		@R1, A
+		INC 	R1
+		
+		MOV		A,	LSB
+		ADD		A, #30h
+		MOV		@R1, A
+		INC 	R1
+		
 		RET

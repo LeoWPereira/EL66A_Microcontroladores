@@ -18,21 +18,6 @@ $NOMOD51
 #include "i2c_twi.a51"
 #include "rtc.a51"
 
-DOMINGO:
-		DB		'DOM', 00H
-SEGUNDA:
-		DB		'SEG', 00H
-TERCA:
-		DB		'TER', 00H
-QUARTA:
-		DB		'QUA', 00H
-QUINTA:
-		DB		'QUI', 00H
-SEXTA:
-		DB		'SEX', 00H
-SABADO:
-		DB		'SAB', 00H
-
 //////////////////////////////////////////////////
 //       TABELA DE EQUATES DA BIBLIOTECA		//
 ////										  ////
@@ -62,7 +47,7 @@ ORG	0043h
 		LJMP INT_I2C_TWI
 	
 __STARTUP__:
-		// 	SEX, 19/05/2017 - 15:00:00
+		// 	Seta data para: SEX, 19/05/2017 - 15:00:00
 		MOV 	R0, #000h 		
 		MOV 	R1, #000h 		
 		MOV 	R2, #015h 		
@@ -87,284 +72,34 @@ main:
 		LJMP 	LOOP
 	
 ESPERA_DADOS:
-	LCALL 	RECEBE_DADO
-	CJNE 	A, #01h, main
-	LCALL 	RECEBE_DADO
-	MOV 	SEC, A ; BCD segundos, deve ser iniciado com valor PAR para o relogio funcionar.
-	LCALL 	RECEBE_DADO
-	MOV 	MIN, A ; BCD minutos
-	LCALL 	RECEBE_DADO
-	MOV 	HOU, A; BCD hora, se o bit mais alto for 1, o relógio é 12h, senão BCD 24h
-	LCALL 	RECEBE_DADO
-	MOV 	DAY, A ; Dia da semana
-	LCALL 	RECEBE_DADO
-	MOV 	DAT, A ; Dia
-	LCALL 	RECEBE_DADO
-	MOV 	MON, A ; Mês
-	LCALL 	RECEBE_DADO
-	MOV 	YEA, A ; Ano
-	LCALL 	RECEBE_DADO
-	MOV 	CTR, A ; CONTROLE
-	LCALL	ENVIA_OK
-	LCALL 	RTC_SET_TIME
-	MOV 	CTR, #10010010b
-	JMP 	LOOP
-
-EHOSW2:	
-	MOV 	A, #'S'
-	LCALL 	ENVIA_DADO
-	
-	// Aguardamos 50 ms
-	MOV		R2, #000h
-	MOV		R1, #000h
-	MOV		R0, #032h
-	LCALL	TIMER_DELAY
+		LCALL 	RECEBE_DADO
+		CJNE 	A, #01h, main
 		
-	MOV 	A, #'W'
-	LCALL 	ENVIA_DADO
-	
-	// Aguardamos 50 ms
-	MOV		R2, #000h
-	MOV		R1, #000h
-	MOV		R0, #032h
-	LCALL	TIMER_DELAY
-	
-	MOV 	A, #32h
-	LCALL 	ENVIA_DADO
-	
-	// Aguardamos 50 ms
-	MOV		R2, #000h
-	MOV		R1, #000h
-	MOV		R0, #032h
-	LCALL	TIMER_DELAY
-	
-CONTINUA_ENVIAR:
-	MOV 	A, #20h ;Manda (espaço)
-	LCALL 	ENVIA_DADO
-	
-	// Aguardamos 50 ms
-	MOV		R2, #000h
-	MOV		R1, #000h
-	MOV		R0, #032h
-	LCALL	TIMER_DELAY
-	
-	MOV 	A, #2Dh ;Manda (-)
-	LCALL 	ENVIA_DADO
-	
-	// Aguardamos 50 ms
-	MOV		R2, #000h
-	MOV		R1, #000h
-	MOV		R0, #032h
-	LCALL	TIMER_DELAY
-	
-	MOV 	A, #20h ;Manda (espaço)
-	LCALL 	ENVIA_DADO
-	
-	// Aguardamos 50 ms
-	MOV		R2, #000h
-	MOV		R1, #000h
-	MOV		R0, #032h
-	LCALL	TIMER_DELAY
-	
-	MOV 	A, #'A'
-	LCALL 	ENVIA_DADO
-	
-	// Aguardamos 50 ms
-	MOV		R2, #000h
-	MOV		R1, #000h
-	MOV		R0, #032h
-	LCALL	TIMER_DELAY
-	
-	MOV 	A, #'c'
-	LCALL 	ENVIA_DADO
-	
-	// Aguardamos 50 ms
-	MOV		R2, #000h
-	MOV		R1, #000h
-	MOV		R0, #032h
-	LCALL	TIMER_DELAY
-	
-	MOV 	A, #'i'
-	LCALL 	ENVIA_DADO
-	
-	// Aguardamos 50 ms
-	MOV		R2, #000h
-	MOV		R1, #000h
-	MOV		R0, #032h
-	LCALL	TIMER_DELAY
-	
-	MOV 	A, #'o'
-	LCALL 	ENVIA_DADO
-	
-	// Aguardamos 50 ms
-	MOV		R2, #000h
-	MOV		R1, #000h
-	MOV		R0, #032h
-	LCALL	TIMER_DELAY
-	
-	MOV 	A, #'n'
-	LCALL 	ENVIA_DADO
-	
-	// Aguardamos 50 ms
-	MOV		R2, #000h
-	MOV		R1, #000h
-	MOV		R0, #032h
-	LCALL	TIMER_DELAY
-	
-	MOV 	A, #'a'
-	LCALL 	ENVIA_DADO
-	
-	// Aguardamos 50 ms
-	MOV		R2, #000h
-	MOV		R1, #000h
-	MOV		R0, #032h
-	LCALL	TIMER_DELAY
-	
-	MOV 	A, #'d'
-	LCALL 	ENVIA_DADO
-	
-	// Aguardamos 50 ms
-	MOV		R2, #000h
-	MOV		R1, #000h
-	MOV		R0, #032h
-	LCALL	TIMER_DELAY
-	
-	MOV 	A, #'o'
-	LCALL 	ENVIA_DADO
-	
-	// Aguardamos 50 ms
-	MOV		R2, #000h
-	MOV		R1, #000h
-	MOV		R0, #032h
-	LCALL	TIMER_DELAY
-	
-	MOV 	A, #20h
-	LCALL 	ENVIA_DADO
-	
-	// Aguardamos 50 ms
-	MOV		R2, #000h
-	MOV		R1, #000h
-	MOV		R0, #032h
-	LCALL	TIMER_DELAY
-	
-	MOV 	A, #'a'
-	LCALL 	ENVIA_DADO
-	
-	// Aguardamos 50 ms
-	MOV		R2, #000h
-	MOV		R1, #000h
-	MOV		R0, #032h
-	LCALL	TIMER_DELAY
-	
-	MOV 	A, #'s'
-	LCALL 	ENVIA_DADO
-	
-	// Aguardamos 50 ms
-	MOV		R2, #000h
-	MOV		R1, #000h
-	MOV		R0, #032h
-	LCALL	TIMER_DELAY
-	
-	MOV 	A, #20h
-	LCALL 	ENVIA_DADO
-
-	// Aguardamos 50 ms
-	MOV		R2, #000h
-	MOV		R1, #000h
-	MOV		R0, #032h
-	LCALL	TIMER_DELAY
-	
-	MOV 	A, HOU ;Manda horas
-	LCALL 	CONVERTE_BCD
-	MOV		A, MSB
-	ADD		A, #30h
-	LCALL 	ENVIA_DADO
-	
-	// Aguardamos 50 ms
-	MOV		R2, #000h
-	MOV		R1, #000h
-	MOV		R0, #032h
-	LCALL	TIMER_DELAY
-	
-	MOV		A,	LSB
-	ADD		A, #30h
-	LCALL 	ENVIA_DADO
-	MOV 	A, #03Ah ;Manda (:)
-	LCALL 	ENVIA_DADO
-	MOV 	A, MIN ;Manda minutos
-	LCALL 	CONVERTE_BCD
-	MOV		A, MSB
-	ADD		A, #30h
-	LCALL 	ENVIA_DADO
-	MOV		A,	LSB
-	ADD		A, #30h
-	LCALL 	ENVIA_DADO
-	MOV 	A, #03Ah ;Manda (:)
-	LCALL 	ENVIA_DADO
-	MOV 	A, SEC ;Manda segundos
-	LCALL 	CONVERTE_BCD
-	MOV		A, MSB
-	ADD		A, #30h
-	LCALL 	ENVIA_DADO
-	MOV		A,	LSB
-	ADD		A, #30h
-	LCALL 	ENVIA_DADO
-	MOV 	A, #20h ;Manda (espaço)
-	LCALL 	ENVIA_DADO
-	MOV 	A, #2Dh ;Manda (-)
-	LCALL 	ENVIA_DADO
-	MOV 	A, #20h ;Manda (espaço)
-	LCALL 	ENVIA_DADO
-	MOV 	A, DAT ;Manda dia
-	LCALL 	CONVERTE_BCD
-	MOV		A, MSB
-	ADD		A, #30h
-	LCALL 	ENVIA_DADO
-	MOV		A,	LSB
-	ADD		A, #30h
-	LCALL 	ENVIA_DADO
-	MOV 	A, #2Fh ;Manda (/)
-	LCALL 	ENVIA_DADO
-	MOV 	A, MON ;Manda mes
-	LCALL 	CONVERTE_BCD
-	MOV		A, MSB
-	ADD		A, #30h
-	LCALL 	ENVIA_DADO
-	MOV		A,	LSB
-	ADD		A, #30h
-	LCALL 	ENVIA_DADO
-	MOV 	A, #2Fh ;Manda (/)
-	LCALL 	ENVIA_DADO
-	MOV 	A, YEA ; Manda ano
-	LCALL 	CONVERTE_BCD
-	MOV		A, MSB
-	ADD		A, #30h
-	LCALL 	ENVIA_DADO
-	MOV		A,	LSB
-	ADD		A, #30h
-	LCALL 	ENVIA_DADO
-	MOV 	A, #20h ;Manda (espaço)
-	LCALL 	ENVIA_DADO
-	MOV 	A, #0Dh ;Retorno ao inicio da linha
-	LCALL 	ENVIA_DADO
-	MOV 	A, #0Ah ; Nova linha
-	LCALL 	ENVIA_DADO
+		LCALL	RECEBE_DATA_COMPLETA
+		
+		LCALL	ENVIA_OK
+		
+		LCALL 	RTC_SET_TIME
+		
+		MOV 	CTR, #10010010b
+		
+		JMP 	LOOP
 
 ;------------------------------------------------------------------------------
 ;Ler o RTC periodicamente
 ;------------------------------------------------------------------------------
 LOOP:
-	// Aguardamos 50 ms
-	MOV		R2, #000h
-	MOV		R1, #000h
-	MOV		R0, #032h
-	LCALL	TIMER_DELAY
-	
-	JNB 	RI, again
-	CLR		RI
-	MOV		A, SBUF
-	CJNE 	A, #0AAh, again
-	LJMP 	ESPERA_DADOS
+		// Aguardamos 50 ms
+		MOV		R2, #000h
+		MOV		R1, #000h
+		MOV		R0, #032h
+		LCALL	TIMER_DELAY
+		
+		JNB 	RI, again
+		CLR		RI
+		MOV		A, SBUF
+		CJNE 	A, #0AAh, again
+		LJMP 	ESPERA_DADOS
 
 again:
 		// Aguardamos 125 ms
@@ -380,120 +115,46 @@ again:
 		LCALL	ATUALIZA_DISPLAY
 		
 		JMP 	LOOP
-
-;entra: A
-;sai:	LSB, MSB
-CONVERTE_BCD:
-	PUSH	ACC
-	ANL		A, #0Fh
-	MOV 	LSB, A
-	POP		ACC
-	SWAP	A
-	ANL		A, #0Fh
-	MOV		MSB, A
-	RET
 	
 ATUALIZA_DISPLAY:
-	LCALL	CLR1L ;Clear na linha 1
-	MOV		A, HOU ;Atualiza hora
-	LCALL	CONVERTE_BCD
-	MOV		A, MSB
-	ADD		A, #30h
-	LCALL	ESCDADO
-	MOV		A,	LSB
-	ADD		A, #30h
-	LCALL	ESCDADO
-	MOV		A, #3Ah ;Manda (:)
-	LCALL	ESCDADO
-	MOV		A, MIN ;Atualiza minutos
-	LCALL	CONVERTE_BCD
-	MOV		A, MSB
-	ADD		A, #30h
-	LCALL	ESCDADO
-	MOV		A,	LSB
-	ADD		A, #30h
-	LCALL	ESCDADO
-	MOV		A, #3Ah ;Manda (:)
-	LCALL	ESCDADO
-	MOV		A, SEC ;Atualiza segundos
-	LCALL	CONVERTE_BCD
-	MOV		A, MSB
-	ADD		A, #30h
-	LCALL	ESCDADO
-	MOV		A,	LSB
-	ADD		A, #30h
-	LCALL	ESCDADO
-	LCALL 	CLR2L ;Clear na linha 2
-	MOV		A, DAT ;Atualiza dia
-	LCALL	CONVERTE_BCD
-	MOV		A, MSB
-	ADD		A, #30h
-	LCALL	ESCDADO
-	MOV		A,	LSB
-	ADD		A, #30h
-	LCALL	ESCDADO
-	MOV		A, #2Fh ;Manda(/)
-	LCALL	ESCDADO
-	MOV		A, MON ;Atualiza mes
-	LCALL	CONVERTE_BCD
-	MOV		A, MSB
-	ADD		A, #30h
-	LCALL	ESCDADO
-	MOV		A,	LSB
-	ADD		A, #30h
-	LCALL	ESCDADO
-	MOV		A, #2Fh ;Manda(/)
-	LCALL	ESCDADO
-	MOV		A, YEA ;Atualiza ano
-	LCALL	CONVERTE_BCD
-	MOV		A, MSB
-	ADD		A, #30h
-	LCALL	ESCDADO
-	MOV		A,	LSB
-	ADD		A, #30h
-	LCALL	ESCDADO
-	MOV		A, #20h ;Manda (espaço)
-	LCALL	ESCDADO
-	MOV		A, #2Dh ;Manda(-)
-	LCALL	ESCDADO
-	MOV		A, #20h ;Manda (espaço)
-	LCALL	ESCDADO
-	MOV		A, DAY ;Atualiza dia da semana
-	CJNE A, #01, SEGU
-	MOV      DPTR,#DOMINGO		;STRING 
-	LCALL    MSTRING 
-	RET
+		LCALL	CLR1L // Clear na linha 1
 	
-SEGU:
-	CJNE 	A, #02, TER
-	MOV     DPTR,#SEGUNDA		;STRING 
-	LCALL   MSTRING
-	RET
-TER:
-	CJNE 	A, #03, QUA
-	MOV     DPTR,#TERCA		;STRING 
-	LCALL   MSTRING
-	RET
-QUA:
-	CJNE 	A, #04, QUI
-	MOV     DPTR,#QUARTA		;STRING 
-	LCALL   MSTRING
-	RET
-QUI:
-	CJNE 	A, #05, SEX
-	MOV     DPTR,#QUINTA		;STRING 
-	LCALL   MSTRING
-	RET
-SEX:
-	CJNE 	A, #06, SAB
-	MOV     DPTR,#SEXTA		;STRING 
-	LCALL   MSTRING
-	RET
-SAB:
-	CJNE 	A, #07, RETORNA
-	MOV     DPTR,#SABADO		;STRING 
-	LCALL   MSTRING
-RETORNA:
+		LCALL	MONTA_STRING_HORA_MINUTO_SEGUNDO
+		
+		MOV		R2, #COMPRIMENTO_STRING_HMS
+		MOV		R1, #STRING_HORA_MINUTO_SEGUNDO
+
+escreve_string_hms:
+		MOV		A,  @R1
+		LCALL   ESCDADO
+		INC 	R1	
+		DJNZ 	R2, escreve_string_hms
+	
+		LCALL 	CLR2L // Clear na linha 2
+
+		LCALL	MONTA_STRING_DATA_PT_BR
+		
+		MOV		R2, #COMPRIMENTO_STRING_DATA_PT_BR
+		MOV		R1, #STRING_DATA_PT_BR
+
+escreve_string_data_pt_br:
+		MOV		A,  @R1
+		LCALL   ESCDADO
+		INC 	R1	
+		DJNZ 	R2, escreve_string_data_pt_br
+	
+		MOV		A, #20h // Manda (espaço)
+		LCALL	ESCDADO
+		
+		MOV		A, #2Dh // Manda(-)
+		LCALL	ESCDADO
+		
+		MOV		A, #20h // Manda (espaço)
+		LCALL	ESCDADO
+	
+		LCALL	STRINGS_DIAS_DA_SEMANA
+		LCALL   MSTRING
+	
 	RET
 	
 ////////////////////////////////////////////////
