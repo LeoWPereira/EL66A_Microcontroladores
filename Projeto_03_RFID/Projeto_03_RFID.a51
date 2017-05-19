@@ -63,22 +63,20 @@ ORG	0043h
 	
 __STARTUP__:
 		// 	SEX, 19/05/2017 - 15:00:00
-		MOV R0, #000h 		
-		MOV R1, #000h 		
-		MOV R2, #015h 		
-		MOV R3, #006h 		
-		MOV R4, #019h 		
-		MOV R5, #005h 		
-		MOV R6, #017h 		
-		MOV R7, #00010010b  // freq 8192khz
+		MOV 	R0, #000h 		
+		MOV 	R1, #000h 		
+		MOV 	R2, #015h 		
+		MOV 	R3, #006h 		
+		MOV 	R4, #019h 		
+		MOV 	R5, #005h 		
+		MOV 	R6, #017h 		
+		MOV 	R7, #00010010b  // freq 8192khz
 		LCALL 	INIT_RTC
 		
 		LCALL 	INIDISP
 		
-		MOV 	CTR, #00010010b
-		
-		MOV 	R1, #00100001b	// Timer 1 no modo 2
-		MOV 	R0, #0F3h		// seta timer1 para baud rate 9600 
+		MOV 	R1, #00100000b	// Timer 1 no modo 2
+		MOV 	R0, #0F3h		// seta timer1 para baud rate 9600
 		LCALL	CONFIGURA_BAUD_RATE
 		
 		MOV 	R1, #01010000b
@@ -279,15 +277,21 @@ BOTAUMSW2:
 	LJMP 	BOTAOSW1*/
 reload:
 	MOV 	R6, #0x01		; 1x
+
 again:
-	MOV 	MULT, #0xA0	; 250x
-	LCALL 	runT0			; 0.5ms
-	DJNZ 	R6, again		; = 125 ms
-;	DJNZ 	R7, reload		; 125 ms x 4 = 0,5s
-	LCALL	RTC_GET_TIME
-	CPL 	P3.6			; toggle no led
-	LCALL	ATUALIZA_DISPLAY
-	JMP 	LOOP;
+		// Aguardamos 125 ms
+		MOV		R2, #000h
+		MOV		R1, #000h
+		MOV		R0, #07Dh
+		LCALL	TIMER_DELAY
+		
+		LCALL	RTC_GET_TIME
+		
+		CPL 	P3.6
+		
+		LCALL	ATUALIZA_DISPLAY
+		
+		JMP 	LOOP
 
 ;entra: A
 ;sai:	LSB, MSB
@@ -474,23 +478,6 @@ INT_I2C_TWI:
 ;===============================================================================
 ; Funções do Timer0
 ;===============================================================================
-;------------------------------------------------------------------------------
-; Nome: runT0
-; Descrição: Gera atraso de tempo utilizando Timer0
-; Parâmetros: MULT
-; Retorna:
-; Destrói: MULT
-;------------------------------------------------------------------------------
-runT0:
-    MOV TH0,#0FCh 	;fclk CPU = 24MHz
-    MOV TL0,#17h 	; ... base de tempo de 0,5ms
-    SETB TR0 		;dispara timer
-
-    JNB TF0,$ 		;preso CLR TR0 ;stop timer
-    CLR TR0 		;para o timer 0
-    CLR TF0 		;zera flag overflow
-    DJNZ MULT,runT0
-    RET   
 
 ;***************************************************************************
 ;NOME: Atraso
