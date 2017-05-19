@@ -113,85 +113,179 @@ ESPERA_DADOS:
 EHOSW2:	
 	MOV 	A, #'S'
 	LCALL 	ENVIA_DADO
-	MOV 	R2, #50
-	LCALL 	ATRASO_MS
+	
+	// Aguardamos 50 ms
+	MOV		R2, #000h
+	MOV		R1, #000h
+	MOV		R0, #032h
+	LCALL	TIMER_DELAY
+		
 	MOV 	A, #'W'
 	LCALL 	ENVIA_DADO
-	MOV 	R2, #50
-	LCALL 	ATRASO_MS
+	
+	// Aguardamos 50 ms
+	MOV		R2, #000h
+	MOV		R1, #000h
+	MOV		R0, #032h
+	LCALL	TIMER_DELAY
+	
 	MOV 	A, #32h
 	LCALL 	ENVIA_DADO
-	MOV 	R2, #50
-	LCALL 	ATRASO_MS
+	
+	// Aguardamos 50 ms
+	MOV		R2, #000h
+	MOV		R1, #000h
+	MOV		R0, #032h
+	LCALL	TIMER_DELAY
 	
 CONTINUA_ENVIAR:
 	MOV 	A, #20h ;Manda (espaço)
 	LCALL 	ENVIA_DADO
-	MOV 	R2, #50
-	LCALL	ATRASO_MS
+	
+	// Aguardamos 50 ms
+	MOV		R2, #000h
+	MOV		R1, #000h
+	MOV		R0, #032h
+	LCALL	TIMER_DELAY
+	
 	MOV 	A, #2Dh ;Manda (-)
 	LCALL 	ENVIA_DADO
-	MOV 	R2, #50
-	LCALL 	ATRASO_MS
+	
+	// Aguardamos 50 ms
+	MOV		R2, #000h
+	MOV		R1, #000h
+	MOV		R0, #032h
+	LCALL	TIMER_DELAY
+	
 	MOV 	A, #20h ;Manda (espaço)
 	LCALL 	ENVIA_DADO
-	MOV 	R2, #50
-	LCALL 	ATRASO_MS
+	
+	// Aguardamos 50 ms
+	MOV		R2, #000h
+	MOV		R1, #000h
+	MOV		R0, #032h
+	LCALL	TIMER_DELAY
+	
 	MOV 	A, #'A'
 	LCALL 	ENVIA_DADO
-	MOV 	R2, #50
-	LCALL 	ATRASO_MS
+	
+	// Aguardamos 50 ms
+	MOV		R2, #000h
+	MOV		R1, #000h
+	MOV		R0, #032h
+	LCALL	TIMER_DELAY
+	
 	MOV 	A, #'c'
 	LCALL 	ENVIA_DADO
-	MOV 	R2, #50
-	LCALL 	ATRASO_MS
+	
+	// Aguardamos 50 ms
+	MOV		R2, #000h
+	MOV		R1, #000h
+	MOV		R0, #032h
+	LCALL	TIMER_DELAY
+	
 	MOV 	A, #'i'
 	LCALL 	ENVIA_DADO
-	MOV 	R2, #50
-	LCALL 	ATRASO_MS
+	
+	// Aguardamos 50 ms
+	MOV		R2, #000h
+	MOV		R1, #000h
+	MOV		R0, #032h
+	LCALL	TIMER_DELAY
+	
 	MOV 	A, #'o'
 	LCALL 	ENVIA_DADO
-	MOV 	R2, #50
-	LCALL 	ATRASO_MS
+	
+	// Aguardamos 50 ms
+	MOV		R2, #000h
+	MOV		R1, #000h
+	MOV		R0, #032h
+	LCALL	TIMER_DELAY
+	
 	MOV 	A, #'n'
 	LCALL 	ENVIA_DADO
-	MOV 	R2, #50
-	LCALL 	ATRASO_MS
+	
+	// Aguardamos 50 ms
+	MOV		R2, #000h
+	MOV		R1, #000h
+	MOV		R0, #032h
+	LCALL	TIMER_DELAY
+	
 	MOV 	A, #'a'
 	LCALL 	ENVIA_DADO
-	MOV 	R2, #50
-	LCALL 	ATRASO_MS
+	
+	// Aguardamos 50 ms
+	MOV		R2, #000h
+	MOV		R1, #000h
+	MOV		R0, #032h
+	LCALL	TIMER_DELAY
+	
 	MOV 	A, #'d'
 	LCALL 	ENVIA_DADO
-	MOV 	R2, #50
-	LCALL 	ATRASO_MS
+	
+	// Aguardamos 50 ms
+	MOV		R2, #000h
+	MOV		R1, #000h
+	MOV		R0, #032h
+	LCALL	TIMER_DELAY
+	
 	MOV 	A, #'o'
 	LCALL 	ENVIA_DADO
-	MOV 	R2, #50
-	LCALL 	ATRASO_MS
+	
+	// Aguardamos 50 ms
+	MOV		R2, #000h
+	MOV		R1, #000h
+	MOV		R0, #032h
+	LCALL	TIMER_DELAY
+	
 	MOV 	A, #20h
 	LCALL 	ENVIA_DADO
-	MOV 	R2, #50
-	LCALL 	ATRASO_MS
+	
+	// Aguardamos 50 ms
+	MOV		R2, #000h
+	MOV		R1, #000h
+	MOV		R0, #032h
+	LCALL	TIMER_DELAY
+	
 	MOV 	A, #'a'
 	LCALL 	ENVIA_DADO
-	MOV 	R2, #50
-	LCALL 	ATRASO_MS
+	
+	// Aguardamos 50 ms
+	MOV		R2, #000h
+	MOV		R1, #000h
+	MOV		R0, #032h
+	LCALL	TIMER_DELAY
+	
 	MOV 	A, #'s'
 	LCALL 	ENVIA_DADO
-	MOV 	R2, #50
-	LCALL 	ATRASO_MS
+	
+	// Aguardamos 50 ms
+	MOV		R2, #000h
+	MOV		R1, #000h
+	MOV		R0, #032h
+	LCALL	TIMER_DELAY
+	
 	MOV 	A, #20h
 	LCALL 	ENVIA_DADO
-	MOV 	R2, #50
-	LCALL 	ATRASO_MS
+
+	// Aguardamos 50 ms
+	MOV		R2, #000h
+	MOV		R1, #000h
+	MOV		R0, #032h
+	LCALL	TIMER_DELAY
+	
 	MOV 	A, HOU ;Manda horas
 	LCALL 	CONVERTE_BCD
 	MOV		A, MSB
 	ADD		A, #30h
 	LCALL 	ENVIA_DADO
-	MOV 	R2, #50
-	LCALL 	ATRASO_MS
+	
+	// Aguardamos 50 ms
+	MOV		R2, #000h
+	MOV		R1, #000h
+	MOV		R0, #032h
+	LCALL	TIMER_DELAY
+	
 	MOV		A,	LSB
 	ADD		A, #30h
 	LCALL 	ENVIA_DADO
@@ -260,23 +354,17 @@ CONTINUA_ENVIAR:
 ;Ler o RTC periodicamente
 ;------------------------------------------------------------------------------
 LOOP:
-	MOV 	R2, #50
-	LCALL 	ATRASO_MS
-	JNB 	RI, tanormal
+	// Aguardamos 50 ms
+	MOV		R2, #000h
+	MOV		R1, #000h
+	MOV		R0, #032h
+	LCALL	TIMER_DELAY
+	
+	JNB 	RI, again
 	CLR		RI
 	MOV		A, SBUF
-	CJNE 	A, #0AAh, tanormal
+	CJNE 	A, #0AAh, again
 	LJMP 	ESPERA_DADOS
-tanormal:
-	JMP 	reload
-/*BOTAUMSW1: 
-	SETB 	BOTAO_SW
-	LJMP 	BOTAOSW1
-BOTAUMSW2:
-	CLR 	BOTAO_SW
-	LJMP 	BOTAOSW1*/
-reload:
-	MOV 	R6, #0x01		; 1x
 
 again:
 		// Aguardamos 125 ms
@@ -475,39 +563,4 @@ INT_I2C_TWI:
 
 		RETI
 
-;===============================================================================
-; Funções do Timer0
-;===============================================================================
-
-;***************************************************************************
-;NOME: Atraso
-;DESCRIÇÃO: Introduz um atraso (delay) de T = (60 x R0 + 48)/fosc
-;	Para fosc = 11,059MHz => R0 = 1 => T = 9,8us  a  R0 = 0 => 1,4ms
-;P. ENTRADA: R0 = Valor que multiplica por 60 na fórmula (OBS.: R0 = 0 => 256)
-;P. SAIDA: -
-;Altera: R0
-;***************************************************************************
-Atraso:
-	NOP				;12
-	NOP				;12
-	NOP				;12
-	DJNZ R0,Atraso	;24
-	RET				;24
-
-
-;***************************************************************************
-;NOME: ATRASO_MS
-;DESCRICAO: INTRODUZ UM ATRASO DE 1ms A 256ms
-;P.ENTRADA: R2 = 1 => 1ms  A R2 = 0 => 256ms
-;P.SAIDA: -
-;ALTERA: R0,R2
-ATRASO_MS:
-	MOV	R0,#183		;VALOR PARA ATRASO DE 1ms
-	CALL	Atraso
-	MOV	R0,#183		;VALOR PARA ATRASO DE 1ms
-	CALL	Atraso
-	DJNZ R2,ATRASO_MS
-	RET		
-	
-
-END
+		END
