@@ -7,7 +7,6 @@
 // @author: Leonardo Winter Pereira 					//
 // @author: Rodrigo Yudi Endo							//
 //														//
-// http://www.circuitstoday.com/interfacing-rfid-module-to-8051
 //////////////////////////////////////////////////////////
 
 
@@ -19,11 +18,6 @@ $NOMOD51
 #include "i2c_twi.a51"
 #include "rtc.a51"
 
-BOTAO_SW EQU 20h ;Representa qual interrupcao SW foi pressionado (SW1 = 1 e SW2=0)
-
-SW1 EQU P3.2
-SW2 EQU P3.4
-	
 DOMINGO:
 		DB		'DOM', 00H
 SEGUNDA:
@@ -68,11 +62,20 @@ ORG	0043h
 		LJMP INT_I2C_TWI
 	
 __STARTUP__:
+		// 	SEX, 19/05/2017 - 15:00:00
+		MOV R0, #000h 		
+		MOV R1, #000h 		
+		MOV R2, #015h 		
+		MOV R3, #006h 		
+		MOV R4, #019h 		
+		MOV R5, #005h 		
+		MOV R6, #017h 		
+		MOV R7, #00010010b  // freq 8192khz
 		LCALL 	INIT_RTC
+		
 		LCALL 	INIDISP
 		
 		MOV 	CTR, #00010010b
-		CLR 	BOTAO_SW	
 		
 		MOV 	R1, #00100001b	// Timer 1 no modo 2
 		MOV 	R0, #0F3h		// seta timer1 para baud rate 9600 
@@ -108,22 +111,6 @@ ESPERA_DADOS:
 	LCALL 	RTC_SET_TIME
 	MOV 	CTR, #10010010b
 	JMP 	LOOP
-		
-/*BOTAOSW1: 
-	JNB 	BOTAO_SW, EHOSW2
-	MOV 	A, #'S'
-	LCALL 	ENVIA_DADO
-	MOV 	R2, #50
-	LCALL 	ATRASO_MS
-	MOV 	A, #'W'
-	LCALL 	ENVIA_DADO
-	MOV 	R2, #50
-	LCALL 	ATRASO_MS
-	MOV 	A, #31h
-	LCALL 	ENVIA_DADO
-	MOV 	R2, #50
-	LCALL 	ATRASO_MS
-	LJMP 	CONTINUA_ENVIAR*/
 
 EHOSW2:	
 	MOV 	A, #'S'
@@ -138,6 +125,7 @@ EHOSW2:
 	LCALL 	ENVIA_DADO
 	MOV 	R2, #50
 	LCALL 	ATRASO_MS
+	
 CONTINUA_ENVIAR:
 	MOV 	A, #20h ;Manda (espaço)
 	LCALL 	ENVIA_DADO

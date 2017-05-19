@@ -35,21 +35,28 @@ T_OUTS  EQU 005Ch ; contador do numero de time_outs para estatística
 //////////////////////////////////////////////////////
 // Nome:	INIT_RTC								//
 // Descrição: Inicializa a comunicação e o RTC		//
-// Parâmetros: SEC, MIN, HOU, 						//
+// Parâmetros: R0 -> SEC							//
+//			   R1 -> MIN							//	
+//			   R2 -> HORA							//
+//			   R3 -> DIA							// 
+//			   R4 -> MES							//
+//			   R5 -> ANO							//
+//			   R6 -> DIA DA SEMANA					//
+//			   R7 -> FREQUENCIA						//
 // Retorna:											//
-// Destrói: A										//
+// Destrói: A, R0, R1, R2, R3, R4, R5, R6, R7		//
 //////////////////////////////////////////////////////
 INIT_RTC:
 		//	1.0 - Desabilita as interrupções
-		MOV IEN0, #0x00
-		MOV IEN1, #0x00
+		MOV IEN0, #00h
+		MOV IEN1, #00h
 
 		// 	1.1 - Configurar o Timer 0
-		MOV TMOD, #0x01 ; T0 no modo timer 16bits
+		MOV TMOD, #01h // T0 no modo timer 16bits
 
 		//	1.2 - Configurar o I2C (TWI)
 		SETB I2C_SCL
-		SETB I2C_SDA ; Coloca os latches em high-Z
+		SETB I2C_SDA 	// Coloca os latches em high-Z
 
 		// CR2 = 0, CR1 = 0, CR0 = 1, divisor XX, clock 24MHz, I2C = XXXk
 		MOV SSCON, #01000001b
@@ -69,53 +76,58 @@ INIT_RTC:
 
 		SETB EA	// liga as ints habilitadas
 		
-		//------------------------------------------------------------------------------
-		// Configurar o RTC com data e hora definidos
-		//------------------------------------------------------------------------------
-		// 	2.1 - TER, 09/05/2017 - 13:50:00
-		MOV SEC, #000h ; BCD segundos, deve ser iniciado com valor PAR para o relogio funcionar.
-		MOV MIN, #052h ; BCD minutos
-		MOV HOU, #015h ; BCD hora, se o bit mais alto for 1, o relógio é 12h, senão BCD 24h
-		MOV DAY, #004h ; Dia da semana
-		MOV DAT, #017h ; Dia
-		MOV MON, #005h ; Mês
-		MOV YEA, #017h ; Ano
-		MOV CTR, #00010010b ; freq 8192khz
+		////////////////////////////////////////////////
+		// Configurar o RTC com data e hora definidos //
+		////////////////////////////////////////////////
+		// 	2.1 - SEX, 19/05/2017 - 15:00:00
+		MOV SEC, R0 // BCD segundos, deve ser iniciado com valor PAR para o relogio funcionar.
+		MOV MIN, R1 // BCD minutos
+		MOV HOU, R2 // BCD hora, se o bit mais alto for 1, o relógio é 12h, senão BCD 24h
+		MOV DAY, R3 // Dia da semana
+		MOV DAT, R4 // Dia
+		MOV MON, R5 // Mês
+		MOV YEA, R6 // Ano
+		MOV CTR, R7 // freq
 
 		LCALL RTC_SET_TIME
 		
 		RET
 	
-;------------------------------------------------------------------------------
-; Nome:	RTC_SET_TIME
-; Descrição: escreve data e hora no RTC
-; Parâmetros: SEC, MIN, HOU
-; Retorna:
-; Destrói: A
-;------------------------------------------------------------------------------
+//////////////////////////////////////////////////////
+// Nome: RTC_SET_TIME								//
+// Descricao: escreve data e hora no RTC			//
+// Parametros: 										//
+// Retorna:											//
+// Destroi: A										//
+//////////////////////////////////////////////////////
 RTC_SET_TIME:
-		MOV ADDR, #0x00		; endereço do reg interno
-		MOV B2W, #(8+1) 	; a quantidade de bytes que deverão ser enviados + 1.
-		MOV B2R, #(0+1)		; a quantidade de bytes que serão lidos + 1.
-		MOV DBASE, #SEC		; endereço base dos dados
+		MOV ADDR,  #00h		// endereço do reg interno
+		MOV B2W,   #(8+1) 	// a quantidade de bytes que deverao ser enviados + 1.
+		MOV B2R,   #(0+1)	// a quantidade de bytes que serao lidos + 1.
+		MOV DBASE, #SEC		// endereco base dos dados
 
-		; gera o start, daqui pra frente é tudo na interrupção.
-		MOV A, SSCON
-		ORL A, #STA
-		MOV SSCON, A
+		// gera o start, daqui pra frente é tudo na interrupcao.
+		MOV A, 		SSCON
+		ORL A, 		#STA
+		MOV SSCON, 	A
 
-		; devemos aguardar um tempo "suficiente" para ser gerada a interrupção de START
-			MOV MULT, #0xA ; 5 ms
-			LCALL runT0
+		// Aguardamos 10 ms
+		MOV		R2, #000h
+		MOV		R1, #000h
+		MOV		R0, #00Ah
+		LCALL	TIMER_DELAY
 
-		; Polling até certo limite! 500 ms
+		// Polling até certo limite! 500 ms
 		MOV T_OUT, #100
+		
 set_wait:
 		JNB I2C_BUSY, end_set
 		
-		// Aguardamos 16 ms
-		MOV MULT, #10
-		LCALL runT0
+		// Aguardamos 16 ms - Taxa de atualizacao da tela de 60 Hz
+		MOV		R2, #000h
+		MOV		R1, #000h
+		MOV		R0, #010h
+		LCALL	TIMER_DELAY
 		
 		DJNZ T_OUT,set_wait
 		INC T_OUTS
@@ -131,29 +143,31 @@ end_set:
 ; Destrói: A
 ;------------------------------------------------------------------------------
 RTC_GET_TIME:
-		MOV ADDR, #0x00		; endereço do reg interno
-		MOV B2W, #(0+1) 	; a quantidade de bytes que deverão ser enviados + 1.
-		MOV B2R, #(8+1)		; a quantidade de bytes que serão lidos + 1.
-		MOV DBASE, #SEC		; endereço base dos dados (buffer)
+		MOV ADDR,  #000h	// endereço do reg interno
+		MOV B2W,   #(0+1) 	// a quantidade de bytes que deverão ser enviados + 1.
+		MOV B2R,   #(8+1)	// a quantidade de bytes que serão lidos + 1.
+		MOV DBASE, #SEC		// endereço base dos dados (buffer)
 
-		; gera o start, daqui pra frente é tudo na interrupção.
+		// gera o start, daqui pra frente e tudo na interrupcao.
 		MOV A, SSCON
 		ORL A, #STA
 		MOV SSCON, A
 
-		; devemos aguardar um tempo "suficiente" para ser gerada a interrupção de START
-		MOV MULT, #0xA
-		LCALL runT0
+		// Aguardamos 10 ms
+		MOV		R2, #000h
+		MOV		R1, #000h
+		MOV		R0, #00Ah
+		LCALL	TIMER_DELAY
 
 		; Polling até certo limite. rev2 RdG
 		MOV T_OUT, #100
 get_wait:
 		JNB I2C_BUSY, end_get
 		
-		// Aguardamos 16 ms
+		// Aguardamos 16 ms - Taxa de atualizacao da tela de 60 Hz
 		MOV		R2, #000h
 		MOV		R1, #000h
-		MOV		R0, #00Bh
+		MOV		R0, #010h
 		LCALL	TIMER_DELAY
 		
 		DJNZ 	T_OUT,get_wait

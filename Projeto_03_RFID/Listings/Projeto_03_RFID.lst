@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE     1
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.5.0
@@ -122,7 +122,7 @@ LOC  OBJ            LINE     SOURCE
 
   0080          +1    57     sfr P0 = 0x80 ;        /* Sfr ( P0, bit addressable)*/
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE     2
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE     2
 
                 +1    58     
 
@@ -256,7 +256,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   123     
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE     3
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE     3
 
                 +1   124                                 
 
@@ -390,7 +390,7 @@ LOC  OBJ            LINE     SOURCE
 
   00DE          +1   189     sbit CR = CCON ^ 6 ;
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE     4
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE     4
 
   00DC          +1   190     sbit CCF4 = CCON ^ 4 ;
 
@@ -524,7 +524,7 @@ LOC  OBJ            LINE     SOURCE
 
   00D4          +1   255     sfr UEPCONX = 0xD4 ;
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE     5
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE     5
 
   00CE          +1   256     sfr UEPSTAX = 0xCE ;
 
@@ -658,7 +658,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   321     
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE     6
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE     6
 
                 +1   322     
 
@@ -792,7 +792,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   387     
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE     7
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE     7
 
 0F36            +1   388     GOTOXY: 
 
@@ -926,7 +926,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   453             
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE     8
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE     8
 
 0F69 7910       +1   454                     MOV    R1,#16               
 
@@ -1060,7 +1060,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   519                       
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE     9
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE     9
 
 0F9D            +1   520     MSTR1:  
 
@@ -1194,7 +1194,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   585     
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    10
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    10
 
                 +1   586     
 
@@ -1328,7 +1328,7 @@ LOC  OBJ            LINE     SOURCE
 
 0D04 22         +1   651                     RET
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    11
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    11
 
                 +1   652                     
 
@@ -1462,7 +1462,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   717     
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    12
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    12
 
                 +1   718     
 
@@ -1596,7 +1596,7 @@ LOC  OBJ            LINE     SOURCE
 
 0D52 B12F       +1   783                     ACALL   TIMER_DELAY_200_MS
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    13
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    13
 
                 +1   784                     
 
@@ -1730,7 +1730,7 @@ LOC  OBJ            LINE     SOURCE
 
 0A09 8989       +1   849                     MOV     TMOD, R1
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    14
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    14
 
 0A0B 888D       +1   850                     MOV     TH1,  R0 
 
@@ -1864,7 +1864,7 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   915     
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    15
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    15
 
                 +1   916     
 
@@ -1958,19 +1958,19 @@ LOC  OBJ            LINE     SOURCE
 
 0800            +1   961     i2c_int:
 
-                +1   962                     
+0800 E594       +1   962                     MOV     A, SSCS  
 
-                +1   963                     
+0802 03         +1   963                     RR              A                
 
-0800 E594       +1   964                     MOV     A, SSCS  
+                +1   964     
 
-0802 03         +1   965                     RR              A                
+0803 120887     +1   965                     LCALL   decode  
 
-                +1   966     
+                +1   966                                                                              
 
-0803 120887     +1   967                     LCALL   decode  
+                +1   967                     
 
-                +1   968                                                                              
+                +1   968                     
 
                 +1   969                     
 
@@ -1990,639 +1990,639 @@ LOC  OBJ            LINE     SOURCE
 
                 +1   977                     
 
-                +1   978                     
+0806 02089C     +1   978                     LJMP    ERRO  
 
-                +1   979                     
+0809 00         +1   979                     NOP
 
-0806 02089C     +1   980                     LJMP    ERRO  
+                +1   980                     
 
-0809 00         +1   981                     NOP
+                +1   981                     
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    16
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    16
 
-                +1   982                     
+080A 0208A7     +1   982                     LJMP    START
 
-                +1   983                     
+080D 00         +1   983                     NOP     
 
-080A 0208A7     +1   984                     LJMP    START
+                +1   984                     
 
-080D 00         +1   985                     NOP     
+                +1   985                     
 
-                +1   986                     
+080E 0208B5     +1   986                     LJMP    RESTART
 
-                +1   987                     
+0811 00         +1   987                     NOP
 
-080E 0208B5     +1   988                     LJMP    RESTART
+                +1   988                     
 
-0811 00         +1   989                     NOP
+                +1   989                     
 
-                +1   990                     
+0812 0208C1     +1   990                     LJMP    W_ADDR_ACK
 
-                +1   991                     
+0815 00         +1   991                     NOP
 
-0812 0208C1     +1   992                     LJMP    W_ADDR_ACK
+                +1   992                     
 
-0815 00         +1   993                     NOP
+                +1   993                     
 
-                +1   994                     
+0816 0208CD     +1   994                     LJMP    W_ADDR_NACK
 
-                +1   995                     
+0819 00         +1   995                     NOP
 
-0816 0208CD     +1   996                     LJMP    W_ADDR_NACK
+                +1   996                     
 
-0819 00         +1   997                     NOP
+                +1   997                     
 
-                +1   998                     
+081A 0208DC     +1   998                     LJMP    W_DATA_ACK
 
-                +1   999                     
+081D 00         +1   999                     NOP
 
-081A 0208DC     +1  1000                     LJMP    W_DATA_ACK
+                +1  1000                     
 
-081D 00         +1  1001                     NOP
+                +1  1001                     
 
-                +1  1002                     
+081E 020909     +1  1002                     LJMP    W_DATA_NACK
 
-                +1  1003                     
+0821 00         +1  1003                     NOP
 
-081E 020909     +1  1004                     LJMP    W_DATA_NACK
+                +1  1004                     
 
-0821 00         +1  1005                     NOP
+                +1  1005                     
 
-                +1  1006                     
+0822 020916     +1  1006                     LJMP    ARB_LOST
 
-                +1  1007                     
+0825 00         +1  1007                     NOP
 
-0822 020916     +1  1008                     LJMP    ARB_LOST
+                +1  1008                     
 
-0825 00         +1  1009                     NOP
+                +1  1009                     
 
-                +1  1010                     
+0826 020919     +1  1010                     LJMP    R_ADDR_ACK
 
-                +1  1011                     
+0829 00         +1  1011                     NOP
 
-0826 020919     +1  1012                     LJMP    R_ADDR_ACK
+                +1  1012                     
 
-0829 00         +1  1013                     NOP
+                +1  1013                     
 
-                +1  1014                     
+082A 02092B     +1  1014                     LJMP    R_ADDR_NACK
 
-                +1  1015                     
+082D 00         +1  1015                     NOP
 
-082A 02092B     +1  1016                     LJMP    R_ADDR_NACK
+                +1  1016                     
 
-082D 00         +1  1017                     NOP
+                +1  1017                     
 
-                +1  1018                     
+082E 02093A     +1  1018                     LJMP    R_DATA_ACK
 
-                +1  1019                     
+0831 00         +1  1019                     NOP
 
-082E 02093A     +1  1020                     LJMP    R_DATA_ACK
+                +1  1020                     
 
-0831 00         +1  1021                     NOP
+                +1  1021                     
 
-                +1  1022                     
+0832 020952     +1  1022                     LJMP    R_DATA_NACK
 
-                +1  1023                     
+0835 00         +1  1023                     NOP
 
-0832 020952     +1  1024                     LJMP    R_DATA_NACK
+                +1  1024     
 
-0835 00         +1  1025                     NOP
+                +1  1025                     
 
-                +1  1026     
+0836 020886     +1  1026                     LJMP    not_impl
 
-                +1  1027                     
+0839 00         +1  1027                     NOP  
 
-0836 020886     +1  1028                     LJMP    not_impl
+                +1  1028                     
 
-0839 00         +1  1029                     NOP  
+083A 020886     +1  1029                     LJMP    not_impl
 
-                +1  1030                     
+083D 00         +1  1030                     NOP  
 
-083A 020886     +1  1031                     LJMP    not_impl
+                +1  1031                     
 
-083D 00         +1  1032                     NOP  
+083E 020886     +1  1032                     LJMP    not_impl
 
-                +1  1033                     
+0841 00         +1  1033                     NOP  
 
-083E 020886     +1  1034                     LJMP    not_impl
+                +1  1034                     
 
-0841 00         +1  1035                     NOP  
+0842 020886     +1  1035                     LJMP    not_impl
 
-                +1  1036                     
+0845 00         +1  1036                     NOP  
 
-0842 020886     +1  1037                     LJMP    not_impl
+                +1  1037                     
 
-0845 00         +1  1038                     NOP  
+0846 020886     +1  1038                     LJMP    not_impl
 
-                +1  1039                     
+0849 00         +1  1039                     NOP  
 
-0846 020886     +1  1040                     LJMP    not_impl
+                +1  1040                     
 
-0849 00         +1  1041                     NOP  
+084A 020886     +1  1041                     LJMP    not_impl
 
-                +1  1042                     
+084D 00         +1  1042                     NOP  
 
-084A 020886     +1  1043                     LJMP    not_impl
+                +1  1043                     
 
-084D 00         +1  1044                     NOP  
+084E 020886     +1  1044                     LJMP    not_impl
 
-                +1  1045                     
+0851 00         +1  1045                     NOP  
 
-084E 020886     +1  1046                     LJMP    not_impl
+                +1  1046                     
 
-0851 00         +1  1047                     NOP  
+0852 020886     +1  1047                     LJMP    not_impl
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    17
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    17
 
-                +1  1048                     
+0855 00         +1  1048                     NOP  
 
-0852 020886     +1  1049                     LJMP    not_impl
+                +1  1049                     
 
-0855 00         +1  1050                     NOP  
+0856 020886     +1  1050                     LJMP    not_impl
 
-                +1  1051                     
+0859 00         +1  1051                     NOP  
 
-0856 020886     +1  1052                     LJMP    not_impl
+                +1  1052                     
 
-0859 00         +1  1053                     NOP  
+                +1  1053                     
 
-                +1  1054                     
+085A 020886     +1  1054                     LJMP    not_impl
 
-                +1  1055                     
+085D 00         +1  1055                     NOP  
 
-085A 020886     +1  1056                     LJMP    not_impl
+                +1  1056                     
 
-085D 00         +1  1057                     NOP  
+085E 020886     +1  1057                     LJMP    not_impl
 
-                +1  1058                     
+0861 00         +1  1058                     NOP  
 
-085E 020886     +1  1059                     LJMP    not_impl
+                +1  1059                     
 
-0861 00         +1  1060                     NOP  
+0862 020886     +1  1060                     LJMP    not_impl
 
-                +1  1061                     
+0865 00         +1  1061                     NOP  
 
-0862 020886     +1  1062                     LJMP    not_impl
+                +1  1062                     
 
-0865 00         +1  1063                     NOP  
+0866 020886     +1  1063                     LJMP    not_impl
 
-                +1  1064                     
+0869 00         +1  1064                     NOP  
 
-0866 020886     +1  1065                     LJMP    not_impl
+                +1  1065                     
 
-0869 00         +1  1066                     NOP  
+086A 020886     +1  1066                     LJMP    not_impl
 
-                +1  1067                     
+086D 00         +1  1067                     NOP  
 
-086A 020886     +1  1068                     LJMP    not_impl
+                +1  1068     
 
-086D 00         +1  1069                     NOP  
+                +1  1069                     
 
-                +1  1070     
+086E 020886     +1  1070                     LJMP    not_impl
 
-                +1  1071                     
+0871 00         +1  1071                     NOP  
 
-086E 020886     +1  1072                     LJMP    not_impl
+                +1  1072                     
 
-0871 00         +1  1073                     NOP  
+0872 020886     +1  1073                     LJMP    not_impl
 
-                +1  1074                     
+0875 00         +1  1074                     NOP  
 
-0872 020886     +1  1075                     LJMP    not_impl
+                +1  1075                     
 
-0875 00         +1  1076                     NOP  
+0876 020886     +1  1076                     LJMP    not_impl
 
-                +1  1077                     
+0879 00         +1  1077                     NOP  
 
-0876 020886     +1  1078                     LJMP    not_impl
+                +1  1078                     
 
-0879 00         +1  1079                     NOP  
+087A 020886     +1  1079                     LJMP    not_impl
 
-                +1  1080                     
+087D 00         +1  1080                     NOP  
 
-087A 020886     +1  1081                     LJMP    not_impl
+                +1  1081                     
 
-087D 00         +1  1082                     NOP  
+087E 020886     +1  1082                     LJMP    not_impl
 
-                +1  1083                     
+0881 00         +1  1083                     NOP  
 
-087E 020886     +1  1084                     LJMP    not_impl
+                +1  1084     
 
-0881 00         +1  1085                     NOP  
+                +1  1085                     
 
-                +1  1086     
+0882 020886     +1  1086                     LJMP    end_i2c_int
 
-                +1  1087                     
+0885 00         +1  1087                     NOP  
 
-0882 020886     +1  1088                     LJMP    end_i2c_int
+                +1  1088     
 
-0885 00         +1  1089                     NOP  
+                +1  1089     
 
                 +1  1090     
 
-                +1  1091     
+0886            +1  1091     not_impl:
 
-                +1  1092     
+0886            +1  1092     end_i2c_int:
 
-0886            +1  1093     not_impl:
+0886 32         +1  1093                     RETI
 
-0886            +1  1094     end_i2c_int:
+                +1  1094                     
 
-0886 32         +1  1095                     RETI
+                +1  1095     ;===============================================================================
 
-                +1  1096                     
+                +1  1096     ; Esta e a funcao que opera o PC e faz o retorno ir para o local correto.
 
                 +1  1097     ;===============================================================================
 
-                +1  1098     ; Esta e a funcao que opera o PC e faz o retorno ir para o local correto.
+0887            +1  1098     decode:
 
-                +1  1099     ;===============================================================================
+0887 D083       +1  1099                     POP DPH
 
-0887            +1  1100     decode:
+0889 D082       +1  1100                     POP DPL                 ; captura o PC "de retorno"
 
-0887 D083       +1  1101                     POP DPH
+088B 2582       +1  1101                     ADD A, DPL
 
-0889 D082       +1  1102                     POP DPL                 ; captura o PC "de retorno"
+088D F582       +1  1102                     MOV DPL, A              ; soma nele o valor de A (A = SSCS/2)
 
-088B 2582       +1  1103                     ADD A, DPL
+088F 5006       +1  1103                     JNC termina
 
-088D F582       +1  1104                     MOV DPL, A              ; soma nele o valor de A (A = SSCS/2)
+0891 7401       +1  1104                     MOV A, #1
 
-088F 5006       +1  1105                     JNC termina
+0893 2583       +1  1105                     ADD A, DPH              ; se tiver carry, aumenta a parte alta.
 
-0891 7401       +1  1106                     MOV A, #1
+0895 F583       +1  1106                     MOV DPH, A
 
-0893 2583       +1  1107                     ADD A, DPH              ; se tiver carry, aumenta a parte alta.
+0897            +1  1107     termina:
 
-0895 F583       +1  1108                     MOV DPH, A
+0897 C082       +1  1108                     PUSH DPL                ; poe o novo pc na pilha 
 
-0897            +1  1109     termina:
+0899 C083       +1  1109                     PUSH DPH                ; e ...
 
-0897 C082       +1  1110                     PUSH DPL                ; poe o novo pc na pilha 
+                +1  1110     
 
-0899 C083       +1  1111                     PUSH DPH                ; e ...
+089B 22         +1  1111                     RET                             ; pula pra ele!
 
-                +1  1112     
+                +1  1112             
 
-089B 22         +1  1113                     RET                             ; pula pra ele!
+                +1  1113     ;------------------------------------------------------------------------------
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    18
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    18
 
-                +1  1114             
+                +1  1114     ; Aqui se iniciam as "verdadeiras" ISRs
 
-                +1  1115     ;------------------------------------------------------------------------------
+                +1  1115     ; A implementação dessas ISRs seguiu os modelos propostos no datasheet
 
-                +1  1116     ; Aqui se iniciam as "verdadeiras" ISRs
+                +1  1116     ; Porém não foram implementadas todas as possibilidades para todos os códigos
 
-                +1  1117     ; A implementação dessas ISRs seguiu os modelos propostos no datasheet
+                +1  1117     ; foram implementadas apenas as necessárias para garantir um fluxo de dados
 
-                +1  1118     ; Porém não foram implementadas todas as possibilidades para todos os códigos
+                +1  1118     ; de escrita e leitura como master, contemplando inclusive as possíveis falhas
 
-                +1  1119     ; foram implementadas apenas as necessárias para garantir um fluxo de dados
+                +1  1119     ;------------------------------------------------------------------------------
 
-                +1  1120     ; de escrita e leitura como master, contemplando inclusive as possíveis falhas
+089C            +1  1120     ERRO:
 
-                +1  1121     ;------------------------------------------------------------------------------
+089C E593       +1  1121             MOV A, SSCON
 
-089C            +1  1122     ERRO:
+089E 5410       +1  1122             ANL A, #STO ; gera um stop
 
-089C E593       +1  1123             MOV A, SSCON
+08A0 F593       +1  1123             MOV SSCON, A
 
-089E 5410       +1  1124             ANL A, #STO ; gera um stop
+08A2 C200       +1  1124             CLR     I2C_BUSY ; zera o flag de ocupado
 
-08A0 F593       +1  1125             MOV SSCON, A
+08A4 020886     +1  1125             LJMP end_i2c_int
 
-08A2 C200       +1  1126             CLR     I2C_BUSY ; zera o flag de ocupado
+                +1  1126     ;------------------------------------------------------------------------------
 
-08A4 020886     +1  1127             LJMP end_i2c_int
+08A7            +1  1127     START:
 
-                +1  1128     ;------------------------------------------------------------------------------
+                +1  1128     ; um start SEMPRE vai ocasionar uma escrita
 
-08A7            +1  1129     START:
+                +1  1129     ; pois para ler, preciso primeiro escrever de onde vou ler!
 
-                +1  1130     ; um start SEMPRE vai ocasionar uma escrita
+                +1  1130     ; SSDAT = SLA + W
 
-                +1  1131     ; pois para ler, preciso primeiro escrever de onde vou ler!
+                +1  1131     ; STO = 0 e SI = 0
 
-                +1  1132     ; SSDAT = SLA + W
+08A7 D200       +1  1132             SETB I2C_BUSY           ; seta o flag de ocupado
 
-                +1  1133     ; STO = 0 e SI = 0
+08A9 7595D0     +1  1133             MOV SSDAT, #WADDR
 
-08A7 D200       +1  1134             SETB I2C_BUSY           ; seta o flag de ocupado
+08AC E593       +1  1134             MOV A, SSCON
 
-08A9 7595D0     +1  1135             MOV SSDAT, #WADDR
+08AE 54E7       +1  1135             ANL A, #~(STO | SI)     ; zera os bits STO e SI
 
-08AC E593       +1  1136             MOV A, SSCON
+08B0 F593       +1  1136             MOV SSCON, A
 
-08AE 54E7       +1  1137             ANL A, #~(STO | SI)     ; zera os bits STO e SI
+08B2 020886     +1  1137             LJMP end_i2c_int
 
-08B0 F593       +1  1138             MOV SSCON, A
+                +1  1138     ;------------------------------------------------------------------------------
 
-08B2 020886     +1  1139             LJMP end_i2c_int
+08B5            +1  1139     RESTART:
 
-                +1  1140     ;------------------------------------------------------------------------------
+                +1  1140     ; o Restart será utilizado apenas para leituras,
 
-08B5            +1  1141     RESTART:
+                +1  1141     ; onde há a necessidade de fazer um start->escrita->restart->leitura->stop
 
-                +1  1142     ; o Restart será utilizado apenas para leituras,
+                +1  1142     ; SSDAT = SLA + R
 
-                +1  1143     ; onde há a necessidade de fazer um start->escrita->restart->leitura->stop
+                +1  1143     ; STO = 0 e SI = 0
 
-                +1  1144     ; SSDAT = SLA + R
+08B5 7595D1     +1  1144             MOV SSDAT, #RADDR
 
-                +1  1145     ; STO = 0 e SI = 0
+08B8 E593       +1  1145             MOV A, SSCON
 
-08B5 7595D1     +1  1146             MOV SSDAT, #RADDR
+08BA 54E7       +1  1146             ANL A, #~(STO | SI)     ; zera os bits STO e SI
 
-08B8 E593       +1  1147             MOV A, SSCON
+08BC F593       +1  1147             MOV SSCON, A
 
-08BA 54E7       +1  1148             ANL A, #~(STO | SI)     ; zera os bits STO e SI
+08BE 020886     +1  1148             LJMP end_i2c_int
 
-08BC F593       +1  1149             MOV SSCON, A
+                +1  1149     ;------------------------------------------------------------------------------
 
-08BE 020886     +1  1150             LJMP end_i2c_int
+08C1            +1  1150     W_ADDR_ACK:
 
-                +1  1151     ;------------------------------------------------------------------------------
+                +1  1151     ; após um W_addr_ack temos que escrever o registrador interno!
 
-08C1            +1  1152     W_ADDR_ACK:
+                +1  1152     ; SSDAT = ADDR
 
-                +1  1153     ; após um W_addr_ack temos que escrever o registrador interno!
+                +1  1153     ; STA = 0, STO = 0, SI = 0
 
-                +1  1154     ; SSDAT = ADDR
+08C1 855F95     +1  1154             MOV SSDAT, ADDR
 
-                +1  1155     ; STA = 0, STO = 0, SI = 0
+08C4 E593       +1  1155             MOV A, SSCON
 
-08C1 855F95     +1  1156             MOV SSDAT, ADDR
+08C6 54C7       +1  1156             ANL A, #~(STA | STO | SI)       ; zera os bits STA, STO e SI
 
-08C4 E593       +1  1157             MOV A, SSCON
+08C8 F593       +1  1157             MOV SSCON, A
 
-08C6 54C7       +1  1158             ANL A, #~(STA | STO | SI)       ; zera os bits STA, STO e SI
+08CA 020886     +1  1158             LJMP end_i2c_int
 
-08C8 F593       +1  1159             MOV SSCON, A
+                +1  1159     ;------------------------------------------------------------------------------
 
-08CA 020886     +1  1160             LJMP end_i2c_int
+08CD            +1  1160     W_ADDR_NACK:
 
-                +1  1161     ;------------------------------------------------------------------------------
+                +1  1161     ; em caso de nack, ou o end ta errado ou o slave não está conectado.
 
-08CD            +1  1162     W_ADDR_NACK:
+                +1  1162     ; não vamos fazer retry, encerramos a comunicação.
 
-                +1  1163     ; em caso de nack, ou o end ta errado ou o slave não está conectado.
+                +1  1163     ; STA = 0, SI = 0
 
-                +1  1164     ; não vamos fazer retry, encerramos a comunicação.
+                +1  1164     ; STO = 1
 
-                +1  1165     ; STA = 0, SI = 0
+08CD E593       +1  1165             MOV A, SSCON
 
-                +1  1166     ; STO = 1
+08CF 54D7       +1  1166             ANL A, #~(STA | SI)     ; zera os bits STA e SI
 
-08CD E593       +1  1167             MOV A, SSCON
+08D1 4410       +1  1167             ORL A, #STO                                     ; seta STO
 
-08CF 54D7       +1  1168             ANL A, #~(STA | SI)     ; zera os bits STA e SI
+08D3 F593       +1  1168             MOV SSCON, A
 
-08D1 4410       +1  1169             ORL A, #STO                                     ; seta STO
+08D5 C200       +1  1169             CLR     I2C_BUSY ; zera o flag de ocupado //correção rev2 RdG
 
-08D3 F593       +1  1170             MOV SSCON, A
+08D7 0561       +1  1170             INC NACKS
 
-08D5 C200       +1  1171             CLR     I2C_BUSY ; zera o flag de ocupado //correção rev2 RdG
+                +1  1171     
 
-08D7 0561       +1  1172             INC NACKS
+08D9 020886     +1  1172             LJMP end_i2c_int
 
-                +1  1173     
+                +1  1173             
 
-08D9 020886     +1  1174             LJMP end_i2c_int
+                +1  1174     ;------------------------------------------------------------------------------
 
-                +1  1175             
+08DC            +1  1175     W_DATA_ACK:
 
-                +1  1176     ;------------------------------------------------------------------------------
+                +1  1176     ; após o primeiro data ack (registrador interno) temos 2 opções:
 
-08DC            +1  1177     W_DATA_ACK:
+                +1  1177     ; 1 - escrever um novo byte
 
-                +1  1178     ; após o primeiro data ack (registrador interno) temos 2 opções:
+                +1  1178     ; 2 - gerar um restart para leitura
 
-                +1  1179     ; 1 - escrever um novo byte
+08DC D55D1B     +1  1179             DJNZ B2W, wda1          ; enquanto tiver bytes para escrever, pula para wda1
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    19
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    19
 
-                +1  1180     ; 2 - gerar um restart para leitura
+                +1  1180     
 
-08DC D55D1B     +1  1181             DJNZ B2W, wda1          ; enquanto tiver bytes para escrever, pula para wda1
+                +1  1181             ; se não tiver mais bytes para escrever, começe a ler
 
-                +1  1182     
+08DF D55E0D     +1  1182             DJNZ B2R, wda2          ;se tiver algum byte pra ler, pula para wd
 
-                +1  1183             ; se não tiver mais bytes para escrever, começe a ler
+08E2 E593       +1  1183             MOV A, SSCON 
 
-08DF D55E0D     +1  1184             DJNZ B2R, wda2          ;se tiver algum byte pra ler, pula para wd
+08E4 54D7       +1  1184             ANL A, #~(STA | SI)     ; senão..
 
-08E2 E593       +1  1185             MOV A, SSCON 
+08E6 4410       +1  1185             ORL A, #STO                     ; gera um STOP
 
-08E4 54D7       +1  1186             ANL A, #~(STA | SI)     ; senão..
+08E8 F593       +1  1186             MOV SSCON, A
 
-08E6 4410       +1  1187             ORL A, #STO                     ; gera um STOP
+08EA C200       +1  1187             CLR     I2C_BUSY ; zera o flag de ocupado
 
-08E8 F593       +1  1188             MOV SSCON, A
+08EC 020886     +1  1188             LJMP end_i2c_int
 
-08EA C200       +1  1189             CLR     I2C_BUSY ; zera o flag de ocupado
+08EF            +1  1189     wda2:
 
-08EC 020886     +1  1190             LJMP end_i2c_int
+08EF E593       +1  1190             MOV A, SSCON 
 
-08EF            +1  1191     wda2:
+08F1 54E7       +1  1191             ANL A, #~(STO | SI)
 
-08EF E593       +1  1192             MOV A, SSCON 
+08F3 4420       +1  1192             ORL A, #STA                     ; ..gera um restart!
 
-08F1 54E7       +1  1193             ANL A, #~(STO | SI)
+08F5 F593       +1  1193             MOV SSCON, A
 
-08F3 4420       +1  1194             ORL A, #STA                     ; ..gera um restart!
+08F7 020886     +1  1194             LJMP end_i2c_int
 
-08F5 F593       +1  1195             MOV SSCON, A
+08FA            +1  1195     wda1:
 
-08F7 020886     +1  1196             LJMP end_i2c_int
+08FA A860       +1  1196             MOV R0, DBASE
 
-08FA            +1  1197     wda1:
+08FC 8695       +1  1197             MOV SSDAT, @R0  ; ...escreve o proximo!
 
-08FA A860       +1  1198             MOV R0, DBASE
+08FE E593       +1  1198             MOV A, SSCON
 
-08FC 8695       +1  1199             MOV SSDAT, @R0  ; ...escreve o proximo!
+0900 54C7       +1  1199             ANL A, #~(STA | STO | SI) ; zera STA, STO e SI
 
-08FE E593       +1  1200             MOV A, SSCON
+0902 F593       +1  1200             MOV SSCON, A
 
-0900 54C7       +1  1201             ANL A, #~(STA | STO | SI) ; zera STA, STO e SI
+0904 0560       +1  1201             INC DBASE               ; incrementa o indice do buffer
 
-0902 F593       +1  1202             MOV SSCON, A
+0906 020886     +1  1202             LJMP end_i2c_int
 
-0904 0560       +1  1203             INC DBASE               ; incrementa o indice do buffer
+                +1  1203     ;------------------------------------------------------------------------------
 
-0906 020886     +1  1204             LJMP end_i2c_int
+0909            +1  1204     W_DATA_NACK:
 
-                +1  1205     ;------------------------------------------------------------------------------
+                +1  1205     ; após um data_nack, podemos repetir ou encerrar
 
-0909            +1  1206     W_DATA_NACK:
+                +1  1206     ; vamos encerrar
 
-                +1  1207     ; após um data_nack, podemos repetir ou encerrar
+0909 E593       +1  1207             MOV A, SSCON 
 
-                +1  1208     ; vamos encerrar
+090B 54D7       +1  1208             ANL A, #~(STA | SI)
 
-0909 E593       +1  1209             MOV A, SSCON 
+090D 4410       +1  1209             ORL A, #STO                     ; gera um STOP
 
-090B 54D7       +1  1210             ANL A, #~(STA | SI)
+090F F593       +1  1210             MOV SSCON, A
 
-090D 4410       +1  1211             ORL A, #STO                     ; gera um STOP
+0911 C200       +1  1211             CLR     I2C_BUSY ; zera o flag de ocupado
 
-090F F593       +1  1212             MOV SSCON, A
+0913 020886     +1  1212             LJMP end_i2c_int
 
-0911 C200       +1  1213             CLR     I2C_BUSY ; zera o flag de ocupado
+                +1  1213     ;------------------------------------------------------------------------------
 
-0913 020886     +1  1214             LJMP end_i2c_int
+0916            +1  1214     ARB_LOST:
 
-                +1  1215     ;------------------------------------------------------------------------------
+                +1  1215     ; após um arb-lost podemos acabar sendo endereçados como slave
 
-0916            +1  1216     ARB_LOST:
+                +1  1216     ; o arb-lost costuma ocorrer em 2 situações:
 
-                +1  1217     ; após um arb-lost podemos acabar sendo endereçados como slave
+                +1  1217     ; 1 - problemas físicos no bus
 
-                +1  1218     ; o arb-lost costuma ocorrer em 2 situações:
+                +1  1218     ; 2 - ambiente multi-master (não é o caso)
 
-                +1  1219     ; 1 - problemas físicos no bus
+                +1  1219     ; em ambos os casos, não vamos fazer nada!
 
-                +1  1220     ; 2 - ambiente multi-master (não é o caso)
+                +1  1220     ; pois não estamos implementando a comunicação em modo slave.
 
-                +1  1221     ; em ambos os casos, não vamos fazer nada!
+0916 020886     +1  1221             LJMP end_i2c_int        
 
-                +1  1222     ; pois não estamos implementando a comunicação em modo slave.
+                +1  1222     ;------------------------------------------------------------------------------
 
-0916 020886     +1  1223             LJMP end_i2c_int        
+0919            +1  1223     R_ADDR_ACK:
 
-                +1  1224     ;------------------------------------------------------------------------------
+                +1  1224     ; depois de um R ADDR ACK, recebemos os bytes!
 
-0919            +1  1225     R_ADDR_ACK:
+0919 E593       +1  1225             MOV A, SSCON
 
-                +1  1226     ; depois de um R ADDR ACK, recebemos os bytes!
+091B 54C7       +1  1226             ANL A, #~(STA | STO | SI) ; receberemos o proximo byte
 
-0919 E593       +1  1227             MOV A, SSCON
+                +1  1227             
 
-091B 54C7       +1  1228             ANL A, #~(STA | STO | SI) ; receberemos o proximo byte
-
-                +1  1229             
-
-091D D55E04     +1  1230             DJNZ B2R, raa1                                    ; decrementa a quantidade de byte
+091D D55E04     +1  1228             DJNZ B2R, raa1                                    ; decrementa a quantidade de byte
                              s a receber!
 
-                +1  1231             ; se der 0, é o ultimo byte a ser recebido
+                +1  1229             ; se der 0, é o ultimo byte a ser recebido
 
-0920 54FB       +1  1232             ANL A, #~AA     ; retorne NACK
+0920 54FB       +1  1230             ANL A, #~AA     ; retorne NACK
 
-0922 8002       +1  1233             SJMP raa2
+0922 8002       +1  1231             SJMP raa2
 
-                +1  1234             ; se não...
+                +1  1232             ; se não...
 
-0924            +1  1235     raa1:
+0924            +1  1233     raa1:
 
-0924 4404       +1  1236             ORL A, #AA      ; retorne ACK para o slave!
+0924 4404       +1  1234             ORL A, #AA      ; retorne ACK para o slave!
 
-0926            +1  1237     raa2:   
+0926            +1  1235     raa2:   
 
-0926 F593       +1  1238             MOV SSCON, A
+0926 F593       +1  1236             MOV SSCON, A
 
-0928 020886     +1  1239             LJMP end_i2c_int        
+0928 020886     +1  1237             LJMP end_i2c_int        
 
-                +1  1240     ;------------------------------------------------------------------------------
+                +1  1238     ;------------------------------------------------------------------------------
 
-092B            +1  1241     R_ADDR_NACK:
+092B            +1  1239     R_ADDR_NACK:
 
-                +1  1242     ; idem ao w_addr_nack
+                +1  1240     ; idem ao w_addr_nack
 
-092B E593       +1  1243             MOV A, SSCON 
+092B E593       +1  1241             MOV A, SSCON 
 
-092D 54D7       +1  1244             ANL A, #~(STA | SI)
+092D 54D7       +1  1242             ANL A, #~(STA | SI)
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    20
+092F 4410       +1  1243             ORL A, #STO                     ; gera um STOP
 
-092F 4410       +1  1245             ORL A, #STO                     ; gera um STOP
+0931 F593       +1  1244             MOV SSCON, A
 
-0931 F593       +1  1246             MOV SSCON, A
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    20
 
-0933 C200       +1  1247             CLR     I2C_BUSY ; zera o flag de ocupado
+0933 C200       +1  1245             CLR     I2C_BUSY ; zera o flag de ocupado
 
-0935 0561       +1  1248             INC NACKS
+0935 0561       +1  1246             INC NACKS
 
-0937 020886     +1  1249             LJMP end_i2c_int
+0937 020886     +1  1247             LJMP end_i2c_int
 
-                +1  1250     ;------------------------------------------------------------------------------
+                +1  1248     ;------------------------------------------------------------------------------
 
-093A            +1  1251     R_DATA_ACK:
+093A            +1  1249     R_DATA_ACK:
 
-                +1  1252     ; se tiver mais bytes pra ler, de um ack, senão de um nack
+                +1  1250     ; se tiver mais bytes pra ler, de um ack, senão de um nack
 
-                +1  1253     
+                +1  1251     
 
-093A A860       +1  1254             MOV R0, DBASE
+093A A860       +1  1252             MOV R0, DBASE
 
-093C A695       +1  1255             MOV     @R0, SSDAT ; le o byte que já chegou
+093C A695       +1  1253             MOV     @R0, SSDAT ; le o byte que já chegou
 
-                +1  1256     
+                +1  1254     
 
-093E E593       +1  1257             MOV A, SSCON
+093E E593       +1  1255             MOV A, SSCON
 
-0940 54C7       +1  1258             ANL A, #~(STA | STO | SI) ; receberemos o proximo byte
+0940 54C7       +1  1256             ANL A, #~(STA | STO | SI) ; receberemos o proximo byte
 
-                +1  1259             
+                +1  1257             
 
-0942 D55E04     +1  1260             DJNZ B2R, rda1                                    ; decrementa a quantidade de byte
+0942 D55E04     +1  1258             DJNZ B2R, rda1                                    ; decrementa a quantidade de byte
                              s a receber!
 
-                +1  1261             ; se der 0, é o ultimo byte a ser recebido
+                +1  1259             ; se der 0, é o ultimo byte a ser recebido
 
-0945 54FB       +1  1262             ANL A, #~AA     ; retorne NACK
+0945 54FB       +1  1260             ANL A, #~AA     ; retorne NACK
 
-0947 8002       +1  1263             SJMP rda2
+0947 8002       +1  1261             SJMP rda2
 
-                +1  1264             ; se não...
+                +1  1262             ; se não...
 
-0949            +1  1265     rda1:
+0949            +1  1263     rda1:
 
-0949 4404       +1  1266             ORL A, #AA      ; retorne ACK para o slave!
+0949 4404       +1  1264             ORL A, #AA      ; retorne ACK para o slave!
 
-094B            +1  1267     rda2:   
+094B            +1  1265     rda2:   
 
-094B F593       +1  1268             MOV SSCON, A
+094B F593       +1  1266             MOV SSCON, A
 
-094D 0560       +1  1269             INC DBASE ; incrementa o buffer
+094D 0560       +1  1267             INC DBASE ; incrementa o buffer
 
-094F 020886     +1  1270             LJMP end_i2c_int
+094F 020886     +1  1268             LJMP end_i2c_int
 
-                +1  1271     ;------------------------------------------------------------------------------
+                +1  1269     ;------------------------------------------------------------------------------
 
-0952            +1  1272     R_DATA_NACK:
+0952            +1  1270     R_DATA_NACK:
 
-                +1  1273     ; salva o ultimo byte e termina
+                +1  1271     ; salva o ultimo byte e termina
 
-                +1  1274     
+                +1  1272     
 
-0952 A860       +1  1275             MOV R0, DBASE
+0952 A860       +1  1273             MOV R0, DBASE
 
-0954 A695       +1  1276             MOV     @R0, SSDAT ; le o byte que já chegou
+0954 A695       +1  1274             MOV     @R0, SSDAT ; le o byte que já chegou
 
-                +1  1277     
+                +1  1275     
 
-0956 E593       +1  1278             MOV A, SSCON 
+0956 E593       +1  1276             MOV A, SSCON 
 
-0958 54D7       +1  1279             ANL A, #~(STA | SI)
+0958 54D7       +1  1277             ANL A, #~(STA | SI)
 
-095A 4410       +1  1280             ORL A, #STO                     ; gera um STOP
+095A 4410       +1  1278             ORL A, #STO                     ; gera um STOP
 
-095C F593       +1  1281             MOV SSCON, A
+095C F593       +1  1279             MOV SSCON, A
+
+                +1  1280     
+
+095E 0560       +1  1281             INC DBASE ; inc o buffer
 
                 +1  1282     
 
-095E 0560       +1  1283             INC DBASE ; inc o buffer
+0960 C200       +1  1283             CLR     I2C_BUSY ; zera o flag de ocupado
 
-                +1  1284     
+0962 020886     +1  1284             LJMP end_i2c_int        
 
-0960 C200       +1  1285             CLR     I2C_BUSY ; zera o flag de ocupado
+                    1285     
 
-0962 020886     +1  1286             LJMP end_i2c_int        
+                    1286     ;#include "rtc.a51"
 
-                    1287     
+                +1  1287     
 
-                    1288     ;#include "rtc.a51"
+                +1  1288     
 
                 +1  1289     
 
@@ -2638,61 +2638,61 @@ LOC  OBJ            LINE     SOURCE
 
                 +1  1295     
 
-                +1  1296     
+0700            +1  1296     ORG     0700h
 
                 +1  1297     
 
-0700            +1  1298     ORG     0700h
+                +1  1298     
 
-                +1  1299     
+  00D1          +1  1299     RADDR   EQU 0xD1
 
-                +1  1300     
+  00D0          +1  1300     WADDR   EQU 0xD0
 
-  00D1          +1  1301     RADDR   EQU 0xD1
+                +1  1301             
 
-  00D0          +1  1302     WADDR   EQU 0xD0
+                +1  1302     
 
-                +1  1303             
+  00A1          +1  1303     RTC_SQW EQU P2.1
 
-                +1  1304     
+                +1  1304             
 
-  00A1          +1  1305     RTC_SQW EQU P2.1
+                +1  1305     
 
-                +1  1306             
+  0050          +1  1306     SEC     EQU 0050h
 
-                +1  1307     
+  0051          +1  1307     MIN     EQU 0051h
 
-  0050          +1  1308     SEC     EQU 0050h
+  0052          +1  1308     HOU     EQU 0052h
 
-  0051          +1  1309     MIN     EQU 0051h
+  0053          +1  1309     DAY     EQU 0053h
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    21
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    21
 
-  0052          +1  1310     HOU     EQU 0052h
+  0054          +1  1310     DAT     EQU 0054h
 
-  0053          +1  1311     DAY     EQU 0053h
+  0055          +1  1311     MON     EQU 0055h
 
-  0054          +1  1312     DAT     EQU 0054h
+  0056          +1  1312     YEA     EQU 0056h
 
-  0055          +1  1313     MON     EQU 0055h
+  0057          +1  1313     CTR     EQU 0057h
 
-  0056          +1  1314     YEA     EQU 0056h
+  0058          +1  1314     LSB             EQU     0058h
 
-  0057          +1  1315     CTR     EQU 0057h
+  0059          +1  1315     MSB             EQU 0059h
 
-  0058          +1  1316     LSB             EQU     0058h
+                +1  1316             
 
-  0059          +1  1317     MSB             EQU 0059h
+  005A          +1  1317     MULT    EQU 005Ah  
 
-                +1  1318             
+  005B          +1  1318     T_OUT   EQU 005Bh ; time-out de espera do fim da comunicação
 
-  005A          +1  1319     MULT    EQU 005Ah  
+  005C          +1  1319     T_OUTS  EQU 005Ch ; contador do numero de time_outs para estatística
 
-  005B          +1  1320     T_OUT   EQU 005Bh ; time-out de espera do fim da comunicação
+                +1  1320             
 
-  005C          +1  1321     T_OUTS  EQU 005Ch ; contador do numero de time_outs para estatística
+                +1  1321     
 
-                +1  1322             
+                +1  1322     
 
                 +1  1323     
 
@@ -2708,43 +2708,43 @@ LOC  OBJ            LINE     SOURCE
 
                 +1  1329     
 
-0700            +1  1330     INIT_RTC:
+                +1  1330     
 
-                +1  1331                     
+                +1  1331     
 
-0700 75A800     +1  1332                     MOV IEN0, #0x00
+                +1  1332     
 
-0703 75B100     +1  1333                     MOV IEN1, #0x00
+                +1  1333     
 
                 +1  1334     
 
-                +1  1335                     
+0700            +1  1335     INIT_RTC:
 
-0706 758901     +1  1336                     MOV TMOD, #0x01 ; T0 no modo timer 16bits
+                +1  1336                     
 
-                +1  1337     
+0700 75A800     +1  1337                     MOV IEN0, #00h
 
-                +1  1338                     
+0703 75B100     +1  1338                     MOV IEN1, #00h
 
-0709 D2C0       +1  1339                     SETB I2C_SCL
+                +1  1339     
 
-070B D2C1       +1  1340                     SETB I2C_SDA ; Coloca os latches em high-Z
+                +1  1340                     
 
-                +1  1341     
+0706 758901     +1  1341                     MOV TMOD, #01h  
 
-                +1  1342                     
+                +1  1342     
 
-070D 759341     +1  1343                     MOV SSCON, #01000001b
+                +1  1343                     
 
-                +1  1344                                       
+0709 D2C0       +1  1344                     SETB I2C_SCL
 
-                +1  1345                                       
+070B D2C1       +1  1345                     SETB I2C_SDA     
 
-                +1  1346                                       
+                +1  1346     
 
-                +1  1347                                       
+                +1  1347                     
 
-                +1  1348                                       
+070D 759341     +1  1348                     MOV SSCON, #01000001b
 
                 +1  1349                                       
 
@@ -2752,764 +2752,758 @@ LOC  OBJ            LINE     SOURCE
 
                 +1  1351                                       
 
-                +1  1352     
+                +1  1352                                       
 
-                +1  1353                     
+                +1  1353                                       
 
-0710 75B202     +1  1354                     MOV IPL1, #0x02
+                +1  1354                                       
 
-0713 75B302     +1  1355                     MOV IPH1, #0x02
+                +1  1355                                       
 
-0716 75B102     +1  1356                     MOV IEN1, #0x02  
+                +1  1356                                       
 
                 +1  1357     
 
-0719 D2AF       +1  1358                     SETB EA  
+                +1  1358                     
 
-                +1  1359                     
+0710 75B202     +1  1359                     MOV IPL1, #0x02
 
-                +1  1360                     
+0713 75B302     +1  1360                     MOV IPH1, #0x02
 
-                +1  1361                     
+0716 75B102     +1  1361                     MOV IEN1, #0x02  
 
-                +1  1362                     
+                +1  1362     
 
-                +1  1363                     
+0719 D2AF       +1  1363                     SETB EA  
 
-071B 755000     +1  1364                     MOV SEC, #000h ; BCD segundos, deve ser iniciado com valor PAR para o relog
-                             io funcionar.
+                +1  1364                     
 
-071E 755152     +1  1365                     MOV MIN, #052h ; BCD minutos
+                +1  1365                     
 
-0721 755215     +1  1366                     MOV HOU, #015h ; BCD hora, se o bit mais alto for 1, o relógio é 12h, senão
-                              BCD 24h
+                +1  1366                     
 
-0724 755304     +1  1367                     MOV DAY, #004h ; Dia da semana
+                +1  1367                     
 
-0727 755417     +1  1368                     MOV DAT, #017h ; Dia
+                +1  1368                     
 
-072A 755505     +1  1369                     MOV MON, #005h ; Mês
+071B 8850       +1  1369                     MOV SEC, R0  
 
-072D 755617     +1  1370                     MOV YEA, #017h ; Ano
+071D 8951       +1  1370                     MOV MIN, R1  
 
-0730 755712     +1  1371                     MOV CTR, #00010010b ; freq 8192khz
+071F 8A52       +1  1371                     MOV HOU, R2  
 
-                +1  1372     
+0721 8B53       +1  1372                     MOV DAY, R3  
 
-0733 120737     +1  1373                     LCALL RTC_SET_TIME
+0723 8C54       +1  1373                     MOV DAT, R4  
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    22
+0725 8D55       +1  1374                     MOV MON, R5  
 
-                +1  1374                     
+0727 8E56       +1  1375                     MOV YEA, R6  
 
-0736 22         +1  1375                     RET
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    22
 
-                +1  1376             
+0729 8F57       +1  1376                     MOV CTR, R7  
 
-                +1  1377     ;------------------------------------------------------------------------------
+                +1  1377     
 
-                +1  1378     ; Nome: RTC_SET_TIME
+072B 12072F     +1  1378                     LCALL RTC_SET_TIME
 
-                +1  1379     ; Descrição: escreve data e hora no RTC
+                +1  1379                     
 
-                +1  1380     ; Parâmetros: SEC, MIN, HOU
+072E 22         +1  1380                     RET
 
-                +1  1381     ; Retorna:
+                +1  1381             
 
-                +1  1382     ; Destrói: A
+                +1  1382     
 
-                +1  1383     ;------------------------------------------------------------------------------
+                +1  1383     
 
-0737            +1  1384     RTC_SET_TIME:
+                +1  1384     
 
-0737 755F00     +1  1385                     MOV ADDR, #0x00         ; endereço do reg interno
+                +1  1385     
 
-073A 755D09     +1  1386                     MOV B2W, #(8+1)         ; a quantidade de bytes que deverão ser enviados + 
-                             1.
+                +1  1386     
 
-073D 755E01     +1  1387                     MOV B2R, #(0+1)         ; a quantidade de bytes que serão lidos + 1.
+                +1  1387     
 
-0740 756050     +1  1388                     MOV DBASE, #SEC         ; endereço base dos dados
+                +1  1388     
 
-                +1  1389     
+072F            +1  1389     RTC_SET_TIME:
 
-                +1  1390                     ; gera o start, daqui pra frente é tudo na interrupção.
+072F 755F00     +1  1390                     MOV ADDR,  #00h          
 
-0743 E593       +1  1391                     MOV A, SSCON
+0732 755D09     +1  1391                     MOV B2W,   #(8+1)        
 
-0745 4420       +1  1392                     ORL A, #STA
+0735 755E01     +1  1392                     MOV B2R,   #(0+1)        
 
-0747 F593       +1  1393                     MOV SSCON, A
+0738 756050     +1  1393                     MOV DBASE, #SEC          
 
                 +1  1394     
 
-                +1  1395                     ; devemos aguardar um tempo "suficiente" para ser gerada a interrupção de S
-                             TART
+                +1  1395                     
 
-0749 755A0A     +1  1396                             MOV MULT, #0xA ; 5 ms
+073B E593       +1  1396                     MOV A,          SSCON
 
-074C 12031C     +1  1397                             LCALL runT0
+073D 4420       +1  1397                     ORL A,          #STA
 
-                +1  1398     
+073F F593       +1  1398                     MOV SSCON,      A
 
-                +1  1399                     ; Polling até certo limite! 500 ms
+                +1  1399     
 
-074F 755B64     +1  1400                     MOV T_OUT, #100
+                +1  1400                     
 
-0752            +1  1401     set_wait:
+0741 7A00       +1  1401                     MOV             R2, #000h
 
-0752 30000B     +1  1402                     JNB I2C_BUSY, end_set
+0743 7900       +1  1402                     MOV             R1, #000h
 
-                +1  1403                     
+0745 780A       +1  1403                     MOV             R0, #00Ah
 
-                +1  1404                     
+0747 120D3D     +1  1404                     LCALL   TIMER_DELAY
 
-0755 755A0A     +1  1405                     MOV MULT, #10
+                +1  1405     
 
-0758 12031C     +1  1406                     LCALL runT0
+                +1  1406                     
 
-                +1  1407                     
+074A 755B64     +1  1407                     MOV T_OUT, #100
 
-075B D55BF4     +1  1408                     DJNZ T_OUT,set_wait
+                +1  1408                     
 
-075E 055C       +1  1409                     INC T_OUTS
+074D            +1  1409     set_wait:
 
-                +1  1410                     
+074D 30000E     +1  1410                     JNB I2C_BUSY, end_set
 
-0760            +1  1411     end_set:
+                +1  1411                     
 
-0760 22         +1  1412                     RET
+                +1  1412                     
 
-                +1  1413                     
+0750 7A00       +1  1413                     MOV             R2, #000h
 
-                +1  1414     ;------------------------------------------------------------------------------
+0752 7900       +1  1414                     MOV             R1, #000h
 
-                +1  1415     ; Nome: RTC_GET_TIME
+0754 7810       +1  1415                     MOV             R0, #010h
 
-                +1  1416     ; Descrição: lê data e hora do RTC
+0756 120D3D     +1  1416                     LCALL   TIMER_DELAY
 
-                +1  1417     ; Parâmetros:
+                +1  1417                     
 
-                +1  1418     ; Retorna: SEC, MIN, HOU
+0759 D55BF1     +1  1418                     DJNZ T_OUT,set_wait
 
-                +1  1419     ; Destrói: A
+075C 055C       +1  1419                     INC T_OUTS
 
-                +1  1420     ;------------------------------------------------------------------------------
+                +1  1420                     
 
-0761            +1  1421     RTC_GET_TIME:
+075E            +1  1421     end_set:
 
-0761 755F00     +1  1422                     MOV ADDR, #0x00         ; endereço do reg interno
+075E 22         +1  1422                     RET
 
-0764 755D01     +1  1423                     MOV B2W, #(0+1)         ; a quantidade de bytes que deverão ser enviados + 
-                             1.
+                +1  1423                     
 
-0767 755E09     +1  1424                     MOV B2R, #(8+1)         ; a quantidade de bytes que serão lidos + 1.
+                +1  1424     ;------------------------------------------------------------------------------
 
-076A 756050     +1  1425                     MOV DBASE, #SEC         ; endereço base dos dados (buffer)
+                +1  1425     ; Nome: RTC_GET_TIME
 
-                +1  1426     
+                +1  1426     ; Descrição: lê data e hora do RTC
 
-                +1  1427                     ; gera o start, daqui pra frente é tudo na interrupção.
+                +1  1427     ; Parâmetros:
 
-076D E593       +1  1428                     MOV A, SSCON
+                +1  1428     ; Retorna: SEC, MIN, HOU
 
-076F 4420       +1  1429                     ORL A, #STA
+                +1  1429     ; Destrói: A
 
-0771 F593       +1  1430                     MOV SSCON, A
+                +1  1430     ;------------------------------------------------------------------------------
 
-                +1  1431     
+075F            +1  1431     RTC_GET_TIME:
 
-                +1  1432                     ; devemos aguardar um tempo "suficiente" para ser gerada a interrupção de S
-                             TART
+075F 755F00     +1  1432                     MOV ADDR,  #000h         
 
-0773 755A0A     +1  1433                     MOV MULT, #0xA
+0762 755D01     +1  1433                     MOV B2W,   #(0+1)        
 
-0776 12031C     +1  1434                     LCALL runT0
+0765 755E09     +1  1434                     MOV B2R,   #(8+1)        
 
-                +1  1435     
+0768 756050     +1  1435                     MOV DBASE, #SEC          
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    23
+                +1  1436     
 
-                +1  1436                     ; Polling até certo limite. rev2 RdG
+                +1  1437                     
 
-0779 755B64     +1  1437                     MOV T_OUT, #100
+076B E593       +1  1438                     MOV A, SSCON
 
-077C            +1  1438     get_wait:
+076D 4420       +1  1439                     ORL A, #STA
 
-077C 30000E     +1  1439                     JNB I2C_BUSY, end_get
+076F F593       +1  1440                     MOV SSCON, A
 
-                +1  1440                     
+                +1  1441     
 
-                +1  1441                     
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    23
 
-077F 7A00       +1  1442                     MOV             R2, #000h
+                +1  1442                     
 
-0781 7900       +1  1443                     MOV             R1, #000h
+0771 7A00       +1  1443                     MOV             R2, #000h
 
-0783 780B       +1  1444                     MOV             R0, #00Bh
+0773 7900       +1  1444                     MOV             R1, #000h
 
-0785 120D3D     +1  1445                     LCALL   TIMER_DELAY
+0775 780A       +1  1445                     MOV             R0, #00Ah
 
-                +1  1446                     
+0777 120D3D     +1  1446                     LCALL   TIMER_DELAY
 
-0788 D55BF1     +1  1447                     DJNZ    T_OUT,get_wait
+                +1  1447     
 
-078B 055C       +1  1448                     INC     T_OUTS
+                +1  1448                     ; Polling até certo limite. rev2 RdG
 
-                +1  1449     
+077A 755B64     +1  1449                     MOV T_OUT, #100
 
-078D            +1  1450     end_get:
+077D            +1  1450     get_wait:
 
-078D 22         +1  1451                     RET
+077D 30000E     +1  1451                     JNB I2C_BUSY, end_get
 
-                    1452     
+                +1  1452                     
 
-                    1453     
+                +1  1453                     
 
-  0020              1454     BOTAO_SW EQU 20h ;Representa qual interrupcao SW foi pressionado (SW1 = 1 e SW2=0)
+0780 7A00       +1  1454                     MOV             R2, #000h
 
-                    1455     
+0782 7900       +1  1455                     MOV             R1, #000h
 
-  00B2              1456     SW1 EQU P3.2
+0784 7810       +1  1456                     MOV             R0, #010h
 
-  00B4              1457     SW2 EQU P3.4
+0786 120D3D     +1  1457                     LCALL   TIMER_DELAY
 
-                    1458             
+                +1  1458                     
 
-078E                1459     DOMINGO:
+0789 D55BF1     +1  1459                     DJNZ    T_OUT,get_wait
 
-078E 444F4D00       1460                     DB              'DOM', 00H
+078C 055C       +1  1460                     INC     T_OUTS
 
-0792                1461     SEGUNDA:
+                +1  1461     
 
-0792 53454700       1462                     DB              'SEG', 00H
+078E            +1  1462     end_get:
 
-0796                1463     TERCA:
+078E 22         +1  1463                     RET
 
-0796 54455200       1464                     DB              'TER', 00H
+                    1464     
 
-079A                1465     QUARTA:
+                    1465     
 
-079A 51554100       1466                     DB              'QUA', 00H
+078F                1466     DOMINGO:
 
-079E                1467     QUINTA:
+078F 444F4D00       1467                     DB              'DOM', 00H
 
-079E 51554900       1468                     DB              'QUI', 00H
+0793                1468     SEGUNDA:
 
-07A2                1469     SEXTA:
+0793 53454700       1469                     DB              'SEG', 00H
 
-07A2 53455800       1470                     DB              'SEX', 00H
+0797                1470     TERCA:
 
-07A6                1471     SABADO:
+0797 54455200       1471                     DB              'TER', 00H
 
-07A6 53414200       1472                     DB              'SAB', 00H
+079B                1472     QUARTA:
 
-                    1473     
+079B 51554100       1473                     DB              'QUA', 00H
 
-                    1474     
+079F                1474     QUINTA:
 
-                    1475     
+079F 51554900       1475                     DB              'QUI', 00H
 
-                    1476     
+07A3                1476     SEXTA:
 
-                    1477     
+07A3 53455800       1477                     DB              'SEX', 00H
 
-                    1478     
+07A7                1478     SABADO:
 
-                    1479     
+07A7 53414200       1479                     DB              'SAB', 00H
 
                     1480     
 
-0000                1481     ORG 0000h  
+                    1481     
 
-0000 020046         1482                     LJMP __STARTUP__
+                    1482     
 
                     1483     
 
-0003                1484     ORG 0003h  
+                    1484     
 
-0003 020311         1485                     LJMP INT_INT0
+                    1485     
 
                     1486     
 
-000B                1487     ORG 000Bh  
+                    1487     
 
-000B 020312         1488                     LJMP INT_TIMER0
+0000                1488     ORG 0000h  
 
-                    1489     
+0000 020046         1489                     LJMP __STARTUP__
 
-0013                1490     ORG 0013h  
+                    1490     
 
-0013 020313         1491                     LJMP INT_INT1
+0003                1491     ORG 0003h  
 
-                    1492     
+0003 02031F         1492                     LJMP INT_INT0
 
-001B                1493     ORG 001Bh  
+                    1493     
 
-001B 020314         1494                     LJMP INT_TIMER1
+000B                1494     ORG 000Bh  
 
-                    1495     
+000B 020320         1495                     LJMP INT_TIMER0
 
-0023                1496     ORG 0023h  
+                    1496     
 
-0023 020315         1497                     LJMP INT_SERIAL
+0013                1497     ORG 0013h  
 
-                    1498     
+0013 020321         1498                     LJMP INT_INT1
 
-0043                1499     ORG     0043h
+                    1499     
 
-0043 020316         1500                     LJMP INT_I2C_TWI
+001B                1500     ORG 001Bh  
 
-                    1501             
+001B 020322         1501                     LJMP INT_TIMER1
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    24
+                    1502     
 
-0046                1502     __STARTUP__:
+0023                1503     ORG 0023h  
 
-0046 120700         1503                     LCALL   INIT_RTC
+0023 020323         1504                     LJMP INT_SERIAL
 
-0049 120F00         1504                     LCALL   INIDISP
+                    1505     
 
-                    1505                     
+0043                1506     ORG     0043h
 
-004C 755712         1506                     MOV     CTR, #00010010b
+0043 020324         1507                     LJMP INT_I2C_TWI
 
-004F C220           1507                     CLR     BOTAO_SW        
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    24
 
-                    1508                     
+                    1508             
 
-0051 7921           1509                     MOV     R1, #00100001b   
+0046                1509     __STARTUP__:
 
-0053 78F3           1510                     MOV     R0, #0F3h                
+                    1510                     
 
-0055 120A09         1511                     LCALL   CONFIGURA_BAUD_RATE
+0046 7800           1511                     MOV R0, #000h           
 
-                    1512                     
+0048 7900           1512                     MOV R1, #000h           
 
-0058 7950           1513                     MOV     R1, #01010000b
+004A 7A15           1513                     MOV R2, #015h           
 
-005A 7880           1514                     MOV     R0, #10000000b
+004C 7B06           1514                     MOV R3, #006h           
 
-005C 120A00         1515                     LCALL   CONFIGURA_SERIAL
+004E 7C19           1515                     MOV R4, #019h           
 
-                    1516                     
+0050 7D05           1516                     MOV R5, #005h           
 
-005F                1517     main:
+0052 7E17           1517                     MOV R6, #017h           
 
-005F 0201F8         1518                     LJMP    LOOP
+0054 7F12           1518                     MOV R7, #00010010b   
 
-                    1519             
+0056 120700         1519                     LCALL   INIT_RTC
 
-0062                1520     ESPERA_DADOS:
+                    1520                     
 
-0062 120A10         1521             LCALL   RECEBE_DADO
+0059 120F00         1521                     LCALL   INIDISP
 
-0065 B401F7         1522             CJNE    A, #01h, main
+                    1522                     
 
-0068 120A10         1523             LCALL   RECEBE_DADO
+005C 755712         1523                     MOV     CTR, #00010010b
 
-006B F550           1524             MOV     SEC, A ; BCD segundos, deve ser iniciado com valor PAR para o relogio funci
+                    1524                     
+
+005F 7921           1525                     MOV     R1, #00100001b   
+
+0061 78F3           1526                     MOV     R0, #0F3h                
+
+0063 120A09         1527                     LCALL   CONFIGURA_BAUD_RATE
+
+                    1528                     
+
+0066 7950           1529                     MOV     R1, #01010000b
+
+0068 7880           1530                     MOV     R0, #10000000b
+
+006A 120A00         1531                     LCALL   CONFIGURA_SERIAL
+
+                    1532                     
+
+006D                1533     main:
+
+006D 020206         1534                     LJMP    LOOP
+
+                    1535             
+
+0070                1536     ESPERA_DADOS:
+
+0070 120A10         1537             LCALL   RECEBE_DADO
+
+0073 B401F7         1538             CJNE    A, #01h, main
+
+0076 120A10         1539             LCALL   RECEBE_DADO
+
+0079 F550           1540             MOV     SEC, A ; BCD segundos, deve ser iniciado com valor PAR para o relogio funci
                              onar.
 
-006D 120A10         1525             LCALL   RECEBE_DADO
+007B 120A10         1541             LCALL   RECEBE_DADO
 
-0070 F551           1526             MOV     MIN, A ; BCD minutos
+007E F551           1542             MOV     MIN, A ; BCD minutos
 
-0072 120A10         1527             LCALL   RECEBE_DADO
+0080 120A10         1543             LCALL   RECEBE_DADO
 
-0075 F552           1528             MOV     HOU, A; BCD hora, se o bit mais alto for 1, o relógio é 12h, senão BCD 24h
+0083 F552           1544             MOV     HOU, A; BCD hora, se o bit mais alto for 1, o relógio é 12h, senão BCD 24h
 
-0077 120A10         1529             LCALL   RECEBE_DADO
+0085 120A10         1545             LCALL   RECEBE_DADO
 
-007A F553           1530             MOV     DAY, A ; Dia da semana
+0088 F553           1546             MOV     DAY, A ; Dia da semana
 
-007C 120A10         1531             LCALL   RECEBE_DADO
+008A 120A10         1547             LCALL   RECEBE_DADO
 
-007F F554           1532             MOV     DAT, A ; Dia
+008D F554           1548             MOV     DAT, A ; Dia
 
-0081 120A10         1533             LCALL   RECEBE_DADO
+008F 120A10         1549             LCALL   RECEBE_DADO
 
-0084 F555           1534             MOV     MON, A ; Mês
+0092 F555           1550             MOV     MON, A ; Mês
 
-0086 120A10         1535             LCALL   RECEBE_DADO
+0094 120A10         1551             LCALL   RECEBE_DADO
 
-0089 F556           1536             MOV     YEA, A ; Ano
+0097 F556           1552             MOV     YEA, A ; Ano
 
-008B 120A10         1537             LCALL   RECEBE_DADO
+0099 120A10         1553             LCALL   RECEBE_DADO
 
-008E F557           1538             MOV     CTR, A ; CONTROLE
+009C F557           1554             MOV     CTR, A ; CONTROLE
 
-0090 120A20         1539             LCALL   ENVIA_OK
+009E 120A20         1555             LCALL   ENVIA_OK
 
-0093 120737         1540             LCALL   RTC_SET_TIME
+00A1 12072F         1556             LCALL   RTC_SET_TIME
 
-0096 755792         1541             MOV     CTR, #10010010b
+00A4 755792         1557             MOV     CTR, #10010010b
 
-0099 21F8           1542             JMP     LOOP
-
-                    1543                     
-
-                    1544     
-
-                    1545     
-
-                    1546     
-
-                    1547     
-
-                    1548     
-
-                    1549     
-
-                    1550     
-
-                    1551     
-
-                    1552     
-
-                    1553     
-
-                    1554     
-
-                    1555     
-
-                    1556     
-
-                    1557     
-
-                    1558     
+00A7 4106           1558             JMP     LOOP
 
                     1559     
 
-009B                1560     EHOSW2: 
+00A9                1560     EHOSW2: 
 
-009B 7453           1561             MOV     A, #'S'
+00A9 7453           1561             MOV     A, #'S'
 
-009D 120A18         1562             LCALL   ENVIA_DADO
+00AB 120A18         1562             LCALL   ENVIA_DADO
 
-00A0 7A32           1563             MOV     R2, #50
+00AE 7A32           1563             MOV     R2, #50
 
-00A2 120335         1564             LCALL   ATRASO_MS
+00B0 120343         1564             LCALL   ATRASO_MS
 
-00A5 7457           1565             MOV     A, #'W'
+00B3 7457           1565             MOV     A, #'W'
 
-00A7 120A18         1566             LCALL   ENVIA_DADO
+00B5 120A18         1566             LCALL   ENVIA_DADO
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    25
+00B8 7A32           1567             MOV     R2, #50
 
-00AA 7A32           1567             MOV     R2, #50
+00BA 120343         1568             LCALL   ATRASO_MS
 
-00AC 120335         1568             LCALL   ATRASO_MS
+00BD 7432           1569             MOV     A, #32h
 
-00AF 7432           1569             MOV     A, #32h
+00BF 120A18         1570             LCALL   ENVIA_DADO
 
-00B1 120A18         1570             LCALL   ENVIA_DADO
+00C2 7A32           1571             MOV     R2, #50
 
-00B4 7A32           1571             MOV     R2, #50
+00C4 120343         1572             LCALL   ATRASO_MS
 
-00B6 120335         1572             LCALL   ATRASO_MS
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    25
 
-00B9                1573     CONTINUA_ENVIAR:
+                    1573             
 
-00B9 7420           1574             MOV     A, #20h ;Manda (espaço)
+00C7                1574     CONTINUA_ENVIAR:
 
-00BB 120A18         1575             LCALL   ENVIA_DADO
+00C7 7420           1575             MOV     A, #20h ;Manda (espaço)
 
-00BE 7A32           1576             MOV     R2, #50
+00C9 120A18         1576             LCALL   ENVIA_DADO
 
-00C0 120335         1577             LCALL   ATRASO_MS
+00CC 7A32           1577             MOV     R2, #50
 
-00C3 742D           1578             MOV     A, #2Dh ;Manda (-)
+00CE 120343         1578             LCALL   ATRASO_MS
 
-00C5 120A18         1579             LCALL   ENVIA_DADO
+00D1 742D           1579             MOV     A, #2Dh ;Manda (-)
 
-00C8 7A32           1580             MOV     R2, #50
+00D3 120A18         1580             LCALL   ENVIA_DADO
 
-00CA 120335         1581             LCALL   ATRASO_MS
+00D6 7A32           1581             MOV     R2, #50
 
-00CD 7420           1582             MOV     A, #20h ;Manda (espaço)
+00D8 120343         1582             LCALL   ATRASO_MS
 
-00CF 120A18         1583             LCALL   ENVIA_DADO
+00DB 7420           1583             MOV     A, #20h ;Manda (espaço)
 
-00D2 7A32           1584             MOV     R2, #50
+00DD 120A18         1584             LCALL   ENVIA_DADO
 
-00D4 120335         1585             LCALL   ATRASO_MS
+00E0 7A32           1585             MOV     R2, #50
 
-00D7 7441           1586             MOV     A, #'A'
+00E2 120343         1586             LCALL   ATRASO_MS
 
-00D9 120A18         1587             LCALL   ENVIA_DADO
+00E5 7441           1587             MOV     A, #'A'
 
-00DC 7A32           1588             MOV     R2, #50
+00E7 120A18         1588             LCALL   ENVIA_DADO
 
-00DE 120335         1589             LCALL   ATRASO_MS
+00EA 7A32           1589             MOV     R2, #50
 
-00E1 7463           1590             MOV     A, #'c'
+00EC 120343         1590             LCALL   ATRASO_MS
 
-00E3 120A18         1591             LCALL   ENVIA_DADO
+00EF 7463           1591             MOV     A, #'c'
 
-00E6 7A32           1592             MOV     R2, #50
+00F1 120A18         1592             LCALL   ENVIA_DADO
 
-00E8 120335         1593             LCALL   ATRASO_MS
+00F4 7A32           1593             MOV     R2, #50
 
-00EB 7469           1594             MOV     A, #'i'
+00F6 120343         1594             LCALL   ATRASO_MS
 
-00ED 120A18         1595             LCALL   ENVIA_DADO
+00F9 7469           1595             MOV     A, #'i'
 
-00F0 7A32           1596             MOV     R2, #50
+00FB 120A18         1596             LCALL   ENVIA_DADO
 
-00F2 120335         1597             LCALL   ATRASO_MS
+00FE 7A32           1597             MOV     R2, #50
 
-00F5 746F           1598             MOV     A, #'o'
+0100 120343         1598             LCALL   ATRASO_MS
 
-00F7 120A18         1599             LCALL   ENVIA_DADO
+0103 746F           1599             MOV     A, #'o'
 
-00FA 7A32           1600             MOV     R2, #50
+0105 120A18         1600             LCALL   ENVIA_DADO
 
-00FC 120335         1601             LCALL   ATRASO_MS
+0108 7A32           1601             MOV     R2, #50
 
-00FF 746E           1602             MOV     A, #'n'
+010A 120343         1602             LCALL   ATRASO_MS
 
-0101 120A18         1603             LCALL   ENVIA_DADO
+010D 746E           1603             MOV     A, #'n'
 
-0104 7A32           1604             MOV     R2, #50
+010F 120A18         1604             LCALL   ENVIA_DADO
 
-0106 120335         1605             LCALL   ATRASO_MS
+0112 7A32           1605             MOV     R2, #50
 
-0109 7461           1606             MOV     A, #'a'
+0114 120343         1606             LCALL   ATRASO_MS
 
-010B 120A18         1607             LCALL   ENVIA_DADO
+0117 7461           1607             MOV     A, #'a'
 
-010E 7A32           1608             MOV     R2, #50
+0119 120A18         1608             LCALL   ENVIA_DADO
 
-0110 120335         1609             LCALL   ATRASO_MS
+011C 7A32           1609             MOV     R2, #50
 
-0113 7464           1610             MOV     A, #'d'
+011E 120343         1610             LCALL   ATRASO_MS
 
-0115 120A18         1611             LCALL   ENVIA_DADO
+0121 7464           1611             MOV     A, #'d'
 
-0118 7A32           1612             MOV     R2, #50
+0123 120A18         1612             LCALL   ENVIA_DADO
 
-011A 120335         1613             LCALL   ATRASO_MS
+0126 7A32           1613             MOV     R2, #50
 
-011D 746F           1614             MOV     A, #'o'
+0128 120343         1614             LCALL   ATRASO_MS
 
-011F 120A18         1615             LCALL   ENVIA_DADO
+012B 746F           1615             MOV     A, #'o'
 
-0122 7A32           1616             MOV     R2, #50
+012D 120A18         1616             LCALL   ENVIA_DADO
 
-0124 120335         1617             LCALL   ATRASO_MS
+0130 7A32           1617             MOV     R2, #50
 
-0127 7420           1618             MOV     A, #20h
+0132 120343         1618             LCALL   ATRASO_MS
 
-0129 120A18         1619             LCALL   ENVIA_DADO
+0135 7420           1619             MOV     A, #20h
 
-012C 7A32           1620             MOV     R2, #50
+0137 120A18         1620             LCALL   ENVIA_DADO
 
-012E 120335         1621             LCALL   ATRASO_MS
+013A 7A32           1621             MOV     R2, #50
 
-0131 7461           1622             MOV     A, #'a'
+013C 120343         1622             LCALL   ATRASO_MS
 
-0133 120A18         1623             LCALL   ENVIA_DADO
+013F 7461           1623             MOV     A, #'a'
 
-0136 7A32           1624             MOV     R2, #50
+0141 120A18         1624             LCALL   ENVIA_DADO
 
-0138 120335         1625             LCALL   ATRASO_MS
+0144 7A32           1625             MOV     R2, #50
 
-013B 7473           1626             MOV     A, #'s'
+0146 120343         1626             LCALL   ATRASO_MS
 
-013D 120A18         1627             LCALL   ENVIA_DADO
+0149 7473           1627             MOV     A, #'s'
 
-0140 7A32           1628             MOV     R2, #50
+014B 120A18         1628             LCALL   ENVIA_DADO
 
-0142 120335         1629             LCALL   ATRASO_MS
+014E 7A32           1629             MOV     R2, #50
 
-0145 7420           1630             MOV     A, #20h
+0150 120343         1630             LCALL   ATRASO_MS
 
-0147 120A18         1631             LCALL   ENVIA_DADO
+0153 7420           1631             MOV     A, #20h
 
-014A 7A32           1632             MOV     R2, #50
+0155 120A18         1632             LCALL   ENVIA_DADO
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    26
+0158 7A32           1633             MOV     R2, #50
 
-014C 120335         1633             LCALL   ATRASO_MS
+015A 120343         1634             LCALL   ATRASO_MS
 
-014F E552           1634             MOV     A, HOU ;Manda horas
+015D E552           1635             MOV     A, HOU ;Manda horas
 
-0151 120220         1635             LCALL   CONVERTE_BCD
+015F 12022E         1636             LCALL   CONVERTE_BCD
 
-0154 E559           1636             MOV             A, MSB
+0162 E559           1637             MOV             A, MSB
 
-0156 2430           1637             ADD             A, #30h
+0164 2430           1638             ADD             A, #30h
 
-0158 120A18         1638             LCALL   ENVIA_DADO
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    26
 
-015B 7A32           1639             MOV     R2, #50
+0166 120A18         1639             LCALL   ENVIA_DADO
 
-015D 120335         1640             LCALL   ATRASO_MS
+0169 7A32           1640             MOV     R2, #50
 
-0160 E558           1641             MOV             A,      LSB
+016B 120343         1641             LCALL   ATRASO_MS
 
-0162 2430           1642             ADD             A, #30h
+016E E558           1642             MOV             A,      LSB
 
-0164 120A18         1643             LCALL   ENVIA_DADO
+0170 2430           1643             ADD             A, #30h
 
-0167 743A           1644             MOV     A, #03Ah ;Manda (:)
+0172 120A18         1644             LCALL   ENVIA_DADO
 
-0169 120A18         1645             LCALL   ENVIA_DADO
+0175 743A           1645             MOV     A, #03Ah ;Manda (:)
 
-016C E551           1646             MOV     A, MIN ;Manda minutos
+0177 120A18         1646             LCALL   ENVIA_DADO
 
-016E 120220         1647             LCALL   CONVERTE_BCD
+017A E551           1647             MOV     A, MIN ;Manda minutos
 
-0171 E559           1648             MOV             A, MSB
+017C 12022E         1648             LCALL   CONVERTE_BCD
 
-0173 2430           1649             ADD             A, #30h
+017F E559           1649             MOV             A, MSB
 
-0175 120A18         1650             LCALL   ENVIA_DADO
+0181 2430           1650             ADD             A, #30h
 
-0178 E558           1651             MOV             A,      LSB
+0183 120A18         1651             LCALL   ENVIA_DADO
 
-017A 2430           1652             ADD             A, #30h
+0186 E558           1652             MOV             A,      LSB
 
-017C 120A18         1653             LCALL   ENVIA_DADO
+0188 2430           1653             ADD             A, #30h
 
-017F 743A           1654             MOV     A, #03Ah ;Manda (:)
+018A 120A18         1654             LCALL   ENVIA_DADO
 
-0181 120A18         1655             LCALL   ENVIA_DADO
+018D 743A           1655             MOV     A, #03Ah ;Manda (:)
 
-0184 E550           1656             MOV     A, SEC ;Manda segundos
+018F 120A18         1656             LCALL   ENVIA_DADO
 
-0186 120220         1657             LCALL   CONVERTE_BCD
+0192 E550           1657             MOV     A, SEC ;Manda segundos
 
-0189 E559           1658             MOV             A, MSB
+0194 12022E         1658             LCALL   CONVERTE_BCD
 
-018B 2430           1659             ADD             A, #30h
+0197 E559           1659             MOV             A, MSB
 
-018D 120A18         1660             LCALL   ENVIA_DADO
+0199 2430           1660             ADD             A, #30h
 
-0190 E558           1661             MOV             A,      LSB
+019B 120A18         1661             LCALL   ENVIA_DADO
 
-0192 2430           1662             ADD             A, #30h
+019E E558           1662             MOV             A,      LSB
 
-0194 120A18         1663             LCALL   ENVIA_DADO
+01A0 2430           1663             ADD             A, #30h
 
-0197 7420           1664             MOV     A, #20h ;Manda (espaço)
+01A2 120A18         1664             LCALL   ENVIA_DADO
 
-0199 120A18         1665             LCALL   ENVIA_DADO
+01A5 7420           1665             MOV     A, #20h ;Manda (espaço)
 
-019C 742D           1666             MOV     A, #2Dh ;Manda (-)
+01A7 120A18         1666             LCALL   ENVIA_DADO
 
-019E 120A18         1667             LCALL   ENVIA_DADO
+01AA 742D           1667             MOV     A, #2Dh ;Manda (-)
 
-01A1 7420           1668             MOV     A, #20h ;Manda (espaço)
+01AC 120A18         1668             LCALL   ENVIA_DADO
 
-01A3 120A18         1669             LCALL   ENVIA_DADO
+01AF 7420           1669             MOV     A, #20h ;Manda (espaço)
 
-01A6 E554           1670             MOV     A, DAT ;Manda dia
+01B1 120A18         1670             LCALL   ENVIA_DADO
 
-01A8 120220         1671             LCALL   CONVERTE_BCD
+01B4 E554           1671             MOV     A, DAT ;Manda dia
 
-01AB E559           1672             MOV             A, MSB
+01B6 12022E         1672             LCALL   CONVERTE_BCD
 
-01AD 2430           1673             ADD             A, #30h
+01B9 E559           1673             MOV             A, MSB
 
-01AF 120A18         1674             LCALL   ENVIA_DADO
+01BB 2430           1674             ADD             A, #30h
 
-01B2 E558           1675             MOV             A,      LSB
+01BD 120A18         1675             LCALL   ENVIA_DADO
 
-01B4 2430           1676             ADD             A, #30h
+01C0 E558           1676             MOV             A,      LSB
 
-01B6 120A18         1677             LCALL   ENVIA_DADO
+01C2 2430           1677             ADD             A, #30h
 
-01B9 742F           1678             MOV     A, #2Fh ;Manda (/)
+01C4 120A18         1678             LCALL   ENVIA_DADO
 
-01BB 120A18         1679             LCALL   ENVIA_DADO
+01C7 742F           1679             MOV     A, #2Fh ;Manda (/)
 
-01BE E555           1680             MOV     A, MON ;Manda mes
+01C9 120A18         1680             LCALL   ENVIA_DADO
 
-01C0 120220         1681             LCALL   CONVERTE_BCD
+01CC E555           1681             MOV     A, MON ;Manda mes
 
-01C3 E559           1682             MOV             A, MSB
+01CE 12022E         1682             LCALL   CONVERTE_BCD
 
-01C5 2430           1683             ADD             A, #30h
+01D1 E559           1683             MOV             A, MSB
 
-01C7 120A18         1684             LCALL   ENVIA_DADO
+01D3 2430           1684             ADD             A, #30h
 
-01CA E558           1685             MOV             A,      LSB
+01D5 120A18         1685             LCALL   ENVIA_DADO
 
-01CC 2430           1686             ADD             A, #30h
+01D8 E558           1686             MOV             A,      LSB
 
-01CE 120A18         1687             LCALL   ENVIA_DADO
+01DA 2430           1687             ADD             A, #30h
 
-01D1 742F           1688             MOV     A, #2Fh ;Manda (/)
+01DC 120A18         1688             LCALL   ENVIA_DADO
 
-01D3 120A18         1689             LCALL   ENVIA_DADO
+01DF 742F           1689             MOV     A, #2Fh ;Manda (/)
 
-01D6 E556           1690             MOV     A, YEA ; Manda ano
+01E1 120A18         1690             LCALL   ENVIA_DADO
 
-01D8 120220         1691             LCALL   CONVERTE_BCD
+01E4 E556           1691             MOV     A, YEA ; Manda ano
 
-01DB E559           1692             MOV             A, MSB
+01E6 12022E         1692             LCALL   CONVERTE_BCD
 
-01DD 2430           1693             ADD             A, #30h
+01E9 E559           1693             MOV             A, MSB
 
-01DF 120A18         1694             LCALL   ENVIA_DADO
+01EB 2430           1694             ADD             A, #30h
 
-01E2 E558           1695             MOV             A,      LSB
+01ED 120A18         1695             LCALL   ENVIA_DADO
 
-01E4 2430           1696             ADD             A, #30h
+01F0 E558           1696             MOV             A,      LSB
 
-01E6 120A18         1697             LCALL   ENVIA_DADO
+01F2 2430           1697             ADD             A, #30h
 
-01E9 7420           1698             MOV     A, #20h ;Manda (espaço)
+01F4 120A18         1698             LCALL   ENVIA_DADO
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    27
+01F7 7420           1699             MOV     A, #20h ;Manda (espaço)
 
-01EB 120A18         1699             LCALL   ENVIA_DADO
+01F9 120A18         1700             LCALL   ENVIA_DADO
 
-01EE 740D           1700             MOV     A, #0Dh ;Retorno ao inicio da linha
+01FC 740D           1701             MOV     A, #0Dh ;Retorno ao inicio da linha
 
-01F0 120A18         1701             LCALL   ENVIA_DADO
+01FE 120A18         1702             LCALL   ENVIA_DADO
 
-01F3 740A           1702             MOV     A, #0Ah ; Nova linha
+0201 740A           1703             MOV     A, #0Ah ; Nova linha
 
-01F5 120A18         1703             LCALL   ENVIA_DADO
+0203 120A18         1704             LCALL   ENVIA_DADO
 
-                    1704     
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    27
 
-                    1705     ;------------------------------------------------------------------------------
+                    1705     
 
-                    1706     ;Ler o RTC periodicamente
+                    1706     ;------------------------------------------------------------------------------
 
-                    1707     ;------------------------------------------------------------------------------
+                    1707     ;Ler o RTC periodicamente
 
-01F8                1708     LOOP:
+                    1708     ;------------------------------------------------------------------------------
 
-                    1709     ;       MOV     R7, #0x01
+0206                1709     LOOP:
 
-01F8 7A32           1710             MOV     R2, #50
+                    1710     ;       MOV     R7, #0x01
 
-01FA 120335         1711             LCALL   ATRASO_MS
+0206 7A32           1711             MOV     R2, #50
 
-                    1712             
+0208 120343         1712             LCALL   ATRASO_MS
 
-                    1713     
+                    1713             
 
-01FD 30980A         1714             JNB     RI, tanormal
+                    1714     
 
-0200 C298           1715             CLR             RI
+020B 30980A         1715             JNB     RI, tanormal
 
-0202 E599           1716             MOV             A, SBUF
+020E C298           1716             CLR             RI
 
-0204 B4AA03         1717             CJNE    A, #0AAh, tanormal
+0210 E599           1717             MOV             A, SBUF
 
-0207 020062         1718             LJMP    ESPERA_DADOS
+0212 B4AA03         1718             CJNE    A, #0AAh, tanormal
 
-020A                1719     tanormal:
+0215 020070         1719             LJMP    ESPERA_DADOS
 
-020A 8000           1720             JMP     reload
+0218                1720     tanormal:
 
-                    1721     
+0218 8000           1721             JMP     reload
 
                     1722     
 
@@ -3521,265 +3515,265 @@ LOC  OBJ            LINE     SOURCE
 
                     1726     
 
-020C                1727     reload:
+                    1727     
 
-020C 7E01           1728             MOV     R6, #0x01               ; 1x
+021A                1728     reload:
 
-020E                1729     again:
+021A 7E01           1729             MOV     R6, #0x01               ; 1x
 
-020E 755AA0         1730             MOV     MULT, #0xA0     ; 250x
+021C                1730     again:
 
-0211 12031C         1731             LCALL   runT0                   ; 0.5ms
+021C 755AA0         1731             MOV     MULT, #0xA0     ; 250x
 
-0214 DEF8           1732             DJNZ    R6, again               ; = 125 ms
+021F 12032A         1732             LCALL   runT0                   ; 0.5ms
 
-                    1733     ;       DJNZ    R7, reload              ; 125 ms x 4 = 0,5s
+0222 DEF8           1733             DJNZ    R6, again               ; = 125 ms
 
-0216 120761         1734             LCALL   RTC_GET_TIME
+                    1734     ;       DJNZ    R7, reload              ; 125 ms x 4 = 0,5s
 
-0219 B2B6           1735             CPL     P3.6                    ; toggle no led
+0224 12075F         1735             LCALL   RTC_GET_TIME
 
-021B 12022E         1736             LCALL   ATUALIZA_DISPLAY
+0227 B2B6           1736             CPL     P3.6                    ; toggle no led
 
-021E 80D8           1737             JMP     LOOP;
+0229 12023C         1737             LCALL   ATUALIZA_DISPLAY
 
-                    1738     
+022C 80D8           1738             JMP     LOOP;
 
-                    1739     ;entra: A
+                    1739     
 
-                    1740     ;sai:   LSB, MSB
+                    1740     ;entra: A
 
-0220                1741     CONVERTE_BCD:
+                    1741     ;sai:   LSB, MSB
 
-0220 C0E0           1742             PUSH    ACC
+022E                1742     CONVERTE_BCD:
 
-0222 540F           1743             ANL             A, #0Fh
+022E C0E0           1743             PUSH    ACC
 
-0224 F558           1744             MOV     LSB, A
+0230 540F           1744             ANL             A, #0Fh
 
-0226 D0E0           1745             POP             ACC
+0232 F558           1745             MOV     LSB, A
 
-0228 C4             1746             SWAP    A
+0234 D0E0           1746             POP             ACC
 
-0229 540F           1747             ANL             A, #0Fh
+0236 C4             1747             SWAP    A
 
-022B F559           1748             MOV             MSB, A
+0237 540F           1748             ANL             A, #0Fh
 
-022D 22             1749             RET
+0239 F559           1749             MOV             MSB, A
 
-                    1750             
+023B 22             1750             RET
 
-022E                1751     ATUALIZA_DISPLAY:
+                    1751             
 
-022E 120F48         1752             LCALL   CLR1L ;Clear na linha 1
+023C                1752     ATUALIZA_DISPLAY:
 
-0231 E552           1753             MOV             A, HOU ;Atualiza hora
+023C 120F48         1753             LCALL   CLR1L ;Clear na linha 1
 
-0233 120220         1754             LCALL   CONVERTE_BCD
+023F E552           1754             MOV             A, HOU ;Atualiza hora
 
-0236 E559           1755             MOV             A, MSB
+0241 12022E         1755             LCALL   CONVERTE_BCD
 
-0238 2430           1756             ADD             A, #30h
+0244 E559           1756             MOV             A, MSB
 
-023A 120F7A         1757             LCALL   ESCDADO
+0246 2430           1757             ADD             A, #30h
 
-023D E558           1758             MOV             A,      LSB
+0248 120F7A         1758             LCALL   ESCDADO
 
-023F 2430           1759             ADD             A, #30h
+024B E558           1759             MOV             A,      LSB
 
-0241 120F7A         1760             LCALL   ESCDADO
+024D 2430           1760             ADD             A, #30h
 
-0244 743A           1761             MOV             A, #3Ah ;Manda (:)
+024F 120F7A         1761             LCALL   ESCDADO
 
-0246 120F7A         1762             LCALL   ESCDADO
+0252 743A           1762             MOV             A, #3Ah ;Manda (:)
 
-0249 E551           1763             MOV             A, MIN ;Atualiza minutos
+0254 120F7A         1763             LCALL   ESCDADO
 
-024B 120220         1764             LCALL   CONVERTE_BCD
+0257 E551           1764             MOV             A, MIN ;Atualiza minutos
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    28
+0259 12022E         1765             LCALL   CONVERTE_BCD
 
-024E E559           1765             MOV             A, MSB
+025C E559           1766             MOV             A, MSB
 
-0250 2430           1766             ADD             A, #30h
+025E 2430           1767             ADD             A, #30h
 
-0252 120F7A         1767             LCALL   ESCDADO
+0260 120F7A         1768             LCALL   ESCDADO
 
-0255 E558           1768             MOV             A,      LSB
+0263 E558           1769             MOV             A,      LSB
 
-0257 2430           1769             ADD             A, #30h
+0265 2430           1770             ADD             A, #30h
 
-0259 120F7A         1770             LCALL   ESCDADO
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    28
 
-025C 743A           1771             MOV             A, #3Ah ;Manda (:)
+0267 120F7A         1771             LCALL   ESCDADO
 
-025E 120F7A         1772             LCALL   ESCDADO
+026A 743A           1772             MOV             A, #3Ah ;Manda (:)
 
-0261 E550           1773             MOV             A, SEC ;Atualiza segundos
+026C 120F7A         1773             LCALL   ESCDADO
 
-0263 120220         1774             LCALL   CONVERTE_BCD
+026F E550           1774             MOV             A, SEC ;Atualiza segundos
 
-0266 E559           1775             MOV             A, MSB
+0271 12022E         1775             LCALL   CONVERTE_BCD
 
-0268 2430           1776             ADD             A, #30h
+0274 E559           1776             MOV             A, MSB
 
-026A 120F7A         1777             LCALL   ESCDADO
+0276 2430           1777             ADD             A, #30h
 
-026D E558           1778             MOV             A,      LSB
+0278 120F7A         1778             LCALL   ESCDADO
 
-026F 2430           1779             ADD             A, #30h
+027B E558           1779             MOV             A,      LSB
 
-0271 120F7A         1780             LCALL   ESCDADO
+027D 2430           1780             ADD             A, #30h
 
-0274 120F61         1781             LCALL   CLR2L ;Clear na linha 2
+027F 120F7A         1781             LCALL   ESCDADO
 
-0277 E554           1782             MOV             A, DAT ;Atualiza dia
+0282 120F61         1782             LCALL   CLR2L ;Clear na linha 2
 
-0279 120220         1783             LCALL   CONVERTE_BCD
+0285 E554           1783             MOV             A, DAT ;Atualiza dia
 
-027C E559           1784             MOV             A, MSB
+0287 12022E         1784             LCALL   CONVERTE_BCD
 
-027E 2430           1785             ADD             A, #30h
+028A E559           1785             MOV             A, MSB
 
-0280 120F7A         1786             LCALL   ESCDADO
+028C 2430           1786             ADD             A, #30h
 
-0283 E558           1787             MOV             A,      LSB
+028E 120F7A         1787             LCALL   ESCDADO
 
-0285 2430           1788             ADD             A, #30h
+0291 E558           1788             MOV             A,      LSB
 
-0287 120F7A         1789             LCALL   ESCDADO
+0293 2430           1789             ADD             A, #30h
 
-028A 742F           1790             MOV             A, #2Fh ;Manda(/)
+0295 120F7A         1790             LCALL   ESCDADO
 
-028C 120F7A         1791             LCALL   ESCDADO
+0298 742F           1791             MOV             A, #2Fh ;Manda(/)
 
-028F E555           1792             MOV             A, MON ;Atualiza mes
+029A 120F7A         1792             LCALL   ESCDADO
 
-0291 120220         1793             LCALL   CONVERTE_BCD
+029D E555           1793             MOV             A, MON ;Atualiza mes
 
-0294 E559           1794             MOV             A, MSB
+029F 12022E         1794             LCALL   CONVERTE_BCD
 
-0296 2430           1795             ADD             A, #30h
+02A2 E559           1795             MOV             A, MSB
 
-0298 120F7A         1796             LCALL   ESCDADO
+02A4 2430           1796             ADD             A, #30h
 
-029B E558           1797             MOV             A,      LSB
+02A6 120F7A         1797             LCALL   ESCDADO
 
-029D 2430           1798             ADD             A, #30h
+02A9 E558           1798             MOV             A,      LSB
 
-029F 120F7A         1799             LCALL   ESCDADO
+02AB 2430           1799             ADD             A, #30h
 
-02A2 742F           1800             MOV             A, #2Fh ;Manda(/)
+02AD 120F7A         1800             LCALL   ESCDADO
 
-02A4 120F7A         1801             LCALL   ESCDADO
+02B0 742F           1801             MOV             A, #2Fh ;Manda(/)
 
-02A7 E556           1802             MOV             A, YEA ;Atualiza ano
+02B2 120F7A         1802             LCALL   ESCDADO
 
-02A9 120220         1803             LCALL   CONVERTE_BCD
+02B5 E556           1803             MOV             A, YEA ;Atualiza ano
 
-02AC E559           1804             MOV             A, MSB
+02B7 12022E         1804             LCALL   CONVERTE_BCD
 
-02AE 2430           1805             ADD             A, #30h
+02BA E559           1805             MOV             A, MSB
 
-02B0 120F7A         1806             LCALL   ESCDADO
+02BC 2430           1806             ADD             A, #30h
 
-02B3 E558           1807             MOV             A,      LSB
+02BE 120F7A         1807             LCALL   ESCDADO
 
-02B5 2430           1808             ADD             A, #30h
+02C1 E558           1808             MOV             A,      LSB
 
-02B7 120F7A         1809             LCALL   ESCDADO
+02C3 2430           1809             ADD             A, #30h
 
-02BA 7420           1810             MOV             A, #20h ;Manda (espaço)
+02C5 120F7A         1810             LCALL   ESCDADO
 
-02BC 120F7A         1811             LCALL   ESCDADO
+02C8 7420           1811             MOV             A, #20h ;Manda (espaço)
 
-02BF 742D           1812             MOV             A, #2Dh ;Manda(-)
+02CA 120F7A         1812             LCALL   ESCDADO
 
-02C1 120F7A         1813             LCALL   ESCDADO
+02CD 742D           1813             MOV             A, #2Dh ;Manda(-)
 
-02C4 7420           1814             MOV             A, #20h ;Manda (espaço)
+02CF 120F7A         1814             LCALL   ESCDADO
 
-02C6 120F7A         1815             LCALL   ESCDADO
+02D2 7420           1815             MOV             A, #20h ;Manda (espaço)
 
-02C9 E553           1816             MOV             A, DAY ;Atualiza dia da semana
+02D4 120F7A         1816             LCALL   ESCDADO
 
-02CB B40107         1817             CJNE A, #01, SEGU
+02D7 E553           1817             MOV             A, DAY ;Atualiza dia da semana
 
-02CE 90078E         1818             MOV      DPTR,#DOMINGO          ;STRING 
+02D9 B40107         1818             CJNE A, #01, SEGU
 
-02D1 120F93         1819             LCALL    MSTRING 
+02DC 90078F         1819             MOV      DPTR,#DOMINGO          ;STRING 
 
-02D4 22             1820             RET
+02DF 120F93         1820             LCALL    MSTRING 
 
-                    1821             
+02E2 22             1821             RET
 
-02D5                1822     SEGU:
+                    1822             
 
-02D5 B40207         1823             CJNE    A, #02, TER
+02E3                1823     SEGU:
 
-02D8 900792         1824             MOV     DPTR,#SEGUNDA           ;STRING 
+02E3 B40207         1824             CJNE    A, #02, TER
 
-02DB 120F93         1825             LCALL   MSTRING
+02E6 900793         1825             MOV     DPTR,#SEGUNDA           ;STRING 
 
-02DE 22             1826             RET
+02E9 120F93         1826             LCALL   MSTRING
 
-02DF                1827     TER:
+02EC 22             1827             RET
 
-02DF B40307         1828             CJNE    A, #03, QUA
+02ED                1828     TER:
 
-02E2 900796         1829             MOV     DPTR,#TERCA             ;STRING 
+02ED B40307         1829             CJNE    A, #03, QUA
 
-02E5 120F93         1830             LCALL   MSTRING
+02F0 900797         1830             MOV     DPTR,#TERCA             ;STRING 
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    29
+02F3 120F93         1831             LCALL   MSTRING
 
-02E8 22             1831             RET
+02F6 22             1832             RET
 
-02E9                1832     QUA:
+02F7                1833     QUA:
 
-02E9 B40407         1833             CJNE    A, #04, QUI
+02F7 B40407         1834             CJNE    A, #04, QUI
 
-02EC 90079A         1834             MOV     DPTR,#QUARTA            ;STRING 
+02FA 90079B         1835             MOV     DPTR,#QUARTA            ;STRING 
 
-02EF 120F93         1835             LCALL   MSTRING
+02FD 120F93         1836             LCALL   MSTRING
 
-02F2 22             1836             RET
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    29
 
-02F3                1837     QUI:
+0300 22             1837             RET
 
-02F3 B40507         1838             CJNE    A, #05, SEX
+0301                1838     QUI:
 
-02F6 90079E         1839             MOV     DPTR,#QUINTA            ;STRING 
+0301 B40507         1839             CJNE    A, #05, SEX
 
-02F9 120F93         1840             LCALL   MSTRING
+0304 90079F         1840             MOV     DPTR,#QUINTA            ;STRING 
 
-02FC 22             1841             RET
+0307 120F93         1841             LCALL   MSTRING
 
-02FD                1842     SEX:
+030A 22             1842             RET
 
-02FD B40607         1843             CJNE    A, #06, SAB
+030B                1843     SEX:
 
-0300 9007A2         1844             MOV     DPTR,#SEXTA             ;STRING 
+030B B40607         1844             CJNE    A, #06, SAB
 
-0303 120F93         1845             LCALL   MSTRING
+030E 9007A3         1845             MOV     DPTR,#SEXTA             ;STRING 
 
-0306 22             1846             RET
+0311 120F93         1846             LCALL   MSTRING
 
-0307                1847     SAB:
+0314 22             1847             RET
 
-0307 B40706         1848             CJNE    A, #07, RETORNA
+0315                1848     SAB:
 
-030A 9007A6         1849             MOV     DPTR,#SABADO            ;STRING 
+0315 B40706         1849             CJNE    A, #07, RETORNA
 
-030D 120F93         1850             LCALL   MSTRING
+0318 9007A7         1850             MOV     DPTR,#SABADO            ;STRING 
 
-0310                1851     RETORNA:
+031B 120F93         1851             LCALL   MSTRING
 
-0310 22             1852             RET
+031E                1852     RETORNA:
 
-                    1853             
+031E 22             1853             RET
 
-                    1854     
+                    1854             
 
                     1855     
 
@@ -3801,11 +3795,11 @@ LOC  OBJ            LINE     SOURCE
 
                     1864     
 
-0311                1865     INT_INT0:
+                    1865     
 
-0311 32             1866                     RETI
+031F                1866     INT_INT0:
 
-                    1867     
+031F 32             1867                     RETI
 
                     1868     
 
@@ -3821,13 +3815,13 @@ LOC  OBJ            LINE     SOURCE
 
                     1874     
 
-0312                1875     INT_TIMER0:
+                    1875     
 
-0312 32             1876                     RETI
+0320                1876     INT_TIMER0:
 
-                    1877             
+0320 32             1877                     RETI
 
-                    1878     
+                    1878             
 
                     1879     
 
@@ -3841,11 +3835,11 @@ LOC  OBJ            LINE     SOURCE
 
                     1884     
 
-0313                1885     INT_INT1:
+                    1885     
 
-0313 32             1886                     RETI
+0321                1886     INT_INT1:
 
-                    1887     
+0321 32             1887                     RETI
 
                     1888     
 
@@ -3861,15 +3855,13 @@ LOC  OBJ            LINE     SOURCE
 
                     1894     
 
-0314                1895     INT_TIMER1:
+                    1895     
 
-0314 32             1896                     RETI
+0322                1896     INT_TIMER1:
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    30
+0322 32             1897                     RETI
 
-                    1897             
-
-                    1898     
+                    1898             
 
                     1899     
 
@@ -3879,17 +3871,19 @@ LOC  OBJ            LINE     SOURCE
 
                     1902     
 
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    30
+
                     1903     
 
                     1904     
 
-0315                1905     INT_SERIAL:
+                    1905     
 
-0315 32             1906                     RETI
+0323                1906     INT_SERIAL:
 
-                    1907             
+0323 32             1907                     RETI
 
-                    1908     
+                    1908             
 
                     1909     
 
@@ -3903,127 +3897,129 @@ LOC  OBJ            LINE     SOURCE
 
                     1914     
 
-0316                1915     INT_I2C_TWI:
+                    1915     
 
-0316 B294           1916                     CPL             P1.4
+0324                1916     INT_I2C_TWI:
 
-0318 020800         1917                     LJMP    i2c_int
+0324 B294           1917                     CPL             P1.4
 
-                    1918     
+0326 020800         1918                     LJMP    i2c_int
 
-031B 32             1919                     RETI
+                    1919     
 
-                    1920     
+0329 32             1920                     RETI
 
-                    1921     ;===============================================================================
+                    1921     
 
-                    1922     ; Funções do Timer0
+                    1922     ;===============================================================================
 
-                    1923     ;===============================================================================
+                    1923     ; Funções do Timer0
 
-                    1924     ;------------------------------------------------------------------------------
+                    1924     ;===============================================================================
 
-                    1925     ; Nome: runT0
+                    1925     ;------------------------------------------------------------------------------
 
-                    1926     ; Descrição: Gera atraso de tempo utilizando Timer0
+                    1926     ; Nome: runT0
 
-                    1927     ; Parâmetros: MULT
+                    1927     ; Descrição: Gera atraso de tempo utilizando Timer0
 
-                    1928     ; Retorna:
+                    1928     ; Parâmetros: MULT
 
-                    1929     ; Destrói: MULT
+                    1929     ; Retorna:
 
-                    1930     ;------------------------------------------------------------------------------
+                    1930     ; Destrói: MULT
 
-031C                1931     runT0:
+                    1931     ;------------------------------------------------------------------------------
 
-031C 758CFC         1932         MOV TH0,#0FCh       ;fclk CPU = 24MHz
+032A                1932     runT0:
 
-031F 758A17         1933         MOV TL0,#17h        ; ... base de tempo de 0,5ms
+032A 758CFC         1933         MOV TH0,#0FCh       ;fclk CPU = 24MHz
 
-0322 D28C           1934         SETB TR0            ;dispara timer
+032D 758A17         1934         MOV TL0,#17h        ; ... base de tempo de 0,5ms
 
-                    1935     
+0330 D28C           1935         SETB TR0            ;dispara timer
 
-0324 308DFD         1936         JNB TF0,$           ;preso CLR TR0 ;stop timer
+                    1936     
 
-0327 C28C           1937         CLR TR0             ;para o timer 0
+0332 308DFD         1937         JNB TF0,$           ;preso CLR TR0 ;stop timer
 
-0329 C28D           1938         CLR TF0             ;zera flag overflow
+0335 C28C           1938         CLR TR0             ;para o timer 0
 
-032B D55AEE         1939         DJNZ MULT,runT0
+0337 C28D           1939         CLR TF0             ;zera flag overflow
 
-032E 22             1940         RET   
+0339 D55AEE         1940         DJNZ MULT,runT0
 
-                    1941     
+033C 22             1941         RET   
 
-                    1942     ;***************************************************************************
+                    1942     
 
-                    1943     ;NOME: Atraso
+                    1943     ;***************************************************************************
 
-                    1944     ;DESCRIÇÃO: Introduz um atraso (delay) de T = (60 x R0 + 48)/fosc
+                    1944     ;NOME: Atraso
 
-                    1945     ;       Para fosc = 11,059MHz => R0 = 1 => T = 9,8us  a  R0 = 0 => 1,4ms
+                    1945     ;DESCRIÇÃO: Introduz um atraso (delay) de T = (60 x R0 + 48)/fosc
 
-                    1946     ;P. ENTRADA: R0 = Valor que multiplica por 60 na fórmula (OBS.: R0 = 0 => 256)
+                    1946     ;       Para fosc = 11,059MHz => R0 = 1 => T = 9,8us  a  R0 = 0 => 1,4ms
 
-                    1947     ;P. SAIDA: -
+                    1947     ;P. ENTRADA: R0 = Valor que multiplica por 60 na fórmula (OBS.: R0 = 0 => 256)
 
-                    1948     ;Altera: R0
+                    1948     ;P. SAIDA: -
 
-                    1949     ;***************************************************************************
+                    1949     ;Altera: R0
 
-032F                1950     Atraso:
+                    1950     ;***************************************************************************
 
-032F 00             1951             NOP                             ;12
+033D                1951     Atraso:
 
-0330 00             1952             NOP                             ;12
+033D 00             1952             NOP                             ;12
 
-0331 00             1953             NOP                             ;12
+033E 00             1953             NOP                             ;12
 
-0332 D8FB           1954             DJNZ R0,Atraso  ;24
+033F 00             1954             NOP                             ;12
 
-0334 22             1955             RET                             ;24
+0340 D8FB           1955             DJNZ R0,Atraso  ;24
 
-                    1956     
+0342 22             1956             RET                             ;24
 
                     1957     
 
-                    1958     ;***************************************************************************
+                    1958     
 
-                    1959     ;NOME: ATRASO_MS
+                    1959     ;***************************************************************************
 
-                    1960     ;DESCRICAO: INTRODUZ UM ATRASO DE 1ms A 256ms
+                    1960     ;NOME: ATRASO_MS
 
-                    1961     ;P.ENTRADA: R2 = 1 => 1ms  A R2 = 0 => 256ms
+                    1961     ;DESCRICAO: INTRODUZ UM ATRASO DE 1ms A 256ms
 
-                    1962     ;P.SAIDA: -
+                    1962     ;P.ENTRADA: R2 = 1 => 1ms  A R2 = 0 => 256ms
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    31
+                    1963     ;P.SAIDA: -
 
-                    1963     ;ALTERA: R0,R2
+                    1964     ;ALTERA: R0,R2
 
-0335                1964     ATRASO_MS:
+0343                1965     ATRASO_MS:
 
-0335 78B7           1965             MOV     R0,#183         ;VALOR PARA ATRASO DE 1ms
+0343 78B7           1966             MOV     R0,#183         ;VALOR PARA ATRASO DE 1ms
 
-0337 712F           1966             CALL    Atraso
+0345 713D           1967             CALL    Atraso
 
-0339 78B7           1967             MOV     R0,#183         ;VALOR PARA ATRASO DE 1ms
+0347 78B7           1968             MOV     R0,#183         ;VALOR PARA ATRASO DE 1ms
 
-033B 712F           1968             CALL    Atraso
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    31
 
-033D DAF6           1969             DJNZ R2,ATRASO_MS
+0349 713D           1969             CALL    Atraso
 
-033F 22             1970             RET             
+034B DAF6           1970             DJNZ R2,ATRASO_MS
 
-                    1971             
+034D 22             1971             RET             
 
-                    1972     
+                    1972             
 
-                    1973     END
+                    1973     
 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    32
+                    1974     END
+
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    32
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -4034,18 +4030,17 @@ N A M E                        T Y P E  V A L U E   ATTRIBUTES
 AA. . . . . . . . . . . . . .  N NUMB   0004H   A   
 ACC . . . . . . . . . . . . .  D ADDR   00E0H   A   
 ADDR. . . . . . . . . . . . .  N NUMB   005FH   A   
-AGAIN . . . . . . . . . . . .  C ADDR   020EH   A   
+AGAIN . . . . . . . . . . . .  C ADDR   021CH   A   
 ARB_LOST. . . . . . . . . . .  C ADDR   0916H   A   
-ATRASO. . . . . . . . . . . .  C ADDR   032FH   A   
-ATRASO_MS . . . . . . . . . .  C ADDR   0335H   A   
-ATUALIZA_DISPLAY. . . . . . .  C ADDR   022EH   A   
+ATRASO. . . . . . . . . . . .  C ADDR   033DH   A   
+ATRASO_MS . . . . . . . . . .  C ADDR   0343H   A   
+ATUALIZA_DISPLAY. . . . . . .  C ADDR   023CH   A   
 AUXR. . . . . . . . . . . . .  D ADDR   008EH   A   
 AUXR1 . . . . . . . . . . . .  D ADDR   00A2H   A   
 B . . . . . . . . . . . . . .  D ADDR   00F0H   A   
 B2R . . . . . . . . . . . . .  N NUMB   005EH   A   
 B2W . . . . . . . . . . . . .  N NUMB   005DH   A   
 BDRCON. . . . . . . . . . . .  D ADDR   009BH   A   
-BOTAO_SW. . . . . . . . . . .  N NUMB   0020H   A   
 BRL . . . . . . . . . . . . .  D ADDR   009AH   A   
 BUSYF . . . . . . . . . . . .  B ADDR   0080H.7 A   
 CCAP0H. . . . . . . . . . . .  D ADDR   00FAH   A   
@@ -4085,15 +4080,15 @@ CLR2L1. . . . . . . . . . . .  C ADDR   0F6BH   A
 CMOD. . . . . . . . . . . . .  D ADDR   00D9H   A   
 CONFIGURA_BAUD_RATE . . . . .  C ADDR   0A09H   A   
 CONFIGURA_SERIAL. . . . . . .  C ADDR   0A00H   A   
-CONTINUA_ENVIAR . . . . . . .  C ADDR   00B9H   A   
+CONTINUA_ENVIAR . . . . . . .  C ADDR   00C7H   A   
 CONTINUA_TIMER_1_MS . . . . .  C ADDR   0D1FH   A   
-CONVERTE_BCD. . . . . . . . .  C ADDR   0220H   A   
+CONVERTE_BCD. . . . . . . . .  C ADDR   022EH   A   
 CP_RL2. . . . . . . . . . . .  B ADDR   00C8H.0 A   
 CR. . . . . . . . . . . . . .  B ADDR   00D8H.6 A   
 CTR . . . . . . . . . . . . .  N NUMB   0057H   A   
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    33
-
 CUR1. . . . . . . . . . . . .  C ADDR   0FBFH   A   
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    33
+
 CUR_OFF . . . . . . . . . . .  C ADDR   0FBDH   A   
 CUR_ON. . . . . . . . . . . .  C ADDR   0FB9H   A   
 C_T2. . . . . . . . . . . . .  B ADDR   00C8H.1 A   
@@ -4102,16 +4097,16 @@ DAY . . . . . . . . . . . . .  N NUMB   0053H   A
 DBASE . . . . . . . . . . . .  N NUMB   0060H   A   
 DECODE. . . . . . . . . . . .  C ADDR   0887H   A   
 DISPLAY . . . . . . . . . . .  D ADDR   0080H   A   
-DOMINGO . . . . . . . . . . .  C ADDR   078EH   A   
+DOMINGO . . . . . . . . . . .  C ADDR   078FH   A   
 DPH . . . . . . . . . . . . .  D ADDR   0083H   A   
 DPL . . . . . . . . . . . . .  D ADDR   0082H   A   
 EA. . . . . . . . . . . . . .  B ADDR   00A8H.7 A   
 EC. . . . . . . . . . . . . .  B ADDR   00A8H.6 A   
 EECON . . . . . . . . . . . .  D ADDR   00D2H   A   
-EHOSW2. . . . . . . . . . . .  C ADDR   009BH   A   
-END_GET . . . . . . . . . . .  C ADDR   078DH   A   
+EHOSW2. . . . . . . . . . . .  C ADDR   00A9H   A   
+END_GET . . . . . . . . . . .  C ADDR   078EH   A   
 END_I2C_INT . . . . . . . . .  C ADDR   0886H   A   
-END_SET . . . . . . . . . . .  C ADDR   0760H   A   
+END_SET . . . . . . . . . . .  C ADDR   075EH   A   
 ENVIA_DADO. . . . . . . . . .  C ADDR   0A18H   A   
 ENVIA_OK. . . . . . . . . . .  C ADDR   0A20H   A   
 EP0INT. . . . . . . . . . . .  B ADDR   00F8H.0 A   
@@ -4129,7 +4124,7 @@ ESCREVE_ASTERISCO . . . . . .  C ADDR   0FC4H   A
 ESC_S . . . . . . . . . . . .  C ADDR   0FB2H   A   
 ESC_STR1. . . . . . . . . . .  C ADDR   0FA8H   A   
 ESC_STR2. . . . . . . . . . .  C ADDR   0FAEH   A   
-ESPERA_DADOS. . . . . . . . .  C ADDR   0062H   A   
+ESPERA_DADOS. . . . . . . . .  C ADDR   0070H   A   
 ET0 . . . . . . . . . . . . .  B ADDR   00A8H.1 A   
 ET1 . . . . . . . . . . . . .  B ADDR   00A8H.3 A   
 ET2 . . . . . . . . . . . . .  B ADDR   00A8H.5 A   
@@ -4141,7 +4136,7 @@ E_LCD . . . . . . . . . . . .  B ADDR   00A0H.7 A
 FCON. . . . . . . . . . . . .  D ADDR   00D1H   A   
 FE_SM0. . . . . . . . . . . .  B ADDR   0098H.7 A   
 FINALIZA_TIMER_DELAY. . . . .  C ADDR   0D61H   A   
-GET_WAIT. . . . . . . . . . .  C ADDR   077CH   A   
+GET_WAIT. . . . . . . . . . .  C ADDR   077DH   A   
 GOTOXY. . . . . . . . . . . .  C ADDR   0F36H   A   
 GT1 . . . . . . . . . . . . .  C ADDR   0F3FH   A   
 HOU . . . . . . . . . . . . .  N NUMB   0052H   A   
@@ -4155,14 +4150,14 @@ IEN0. . . . . . . . . . . . .  D ADDR   00A8H   A
 IEN1. . . . . . . . . . . . .  D ADDR   00B1H   A   
 INIDISP . . . . . . . . . . .  C ADDR   0F00H   A   
 INIT_RTC. . . . . . . . . . .  C ADDR   0700H   A   
-INT_I2C_TWI . . . . . . . . .  C ADDR   0316H   A   
-INT_INT0. . . . . . . . . . .  C ADDR   0311H   A   
-INT_INT1. . . . . . . . . . .  C ADDR   0313H   A   
-INT_SERIAL. . . . . . . . . .  C ADDR   0315H   A   
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    34
+INT_I2C_TWI . . . . . . . . .  C ADDR   0324H   A   
+INT_INT0. . . . . . . . . . .  C ADDR   031FH   A   
+INT_INT1. . . . . . . . . . .  C ADDR   0321H   A   
+INT_SERIAL. . . . . . . . . .  C ADDR   0323H   A   
+INT_TIMER0. . . . . . . . . .  C ADDR   0320H   A   
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    34
 
-INT_TIMER0. . . . . . . . . .  C ADDR   0312H   A   
-INT_TIMER1. . . . . . . . . .  C ADDR   0314H   A   
+INT_TIMER1. . . . . . . . . .  C ADDR   0322H   A   
 IPH0. . . . . . . . . . . . .  D ADDR   00B7H   A   
 IPH1. . . . . . . . . . . . .  D ADDR   00B3H   A   
 IPL0. . . . . . . . . . . . .  D ADDR   00B8H   A   
@@ -4173,9 +4168,9 @@ KBE . . . . . . . . . . . . .  D ADDR   009DH   A
 KBF . . . . . . . . . . . . .  D ADDR   009EH   A   
 KBLS. . . . . . . . . . . . .  D ADDR   009CH   A   
 LEDCON. . . . . . . . . . . .  D ADDR   00F1H   A   
-LOOP. . . . . . . . . . . . .  C ADDR   01F8H   A   
+LOOP. . . . . . . . . . . . .  C ADDR   0206H   A   
 LSB . . . . . . . . . . . . .  N NUMB   0058H   A   
-MAIN. . . . . . . . . . . . .  C ADDR   005FH   A   
+MAIN. . . . . . . . . . . . .  C ADDR   006DH   A   
 MIN . . . . . . . . . . . . .  N NUMB   0051H   A   
 MON . . . . . . . . . . . . .  N NUMB   0055H   A   
 MSB . . . . . . . . . . . . .  N NUMB   0059H   A   
@@ -4227,9 +4222,9 @@ P4_0. . . . . . . . . . . . .  B ADDR   00C0H.0 A
 P4_1. . . . . . . . . . . . .  B ADDR   00C0H.1 A   
 PCON. . . . . . . . . . . . .  D ADDR   0087H   A   
 PLLCON. . . . . . . . . . . .  D ADDR   00A3H   A   
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    35
-
 PLLDIV. . . . . . . . . . . .  D ADDR   00A4H   A   
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    35
+
 PPCL. . . . . . . . . . . . .  B ADDR   00B8H.6 A   
 PSL . . . . . . . . . . . . .  B ADDR   00B8H.4 A   
 PSW . . . . . . . . . . . . .  D ADDR   00D0H   A   
@@ -4238,10 +4233,10 @@ PT2L. . . . . . . . . . . . .  B ADDR   00B8H.5 A
 PTIL. . . . . . . . . . . . .  B ADDR   00B8H.3 A   
 PX0L. . . . . . . . . . . . .  B ADDR   00B8H.0 A   
 PXIL. . . . . . . . . . . . .  B ADDR   00B8H.2 A   
-QUA . . . . . . . . . . . . .  C ADDR   02E9H   A   
-QUARTA. . . . . . . . . . . .  C ADDR   079AH   A   
-QUI . . . . . . . . . . . . .  C ADDR   02F3H   A   
-QUINTA. . . . . . . . . . . .  C ADDR   079EH   A   
+QUA . . . . . . . . . . . . .  C ADDR   02F7H   A   
+QUARTA. . . . . . . . . . . .  C ADDR   079BH   A   
+QUI . . . . . . . . . . . . .  C ADDR   0301H   A   
+QUINTA. . . . . . . . . . . .  C ADDR   079FH   A   
 RAA1. . . . . . . . . . . . .  C ADDR   0924H   A   
 RAA2. . . . . . . . . . . . .  C ADDR   0926H   A   
 RADDR . . . . . . . . . . . .  N NUMB   00D1H   A   
@@ -4252,34 +4247,34 @@ RCLK. . . . . . . . . . . . .  B ADDR   00C8H.5 A
 RDA1. . . . . . . . . . . . .  C ADDR   0949H   A   
 RDA2. . . . . . . . . . . . .  C ADDR   094BH   A   
 RECEBE_DADO . . . . . . . . .  C ADDR   0A10H   A   
-RELOAD. . . . . . . . . . . .  C ADDR   020CH   A   
+RELOAD. . . . . . . . . . . .  C ADDR   021AH   A   
 REN . . . . . . . . . . . . .  B ADDR   0098H.4 A   
 RESTART . . . . . . . . . . .  C ADDR   08B5H   A   
-RETORNA . . . . . . . . . . .  C ADDR   0310H   A   
+RETORNA . . . . . . . . . . .  C ADDR   031EH   A   
 RI. . . . . . . . . . . . . .  B ADDR   0098H.0 A   
 RS. . . . . . . . . . . . . .  B ADDR   00A0H.5 A   
-RTC_GET_TIME. . . . . . . . .  C ADDR   0761H   A   
-RTC_SET_TIME. . . . . . . . .  C ADDR   0737H   A   
+RTC_GET_TIME. . . . . . . . .  C ADDR   075FH   A   
+RTC_SET_TIME. . . . . . . . .  C ADDR   072FH   A   
 RTC_SQW . . . . . . . . . . .  B ADDR   00A0H.1 A   
-RUNT0 . . . . . . . . . . . .  C ADDR   031CH   A   
+RUNT0 . . . . . . . . . . . .  C ADDR   032AH   A   
 RW. . . . . . . . . . . . . .  B ADDR   00A0H.6 A   
 R_ADDR_ACK. . . . . . . . . .  C ADDR   0919H   A   
 R_ADDR_NACK . . . . . . . . .  C ADDR   092BH   A   
 R_DATA_ACK. . . . . . . . . .  C ADDR   093AH   A   
 R_DATA_NACK . . . . . . . . .  C ADDR   0952H   A   
-SAB . . . . . . . . . . . . .  C ADDR   0307H   A   
-SABADO. . . . . . . . . . . .  C ADDR   07A6H   A   
+SAB . . . . . . . . . . . . .  C ADDR   0315H   A   
+SABADO. . . . . . . . . . . .  C ADDR   07A7H   A   
 SADDR . . . . . . . . . . . .  D ADDR   00A9H   A   
 SADEN . . . . . . . . . . . .  D ADDR   00B9H   A   
 SBUF. . . . . . . . . . . . .  D ADDR   0099H   A   
 SCON. . . . . . . . . . . . .  D ADDR   0098H   A   
 SEC . . . . . . . . . . . . .  N NUMB   0050H   A   
-SEGU. . . . . . . . . . . . .  C ADDR   02D5H   A   
-SEGUNDA . . . . . . . . . . .  C ADDR   0792H   A   
+SEGU. . . . . . . . . . . . .  C ADDR   02E3H   A   
+SEGUNDA . . . . . . . . . . .  C ADDR   0793H   A   
 SETA_VALORES_TIMER_SEM_INT. .  C ADDR   0D05H   A   
-SET_WAIT. . . . . . . . . . .  C ADDR   0752H   A   
-SEX . . . . . . . . . . . . .  C ADDR   02FDH   A   
-SEXTA . . . . . . . . . . . .  C ADDR   07A2H   A   
+SET_WAIT. . . . . . . . . . .  C ADDR   074DH   A   
+SEX . . . . . . . . . . . . .  C ADDR   030BH   A   
+SEXTA . . . . . . . . . . . .  C ADDR   07A3H   A   
 SI. . . . . . . . . . . . . .  N NUMB   0008H   A   
 SM1 . . . . . . . . . . . . .  B ADDR   0098H.6 A   
 SM2 . . . . . . . . . . . . .  B ADDR   0098H.5 A   
@@ -4295,18 +4290,16 @@ SSIE. . . . . . . . . . . . .  N NUMB   0040H   A
 STA . . . . . . . . . . . . .  N NUMB   0020H   A   
 START . . . . . . . . . . . .  C ADDR   08A7H   A   
 STO . . . . . . . . . . . . .  N NUMB   0010H   A   
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    36
-
-SW1 . . . . . . . . . . . . .  B ADDR   00B0H.2 A   
-SW2 . . . . . . . . . . . . .  B ADDR   00B0H.4 A   
 T2CON . . . . . . . . . . . .  D ADDR   00C8H   A   
+A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/19/2017 14:38:20 PAGE    36
+
 T2MOD . . . . . . . . . . . .  D ADDR   00C9H   A   
-TANORMAL. . . . . . . . . . .  C ADDR   020AH   A   
+TANORMAL. . . . . . . . . . .  C ADDR   0218H   A   
 TB8 . . . . . . . . . . . . .  B ADDR   0098H.3 A   
 TCLK. . . . . . . . . . . . .  B ADDR   00C8H.4 A   
 TCON. . . . . . . . . . . . .  D ADDR   0088H   A   
-TER . . . . . . . . . . . . .  C ADDR   02DFH   A   
-TERCA . . . . . . . . . . . .  C ADDR   0796H   A   
+TER . . . . . . . . . . . . .  C ADDR   02EDH   A   
+TERCA . . . . . . . . . . . .  C ADDR   0797H   A   
 TERMINA . . . . . . . . . . .  C ADDR   0897H   A   
 TF0 . . . . . . . . . . . . .  B ADDR   0088H.5 A   
 TF1 . . . . . . . . . . . . .  B ADDR   0088H.7 A   
@@ -4363,8 +4356,6 @@ __STARTUP__ . . . . . . . . .  C ADDR   0046H   A
 
 
 REGISTER BANK(S) USED: 0 
-A51 MACRO ASSEMBLER  PROJETO_03_RFID                                                      05/17/2017 22:54:51 PAGE    37
-
 
 
 ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

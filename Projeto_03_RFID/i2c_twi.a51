@@ -34,7 +34,7 @@ NACKS   EQU 0061h 	// contador de nacks recebidos
 
 // Uma vez que o HW I2C executa "paralelo" ao 51 e o SW é totalmente composto de interrupcoes
 // devemos evitar que uma comunicacao se inicie antes de outra terminar
-I2C_BUSY EQU 00h // 0 - I2C livre, 1 - I2C ocupada*/
+I2C_BUSY EQU 00h // 0 - I2C livre, 1 - I2C ocupada
 	
 //////////////////////////////////////////////////////
 // Nome:	i2c_int									//
@@ -45,8 +45,6 @@ I2C_BUSY EQU 00h // 0 - I2C livre, 1 - I2C ocupada*/
 // Destroi: A, DPH, DPL (DPTR)						//
 //////////////////////////////////////////////////////
 i2c_int:
-		//CPL 	LED2 // "pisca" um led na int somente para debug.
-		
 		MOV 	A, SSCS // pega o valor do Status	(b4 b3 b2 b1 b0 00 00 00 )
 		RR 		A		// faz 1 shift (divide por 2)(00 b4 b3 b2 b1 b0 00 00 )
 
