@@ -262,11 +262,8 @@ CONTINUA_ENVIAR:
 ;Ler o RTC periodicamente
 ;------------------------------------------------------------------------------
 LOOP:
-;	MOV 	R7, #0x01
 	MOV 	R2, #50
 	LCALL 	ATRASO_MS
-	/*JNB 	SW1, BOTAUMSW1
-	JNB 	SW2, BOTAUMSW2*/
 	JNB 	RI, tanormal
 	CLR		RI
 	MOV		A, SBUF
