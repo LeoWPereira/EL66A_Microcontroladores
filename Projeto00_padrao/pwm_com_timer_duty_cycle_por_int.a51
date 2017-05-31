@@ -1,50 +1,38 @@
-//////////////////////////////////////
-//									//
-//  PROJETO PADRAO PARA USO GERAL 	//
-//									//
-// @author: Leonardo Winter Pereira //
-// @author: Rodrigo Yudi Endo		//
-//									//
-//////////////////////////////////////
+//////////////////////////////////////////////////////////
+//														//
+//  			CODIGOS RELACIONADOS AO PWM				//
+//														//
+// @author: Leonardo Winter Pereira 					//
+// @author: Rodrigo Yudi Endo							//
+//														//
+//////////////////////////////////////////////////////////
+
+ORG		0500h
 
 PWM_PORT			EQU	P1
-PWM_PIN				EQU P1.0
+PWM_PIN_0			EQU P1.0
+PWM_PIN_1			EQU P1.1
+PWM_PIN_2			EQU P1.2
 	
 PWM_FLAG 			EQU 0	// Flag to indicate high/low pwm signal
 
-WAVE_FORM_SINE		EQU 00h
-WAVE_FORM_SQUARE	EQU 01h
+WAVE_FORM_SINE		EQU 0FEh
+WAVE_FORM_SQUARE	EQU 0FDh
 
-WAVE_FORM 			EQU 31h	// 00h = sine wave; 01h = square wave
-DUTY_CYCLE			EQU 32h // 00h = 0% duty cycle; FFh = 100% duty cycle
+WAVE_FORM 			EQU 0FCh	// 00h = sine wave; 01h = square wave
+PWM_DUTY_CYCLE		EQU 0FBh // 00h = 0% duty cycle; FFh = 100% duty cycle
+PWM_COUNTER			EQU 0FAh
 
-// 3 bytes for Period: from 0000h til FFFFFFh (16777215 us) So .... 1 Hz = 1000000 = 0F4240h
-PERIOD_LSB			EQU 33h
-PERIOD_MED			EQU 34h	
-PERIOD_MSB			EQU 35h
-
-org 0000h // Origem do codigo 
-ljmp main //
-
-org 0003h // Inicio do codigo da interrupcao externa INT0
-ljmp INT_INT0
-
-org 000Bh // Inicio do codigo da interrupcao interna gerada pelo TIMER/COUNTER 0
-ljmp INT_TIMER0 //
-
-org 0013h // Inicio do codigo da interrupcao externa INT1
-ljmp INT_INT1 //
-
-org 001Bh // Inicio do codigo da interrupcao interna gerada pelo TIMER/COUNTER 1
-ljmp INT_TIMER1 //
-
-org 0023h // Inicio do codigo da interrupcao SERIAL
-ljmp INT_SERIAL //
+// 3 bytes para o periodo do pwm: [0x000000, 0xFFFFFF] (16777215 us) Logo ... 1 Hz = 1000000 us = 0xF4240
+PWM_PERIODO_LSB		EQU 0F9h
+PWM_PERIODO_MED		EQU 0F8h	
+PWM_PERIODO_MSB		EQU 0F7h
+PWM_QTDADE_PERIODOS	EQU 0F6h
 
 ////////////////////////////////////////////////
 // REGIAO DA MEMORIA COM AS AMOSTRAS DE ONDAS //
 ////////////////////////////////////////////////
-org 0050h
+org 0A50h
 SINE_WAVE_25_SAMPLES:
 	DB 127, 160, 191, 217, 237, 250, 255, 250, 237, 217, 191, 160, 127, 94, 63, 37, 17, 4, 0, 4, 17, 37, 63, 94, 127
 SINE_WAVE_37_SAMPLES:
@@ -52,13 +40,7 @@ SINE_WAVE_37_SAMPLES:
 SINE_WAVE_71_SAMPLES:
 	DB 128, 139, 150, 161, 172, 182, 192, 201, 210, 218, 226, 233, 239, 245, 248, 253, 254, 255, 254, 253, 248, 245, 239, 233, 226, 218, 210, 201, 192, 182, 172, 161, 150, 139, 128, 117, 106, 95, 84, 74, 64, 55, 46, 38, 30, 24, 17, 13, 8, 5, 2, 1, 0, 1, 2, 5, 8, 13, 17, 24, 30, 38, 46, 55, 64, 74, 84, 95, 106, 117, 128
 
-main:
-	// Habilita Interrupcao 0 e 1
-	SETB	EX0 // interrupcao 0 
-	SETB	EX1	// interrupcao 1 
-	SETB	IE0 // interrupcao por borda
-	SETB 	IE1 // interrupcao por borda
-	
+/*main:
 	MOV		WAVE_FORM, #WAVE_FORM_SQUARE // wave form
 	MOV		A, WAVE_FORM
 	
@@ -66,8 +48,205 @@ main:
 
 	CJNE	A, #02h, SQUARE_WAVE
 
-	CLR		A
+	CLR		A*/
 
+//////////////////////////////////////////////////////
+// NOME: PWM_SQUARE_WAVE_SETUP_AND_START			//
+// DESCRICAO: 										//
+// P.ENTRADA: R0-> QUANTIDADE DE PERIODOS ATE PARAR	//
+//			  R1-> DUTY CYCLE						//
+//			  R2-> PWM_PERIODO_MSB					//
+//			  R3-> PWM_PERIODO_MED					//
+//			  R4-> PWM_PERIODO_LSB					//
+//			  R5-> FLAG PARA PINOS A SEREM ATIVADOS //
+//				bit 0 = PWM_PIN_0					//
+//				bit 1 = PWM_PIN_1					//
+//				bit 2 = PWM_PIN_2					//
+// P.SAIDA: 										//
+// ALTERA: [R0, R5]									//
+//////////////////////////////////////////////////////
+PWM_SQUARE_WAVE_SETUP_AND_START:
+		MOV		A, R5
+		
+		MOV		R7, #00000001b
+		MOV 	R6, #HIGH(65535 - 53330)
+		MOV 	R5, #LOW(65535 - 53330)
+		LCALL	TIMER_CONFIGURA_TIMER_SEM_INT
+		
+		MOV		R5, A
+		
+		MOV 	PWM_DUTY_CYCLE, R1
+	
+		LCALL	PWM_SQUARE_WAVE_CONFIG_PERIOD
+	
+		SETB 	TR0
+
+CONTINUA_PWM:
+		LCALL	PWM_SQUARE_WAVE
+		
+		MOV 	A, PWM_COUNTER
+		CJNE	A, PWM_QTDADE_PERIODOS, CONTINUA_PWM
+
+PWM_PARAR:
+		LCALL	PWM_STOP
+		
+		MOV		PWM_COUNTER, #00h
+		
+		RET
+
+//////////////////////////////////////////////////////
+// NOME: PWM_SQUARE_WAVE_CONFIG_PERIOD				//
+// DESCRICAO: 										//
+// P.ENTRADA: R0-> QUANTIDADE DE PERIODOS ATE PARAR //
+//			  R2-> PWM_PERIODO_MSB					//
+//			  R3-> PWM_PERIODO_MED					//
+//			  R4-> PWM_PERIODO_LSB					//
+// P.SAIDA: R6, R7 									//
+// ALTERA: R6, R7 									//
+//////////////////////////////////////////////////////
+PWM_SQUARE_WAVE_CONFIG_PERIOD:
+		MOV		PWM_PERIODO_MSB, R2
+		MOV		PWM_PERIODO_MED, R3
+		MOV		PWM_PERIODO_LSB, R4
+		
+		// PWM_QTDADE_PERIODOS soma 2x R0 pois o PWM_COUNTER (que trabalha juntamente com esse outro registrador)
+		// e incrementado toda vez que o PWM_PIN muda de estado
+		MOV		A, R0
+		ADD		A, R0
+		MOV		PWM_QTDADE_PERIODOS, A
+		
+		MOV		R6, PWM_PERIODO_MED
+		MOV		R7, PWM_PERIODO_MSB
+		
+		MOV 	TH0, #0FFh
+		MOV		TL0, PWM_PERIODO_LSB
+		
+		RET
+
+//////////////////////////////////////////////////////
+// NOME: PWM_STOP									//
+// DESCRICAO: 										//
+// P.ENTRADA:					 	 				//
+// P.SAIDA: 										//
+// ALTERA: 											//
+//////////////////////////////////////////////////////
+PWM_STOP:
+		CLR 	TR0
+		
+		RET
+
+//////////////////////////////////////////////////////
+// NOME: PWM_SQUARE_WAVE							//
+// DESCRICAO: 										//
+// P.ENTRADA: R6, R7					 	 		//
+//			  R5-> FLAG PARA PINOS A SEREM ATIVADOS //
+//				bit 0 = PINO_LED_VERDE				//
+//				bit 1 = PWM_PIN_0					//
+//				bit 2 = PWM_PIN_1					//
+//				bit 3 = PWM_PIN_2					//
+// P.SAIDA: - 										//
+// ALTERA: R6, R7									//
+//////////////////////////////////////////////////////
+PWM_SQUARE_WAVE:	
+		JNB 	TF0, $
+	
+		DJNZ	R6, CONTINUE_SQUARE
+		MOV		R6, PWM_PERIODO_MED
+		
+		DJNZ	R7, CONTINUE_SQUARE
+		MOV		R7, PWM_PERIODO_MSB	
+
+		// Se chegou ate aqui, incrementa o contador do PWM (para sinalizar a quantidade de vezes que queremos chamar o PWM)
+		INC		PWM_COUNTER
+
+		JB		PWM_FLAG, HIGH_DONE
+	
+LOW_DONE:			
+		SETB 	PWM_FLAG
+		
+		LCALL	DEFINE_PINOS_A_SEREM_ATIVADOS_DESATIVADOS
+		
+		MOV		TH0, #0FFh
+		MOV 	TL0, PWM_DUTY_CYCLE		
+		
+		CLR 	TF0
+		
+		RET
+				
+HIGH_DONE:
+		CLR 	PWM_FLAG			// Make PWM_FLAG = 0 to indicate start of low section
+			
+		LCALL	DEFINE_PINOS_A_SEREM_ATIVADOS_DESATIVADOS
+		
+		MOV  	A, #0FFh		// Subtract DUTY_CYCLE from A. A = PERIOD_LSB - DUTY_CYCLE
+		CLR		C
+		SUBB	A, PWM_DUTY_CYCLE
+		
+		MOV 	TH0, #0FFh			// Load high byte of timer with DUTY_CYCLE
+		MOV		TL0, A
+		
+		CLR 	TF0					// Clear the Timer 1 interrupt flag
+		
+		RET
+
+CONTINUE_SQUARE:
+		JNB		PWM_FLAG, CONTINUE_SQUARE_LOW
+	
+CONTINUE_SQUARE_HIGH:
+		MOV  	A, #0FFh		// Subtract DUTY_CYCLE from A. A = PERIOD_LSB - DUTY_CYCLE
+		CLR		C
+		SUBB	A, PWM_DUTY_CYCLE
+		
+		MOV 	TH0, #0FFh			// Load high byte of timer with DUTY_CYCLE
+		MOV		TL0, A
+		
+		CLR 	TF0
+
+		RET
+		
+CONTINUE_SQUARE_LOW:
+		MOV		TH0, #0FFh
+		MOV 	TL0, PWM_DUTY_CYCLE
+		
+		CLR 	TF0
+		
+		RET
+
+//////////////////////////////////////////////////////
+// NOME: DEFINE_PINOS_A_SEREM_ATIVADOS_DESATIVADOS	//
+// DESCRICAO: 										//
+// P.ENTRADA: R5-> FLAG PARA PINOS					//
+//				bit 0 = PWM_PIN_0					//
+//				bit 1 = PWM_PIN_1					//
+//				bit 2 = PWM_PIN_2					//
+// P.SAIDA: 										//
+// ALTERA: 											//
+//////////////////////////////////////////////////////
+DEFINE_PINOS_A_SEREM_ATIVADOS_DESATIVADOS:
+		MOV		A, #01h
+		ANL		A, R5
+		JZ		NAO_ATIVA_BIT_0
+		
+		CPL 	PWM_PIN_0
+		
+NAO_ATIVA_BIT_0:
+		MOV		A, #02h
+		ANL		A, R5
+		JZ		NAO_ATIVA_BIT_1
+		
+		CPL 	PWM_PIN_1
+
+NAO_ATIVA_BIT_1:
+		MOV		A, #04h
+		ANL		A, R5
+		JZ		NAO_ATIVA_BIT_2
+		
+		CPL 	PWM_PIN_2
+
+NAO_ATIVA_BIT_2:
+		RET
+		
+/*
 ///////////////
 // SINE WAVE //
 ///////////////
@@ -88,7 +267,7 @@ TESTA_R1:
 
 PWM_INTERRUPT_SINE_NEXT_SAMPLE:
 	DJNZ	R7, CONTINUE_SINE
-	MOV		R7, PERIOD_MSB
+	MOV		R7, PWM_PERIODO_MSB
 	
 	MOVC	A, @A + DPTR
 	MOV		PWM_PORT, A
@@ -123,14 +302,14 @@ PWM_SINE_WAVE_SETUP:
 // (1000 - 30) / 70 = 13 (D)
 // 0xFFFF - 0xD = 0xFFF2
 PWM_SINE_WAVE_CONFIG_PERIOD:
-	MOV		PERIOD_MSB, #001h
-	MOV		PERIOD_MED, #0C8h
-	MOV		PERIOD_LSB, #052h
+	MOV		PWM_PERIODO_MSB, #001h
+	MOV		PWM_PERIODO_MED, #0C8h
+	MOV		PWM_PERIODO_LSB, #052h
 	
-	MOV		R7, PERIOD_MSB
+	MOV		R7, PWM_PERIODO_MSB
 	
-	MOV 	TH1, PERIOD_MED
-	MOV		TL1, PERIOD_LSB
+	MOV 	TH1, PWM_PERIODO_MED
+	MOV		TL1, PWM_PERIODO_LSB
 	
 	RET
 
@@ -144,7 +323,7 @@ SQUARE_WAVE:
 	
 PWM_SQUARE_WAVE_SETUP:
 	MOV 	TMOD, #00010000b  // Timer1 in Mode 1 (16 bits without auto-reload)
-	MOV 	DUTY_CYCLE, #127d // Set pulse width control (50%)
+	MOV 	PWM_DUTY_CYCLE, #35d // Set pulse width control (50%)
 	
 	CALL	PWM_SQUARE_WAVE_CONFIG_PERIOD
 	
@@ -154,33 +333,12 @@ PWM_SQUARE_WAVE_SETUP:
 	
 	RET
 	
-PWM_SQUARE_WAVE_CONFIG_PERIOD:
-	// Considerando 20 ciclos de maquina para a interrupcao
-	// 0xE * 0xFF * 0xFF =~ 1Hz 
-	// 0x0 * 0x4 * 0xFF = 1kHz
-	MOV		PERIOD_MSB, #000h
-	MOV		PERIOD_MED, #004h
-	MOV		PERIOD_LSB, #0FFh
-	
-	MOV		R6, PERIOD_MED
-	MOV		R7, PERIOD_MSB
-	
-	MOV 	TH1, #0FFh
-	MOV		TL1, PERIOD_LSB
-	
-	RET
-
-PWM_STOP:
-	CLR 	TR1			; Stop timer to stop PWM
-	
-	RET
-	
 PWM_INTERRUPT_SQUARE_WAVE:	
 	DJNZ	R6, CONTINUE_SQUARE
-	MOV		R6, PERIOD_MED
+	MOV		R6, PWM_PERIODO_MED
 	
 	DJNZ	R7, CONTINUE_SQUARE
-	MOV		R7, PERIOD_MSB	
+	MOV		R7, PWM_PERIODO_MSB	
 
 	JB		PWM_FLAG, HIGH_DONE	// If PWM_FLAG flag is set then we just finished
 				
@@ -189,7 +347,7 @@ LOW_DONE:
 	SETB 	PWM_PIN
 	
 	MOV		TH1, #0FFh
-	MOV 	TL1, DUTY_CYCLE		
+	MOV 	TL1, PWM_DUTY_CYCLE		
 	
 	CLR 	TF1
 	
@@ -201,7 +359,7 @@ HIGH_DONE:
 	
 	MOV  	A, #0FFh		// Subtract DUTY_CYCLE from A. A = PERIOD_LSB - DUTY_CYCLE
 	CLR		C
-	SUBB	A, DUTY_CYCLE
+	SUBB	A, PWM_DUTY_CYCLE
 	
 	MOV 	TH1, #0FFh			// Load high byte of timer with DUTY_CYCLE
 	MOV		TL1, A
@@ -216,7 +374,7 @@ CONTINUE_SQUARE:
 CONTINUE_SQUARE_HIGH:
 	MOV  	A, #0FFh		// Subtract DUTY_CYCLE from A. A = PERIOD_LSB - DUTY_CYCLE
 	CLR		C
-	SUBB	A, DUTY_CYCLE
+	SUBB	A, PWM_DUTY_CYCLE
 	
 	MOV 	TH1, #0FFh			// Load high byte of timer with DUTY_CYCLE
 	MOV		TL1, A
@@ -225,47 +383,10 @@ CONTINUE_SQUARE_HIGH:
 		
 CONTINUE_SQUARE_LOW:
 	MOV		TH1, #0FFh
-	MOV 	TL1, DUTY_CYCLE
+	MOV 	TL1, PWM_DUTY_CYCLE
 	
 	RET
 
-////////////////////////////////////////////////
-// INICIO DOS CODIGOS GERADOS POR INTERRUPCAO //
-////////////////////////////////////////////////
-
-/*
-* Decrementa o DUTY_CYCLE em 1
-*/
-INT_INT0:
-	PUSH 	ACC
-	
-	DEC 	DUTY_CYCLE
-	
-	POP		ACC
-	
-	RETI
-
-/*
-*
-*/
-INT_TIMER0:
-	RETI
-	
-/*
-* Incrementa o DUTY_CYCLE em 1
-*/
-INT_INT1:
-	PUSH 	ACC
-	
-	INC 	DUTY_CYCLE
-	
-	POP		ACC
-
-	RETI
-
-/*
-*
-*/
 INT_TIMER1:
 	PUSH	ACC
 
@@ -285,11 +406,4 @@ JUMP_SQUARE_INT:
 	CALL 	PWM_INTERRUPT_SQUARE_WAVE
 	
 	POP		ACC
-	RETI
-/*
-*
-*/
-INT_SERIAL:
-	RETI
-	
-	END
+	RETI*/
