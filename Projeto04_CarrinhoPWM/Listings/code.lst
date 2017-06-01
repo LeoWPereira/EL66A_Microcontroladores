@@ -1,0 +1,151 @@
+C51 COMPILER V9.56.0.0   CODE                                                              06/01/2017 01:05:48 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE CODE
+OBJECT MODULE PLACED IN .\Objects\code.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE code.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\code
+                    -.lst) TABS(2) OBJECT(.\Objects\code.obj)
+
+line level    source
+
+   1          /*  Name     : code.c
+   2           *  Purpose  : Main file for generating pwm using 8051.
+   3           *  Author   : M.Saeed Yasin
+   4           *  Date     : 13-06-12
+   5           *  Revision : None
+   6           */
+   7          #include<reg51.h>
+   8          #include "lcd16x2.h"
+   9          #include "pwm.h"
+  10          #include "timer.h"
+  11          #include "teclado_matricial_4x4.h"
+  12          
+  13          static void DECODIFICA_FUNCAO(void);
+  14          
+  15          // Main Function
+  16          int main(void)
+  17          { 
+  18   1        INIDISP();
+  19   1        
+  20   1        ESC_STR1("Leonardo Pereira", 16);
+  21   1        ESC_STR2("  Rodrigo Endo  ", 16);
+  22   1        
+  23   1        Delay(5000);
+  24   1        
+  25   1        ESC_STR1("F1/F2: Muda Vel.", 16);
+  26   1        ESC_STR2("ENTER: Init/Para", 16);
+  27   1        
+  28   1        Delay(10000);
+  29   1        
+  30   1        cct_init();            // Make all ports zero
+  31   1      
+  32   1        InitPWM();              // Start PWM
+  33   1      
+  34   1        PWM_1 = 0;              // Make 50% duty cycle of PWM
+  35   1        PWM_2 = 0;              // Make 50% duty cycle of PWM
+  36   1        
+  37   1        while(1)
+  38   1        {
+  39   2          ESC_STR1("Vel. PWM 1: ", 12);
+  40   2          ESC_DADO_NUMERO_COMPLETO(PWM_1, 3);
+  41   2          ESCDADO(' ');
+  42   2          
+  43   2          ESC_STR2("Vel. PWM 2: ", 12);
+  44   2          ESC_DADO_NUMERO_COMPLETO(PWM_2, 3);
+  45   2          ESCDADO(' ');
+  46   2          
+  47   2          VARREDURA_TECLADO();
+  48   2          
+  49   2          Delay(500);
+  50   2          
+  51   2          DECODIFICA_FUNCAO();
+  52   2        }
+  53   1        
+  54   1        return;
+C51 COMPILER V9.56.0.0   CODE                                                              06/01/2017 01:05:48 PAGE 2   
+
+  55   1      }
+  56          
+  57          static void DECODIFICA_FUNCAO()
+  58          {
+  59   1        switch(COMANDO_TECLADO)
+  60   1        {
+  61   2          case COMANDO_0:
+  62   2            break;
+  63   2          
+  64   2          case COMANDO_1:
+  65   2            break;
+  66   2          
+  67   2          case COMANDO_2:
+  68   2            break;
+  69   2          
+  70   2          case COMANDO_3:
+  71   2            break;
+  72   2          
+  73   2          case COMANDO_4:
+  74   2            break;
+  75   2          
+  76   2          case COMANDO_5:
+  77   2            break;
+  78   2          
+  79   2          case COMANDO_6:
+  80   2            break;
+  81   2          
+  82   2          case COMANDO_7:
+  83   2            break;
+  84   2          
+  85   2          case COMANDO_8:
+  86   2            break;
+  87   2          
+  88   2          case COMANDO_9:
+  89   2            break;
+  90   2          
+  91   2          case COMANDO_F1:
+  92   2            if(PWM_1 > 251)
+  93   2              PWM_1 = 255;
+  94   2            
+  95   2            else
+  96   2              PWM_1 += 5;
+  97   2            
+  98   2            if(PWM_2 > 251)
+  99   2              PWM_2 = 255;
+ 100   2            
+ 101   2            else
+ 102   2              PWM_2 += 5;
+ 103   2          
+ 104   2            break;
+ 105   2          
+ 106   2          case COMANDO_F2:
+ 107   2            if(PWM_1 < 4)
+ 108   2              PWM_1 = 0;
+ 109   2            
+ 110   2            else
+ 111   2              PWM_1 -= 5;
+ 112   2            
+ 113   2            if(PWM_2 < 4)
+ 114   2              PWM_2 = 0;
+ 115   2            
+ 116   2            else
+C51 COMPILER V9.56.0.0   CODE                                                              06/01/2017 01:05:48 PAGE 3   
+
+ 117   2              PWM_2 -= 5;
+ 118   2            
+ 119   2            break;
+ 120   2        }
+ 121   1        
+ 122   1        return;
+ 123   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    213    ----
+   CONSTANT SIZE    =     94    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

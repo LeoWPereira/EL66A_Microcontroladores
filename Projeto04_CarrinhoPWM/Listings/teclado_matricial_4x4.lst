@@ -1,0 +1,178 @@
+C51 COMPILER V9.56.0.0   TECLADO_MATRICIAL_4X4                                             06/01/2017 00:47:28 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE TECLADO_MATRICIAL_4X4
+OBJECT MODULE PLACED IN .\Objects\teclado_matricial_4x4.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE teclado_matricial_4x4.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRIN
+                    -T(.\Listings\teclado_matricial_4x4.lst) TABS(2) OBJECT(.\Objects\teclado_matricial_4x4.obj)
+
+line level    source
+
+   1          #include "teclado_matricial_4x4.h"
+   2          #include<reg51.h>              //including sfr registers for ports of the controller
+   3          
+   4          sfr DISPLAY = 0x90;
+   5          
+   6          sbit COL1 = P1^0;
+   7          sbit COL2 = P1^1;
+   8          sbit COL3 = P1^2;
+   9          sbit COL4 = P1^3;
+  10          
+  11          sbit LIN1 = P1^4;
+  12          sbit LIN2 = P1^5;
+  13          sbit LIN3 = P1^6;
+  14          sbit LIN4 = P1^7;
+  15          
+  16          unsigned char COMANDO_TECLADO = 0;
+  17          
+  18          void VARREDURA_TECLADO(void)
+  19          {
+  20   1        while(1)
+  21   1        {
+  22   2          LIN1 = 0;
+  23   2          LIN2 = 1;
+  24   2          LIN3 = 1;
+  25   2          LIN4 = 1;
+  26   2          
+  27   2          if(COL1 == 0) // digito f1
+  28   2          {
+  29   3            COMANDO_TECLADO = COMANDO_F1;
+  30   3            
+  31   3            return;
+  32   3          }
+  33   2          
+  34   2          else if(COL2 == 0) // digito 1
+  35   2          {
+  36   3            COMANDO_TECLADO = COMANDO_1;
+  37   3            
+  38   3            return;
+  39   3          }
+  40   2          
+  41   2          else if(COL3 == 0)  // digito 2
+  42   2          {
+  43   3            COMANDO_TECLADO = COMANDO_2;
+  44   3            
+  45   3            return;
+  46   3          }
+  47   2          
+  48   2          else if(COL4 == 0) // digito 3
+  49   2          {
+  50   3            COMANDO_TECLADO = COMANDO_3;
+  51   3            
+  52   3            return;
+  53   3          }
+  54   2          
+C51 COMPILER V9.56.0.0   TECLADO_MATRICIAL_4X4                                             06/01/2017 00:47:28 PAGE 2   
+
+  55   2          LIN2 = 0;
+  56   2          LIN1 = 1;
+  57   2          
+  58   2          if(COL1 == 0) // digito f2
+  59   2          {
+  60   3            COMANDO_TECLADO = COMANDO_F2;
+  61   3            
+  62   3            return;
+  63   3          }
+  64   2          
+  65   2          else if(COL2 == 0) // digito 4
+  66   2          {
+  67   3            COMANDO_TECLADO = COMANDO_4;
+  68   3            
+  69   3            return;
+  70   3          }
+  71   2          
+  72   2          else if(COL3 == 0) // digito 5
+  73   2          {
+  74   3            COMANDO_TECLADO = COMANDO_5;
+  75   3            
+  76   3            return;
+  77   3          }
+  78   2          
+  79   2          else if(COL4 == 0) // digito 6
+  80   2          {
+  81   3            COMANDO_TECLADO = COMANDO_6;
+  82   3            
+  83   3            return;
+  84   3          }
+  85   2          
+  86   2          LIN3 = 0;
+  87   2          LIN2 = 1;
+  88   2          
+  89   2          if(COL1 == 0) // digito f3
+  90   2          {
+  91   3            COMANDO_TECLADO = COMANDO_F3;
+  92   3            
+  93   3            return;
+  94   3          }
+  95   2          
+  96   2          else if(COL2 == 0) // digito 7
+  97   2          {
+  98   3            COMANDO_TECLADO = COMANDO_7;
+  99   3            
+ 100   3            return;
+ 101   3          }
+ 102   2          
+ 103   2          else if(COL3 == 0) // digito 8
+ 104   2          {
+ 105   3            COMANDO_TECLADO = COMANDO_8;
+ 106   3            
+ 107   3            return;
+ 108   3          }
+ 109   2          
+ 110   2          else if(COL4 == 0) // digito 9
+ 111   2          {
+ 112   3            COMANDO_TECLADO = COMANDO_9;
+ 113   3            
+ 114   3            return;
+ 115   3          }
+ 116   2          
+C51 COMPILER V9.56.0.0   TECLADO_MATRICIAL_4X4                                             06/01/2017 00:47:28 PAGE 3   
+
+ 117   2          LIN4 = 0;
+ 118   2          LIN3 = 1;
+ 119   2          
+ 120   2          if(COL1 == 0) // digito f4
+ 121   2          {
+ 122   3            COMANDO_TECLADO = COMANDO_F4;
+ 123   3            
+ 124   3            return;
+ 125   3          }
+ 126   2          
+ 127   2          else if(COL2 == 0) // digito CLR
+ 128   2          {
+ 129   3            COMANDO_TECLADO = COMANDO_CLR;
+ 130   3            
+ 131   3            return;
+ 132   3          }
+ 133   2          
+ 134   2          else if(COL3 == 0) // digito 0
+ 135   2          {
+ 136   3            COMANDO_TECLADO = COMANDO_0;
+ 137   3            
+ 138   3            return;
+ 139   3          }
+ 140   2          
+ 141   2          else if(COL4 == 0) // digito ENT
+ 142   2          {
+ 143   3            COMANDO_TECLADO = COMANDO_ENT;
+ 144   3            
+ 145   3            return;
+ 146   3          }
+ 147   2        }
+ 148   1        
+ 149   1        return;
+ 150   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    132    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,1 @@
+"lcd16x2.c" OPTIMIZE (8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\lcd16x2.lst) TABS (2) OBJECT(.\Objects\lcd16x2.obj)

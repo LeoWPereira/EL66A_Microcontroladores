@@ -1,0 +1,255 @@
+C51 COMPILER V9.56.0.0   LCD16X2                                                           06/01/2017 00:24:46 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE LCD16X2
+OBJECT MODULE PLACED IN .\Objects\lcd16x2.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE lcd16x2.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\l
+                    -cd16x2.lst) TABS(2) OBJECT(.\Objects\lcd16x2.obj)
+
+line level    source
+
+   1          #include "lcd16x2.h"
+   2          
+   3          #include<reg51.h>              //including sfr registers for ports of the controller
+   4          
+   5          //LCD Module Connections
+   6          sbit BUSYF = P0^7;
+   7          
+   8          sbit RS = P2^5;   
+   9          sbit RW = P2^6;
+  10          sbit E_LCD = P2^7;
+  11          
+  12          sfr DISPLAY = 0x80;
+  13          
+  14          sbit D0 = P0^0;
+  15          sbit D1 = P0^1;
+  16          sbit D2 = P0^2;
+  17          sbit D3 = P0^3;
+  18          sbit D4 = P0^4;
+  19          sbit D5 = P0^5;
+  20          sbit D6 = P0^6;
+  21          sbit D7 = P0^7;
+  22          //End LCD Module Connections
+  23          
+  24          void INIDISP(void)
+  25          {
+  26   1        ESCINST(0x38, 0x05);
+  27   1        
+  28   1        ESCINST(0x38, 0x01);
+  29   1        
+  30   1        ESCINST(0x06, 0x01);
+  31   1        
+  32   1        ESCINST(0x0C, 0x01);
+  33   1        
+  34   1        ESCINST(0x01, 0x02);
+  35   1        
+  36   1        return;
+  37   1      }
+  38          
+  39          void ESCINST(unsigned char instruction, unsigned char time_ms)
+  40          {
+  41   1        RW = 0;
+  42   1        RS = 0;
+  43   1        
+  44   1        E_LCD = 1;
+  45   1        
+  46   1        DISPLAY = instruction;
+  47   1        
+  48   1        E_LCD = 0;
+  49   1        
+  50   1        DISPLAY = 0xFF;
+  51   1        
+  52   1        RW = 1;
+  53   1        E_LCD = 1;
+  54   1        
+C51 COMPILER V9.56.0.0   LCD16X2                                                           06/01/2017 00:24:46 PAGE 2   
+
+  55   1        while(BUSYF)
+  56   1        {
+  57   2        }
+  58   1        
+  59   1        E_LCD = 0;
+  60   1        
+  61   1        return;
+  62   1      }
+*** WARNING C280 IN LINE 39 OF lcd16x2.c: 'time_ms': unreferenced local variable
+  63          
+  64          void GOTOXY(unsigned char linha, unsigned char coluna)
+  65          {
+  66   1        unsigned char aux = 0x80;
+  67   1        
+  68   1        if(linha == 1)
+  69   1        {
+  70   2          aux = 0xC0;
+  71   2        }
+  72   1        
+  73   1        aux |= coluna;
+  74   1          
+  75   1        linha = aux;
+  76   1          
+  77   1        ESCINST(linha, 1);
+  78   1        
+  79   1        return;
+  80   1      }
+  81          
+  82          void CLR1L(void)
+  83          {
+  84   1        unsigned char linha = 0;
+  85   1        unsigned char coluna = 0;
+  86   1        unsigned char contador = 16;
+  87   1        
+  88   1        GOTOXY(linha, coluna);
+  89   1        
+  90   1        while(contador > 0);
+  91   1        {
+  92   2          ESCDADO(' ');
+  93   2          
+  94   2          contador--;
+  95   2        }
+  96   1        
+  97   1        linha = 0;
+  98   1        coluna = 0;
+  99   1        
+ 100   1        GOTOXY(linha, coluna);
+ 101   1      
+ 102   1        return;
+ 103   1      }
+ 104          
+ 105          void CLR2L(void)
+ 106          {
+ 107   1        unsigned char linha = 1;
+ 108   1        unsigned char coluna = 0;
+ 109   1        unsigned char contador = 16;
+ 110   1        
+ 111   1        GOTOXY(linha, coluna);
+ 112   1        
+ 113   1        while(contador > 0);
+ 114   1        {
+ 115   2          ESCDADO(' ');
+C51 COMPILER V9.56.0.0   LCD16X2                                                           06/01/2017 00:24:46 PAGE 3   
+
+ 116   2          
+ 117   2          contador--;
+ 118   2        }
+ 119   1        
+ 120   1        linha = 1;
+ 121   1        coluna = 0;
+ 122   1        
+ 123   1        GOTOXY(linha, coluna);
+ 124   1        
+ 125   1        return;
+ 126   1      }
+ 127          
+ 128          void ESCDADO(unsigned char charToWrite)
+ 129          {
+ 130   1        RW = 0;
+ 131   1        RS = 1;
+ 132   1        E_LCD = 1;
+ 133   1        
+ 134   1        DISPLAY = charToWrite;
+ 135   1        
+ 136   1        E_LCD = 0;
+ 137   1        
+ 138   1        DISPLAY = 0xFF;
+ 139   1        
+ 140   1        RW = 1;
+ 141   1        RS = 0;
+ 142   1        E_LCD = 1;
+ 143   1        
+ 144   1        while(BUSYF)
+ 145   1        {
+ 146   2        }
+ 147   1        
+ 148   1        E_LCD = 0;
+ 149   1        
+ 150   1        return;
+ 151   1      }
+ 152          
+ 153          void MSTRING(unsigned char *stringToWrite, unsigned char tamanho_string)
+ 154          {
+ 155   1        unsigned char i = 0;
+ 156   1        
+ 157   1        for(i = 0; i < tamanho_string; i++)
+ 158   1        {
+ 159   2          ESCDADO(stringToWrite[i]);
+ 160   2        }
+ 161   1        
+ 162   1        return;
+ 163   1      }
+ 164          
+ 165          void ESC_STR1(unsigned char *stringToWrite, unsigned char tamanho_string)
+ 166          {
+ 167   1        GOTOXY(0, 0);
+ 168   1        
+ 169   1        MSTRING(stringToWrite, tamanho_string);
+ 170   1        
+ 171   1        return;
+ 172   1      }
+ 173          
+ 174          void ESC_STR2(unsigned char *stringToWrite, unsigned char tamanho_string)
+ 175          {
+ 176   1        GOTOXY(1, 0);
+ 177   1        
+C51 COMPILER V9.56.0.0   LCD16X2                                                           06/01/2017 00:24:46 PAGE 4   
+
+ 178   1        MSTRING(stringToWrite, tamanho_string);
+ 179   1        
+ 180   1        return;
+ 181   1      }
+ 182          
+ 183          void CUR_ON(void)
+ 184          {
+ 185   1        return;
+ 186   1      }
+ 187          
+ 188          void CUR_OFF(void)
+ 189          {
+ 190   1        return;
+ 191   1      }
+ 192          
+ 193          unsigned char CONV_NUMBER_TO_ASCII(unsigned char dataToConvert)
+ 194          {
+ 195   1        return dataToConvert + 0x30;
+ 196   1      }
+ 197          
+ 198          void ESC_DADO_NUMERO_COMPLETO(unsigned char numero, unsigned char tamanho_digitos)
+ 199          {
+ 200   1        unsigned char aux = 100;
+ 201   1        unsigned char temp = numero;
+ 202   1        unsigned char i;
+ 203   1          
+ 204   1        temp = numero % aux;
+ 205   1        
+ 206   1        numero /= aux;
+ 207   1      
+ 208   1        ESCDADO(CONV_NUMBER_TO_ASCII(numero));
+ 209   1          
+ 210   1        aux = 10;
+ 211   1        
+ 212   1        numero = temp;
+ 213   1        temp = numero % aux;
+ 214   1          
+ 215   1        numero /= aux;
+ 216   1        ESCDADO(CONV_NUMBER_TO_ASCII(numero));
+ 217   1        
+ 218   1        numero = temp;
+ 219   1        ESCDADO(CONV_NUMBER_TO_ASCII(numero));
+ 220   1        
+ 221   1        return;
+ 222   1      }
+*** WARNING C280 IN LINE 198 OF lcd16x2.c: 'tamanho_digitos': unreferenced local variable
+*** WARNING C280 IN LINE 202 OF lcd16x2.c: 'i': unreferenced local variable
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    279    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       8
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  3 WARNING(S),  0 ERROR(S)

@@ -1,3 +1,7 @@
-".\Objects\Projeto04_CarrinhoPWM.obj" 
+".\Objects\code.obj",
+".\Objects\lcd16x2.obj",
+".\Objects\pwm.obj",
+".\Objects\timer.obj",
+".\Objects\teclado_matricial_4x4.obj" 
 TO ".\Objects\Projeto04_CarrinhoPWM" 
 PRINT(".\Listings\Projeto04_CarrinhoPWM.m51") RAMSIZE(256) 

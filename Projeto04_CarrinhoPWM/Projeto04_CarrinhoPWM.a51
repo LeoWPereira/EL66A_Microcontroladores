@@ -86,28 +86,48 @@ STR_VELOCIDADE_MOTOR_2:
 			
 __STARTUP__:
 		LCALL	INIT_VALORES
-		//LCALL	INIDISP
+		LCALL	INIDISP
 		
-		LCALL	INT_CONFIGURA_INTERRUPCOES
+		//LCALL	INT_CONFIGURA_INTERRUPCOES
 		
 		MOV		R0, #00h
 		MOV		R2, #0Ah
 		MOV		R3, #0Ah
 		MOV		R4, #0Ch
-		MOV		R5, #00000011b
-		LCALL	PWM_SQUARE_WAVE_SETUP_AND_START
+		MOV		R5, #00000001b
+		LCALL	PWM_1_SQUARE_WAVE_SETUP_AND_START
 		
-		JMP		$
+		MOV		R0, #00h
+		MOV		R2, #0Ah
+		MOV		R3, #0Ah
+		MOV		R4, #0Ch
+		MOV		R5, #00000010b
+		LCALL	PWM_2_SQUARE_WAVE_SETUP_AND_START
 		
-		/*MOV		DPTR, #STR_LEONARDO_PEREIRA
+		MOV		DPTR, #STR_LEONARDO_PEREIRA
 		LCALL	ESC_STR1
 		
 		MOV		DPTR, #STR_RODRIGO_ENDO
 		LCALL	ESC_STR2
 		
-		MOV		R2, #02h
+		MOV		R2, #00h
 		MOV		R1, #00h
-		MOV		R0, #00h
+		MOV		R0, #0FFh
+		LCALL	TIMER_DELAY
+		
+		MOV		R2, #00h
+		MOV		R1, #00h
+		MOV		R0, #0FFh
+		LCALL	TIMER_DELAY
+		
+		MOV		R2, #00h
+		MOV		R1, #00h
+		MOV		R0, #0FFh
+		LCALL	TIMER_DELAY
+		
+		MOV		R2, #00h
+		MOV		R1, #00h
+		MOV		R0, #0FFh
 		LCALL	TIMER_DELAY
 		
 LIMPA_LCD_E_INICIA_SISTEMA:
@@ -121,26 +141,18 @@ LIMPA_LCD_E_INICIA_SISTEMA:
 		MOV		DPTR, #STR_COMANDOS_DISPONIVEIS_LINHA_2
 		LCALL	ESC_STR2
 		
-		MOV		R2, #02h
-		MOV		R1, #00h
-		MOV		R0, #00h
-		LCALL	TIMER_DELAY
-		
 VARRE_FUNCAO:
-		LCALL 	CLR2L
-		LCALL 	CLR1L
-		
 		MOV		R1, #COMANDO
 		LCALL	VARREDURA_TECLADO
 		
 		MOV		R2, #00h
-		MOV		R1, #01h
-		MOV		R0, #32h
+		MOV		R1, #00h
+		MOV		R0, #0FAh
 		LCALL	TIMER_DELAY
 		
 		LCALL	DECODER_FUNCAO
 
-		JMP		VARRE_FUNCAO*/
+		JMP		VARRE_FUNCAO
 
 //////////////////////////////////////////////////////
 // NOME: INIT_VALORES								//
@@ -150,11 +162,8 @@ VARRE_FUNCAO:
 // ALTERA: 											//
 //////////////////////////////////////////////////////
 INIT_VALORES:
-		MOV		PWM_DUTY_CYCLE_PIN_1, #128d
-		MOV		PWM_DUTY_CYCLE_PIN_2, #20d
-		
-		MOV		PWM_DUTY_AUX_1,		#128d
-		MOV		PWM_DUTY_AUX_2,		#20d
+		MOV		PWM_DUTY_CYCLE_PIN_0, #200d
+		MOV		PWM_DUTY_CYCLE_PIN_1, #50d
 		
 		MOV		WAVE_FORM, #WAVE_FORM_SQUARE // wave form
 		
@@ -252,8 +261,8 @@ DECREMENTA_VELOCIDADE:
 ////////////////////////////////////////////////
 
 INT_CONFIGURA_INTERRUPCOES:
-		MOV		IEN0, #10001000b // Configura interrupcao apenas para o TIMER_0
-		MOV		IPL0, #00000000b // da prioridade alta para o TIMER_0
+		MOV		IEN0, #10001010b // Configura interrupcao apenas para o TIMER_0
+		MOV		IPL0, #00001111b // da prioridade alta para o TIMER_0
 		
 		RET
 
@@ -295,11 +304,6 @@ INT_INT1:
 // ALTERA: 											//
 //////////////////////////////////////////////////////
 INT_TIMER1:
-		PUSH	ACC
-		
-		LCALL	PWM_SQUARE_WAVE
-		
-		POP		ACC
 		RETI
 	
 //////////////////////////////////////////////////////
@@ -321,173 +325,5 @@ INT_SERIAL:
 //////////////////////////////////////////////////////
 INT_I2C_TWI:
 		RETI
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		//////////////////////////////////////////////////////
-// NOME: PWM_SQUARE_WAVE							//
-// DESCRICAO: 										//
-// P.ENTRADA: R6, R7					 	 		//
-//			  R5-> FLAG PARA PINOS A SEREM ATIVADOS //
-//				bit 0 = PINO_LED_VERDE				//
-//				bit 1 = PWM_PIN_0					//
-//				bit 2 = PWM_PIN_1					//
-//				bit 3 = PWM_PIN_2					//
-// P.SAIDA: - 										//
-// ALTERA: R6, R7									//
-//////////////////////////////////////////////////////
-PWM_SQUARE_WAVE:	
-		CLR 	TF1
-	
-		DJNZ	R6, CONTINUE_SQUARE
-		MOV		R6, PWM_PERIODO_MED
-		
-		DJNZ	R7, CONTINUE_SQUARE
-		MOV		R7, PWM_PERIODO_MSB	
-		
-		LCALL	VERIFICA_DUTY_CYCLES
-
-		JB		PWM_FLAG, HIGH_DONE
-	
-LOW_DONE:			
-		SETB 	PWM_FLAG
-		
-		LCALL	DEFINE_PINOS_A_SEREM_ATIVADOS_DESATIVADOS
-		
-		MOV		TH1, #0FFh
-		MOV 	TL1, PWM_DUTY_CYCLE_ATUAL//PWM_DUTY_CYCLE_PIN_1		
-		
-		RET
 				
-HIGH_DONE:
-		CLR 	PWM_FLAG			// Make PWM_FLAG = 0 to indicate start of low section
-			
-		LCALL	DEFINE_PINOS_A_SEREM_ATIVADOS_DESATIVADOS
-		
-		MOV  	A, #0FFh		// Subtract DUTY_CYCLE from A. A = PERIOD_LSB - DUTY_CYCLE
-		CLR		C
-		SUBB	A, PWM_DUTY_CYCLE_ATUAL//PWM_DUTY_CYCLE_PIN_1
-		
-		MOV 	TH1, #0FFh			// Load high byte of timer with DUTY_CYCLE
-		MOV		TL1, A
-		
-		CLR 	TF1					// Clear the Timer 1 interrupt flag
-		
-		RET
-
-CONTINUE_SQUARE:
-		JNB		PWM_FLAG, CONTINUE_SQUARE_LOW
-	
-CONTINUE_SQUARE_HIGH:
-		MOV  	A, #0FFh		// Subtract DUTY_CYCLE from A. A = PERIOD_LSB - DUTY_CYCLE
-		CLR		C
-		SUBB	A, PWM_DUTY_CYCLE_ATUAL//PWM_DUTY_CYCLE_PIN_1
-		
-		MOV 	TH1, #0FFh			// Load high byte of timer with DUTY_CYCLE
-		MOV		TL1, A
-		
-		CLR 	TF1
-
-		RET
-		
-CONTINUE_SQUARE_LOW:
-		MOV		TH1, #0FFh
-		MOV 	TL1, PWM_DUTY_CYCLE_ATUAL//PWM_DUTY_CYCLE_PIN_1
-		
-		RET
-
-//////////////////////////////////////////////////////
-// NOME: DEFINE_PINOS_A_SEREM_ATIVADOS_DESATIVADOS	//
-// DESCRICAO: 										//
-// P.ENTRADA: R5-> FLAG PARA PINOS					//
-//				bit 0 = PWM_PIN_0					//
-//				bit 1 = PWM_PIN_1					//
-//				bit 2 = PWM_PIN_2					//
-// P.SAIDA: 										//
-// ALTERA: 											//
-//////////////////////////////////////////////////////
-DEFINE_PINOS_A_SEREM_ATIVADOS_DESATIVADOS:
-		MOV		A, #01h
-		ANL		A, PWM_PIN_A_VERIFICAR//R5
-		JZ		NAO_ATIVA_BIT_0
-		
-		CPL 	PWM_PIN_0
-		
-NAO_ATIVA_BIT_0:
-		MOV		A, #02h
-		ANL		A, PWM_PIN_A_VERIFICAR//R5
-		JZ		NAO_ATIVA_BIT_1
-		
-		CPL 	PWM_PIN_1
-
-NAO_ATIVA_BIT_1:
-		RET
-
-//////////////////////////////////////////////////////
-// NOME: VERIFICA_DUTY_CYCLES						//
-// DESCRICAO: 										//
-// P.ENTRADA: 										//
-// P.SAIDA: 										//
-// ALTERA: 											//
-//////////////////////////////////////////////////////
-VERIFICA_DUTY_CYCLES:
-		MOV 	A, PWM_DUTY_CYCLE_PIN_1
-		MOV		B, PWM_DUTY_CYCLE_PIN_2
-		
-		SUBB	A, B
-		
-		//JZ
-		
-		JNC		PWM_1_MAIOR_QUE_PWM_2
-		
-PWM_1_MENOR_QUE_PWM_2:
-		MOV		PWM_PIN_A_VERIFICAR, #01h
-		MOV		A, PWM_DUTY_CYCLE_PIN_2
-		SUBB	A, PWM_DUTY_CYCLE_PIN_1
-		MOV		PWM_DUTY_CYCLE_PIN_2, A
-		MOV		PWM_DUTY_CYCLE_PIN_1, PWM_DUTY_AUX_1
-		
-		JMP		FIM_VERIFICA_DUTY_CYCLES
-		
-PWM_1_MAIOR_QUE_PWM_2:
-		MOV		PWM_PIN_A_VERIFICAR, #02h
-		MOV		A, PWM_DUTY_CYCLE_PIN_1
-		SUBB	A, PWM_DUTY_CYCLE_PIN_2
-		MOV		PWM_DUTY_CYCLE_PIN_1, A
-		MOV		PWM_DUTY_CYCLE_PIN_2, PWM_DUTY_AUX_2
-		
-FIM_VERIFICA_DUTY_CYCLES:
-		MOV 	A, PWM_DUTY_CYCLE_PIN_1
-		MOV		B, PWM_DUTY_CYCLE_PIN_2
-		
-		SUBB	A, B
-		
-		JNC		PWM_ATUAL_DUTY_CYCLE_2
-
-PWM_ATUAL_DUTY_CYCLE_1:
-		MOV		A, PWM_DUTY_CYCLE_PIN_1
-		
-		JMP		FIM_PWM_ATUAL
-
-PWM_ATUAL_DUTY_CYCLE_2:
-		MOV		A, PWM_DUTY_CYCLE_PIN_2
-		
-FIM_PWM_ATUAL:
-		MOV		PWM_DUTY_CYCLE_ATUAL, A
-		
-		RET
-		
-		
-		
-		
-		
-		
 		END
