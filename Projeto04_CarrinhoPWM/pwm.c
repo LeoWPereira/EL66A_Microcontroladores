@@ -6,6 +6,9 @@ unsigned char PWM_2 = 0;	  // It can have a value from 0 (0% duty cycle) to 255 
 unsigned int temp_1 = 0;    // Used inside Timer0 ISR
 unsigned int temp_2 = 0;    // Used inside Timer0 ISR
 
+unsigned char PWM_1_SENTIDO = SENTIDO_FRENTE;
+unsigned char PWM_2_SENTIDO = SENTIDO_FRENTE;
+
 // Init CCT function
 void cct_init(void)
 {
