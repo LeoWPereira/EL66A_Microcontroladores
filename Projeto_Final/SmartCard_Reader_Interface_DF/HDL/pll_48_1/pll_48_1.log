@@ -1,0 +1,92 @@
+ ** Message System Log
+ ** Database: 
+ ** Date:   Wed Dec 24 16:13:51 2008
+
+
+****************
+Macro Parameters
+****************
+
+Name                            : pll_48_1
+Family                          : IGLOO
+Output Format                   : VHDL
+Type                            : Static PLL
+PowerDown                       : Active Low
+Lock                            : Active High
+Input Freq(Mhz)                 : 48.000000
+CLKA Source                     : External I/O
+Feedback Delay Value Index      : 1
+Feedback Mux Select             : 1
+XDLY Mux Select                 : No
+Primary Freq(Mhz)               : 1.000000
+Primary PhaseShift              : 0
+Primary Delay Value Index       : 1
+Primary Mux Select              : 4
+Secondary1 Freq(Mhz)            : 12.000000
+Use GLB                         : YES
+Use YB                          : NO
+GLB Delay Value Index           : 1
+YB Delay Value Index            : 1
+Secondary1 PhaseShift           : 0
+Secondary1 Mux Select           : 2
+Secondary2 Freq(Mhz)            : 0.000000
+Use GLC                         : NO
+Use YC                          : NO
+GLC Delay Value Index           : 32
+YC Delay Value Index            : 32
+Secondary2 PhaseShift           : 0
+Secondary2 Mux Select           : 0
+Lock Control                    : No
+
+Configuration Bits:
+FINDIV[6:0]     0001001
+FBDIV[6:0]      0000100
+OADIV[4:0]      10111
+OBDIV[4:0]      00001
+OCDIV[4:0]      00000
+OAMUX[2:0]      100
+OBMUX[2:0]      010
+OCMUX[2:0]      000
+FBSEL[1:0]      01
+FBDLY[4:0]      00000
+XDLYSEL         0
+DLYGLA[4:0]     00000
+DLYGLB[4:0]     00000
+DLYGLC[4:0]     00000
+DLYYB[4:0]      00000
+DLYYC[4:0]      00000
+VCOSEL[2:0]     000
+
+
+Primary Clock Frequency 1.000
+Primary Clock Phase Shift 0.000
+Primary Clock Output Delay from CLKA 3.330
+
+Secondary1 Clock Frequency 12.000
+Secondary1 Clock Phase Shift 0.000
+Secondary1 Clock Global Output Delay from CLKA 5.630
+
+
+**************
+Compile Report
+**************
+
+
+Netlist Resource Report
+=======================
+
+    CORE                     Used:      0  Total:  13824   (0.00%)
+    IO (W/ clocks)           Used:      0  Total:    235   (0.00%)
+    Differential IO          Used:      0  Total:     60   (0.00%)
+    GLOBAL (Chip+Quadrant)   Used:      2  Total:     18   (11.11%)
+    PLL                      Used:      1  Total:      1   (100.00%)
+    RAM/FIFO                 Used:      0  Total:     24   (0.00%)
+    Low Static ICC           Used:      0  Total:      1   (0.00%)
+    FlashROM                 Used:      0  Total:      1   (0.00%)
+    User JTAG                Used:      0  Total:      1   (0.00%)
+
+Written VHDL netlist to D:/actel_ip/IPs/smart card
+reader/LA_smart_card_reader/smartgen\pll_48_1\pll_48_1.vhd.
+
+ ** Log Ended:   Wed Dec 24 16:13:52 2008
+

@@ -1,0 +1,560 @@
+C51 COMPILER V9.56.0.0   SMARTCARD                                                         06/09/2017 15:40:14 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE SMARTCARD
+OBJECT MODULE PLACED IN .\Objects\smartcard.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE smartcard.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings
+                    -\smartcard.lst) TABS(2) OBJECT(.\Objects\smartcard.obj)
+
+line level    source
+
+   1          /*************************************************************************************
+   2           * SmartCard
+   3           *
+   4           *Dexcel Electronics Designs PVT Ltd
+   5           *
+   6           * - File              : smartcard.c
+   7           *
+   8           * Description    :  . contains the functions for verifying the Actel Smart card IP core.
+   9           *
+  10           * (C) Copyright 2008 Dexcel Electronics Designs PVT Ltd.
+  11           * $Revision: 1.2 $
+  12           * $Date: Tuesday, December 08 2008 
+  13           ************************************************************************************/
+  14           
+  15          #include <reg51.h>
+  16          #include "header.h"
+  17          
+  18          unsigned char Data_Rcv, Data_Type, Data_Rd=0;
+  19          unsigned char Flag_Counter=0;
+  20          unsigned char counter=0;
+  21          unsigned char Zone_Choice;
+  22          
+  23          void Delay123(void)
+  24          {
+  25   1        unsigned int count=65500, i=0;
+  26   1        for(i=0;i<3;i++)
+  27   1        {
+  28   2          while(count)
+  29   2          count--;
+  30   2        }
+  31   1        count=65500;
+  32   1      }
+  33          
+  34          /**
+  35            * This function reads data from UART
+  36            *
+  37            * @param ch: data needs to be transmitted.
+  38            *
+  39            * @return none   
+  40            */
+  41          void Uart_Tx(unsigned char ch)
+  42          {
+  43   1         while(!(P3 & 0x01));
+  44   1         P0 = ch; 
+  45   1           P3 = 0x00;
+  46   1         P3 = 0x01; 
+  47   1      }
+  48          
+  49          /**
+  50            * This function Reads the data from user zone.
+  51            *
+  52            * @param none.
+  53            *
+  54            * @return data_rx: data read from UART   
+C51 COMPILER V9.56.0.0   SMARTCARD                                                         06/09/2017 15:40:14 PAGE 2   
+
+  55            */
+  56          unsigned char CheckUART()
+  57          {
+  58   1        unsigned char data_rx;
+  59   1         while(!(P2 & 0x01));
+  60   1         P2 = 0x00;
+  61   1         P2 = 0x01;
+  62   1         data_rx=P1; 
+  63   1         return data_rx;
+  64   1      }
+  65          
+  66          
+  67          /**
+  68            * This function writes the data to config zone.
+  69            *
+  70            * @param none.
+  71            *
+  72            * @return none   
+  73            */
+  74          void Write_ConfZone()
+  75          {
+  76   1        int i;
+  77   1        counter=0;
+  78   1        
+  79   1        /*Reset the card*/
+  80   1          BaseAddress[5] = 1;     /*Reset Register*/
+  81   1        for(i=0;i<8;i++)      /*Read 8 bytes of  Ack for Answer to Reset*/
+  82   1        {
+  83   2          CheckStatus();
+  84   2        }
+  85   1        Delay123();
+  86   1      
+  87   1      
+  88   1        /*COMMAND TO UNLOCK CONFIG MEMORY*/   
+  89   1        BaseAddress[2] = 0x00;
+  90   1        CheckStatus();
+  91   1        BaseAddress[2] = 0xBA;
+  92   1        CheckStatus(); 
+  93   1        BaseAddress[2] = 0x07;
+  94   1        CheckStatus(); 
+  95   1        BaseAddress[2] = 0x00;
+  96   1        CheckStatus();
+  97   1        BaseAddress[2] = 0x03;
+  98   1        CheckStatus();  
+  99   1          
+ 100   1        /*ACK OF UNLOCK CONFIG MEMORY*/   
+ 101   1        CheckStatus();
+ 102   1          BaseAddress[2] = 0xB6;
+ 103   1        CheckStatus();  
+ 104   1          BaseAddress[2] = 0xA4;
+ 105   1        CheckStatus();           
+ 106   1          BaseAddress[2] = 0x05;
+ 107   1          CheckStatus();
+ 108   1          CheckStatus();
+ 109   1          /*Read Ack*/
+ 110   1           CheckStatus();
+ 111   1                     
+ 112   1        /* COMMAND TO WRITE 4 BYTE OF CARD MANUFACTURE CODE FROM ADDR 0X0B*/
+ 113   1        
+ 114   1        /*NOTE:
+ 115   1         * since complete configuraion memory cannt be written, few locations are read only,
+ 116   1         * hence only 4 bytes are written. 
+C51 COMPILER V9.56.0.0   SMARTCARD                                                         06/09/2017 15:40:14 PAGE 3   
+
+ 117   1         * To write into any other location, pls refer data sheet of the smart card. 
+ 118   1         * */
+ 119   1        BaseAddress[2] = 0x00;
+ 120   1        CheckStatus();
+ 121   1        BaseAddress[2] = 0xB4;
+ 122   1        CheckStatus(); 
+ 123   1        BaseAddress[2] = 0x00;
+ 124   1        CheckStatus(); 
+ 125   1        BaseAddress[2] = 0x0B;
+ 126   1        CheckStatus();
+ 127   1        BaseAddress[2] = 0x04;
+ 128   1        CheckStatus(); 
+ 129   1        CheckStatus();  
+ 130   1        
+ 131   1        /*NOTE:
+ 132   1         * All the byte location in conf memory is not accessible, so only 4 bytes of data 
+ 133   1         * is written for verification from addr 0x0B.
+ 134   1         * */
+ 135   1      
+ 136   1         
+ 137   1        if(Flag_Counter)
+ 138   1        {
+ 139   2          for(i=0;i<4;i++)
+ 140   2          {
+ 141   3            BaseAddress[2] = counter++;   //count -> value wrritten into conf memory
+ 142   3              CheckStatus();
+ 143   3          }
+ 144   2        }
+ 145   1        else
+ 146   1        {
+ 147   2          for(i=0;i<4;i++)
+ 148   2          {
+ 149   3            BaseAddress[2] = Data_Rd;   //count -> value wrritten into conf memory
+ 150   3              CheckStatus();
+ 151   3          
+ 152   3          }
+ 153   2        }
+ 154   1           CheckStatus();
+ 155   1         CheckStatus();
+ 156   1         
+ 157   1         /*Reset the card*/
+ 158   1        BaseAddress[5] = 0;
+ 159   1        Delay123(); 
+ 160   1        
+ 161   1      }
+ 162          
+ 163          /**
+ 164            * This function Reads the data from config zone.
+ 165            *
+ 166            * @param none.
+ 167            *
+ 168            * @return none   
+ 169            */
+ 170          void Read_ConfZone()
+ 171          {
+ 172   1        int i; 
+ 173   1        unsigned char  buff[]="Readng conf data"; /*Data displayed on the hyperterminal*/
+ 174   1        char *p=buff;
+ 175   1        unsigned char ch;
+ 176   1        
+ 177   1        /*Reset the card*/
+ 178   1          BaseAddress[5] = 1;     /*Reset Register*/
+C51 COMPILER V9.56.0.0   SMARTCARD                                                         06/09/2017 15:40:14 PAGE 4   
+
+ 179   1        for(i=0;i<8;i++)      /*Read 8 bytes of  Ack for Answer to Reset*/
+ 180   1        {
+ 181   2          CheckStatus();
+ 182   2        }
+ 183   1        Delay123();
+ 184   1      
+ 185   1      
+ 186   1        /*COMMAND TO UNLOCK CONFIG MEMORY*/ 
+ 187   1        BaseAddress[2] = 0x00;
+ 188   1        CheckStatus();
+ 189   1        BaseAddress[2] = 0xBA;
+ 190   1        CheckStatus(); 
+ 191   1        BaseAddress[2] = 0x07;
+ 192   1        CheckStatus(); 
+ 193   1        BaseAddress[2] = 0x00;
+ 194   1        CheckStatus();
+ 195   1        BaseAddress[2] = 0x03;
+ 196   1        CheckStatus(); 
+ 197   1          
+ 198   1        /*ACK OF UNLOCK CONFIG MEMORY*/  
+ 199   1        CheckStatus();
+ 200   1          BaseAddress[2] = 0xB6;
+ 201   1        CheckStatus();  
+ 202   1          BaseAddress[2] = 0xA4;
+ 203   1        CheckStatus();           
+ 204   1          BaseAddress[2] = 0x05;
+ 205   1          CheckStatus();
+ 206   1      
+ 207   1          /*Read Ack*/
+ 208   1          CheckStatus();
+ 209   1          CheckStatus();
+ 210   1                
+ 211   1        /* COMMAND TO READ 4 BYTES OF CONFIGURATION MEMORY FROM ADDR 0X0B*/
+ 212   1        BaseAddress[2] = 0x00;
+ 213   1        CheckStatus();
+ 214   1        BaseAddress[2] = 0xB6;
+ 215   1        CheckStatus(); 
+ 216   1        BaseAddress[2] = 0x00;
+ 217   1        CheckStatus(); 
+ 218   1        BaseAddress[2] = 0x0B;
+ 219   1        CheckStatus(); 
+ 220   1        //BaseAddress[2] = 0xF0;
+ 221   1        BaseAddress[2] = 0x04;
+ 222   1        CheckStatus();
+ 223   1        CheckStatus();
+ 224   1        
+ 225   1        /*READ 4 BYTES OF DATA*/
+ 226   1        
+ 227   1        /*NOTE:
+ 228   1         * Configuration memory block by default contains some data in few locations ,
+ 229   1         * which is read only, for verification check 1st 4 block of data read is same
+ 230   1         * as what was written. 
+ 231   1         * */
+ 232   1        //for(i=0;i<240;i++)
+ 233   1        for(i=0;i<4;i++)
+ 234   1        {
+ 235   2          CheckStatus();
+ 236   2          ch  =  BaseAddress[3] ;
+ 237   2            Uart_Tx(ch);
+ 238   2        }
+ 239   1        
+ 240   1        CheckStatus(); 
+C51 COMPILER V9.56.0.0   SMARTCARD                                                         06/09/2017 15:40:14 PAGE 5   
+
+ 241   1          CheckStatus();
+ 242   1          
+ 243   1          /*Reset the card*/
+ 244   1        BaseAddress[5] = 0;
+ 245   1        Delay123(); 
+ 246   1        
+ 247   1        //BaseAddress[6]=0x01;        //Read signal completed for hardware
+ 248   1        // changed for testing
+ 249   1        BaseAddress[7]=0x01;        //Read signal completed for hardware
+ 250   1      }
+ 251          
+ 252          /**
+ 253            * This function writes data user zone.
+ 254            *
+ 255            * @param none.
+ 256            *
+ 257            * @return none   
+ 258            */
+ 259          
+ 260          void Write_UserZone()
+ 261          {
+ 262   1        int i;
+ 263   1        int Zone=0;
+ 264   1        counter=0;
+ 265   1      
+ 266   1        /*Reset the card*/
+ 267   1        BaseAddress[5] = 1;   /*Reset Register*/
+ 268   1        for(i=0;i<8;i++)    /*Read 8 bytes of  Ack for Answer to Reset*/
+ 269   1        {
+ 270   2          CheckStatus();
+ 271   2        }
+ 272   1        Delay123();
+ 273   1          
+ 274   1          
+ 275   1        /*WRITE DATA TO ALL THE 16 ZONES */
+ 276   1        for(Zone=0;Zone<16;Zone++)
+ 277   1        {
+ 278   2        
+ 279   2        /*COMMAND TO SET USER ZONE MEMORY*/
+ 280   2            BaseAddress[2] = 0x00;
+ 281   2          CheckStatus();
+ 282   2          BaseAddress[2] = 0xB4; 
+ 283   2            CheckStatus();
+ 284   2            BaseAddress[2] = 0x03; 
+ 285   2            CheckStatus();
+ 286   2            BaseAddress[2] = Zone;  ///contains Zone number 
+ 287   2            CheckStatus();
+ 288   2            BaseAddress[2] = 0x00;  
+ 289   2            for(i=0;i<4;i++)
+ 290   2          {
+ 291   3            CheckStatus();
+ 292   3          }
+ 293   2          
+ 294   2        /*COMMAND TO WRITE TO USER ZONE */
+ 295   2            BaseAddress[2] = 0x00;
+ 296   2            CheckStatus();
+ 297   2              BaseAddress[2] = 0xB0; 
+ 298   2            CheckStatus();
+ 299   2              BaseAddress[2] = 0x00; 
+ 300   2              CheckStatus();
+ 301   2              BaseAddress[2] = 0x00; 
+ 302   2            CheckStatus();
+C51 COMPILER V9.56.0.0   SMARTCARD                                                         06/09/2017 15:40:14 PAGE 6   
+
+ 303   2              BaseAddress[2] = 0x10;  
+ 304   2              CheckStatus();
+ 305   2              CheckStatus();        //To read Ack
+ 306   2            
+ 307   2          /*WRITE 16 BYTES OF DATA FROM 1 TO 16*/
+ 308   2          
+ 309   2          /*NOTE:
+ 310   2          * Data written into the user memory is a counter value from 1 to 16
+ 311   2          * In order to write a different value , replace count to a data value to be written
+ 312   2          * */
+ 313   2      
+ 314   2          if(Flag_Counter)
+ 315   2          {
+ 316   3            for(i=0;i<16;i++)
+ 317   3            {
+ 318   4              BaseAddress[2]=counter++; //count -> value wrritten into user memory
+ 319   4              if(counter==0xff)
+ 320   4              counter=0;
+ 321   4              CheckStatus();
+ 322   4            }
+ 323   3          }
+ 324   2          else
+ 325   2          {
+ 326   3            for(i=0;i<16;i++)
+ 327   3            {
+ 328   4              BaseAddress[2] =Data_Rd;  //count -> value wrritten into user memory
+ 329   4              CheckStatus();
+ 330   4            }
+ 331   3          }
+ 332   2          CheckStatus();
+ 333   2            CheckStatus();
+ 334   2        }
+ 335   1         /*Reset the card*/
+ 336   1        BaseAddress[5] = 0;
+ 337   1        Delay123();
+ 338   1      }
+ 339          
+ 340          /**
+ 341            * This function Reads the data from user zone.
+ 342            *
+ 343            * @param none.
+ 344            *
+ 345            * @return none   
+ 346            */
+ 347          void Read_UserZone()
+ 348          {
+ 349   1        unsigned short Zone=0;
+ 350   1        int  i;
+ 351   1        unsigned char ch;
+ 352   1        
+ 353   1        /*Reset the card*/
+ 354   1        BaseAddress[5] = 1;   /*Reset Register*/      
+ 355   1        for(i=0;i<8;i++)    /*Read 8 bytes of  Ack for Answer to Reset*/
+ 356   1        {
+ 357   2          CheckStatus();
+ 358   2        }
+ 359   1        Delay123();
+ 360   1        
+ 361   1        /*READ DATA FROM ALL THE 16 ZONES */
+ 362   1        for(Zone=0;Zone<16;Zone++)
+ 363   1        {
+ 364   2          
+C51 COMPILER V9.56.0.0   SMARTCARD                                                         06/09/2017 15:40:14 PAGE 7   
+
+ 365   2          /*COMMAND TO SET USER ZONE MEMORY*/
+ 366   2          BaseAddress[2] = 0x00;
+ 367   2          CheckStatus();
+ 368   2          BaseAddress[2] = 0xB4; 
+ 369   2           CheckStatus();
+ 370   2            BaseAddress[2] = 0x03; 
+ 371   2          CheckStatus();
+ 372   2          BaseAddress[2] = Zone;    //contains Zone number 
+ 373   2            CheckStatus();
+ 374   2            BaseAddress[2] = 0x00;  
+ 375   2            for(i=0;i<4;i++)
+ 376   2          {
+ 377   3            CheckStatus();
+ 378   3          }
+ 379   2      
+ 380   2          /*COMMAND TO READ USER ZONE */
+ 381   2          BaseAddress[2] = 0x00;
+ 382   2          CheckStatus();
+ 383   2          BaseAddress[2] = 0xB2; 
+ 384   2          CheckStatus();
+ 385   2          BaseAddress[2] = 0x03; 
+ 386   2          CheckStatus();
+ 387   2          BaseAddress[2] = 0x00; 
+ 388   2          CheckStatus();
+ 389   2          BaseAddress[2] = 0x10;        //number of bytes to read, each zone is 16 bytes
+ 390   2          CheckStatus();
+ 391   2          CheckStatus();
+ 392   2          
+ 393   2          /*READ 16 BYTES OF DATA & TRANSMIT IT TO SERIAL PORT*/
+ 394   2          for(i=0;i<16;i++)
+ 395   2          {
+ 396   3            CheckStatus();
+ 397   3            ch  =  BaseAddress[3];
+ 398   3            Uart_Tx(ch);
+ 399   3          }
+ 400   2          CheckStatus();
+ 401   2          CheckStatus();
+ 402   2        }
+ 403   1      
+ 404   1        /*Reset the card*/
+ 405   1        BaseAddress[5] = 0;
+ 406   1        Delay123();
+ 407   1        BaseAddress[7]=0x01;        //Read signal completed for hardware
+ 408   1      }
+ 409          
+ 410          void Delay()
+ 411          {
+ 412   1        unsigned int count=65500, i=0;
+ 413   1        for(i=0;i<5;i++)
+ 414   1        {
+ 415   2          while(count)
+ 416   2          count--;
+ 417   2        }
+ 418   1        count=65500;
+ 419   1        
+ 420   1      }
+ 421          
+ 422          /**
+ 423            * This function Initialises the SmartCard by resetting the registers & reading the Ack signal
+ 424            *
+ 425            * @param None.
+ 426            *
+C51 COMPILER V9.56.0.0   SMARTCARD                                                         06/09/2017 15:40:14 PAGE 8   
+
+ 427            * @return 1 if pass, else return 0.  
+ 428            */
+ 429          
+ 430          int Init_Card()
+ 431          {
+ 432   1        unsigned char ch;
+ 433   1      
+ 434   1        BaseAddress[5]=0x01;        //Reset Register for Init
+ 435   1        BaseAddress[6]=0x00;
+ 436   1        
+ 437   1        Delay123();
+ 438   1        
+ 439   1        CheckStatus();
+ 440   1        ch  =  BaseAddress[3] ;
+ 441   1        if (ch==0x00)
+ 442   1        {
+ 443   2          Uart_Tx(0xFF);
+ 444   2          return 0;
+ 445   2        }
+ 446   1      
+ 447   1        Uart_Tx(0x01);
+ 448   1        BaseAddress[5]=0x00;        //Reset Register for Init
+ 449   1        Delay123();
+ 450   1        
+ 451   1        return 1;
+ 452   1      }
+ 453          
+ 454          /**
+ 455            * This function Reads the status register before performing read / write operation & clears the status b
+             -it..
+ 456            *
+ 457            * @param none.
+ 458            *
+ 459            * @return none   
+ 460            */
+ 461          void CheckStatus()
+ 462          {
+ 463   1        while(!*(BaseAddress_gpio));    
+ 464   1        BaseAddress[1] = 0;
+ 465   1      }
+ 466          
+ 467          
+ 468          /***************************************************************
+ 469           MAIN ROUTINE 
+ 470          ****************************************************************/
+ 471          void main (void) 
+ 472          {
+ 473   1        while(1)
+ 474   1        {
+ 475   2          Flag_Counter=0;
+ 476   2          Zone_Choice=CheckUART();
+ 477   2          if(Zone_Choice==1)
+ 478   2          {
+ 479   3            Data_Type=CheckUART();
+ 480   3            if(Data_Type==1)
+ 481   3            {
+ 482   4              Data_Rd=CheckUART();
+ 483   4            }
+ 484   3            else
+ 485   3            {
+ 486   4              Flag_Counter=1;
+ 487   4            }
+C51 COMPILER V9.56.0.0   SMARTCARD                                                         06/09/2017 15:40:14 PAGE 9   
+
+ 488   3            Write_UserZone();
+ 489   3            Uart_Tx(0x0A);
+ 490   3            Read_UserZone();
+ 491   3            Uart_Tx(0x0A);
+ 492   3          }
+ 493   2          else
+ 494   2          if(Zone_Choice==2)
+ 495   2          {
+ 496   3            Data_Type=CheckUART();
+ 497   3            if(Data_Type==1)
+ 498   3            {
+ 499   4              Data_Rd=CheckUART();
+ 500   4            }
+ 501   3            else
+ 502   3            {
+ 503   4              Flag_Counter=1;
+ 504   4            }
+ 505   3            Write_ConfZone();
+ 506   3            Uart_Tx(0x0A);
+ 507   3            Read_ConfZone();
+ 508   3            Uart_Tx(0x0A);
+ 509   3          }
+ 510   2          else
+ 511   2          if(Zone_Choice==3)
+ 512   2          {
+ 513   3            Init_Card();
+ 514   3          }
+ 515   2        }
+ 516   1      }
+ 517          
+ 518            
+ 519          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1451    ----
+   CONSTANT SIZE    =     17    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     16      32
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

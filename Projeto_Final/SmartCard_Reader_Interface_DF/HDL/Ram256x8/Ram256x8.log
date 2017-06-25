@@ -1,0 +1,82 @@
+ ** Message System Log
+ ** Database: 
+ ** Date:   Tue Oct 28 17:32:06 2008
+
+
+****************
+Macro Parameters
+****************
+
+Name                            : Ram256x8
+Family                          : IGLOO
+Output Format                   : VHDL
+Type                            : RAM
+Write Enable                    : Active High
+Read Enable                     : Active High
+Reset                           : None
+Read Clock                      : Rising
+Write Clock                     : Rising
+Write Depth                     : 256
+Write Width                     : 8
+Read Depth                      : 256
+Read Width                      : 8
+RAM Type                        : Two Port
+Clocks                          : Independent Read and Write Clocks
+Write Mode A                    : Hold Data
+Write Mode B                    : Hold Data
+Read Pipeline A                 : No
+Read Pipeline B                 : No
+Portname DataIn                 : WD
+Portname DataOut                : RD
+Portname Write En               : WEN
+Portname Read En                : REN
+Portname WClock                 : WCLK
+Portname RClock                 : RCLK
+Portname WAddress               : WADDR
+Portname RAddress               : RADDR
+Portname Reset                  :
+Portname Clock                  :
+Portname DataAIn                :
+Portname DataBIn                :
+Portname DataAOut               :
+Portname DataBOut               :
+Portname AddressA               :
+Portname AddressB               :
+Portname CLKA                   :
+Portname CLKB                   :
+Portname RWA                    :
+Portname RWB                    :
+Portname BLKA                   :
+Portname BLKB                   :
+Initialize RAM                  : False
+
+Cascade Configuration:
+     Write Port configuration   : 512x9
+     Read Port configuration    : 512x9
+     Number of blocks depth wise: 1
+     Number of blocks width wise: 1
+
+**************
+Compile Report
+**************
+
+
+Netlist Resource Report
+=======================
+
+    CORE                     Used:      2  Total:  13824   (0.01%)
+    IO (W/ clocks)           Used:      0  Total:    235   (0.00%)
+    Differential IO          Used:      0  Total:     60   (0.00%)
+    GLOBAL (Chip+Quadrant)   Used:      0  Total:     18   (0.00%)
+    PLL                      Used:      0  Total:      1   (0.00%)
+    RAM/FIFO                 Used:      1  Total:     24   (4.17%)
+    Low Static ICC           Used:      0  Total:      1   (0.00%)
+    FlashROM                 Used:      0  Total:      1   (0.00%)
+    User JTAG                Used:      0  Total:      1   (0.00%)
+
+Written VHDL netlist to
+E:/OLD_HD_BACKUP/01_Actel/03_Smart_Card/vhdl_proj/Final_8051/Igloo/with_uart/\
+program_mem_8k/smart_card_reader/smartgen\Ram256x8\Ram256x8.vhd.
+
+ ** Log Ended:   Tue Oct 28 17:32:07 2008
+

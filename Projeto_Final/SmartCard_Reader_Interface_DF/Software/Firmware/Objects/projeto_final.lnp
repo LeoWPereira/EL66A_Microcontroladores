@@ -1,0 +1,3 @@
+".\Objects\smartcard.obj" 
+TO ".\Objects\projeto_final" 
+PRINT(".\Listings\projeto_final.m51") RAMSIZE(256) 

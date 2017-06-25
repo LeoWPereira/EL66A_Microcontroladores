@@ -1,0 +1,3 @@
+".\Objects\testSCR_rd.obj" 
+TO ".\Objects\SCI" 
+PRINT(".\Listings\SCI.m51") RAMSIZE(256) 
